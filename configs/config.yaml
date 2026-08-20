@@ -1,0 +1,40 @@
+# Single source of truth for a run. Override any key from the CLI:
+#   python -m src.train --config configs/config.yaml --max_steps 5000 --lr 6e-4
+
+seed: 1337
+device: cuda          # cuda | mps | cpu   (mps only for tiny debug runs)
+data_dir: data/tinystories
+
+# --- model (must match GPTConfig fields) ---
+vocab_size: 50257
+block_size: 256
+n_layer: 6
+n_head: 6
+n_embd: 384           # ~10-15M params at these settings
+dropout: 0.0
+bias: false
+
+# --- optimizer / schedule ---
+lr: 6.0e-4
+min_lr: 6.0e-5
+warmup_steps: 200
+max_steps: 5000
+weight_decay: 0.1
+beta1: 0.9
+beta2: 0.95
+grad_clip: 1.0
+
+# --- batching ---
+batch_size: 32
+grad_accum_steps: 1   # effective batch = batch_size * grad_accum_steps
+
+# --- precision / speed (LEVEL 2) ---
+amp: true
+dtype: bf16           # bf16 | fp16
+compile: false        # torch.compile — set true on CUDA for a free speedup
+
+# --- logging / eval / checkpoints ---
+log_interval: 50
+eval_interval: 500
+eval_iters: 100
+out_dir: checkpoints
