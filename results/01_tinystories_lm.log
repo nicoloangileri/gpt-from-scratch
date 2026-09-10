@@ -1,0 +1,122 @@
+[{"stream_name":"stderr","time":6.849426319,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":6.849523992,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":7.798340069,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.798373622,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.798384375,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.798387558,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.467019032,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.467050311,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.467055186,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.467065803,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":14.27668419,"data":"wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/sample.py', 'configs/config.yaml']\n"}
+,{"stream_name":"stdout","time":31.521513058,"data":"[data] downloaded 419 MB in 16s\n"}
+,{"stream_name":"stdout","time":205.507576332,"data":"[data] 8,406,761 tokens encoded\r[data] 16,798,151 tokens encoded\r[data] 25,187,308 tokens encoded\r[data] 33,617,981 tokens encoded\r[data] 42,065,773 tokens encoded\r[data] 50,495,351 tokens encoded\r[data] 58,942,824 tokens encoded\r[data] 67,354,091 tokens encoded\r[data] 75,768,941 tokens encoded\r[data] 84,178,310 tokens encoded\r[data] 92,584,314 tokens encoded\r[data] 100,987,195 tokens encoded\r[data] 105,112,156 tokens encoded\r\n"}
+,{"stream_name":"stdout","time":205.507634248,"data":"[data] {'vocab_size': 50257, 'n_train': 104112156, 'n_val': 1000000}\n"}
+,{"stream_name":"stdout","time":205.507639372,"data":"[data] tokenized in 175s\n"}
+,{"stream_name":"stdout","time":206.065204696,"data":"[amp] bf16 unsupported on Tesla T4 -\u003e using fp16\n"}
+,{"stream_name":"stderr","time":206.066246031,"data":"/kaggle/working/src/train.py:90: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.\n"}
+,{"stream_name":"stderr","time":206.066267065,"data":"  scaler = torch.cuda.amp.GradScaler(enabled=use_amp and cfg.get(\"dtype\") == \"fp16\")\n"}
+,{"stream_name":"stderr","time":206.066272835,"data":"\n"}
+,{"stream_name":"stderr","time":206.066277512,"data":"/kaggle/working/src/train.py:90: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.\n"}
+,{"stream_name":"stderr","time":206.066282849,"data":"  scaler = torch.cuda.amp.GradScaler(enabled=use_amp and cfg.get(\"dtype\") == \"fp16\")\n"}
+,{"stream_name":"stdout","time":207.069084724,"data":"[model] 29.92M non-embedding params | {'vocab_size': 50257, 'block_size': 256, 'n_layer': 6, 'n_head': 6, 'n_embd': 384, 'dropout': 0.0, 'bias': False}\n"}
+,{"stream_name":"stdout","time":219.797699537,"data":"step     0 | train 10.8893 | val 10.8907 | 7.3s\n"}
+,{"stream_name":"stdout","time":268.492520069,"data":"  step 250 | loss 3.9313 | lr 3.01e-04 | 8192 tok/step | 42,068 tok/s\n"}
+,{"stream_name":"stdout","time":329.331203199,"data":"step   500 | train 3.1726 | val 3.2325 | 116.8s\n"}
+,{"stream_name":"stdout","time":329.728143699,"data":"  step 500 | loss 3.1385 | lr 6.00e-04 | 8192 tok/step | 10,933,692 tok/s\n"}
+,{"stream_name":"stdout","time":381.550679779,"data":"  step 750 | loss 2.8096 | lr 5.99e-04 | 8192 tok/step | 39,521 tok/s\n"}
+,{"stream_name":"stdout","time":441.815052114,"data":"step  1000 | train 2.5737 | val 2.6423 | 229.3s\n"}
+,{"stream_name":"stdout","time":442.293673583,"data":"  step 1000 | loss 2.5608 | lr 5.97e-04 | 8192 tok/step | 11,373,691 tok/s\n"}
+,{"stream_name":"stdout","time":494.818306591,"data":"  step 1250 | loss 2.3367 | lr 5.94e-04 | 8192 tok/step | 38,994 tok/s\n"}
+,{"stream_name":"stdout","time":554.654480514,"data":"step  1500 | train 2.3336 | val 2.4111 | 342.2s\n"}
+,{"stream_name":"stdout","time":555.138616065,"data":"  step 1500 | loss 2.3663 | lr 5.90e-04 | 8192 tok/step | 11,162,529 tok/s\n"}
+,{"stream_name":"stdout","time":607.702473842,"data":"  step 1750 | loss 2.1770 | lr 5.84e-04 | 8192 tok/step | 38,964 tok/s\n"}
+,{"stream_name":"stdout","time":667.486697529,"data":"step  2000 | train 2.1960 | val 2.2994 | 455.0s\n"}
+,{"stream_name":"stdout","time":667.968669082,"data":"  step 2000 | loss 2.1746 | lr 5.78e-04 | 8192 tok/step | 11,149,113 tok/s\n"}
+,{"stream_name":"stdout","time":720.473761109,"data":"  step 2250 | loss 2.2075 | lr 5.70e-04 | 8192 tok/step | 39,008 tok/s\n"}
+,{"stream_name":"stdout","time":780.456717544,"data":"step  2500 | train 2.1138 | val 2.1947 | 568.0s\n"}
+,{"stream_name":"stdout","time":780.944537183,"data":"  step 2500 | loss 2.1166 | lr 5.61e-04 | 8192 tok/step | 11,136,957 tok/s\n"}
+,{"stream_name":"stdout","time":833.518902404,"data":"  step 2750 | loss 2.0876 | lr 5.51e-04 | 8192 tok/step | 38,956 tok/s\n"}
+,{"stream_name":"stdout","time":893.549471825,"data":"step  3000 | train 2.0502 | val 2.1466 | 681.1s\n"}
+,{"stream_name":"stdout","time":894.040021787,"data":"  step 3000 | loss 2.0793 | lr 5.39e-04 | 8192 tok/step | 11,158,397 tok/s\n"}
+,{"stream_name":"stdout","time":946.641700117,"data":"  step 3250 | loss 2.0288 | lr 5.27e-04 | 8192 tok/step | 38,937 tok/s\n"}
+,{"stream_name":"stdout","time":1006.689609394,"data":"step  3500 | train 2.0132 | val 2.1035 | 794.2s\n"}
+,{"stream_name":"stdout","time":1007.166163122,"data":"  step 3500 | loss 2.0524 | lr 5.14e-04 | 8192 tok/step | 11,176,443 tok/s\n"}
+,{"stream_name":"stdout","time":1059.631900847,"data":"  step 3750 | loss 1.9598 | lr 5.00e-04 | 8192 tok/step | 39,037 tok/s\n"}
+,{"stream_name":"stdout","time":1119.508128628,"data":"step  4000 | train 1.9543 | val 2.0524 | 907.0s\n"}
+,{"stream_name":"stdout","time":1119.988618189,"data":"  step 4000 | loss 1.9883 | lr 4.86e-04 | 8192 tok/step | 11,174,044 tok/s\n"}
+,{"stream_name":"stdout","time":1172.543368932,"data":"  step 4250 | loss 1.8644 | lr 4.70e-04 | 8192 tok/step | 38,971 tok/s\n"}
+,{"stream_name":"stdout","time":1232.616599846,"data":"step  4500 | train 1.9176 | val 2.0136 | 1020.0s\n"}
+,{"stream_name":"stdout","time":1233.007177123,"data":"  step 4500 | loss 1.9182 | lr 4.54e-04 | 8192 tok/step | 11,014,770 tok/s\n"}
+,{"stream_name":"stdout","time":1285.603314035,"data":"  step 4750 | loss 1.8635 | lr 4.38e-04 | 8192 tok/step | 38,942 tok/s\n"}
+,{"stream_name":"stdout","time":1345.647191046,"data":"step  5000 | train 1.8991 | val 1.9822 | 1133.2s\n"}
+,{"stream_name":"stdout","time":1346.133900881,"data":"  step 5000 | loss 1.8702 | lr 4.20e-04 | 8192 tok/step | 11,108,670 tok/s\n"}
+,{"stream_name":"stdout","time":1398.741486641,"data":"  step 5250 | loss 1.9821 | lr 4.03e-04 | 8192 tok/step | 38,932 tok/s\n"}
+,{"stream_name":"stdout","time":1458.665931255,"data":"step  5500 | train 1.8695 | val 1.9610 | 1246.2s\n"}
+,{"stream_name":"stdout","time":1459.149290415,"data":"  step 5500 | loss 1.9691 | lr 3.85e-04 | 8192 tok/step | 11,161,108 tok/s\n"}
+,{"stream_name":"stdout","time":1511.624361164,"data":"  step 5750 | loss 1.7847 | lr 3.67e-04 | 8192 tok/step | 39,031 tok/s\n"}
+,{"stream_name":"stdout","time":1571.538030665,"data":"step  6000 | train 1.8373 | val 1.9415 | 1359.1s\n"}
+,{"stream_name":"stdout","time":1572.03082256,"data":"  step 6000 | loss 1.9169 | lr 3.48e-04 | 8192 tok/step | 11,144,629 tok/s\n"}
+,{"stream_name":"stdout","time":1624.539007824,"data":"  step 6250 | loss 1.8102 | lr 3.30e-04 | 8192 tok/step | 39,007 tok/s\n"}
+,{"stream_name":"stdout","time":1684.463278321,"data":"step  6500 | train 1.8241 | val 1.9118 | 1472.0s\n"}
+,{"stream_name":"stdout","time":1684.940539127,"data":"  step 6500 | loss 1.8654 | lr 3.12e-04 | 8192 tok/step | 11,218,832 tok/s\n"}
+,{"stream_name":"stdout","time":1737.440355113,"data":"  step 6750 | loss 1.7874 | lr 2.93e-04 | 8192 tok/step | 39,013 tok/s\n"}
+,{"stream_name":"stdout","time":1797.338860414,"data":"step  7000 | train 1.7909 | val 1.9085 | 1584.9s\n"}
+,{"stream_name":"stdout","time":1797.820577532,"data":"  step 7000 | loss 1.7588 | lr 2.75e-04 | 8192 tok/step | 11,219,125 tok/s\n"}
+,{"stream_name":"stdout","time":1850.312084614,"data":"  step 7250 | loss 1.6580 | lr 2.57e-04 | 8192 tok/step | 39,019 tok/s\n"}
+,{"stream_name":"stdout","time":1910.321901735,"data":"step  7500 | train 1.7868 | val 1.8765 | 1697.8s\n"}
+,{"stream_name":"stdout","time":1910.806977521,"data":"  step 7500 | loss 1.8067 | lr 2.40e-04 | 8192 tok/step | 11,176,472 tok/s\n"}
+,{"stream_name":"stdout","time":1963.384127662,"data":"  step 7750 | loss 1.8976 | lr 2.22e-04 | 8192 tok/step | 38,955 tok/s\n"}
+,{"stream_name":"stdout","time":2023.397584465,"data":"step  8000 | train 1.7538 | val 1.8565 | 1810.9s\n"}
+,{"stream_name":"stdout","time":2023.879671604,"data":"  step 8000 | loss 1.6556 | lr 2.06e-04 | 8192 tok/step | 11,178,843 tok/s\n"}
+,{"stream_name":"stdout","time":2076.582109477,"data":"  step 8250 | loss 1.7678 | lr 1.90e-04 | 8192 tok/step | 38,865 tok/s\n"}
+,{"stream_name":"stdout","time":2136.583331584,"data":"step  8500 | train 1.7385 | val 1.8533 | 1924.1s\n"}
+,{"stream_name":"stdout","time":2137.065605816,"data":"  step 8500 | loss 1.7702 | lr 1.74e-04 | 8192 tok/step | 11,150,734 tok/s\n"}
+,{"stream_name":"stdout","time":2189.556414321,"data":"  step 8750 | loss 1.7411 | lr 1.60e-04 | 8192 tok/step | 39,020 tok/s\n"}
+,{"stream_name":"stdout","time":2249.489792762,"data":"step  9000 | train 1.7328 | val 1.8277 | 2037.0s\n"}
+,{"stream_name":"stdout","time":2249.980932594,"data":"  step 9000 | loss 1.6961 | lr 1.46e-04 | 8192 tok/step | 11,144,080 tok/s\n"}
+,{"stream_name":"stdout","time":2302.509726315,"data":"  step 9250 | loss 1.7404 | lr 1.33e-04 | 8192 tok/step | 38,993 tok/s\n"}
+,{"stream_name":"stdout","time":2362.590320661,"data":"step  9500 | train 1.7128 | val 1.8226 | 2150.1s\n"}
+,{"stream_name":"stdout","time":2363.072789045,"data":"  step 9500 | loss 1.7894 | lr 1.21e-04 | 8192 tok/step | 11,139,758 tok/s\n"}
+,{"stream_name":"stdout","time":2415.811655783,"data":"  step 9750 | loss 1.5862 | lr 1.09e-04 | 8192 tok/step | 38,836 tok/s\n"}
+,{"stream_name":"stdout","time":2475.990385007,"data":"step 10000 | train 1.6811 | val 1.8093 | 2263.5s\n"}
+,{"stream_name":"stdout","time":2476.467010474,"data":"  step 10000 | loss 1.6934 | lr 9.93e-05 | 8192 tok/step | 11,208,468 tok/s\n"}
+,{"stream_name":"stdout","time":2529.268619143,"data":"  step 10250 | loss 1.6249 | lr 9.03e-05 | 8192 tok/step | 38,790 tok/s\n"}
+,{"stream_name":"stdout","time":2589.505083851,"data":"step 10500 | train 1.6811 | val 1.7916 | 2377.0s\n"}
+,{"stream_name":"stdout","time":2589.990148931,"data":"  step 10500 | loss 1.7641 | lr 8.24e-05 | 8192 tok/step | 10,932,787 tok/s\n"}
+,{"stream_name":"stdout","time":2642.905410198,"data":"  step 10750 | loss 1.7285 | lr 7.56e-05 | 8192 tok/step | 38,707 tok/s\n"}
+,{"stream_name":"stdout","time":2703.19361283,"data":"step 11000 | train 1.6649 | val 1.7964 | 2490.7s\n"}
+,{"stream_name":"stdout","time":2703.391390269,"data":"  step 11000 | loss 1.6639 | lr 7.00e-05 | 8192 tok/step | 10,589,601 tok/s\n"}
+,{"stream_name":"stdout","time":2756.218809963,"data":"  step 11250 | loss 1.7350 | lr 6.56e-05 | 8192 tok/step | 38,774 tok/s\n"}
+,{"stream_name":"stdout","time":2816.467506405,"data":"step 11500 | train 1.6633 | val 1.7782 | 2604.0s\n"}
+,{"stream_name":"stdout","time":2816.953319085,"data":"  step 11500 | loss 1.5588 | lr 6.25e-05 | 8192 tok/step | 11,072,172 tok/s\n"}
+,{"stream_name":"stdout","time":2869.753116361,"data":"  step 11750 | loss 1.4856 | lr 6.06e-05 | 8192 tok/step | 38,791 tok/s\n"}
+,{"stream_name":"stdout","time":2930.02788152,"data":"step 12000 | train 1.6719 | val 1.7738 | 2717.5s\n"}
+,{"stream_name":"stdout","time":2930.316137256,"data":"  step 12000 | loss 1.6873 | lr 6.00e-05 | 8192 tok/step | 11,073,442 tok/s\n"}
+,{"stream_name":"stdout","time":2930.31617631,"data":"[done] best val loss 1.7738 -\u003e checkpoints/best.pt\n"}
+,{"stream_name":"stdout","time":2933.349496664,"data":"============================================================ \n"}
+,{"stream_name":"stdout","time":2933.349554877,"data":"GENERATED SAMPLE:\n"}
+,{"stream_name":"stdout","time":2933.349562992,"data":" Once upon a time, there was a little girl named Lily. She loved to play outside in the sunshine. One day, she was playing on the lawn when she saw an unusual enjoying the sunshine. It was so pretty and pretty. \n"}
+,{"stream_name":"stdout","time":2933.34957169,"data":"Lily decided to follow the butterfly and see where it landed. She followed the butterfly until it flew away. When she got back to her house, she saw that it was actually a rabbit hopping around. The rabbit didn't have a home, Lily was sad that she couldn't play with it anymore.\n"}
+,{"stream_name":"stdout","time":2933.349578207,"data":"\u003c|endoftext|\u003e\n"}
+,{"stream_name":"stdout","time":2933.349584147,"data":"Once upon a time, there was a little girl named Lily. She loved to play outside in the park with her friends. One day, they decided to have a picnic under a big tree.\n"}
+,{"stream_name":"stdout","time":2933.349589817,"data":"While they were eating their picnic, Lily's friend asked, \"What are we eating?\"\n"}
+,{"stream_name":"stdout","time":2933.34959494,"data":"\"We're eating yummy snacks!\" Lily exclaimed.\n"}
+,{"stream_name":"stdout","time":2933.349600087,"data":"\"I know, but we can't eat it now,\" her friend said.\n"}
+,{"stream_name":"stdout","time":2933.349607027,"data":"Lily was sad, but she didn't want to share. She started to walk towards her friends, but she was nowhere to be found. Her friends searched and searched, but they couldn't find her.\n"}
+,{"stream_name":"stdout","time":2933.349616027,"data":"Lily was feeling very upset because the picnic was too thick and it was too late. She missed her friends and felt very bitter. Her friends were very sad that they couldn't have fun together, but they could still have fun.\n"}
+,{"stream_name":"stdout","time":2933.349619935,"data":"\u003c|endoftext|\u003e\n"}
+,{"stream_name":"stdout","time":2933.349625078,"data":"Once upon a time, there was a little girl named Lily. She loved to play outside in the park with her friends. One day, when she found her friend, Lily, she ran over to play with her. \n"}
+,{"stream_name":"stdout","time":2933.349629997,"data":"\"Hi Lily, do you want to play catch?\" asked Lily. \n"}
+,{"stream_name":"stdout","time":2933.3496741,"data":"\"Sure, I'm ready!\" replied Lily. \n"}
+,{"stream_name":"stdout","time":2933.349679609,"data":"As they were playing, Lily's mom called her inside for lunch. \n"}
+,{"stream_name":"stdout","time":2933.349684249,"data":"\"Do you want to play catch with\n"}
+,{"stream_name":"stderr","time":2939.679317739,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":2939.679356127,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":2939.868907415,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":2939.868936175,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":2940.559238201,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":2940.902337388,"data":"[NbConvertApp] Writing 44131 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":2943.53691801,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":2944.445672492,"data":"[NbConvertApp] Writing 325739 bytes to __results__.html\n"}
+]

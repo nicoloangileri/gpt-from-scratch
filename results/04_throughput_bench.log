@@ -1,0 +1,37 @@
+[{"stream_name":"stderr","time":9.1593627,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":9.160187716,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":10.425129877,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.425161395,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.425166555,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.425170244,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":11.155386163,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.155419421,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.155423773,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.155426508,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":15.834073745,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 80.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":16.036157622,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 80.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":20.648656838,"data":"wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/bench_chess.py', 'configs/chess.yaml']\n"}
+,{"stream_name":"stdout","time":58.623621388,"data":"[data] shard downloaded in 38s (1.34 GB)\n"}
+,{"stream_name":"stdout","time":75.981992384,"data":"[chess] 1,000,000 records\n"}
+,{"stream_name":"stdout","time":93.388736346,"data":"[chess] 2,000,000 records\n"}
+,{"stream_name":"stdout","time":110.702942857,"data":"[chess] 3,000,000 records\n"}
+,{"stream_name":"stdout","time":110.903559467,"data":"[chess] {'train': 2800000, 'val': 200000, 'skipped': 0, 'num_buckets': 64, 'vocab': 1999}\n"}
+,{"stream_name":"stdout","time":110.903597397,"data":"[data] packed in 52s\n"}
+,{"stream_name":"stdout","time":118.530442327,"data":" batch  compile    samples/s     MFU  in loader\n"}
+,{"stream_name":"stdout","time":177.460937218,"data":"   256    False        1,828   20.4%      89.2%\n"}
+,{"stream_name":"stdout","time":283.534461051,"data":"   512    False        1,607   17.9%      95.0%\n"}
+,{"stream_name":"stdout","time":493.691707963,"data":"  1024    False        1,590   17.7%      97.2%\n"}
+,{"stream_name":"stdout","time":498.375259239,"data":"  2048    False       failed   OutOfMemoryError: CUDA out of memory. Tried to allocate 468.00 MiB. GPU 0 has a total capacity of\n"}
+,{"stream_name":"stdout","time":622.651527692,"data":"   512     True        1,808   20.1%      95.7%\n"}
+,{"stream_name":"stdout","time":824.998587107,"data":"  1024     True        1,849   20.6%      97.3%\n"}
+,{"stream_name":"stdout","time":824.999418246,"data":"\n"}
+,{"stream_name":"stdout","time":824.999433618,"data":"best: batch 1024, compile=True -\u003e 1,849 samples/s, MFU 20.6%\n"}
+,{"stream_name":"stderr","time":828.123255678,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":828.123294685,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":828.344322744,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":828.344351668,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":829.071280151,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":829.400352805,"data":"[NbConvertApp] Writing 68890 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":832.074567717,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":832.952454381,"data":"[NbConvertApp] Writing 346672 bytes to __results__.html\n"}
+]

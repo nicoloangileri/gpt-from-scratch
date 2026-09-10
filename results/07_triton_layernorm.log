@@ -1,0 +1,67 @@
+[{"stream_name":"stderr","time":5.115925095,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":5.115970093,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":5.836690682,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":5.836721797,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":5.836728141,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":5.836734702,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.38605633,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.3860878119999995,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.386092472,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.386096117,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.915942045,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 14.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":10.118056167,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 14.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":14.485085303,"data":"wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/bench_chess.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'src/kernels/bench_layernorm.py', 'tests/test_layernorm_triton.py', 'configs/chess.yaml']\n"}
+,{"stream_name":"stdout","time":68.220873366,"data":"[data] 1 shard(s) downloaded in 53s (1.34 GB)\n"}
+,{"stream_name":"stdout","time":84.949696014,"data":"[chess] 1,000,000 records\n"}
+,{"stream_name":"stdout","time":101.385430683,"data":"[chess] 2,000,000 records\n"}
+,{"stream_name":"stdout","time":117.895683668,"data":"[chess] 3,000,000 records\n"}
+,{"stream_name":"stdout","time":118.095969276,"data":"[chess] {'train': 2800000, 'val': 200000, 'skipped': 0, 'num_buckets': 64, 'vocab': 1999}\n"}
+,{"stream_name":"stdout","time":118.09599903,"data":"[data] packed in 50s\n"}
+,{"stream_name":"stdout","time":133.948089206,"data":".............                                                            [100%]\n"}
+,{"stream_name":"stdout","time":133.948134468,"data":"13 passed in 11.99s\n"}
+,{"stream_name":"stdout","time":133.948139162,"data":"\n"}
+,{"stream_name":"stdout","time":140.697418257,"data":"    rows       mode   fwd+bwd ms     GB/s  vs eager\n"}
+,{"stream_name":"stdout","time":140.802531223,"data":"    9984      eager        0.537      171     1.00x\n"}
+,{"stream_name":"stdout","time":144.997866783,"data":"    9984    compile        0.579      159     0.93x\n"}
+,{"stream_name":"stdout","time":146.271833395,"data":"    9984     triton        0.624      147     0.86x\n"}
+,{"stream_name":"stdout","time":146.5643612,"data":"   39936      eager        2.292      161     1.00x\n"}
+,{"stream_name":"stdout","time":148.250339477,"data":"   39936    compile        1.341      275     1.71x\n"}
+,{"stream_name":"stdout","time":148.403314421,"data":"   39936     triton        1.234      298     1.86x\n"}
+,{"stream_name":"stdout","time":148.868712109,"data":"   79872      eager        3.688      200     1.00x\n"}
+,{"stream_name":"stdout","time":149.19756988,"data":"   79872    compile        2.627      280     1.40x\n"}
+,{"stream_name":"stdout","time":149.509030217,"data":"   79872     triton        2.494      295     1.48x\n"}
+,{"stream_name":"stdout","time":149.516250733,"data":"============================================================ \n"}
+,{"stream_name":"stdout","time":149.516270058,"data":"triton_ln = false\n"}
+,{"stream_name":"stdout","time":149.709669251,"data":"[amp] bf16 unsupported on Tesla T4 -\u003e using fp16\n"}
+,{"stream_name":"stdout","time":149.709705957,"data":"[data] train 2,800,000 | val 200,000 samples | in RAM: True\n"}
+,{"stream_name":"stdout","time":150.002011551,"data":"[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': False, 'causal': True, 'num_classes': 64}\n"}
+,{"stream_name":"stdout","time":154.984083914,"data":"step      0 | train 4.2145 | val 4.2170 | val acc 2.6% | 5s\n"}
+,{"stream_name":"stdout","time":315.719663208,"data":"  step 500 | loss 3.5832 | lr 9.05e-04 | 1,596 samples/s | MFU 17.8%\n"}
+,{"stream_name":"stdout","time":485.687575146,"data":"  step 1000 | loss 3.5857 | lr 5.87e-04 | 1,506 samples/s | MFU 16.8%\n"}
+,{"stream_name":"stdout","time":654.803625616,"data":"  step 1500 | loss 3.3312 | lr 2.45e-04 | 1,514 samples/s | MFU 16.9%\n"}
+,{"stream_name":"stdout","time":829.651981024,"data":"step   2000 | train 3.2225 | val 3.2299 | val acc 12.1% | 680s\n"}
+,{"stream_name":"stdout","time":830.04971207,"data":"  step 2000 | loss 3.3228 | lr 1.00e-04 | 1,571 samples/s | MFU 17.5%\n"}
+,{"stream_name":"stdout","time":830.056786201,"data":"[done] best val loss 3.2299 -\u003e checkpoints/ln_false/chess_best.pt\n"}
+,{"stream_name":"stdout","time":830.056809799,"data":"[wall] false: 681s for 2000 steps\n"}
+,{"stream_name":"stdout","time":830.057457756,"data":"============================================================ \n"}
+,{"stream_name":"stdout","time":830.057474599,"data":"triton_ln = true\n"}
+,{"stream_name":"stdout","time":830.250860708,"data":"[amp] bf16 unsupported on Tesla T4 -\u003e using fp16\n"}
+,{"stream_name":"stdout","time":830.250900282,"data":"[data] train 2,800,000 | val 200,000 samples | in RAM: True\n"}
+,{"stream_name":"stdout","time":830.501709528,"data":"[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': True, 'causal': True, 'num_classes': 64}\n"}
+,{"stream_name":"stdout","time":836.193926365,"data":"step      0 | train 4.2145 | val 4.2170 | val acc 2.6% | 6s\n"}
+,{"stream_name":"stdout","time":998.507120423,"data":"  step 500 | loss 3.6563 | lr 9.05e-04 | 1,580 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":1160.741219975,"data":"  step 1000 | loss 3.4972 | lr 5.87e-04 | 1,578 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":1323.075504377,"data":"  step 1500 | loss 3.3955 | lr 2.45e-04 | 1,577 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":1491.131947579,"data":"step   2000 | train 3.2262 | val 3.2342 | val acc 11.9% | 661s\n"}
+,{"stream_name":"stdout","time":1491.514242022,"data":"  step 2000 | loss 3.3191 | lr 1.00e-04 | 1,625 samples/s | MFU 18.1%\n"}
+,{"stream_name":"stdout","time":1491.532140136,"data":"[done] best val loss 3.2342 -\u003e checkpoints/ln_true/chess_best.pt\n"}
+,{"stream_name":"stdout","time":1491.532188121,"data":"[wall] true: 661s for 2000 steps\n"}
+,{"stream_name":"stderr","time":1496.363641563,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1496.363673627,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1496.504629848,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1496.504653112,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1497.072525182,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":1497.36237904,"data":"[NbConvertApp] Writing 92965 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":1499.650857548,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1500.42742525,"data":"[NbConvertApp] Writing 376256 bytes to __results__.html\n"}
+]
