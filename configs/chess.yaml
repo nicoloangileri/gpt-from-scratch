@@ -1,0 +1,41 @@
+# Chess action-value run. Overrides work the same way as configs/config.yaml:
+#   python -m src.train_chess --max_steps 50000 --batch_size 512
+
+seed: 1337
+device: cuda
+data_dir: data/chess
+
+# --- model ---
+n_layer: 8
+n_head: 8
+n_embd: 384
+dropout: 0.0
+bias: false
+num_buckets: 64        # uniform bins over the Stockfish win probability
+causal: true           # false = full attention (a position has no time axis)
+triton_ln: false       # true = hand-written fused LayerNorm (LEVEL 3)
+
+# --- optimizer / schedule ---
+lr: 1.0e-3             # small vocab + short sequences take a higher LR than the LM
+min_lr: 1.0e-4
+warmup_steps: 1000
+max_steps: 40000
+weight_decay: 0.1
+beta1: 0.9
+beta2: 0.95
+grad_clip: 1.0
+
+# --- batching ---
+batch_size: 256        # sequences are 78 tokens, so batches can be much larger
+grad_accum_steps: 1
+
+# --- precision / speed ---
+amp: true
+dtype: bf16            # auto-falls back to fp16 on pre-Ampere GPUs (T4)
+compile: false
+
+# --- logging / eval / checkpoints ---
+log_interval: 250
+eval_interval: 1000
+eval_iters: 50
+out_dir: checkpoints
