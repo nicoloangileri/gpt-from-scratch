@@ -11,6 +11,7 @@ Level-2/3 extension points are marked with `# LEVEL 2:` / `# LEVEL 3:` comments
 
 from __future__ import annotations
 
+import inspect
 import math
 from dataclasses import dataclass
 
@@ -28,6 +29,13 @@ class GPTConfig:
     n_embd: int = 384           # must be divisible by n_head
     dropout: float = 0.0
     bias: bool = False          # bias in Linear/LayerNorm — False is a touch faster/better
+    triton_ln: bool = False     # swap LayerNorm for the fused Triton kernel
+    causal: bool = True         # False = full attention. A chess position has no
+                                # temporal order, so masking is only meaningful for
+                                # the language-model task.
+    num_classes: int | None = None  # set for classification: one label per sequence,
+                                    # read off the last position (chess value buckets).
+                                    # None keeps the autoregressive language-model head.
 
 
 class CausalSelfAttention(nn.Module):
@@ -50,6 +58,7 @@ class CausalSelfAttention(nn.Module):
         self.resid_dropout = nn.Dropout(cfg.dropout)
         # PyTorch's fused SDPA (flash attention when available) — the Level-3 Triton
         # kernel replaces THIS call and is benchmarked against it.
+        self.causal = cfg.causal
         self.flash = hasattr(F, "scaled_dot_product_attention")
         if not self.flash:
             # explicit causal mask fallback for older torch
@@ -69,11 +78,12 @@ class CausalSelfAttention(nn.Module):
             y = F.scaled_dot_product_attention(
                 q, k, v, attn_mask=None,
                 dropout_p=self.dropout if self.training else 0.0,
-                is_causal=True,
+                is_causal=self.causal,
             )
         else:
             att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(head_dim))
-            att = att.masked_fill(self.mask[:, :, :T, :T] == 0, float("-inf"))
+            if self.causal:
+                att = att.masked_fill(self.mask[:, :, :T, :T] == 0, float("-inf"))
             att = self.attn_dropout(F.softmax(att, dim=-1))
             y = att @ v
 
@@ -106,14 +116,22 @@ class LayerNorm(nn.Module):
         return F.layer_norm(x, self.weight.shape, self.weight, self.bias, 1e-5)
 
 
+def _norm(cfg: GPTConfig) -> nn.Module:
+    """LayerNorm, optionally the hand-written fused kernel."""
+    if cfg.triton_ln:
+        from .kernels import TritonLayerNorm
+        return TritonLayerNorm(cfg.n_embd, cfg.bias)
+    return LayerNorm(cfg.n_embd, cfg.bias)
+
+
 class Block(nn.Module):
     """Pre-norm Transformer block: x = x + attn(ln(x)); x = x + mlp(ln(x))."""
 
     def __init__(self, cfg: GPTConfig) -> None:
         super().__init__()
-        self.ln_1 = LayerNorm(cfg.n_embd, cfg.bias)
+        self.ln_1 = _norm(cfg)
         self.attn = CausalSelfAttention(cfg)
-        self.ln_2 = LayerNorm(cfg.n_embd, cfg.bias)
+        self.ln_2 = _norm(cfg)
         self.mlp = MLP(cfg)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -131,11 +149,15 @@ class GPT(nn.Module):
             wpe=nn.Embedding(cfg.block_size, cfg.n_embd),   # learned positional emb
             drop=nn.Dropout(cfg.dropout),
             h=nn.ModuleList([Block(cfg) for _ in range(cfg.n_layer)]),
-            ln_f=LayerNorm(cfg.n_embd, cfg.bias),
+            ln_f=_norm(cfg),
         ))
-        self.lm_head = nn.Linear(cfg.n_embd, cfg.vocab_size, bias=False)
-        # weight tying: input embedding and output projection share weights.
-        self.transformer.wte.weight = self.lm_head.weight
+        if cfg.num_classes is None:
+            self.lm_head = nn.Linear(cfg.n_embd, cfg.vocab_size, bias=False)
+            # weight tying: input embedding and output projection share weights.
+            self.transformer.wte.weight = self.lm_head.weight
+        else:
+            # Sequence classifier: no tying (input and output spaces differ).
+            self.lm_head = nn.Linear(cfg.n_embd, cfg.num_classes, bias=False)
         self.apply(self._init_weights)
         # scaled init for residual projections (GPT-2 trick)
         for name, p in self.named_parameters():
@@ -153,8 +175,17 @@ class GPT(nn.Module):
     def num_params(self, non_embedding: bool = True) -> int:
         n = sum(p.numel() for p in self.parameters())
         if non_embedding:
-            n -= self.transformer.wpe.weight.numel()  # wte is tied to lm_head
+            n -= self.transformer.wpe.weight.numel()
+            if self.cfg.num_classes is not None:
+                n -= self.transformer.wte.weight.numel()  # untied here, so it counts
         return n
+
+    def flops_per_sample(self, seq_len: int | None = None) -> float:
+        """Forward+backward FLOPs for one sequence (PaLM appendix B estimate)."""
+        T = seq_len or self.cfg.block_size
+        n = self.num_params(non_embedding=False)
+        # 6ND for the dense layers, plus the attention score/value matmuls
+        return 6 * n * T + 12 * self.cfg.n_layer * self.cfg.n_embd * T * T
 
     def forward(self, idx: torch.Tensor, targets: torch.Tensor | None = None):
         B, T = idx.shape
@@ -164,6 +195,13 @@ class GPT(nn.Module):
         for block in self.transformer.h:
             x = block(x)
         x = self.transformer.ln_f(x)
+
+        if self.cfg.num_classes is not None:
+            # one prediction per sequence, taken from the final position
+            logits = self.lm_head(x[:, -1, :])
+            if targets is None:
+                return logits, None
+            return logits, F.cross_entropy(logits, targets.view(-1))
 
         if targets is not None:
             logits = self.lm_head(x)
@@ -206,4 +244,10 @@ class GPT(nn.Module):
             {"params": decay, "weight_decay": weight_decay},
             {"params": no_decay, "weight_decay": 0.0},
         ]
-        return torch.optim.AdamW(groups, lr=lr, betas=betas)
+        # The fused kernel folds the whole optimizer step into one launch, which
+        # matters here: the model is small, so per-kernel overhead is a real share
+        # of step time.
+        fused = "fused" in inspect.signature(torch.optim.AdamW).parameters and any(
+            p.is_cuda for p in decay
+        )
+        return torch.optim.AdamW(groups, lr=lr, betas=betas, **({"fused": True} if fused else {}))
