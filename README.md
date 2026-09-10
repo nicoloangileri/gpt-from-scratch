@@ -1,77 +1,126 @@
 # gpt-from-scratch
 
-A decoder-only Transformer (GPT) **built and trained from scratch in PyTorch**, then
-made **fast** — with reproducible configs, benchmarks, and a serving path.
-
-The point isn't to beat GPT-4. It's to show, end-to-end, that I understand the core
-object of modern ML — the Transformer, the training loop, the tokenizer, sampling —
-and can take it from training to production **with numbers**.
+A decoder-only Transformer **built from scratch in PyTorch**, pointed at chess, then
+made **fast** — with reproducible configs, benchmarks, and every number backed by a
+run log in [`results/`](results/).
 
 Every block (attention, MLP, LayerNorm, positional embeddings, the AdamW param
 grouping) is hand-written in [`src/model.py`](src/model.py) — no `from transformers
-import` of the model.
+import` of the model. The fused LayerNorm in [`src/kernels/`](src/kernels/) is
+hand-written too, in Triton.
+
+## The result
+
+The model reads a chess position and a candidate move and predicts how good the move
+is, learning from Stockfish 16 annotations (DeepMind's ChessBench). No search, no
+rollouts — one forward pass per legal move, best expected value wins.
+
+**14.7% of Lichess puzzles solved**, after 30.7M training examples on a free Kaggle T4:
+
+| rating | solved |
+|---|---|
+| < 500 | 60.0% |
+| 500–999 | 28.0% |
+| 1000–1499 | 19.3% |
+| 1500–1999 | 7.2% |
+| 2000–2499 | 2.8% |
+
+The point of the project is the curve, not the single number — how much accuracy an
+hour of free GPU buys:
+
+| examples | T4 hours | puzzles solved | val loss |
+|---|---|---|---|
+| 1M | 0.2 | 5.4% | 3.234 |
+| 6.1M | 0.9 | 9.7% | 3.088 |
+| 20.5M | 3.9 | 10.9% | 2.911 |
+| 30.7M | 5.3 | **14.7%** | 2.751 |
+
+For scale: the ChessBench paper reaches 88.9% at a comparable model size, with ~40
+billion examples — about 1300x this budget. Training was still improving when the run
+ended; the limit here is compute, not data.
 
 ## Quickstart
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-pytest -q                                   # model tests (CPU, seconds)
+pytest -q                                   # CPU, seconds
 
-# prepare a small corpus (any UTF-8 .txt; start with TinyStories)
+# chess: pack one ChessBench shard (1.34 GB, ~17M annotated positions)
+python -c "from src.chess_data import prepare_chessbench; \
+           prepare_chessbench(['action_value-00000.bag'], 'data/chess', val_tokens=None)"
+python -m src.train_chess --config configs/chess.yaml
+python -m src.puzzles_eval --ckpt checkpoints/chess_best.pt --num 1000
+
+# language model: any UTF-8 corpus
 python -c "from src.data import prepare; prepare('data/tinystories.txt', 'data/tinystories')"
-
-# train (edit configs/config.yaml or override on the CLI)
 python -m src.train --config configs/config.yaml
-
-# sample
-python -m src.sample --ckpt checkpoints/best.pt --prompt "Once upon a time" --top_k 200
+python -m src.sample --ckpt checkpoints/best.pt --prompt "Once upon a time"
 ```
 
-Runs are defined by `configs/config.yaml` + one command; seeds are fixed → reproducible.
+Runs are one config plus one command, seeds fixed. GPU runs are assembled into Kaggle
+notebooks by [`kaggle_chess/build_chess_notebook.py`](kaggle_chess/build_chess_notebook.py).
 
-## Hardware
+## Systems
 
-This repo is developed on a Mac (MPS is fine only for tiny debug runs). Real training
-runs on free cloud GPU (Kaggle ~30h/wk, or Colab) — a 10–30M-param model trains there
-comfortably. The Level-3 CUDA/Triton kernel needs an NVIDIA GPU (a few hours on
-Vast.ai / RunPod is enough).
+Throughput on a T4, measured with [`src/bench_chess.py`](src/bench_chess.py):
 
-## Roadmap (each level ships something)
+| change | samples/s | MFU |
+|---|---|---|
+| baseline | 1537 | 17.1% |
+| + fused AdamW | 1750 | 19.5% |
+| + torch.compile, batch 1024 | **1849** | **20.6%** |
 
-### Level 1 — Base (this scaffold) ✅ *runnable*
-- [x] Hand-written decoder-only Transformer (`src/model.py`)
-- [x] BPE tokenizer (tiktoken) + memory-mapped token stream (`src/data.py`)
-- [x] Config-driven training loop, cosine LR, grad clip, checkpointing (`src/train.py`)
-- [x] Sampling with temperature/top-k (`src/sample.py`), tests (`tests/`)
-- [ ] Train to coherent text on TinyStories; plot loss curves
-- [ ] 2–3 ablations: learning rate, model size, context length
+The fused LayerNorm ([`src/kernels/layernorm.py`](src/kernels/layernorm.py)) against
+PyTorch, at the model's shapes:
 
-### Level 2 — Engineering (where it stops looking like homework)
-- [ ] Mixed precision (AMP autocast + GradScaler) — *hooks wired in `train.py`*
-- [ ] Gradient accumulation — *wired* — and `torch.compile`
-- [ ] Throughput logging: **tokens/sec and MFU**
-- [ ] Multi-GPU **DDP** run (even 2 GPUs, just to show it works)
-- [ ] Inference with a **KV-cache** + a minimal **FastAPI** endpoint with batching
-- [ ] A benchmark table (tokens/sec, memory, latency)
+| rows | eager | torch.compile | Triton | bandwidth |
+|---|---|---|---|---|
+| 9,984 | 1.00x | 0.93x | 0.86x | 147 GB/s |
+| 39,936 | 1.00x | 1.71x | **1.86x** | 298 GB/s |
+| 79,872 | 1.00x | 1.40x | **1.48x** | 295 GB/s |
 
-### Level 3 — Stretch (the differentiator)
-- [ ] A custom **Triton or CUDA** kernel (fused attention or fused LayerNorm)
-- [ ] Benchmarked against the PyTorch baseline, **speedup reported with numbers**
+295 GB/s is ~92% of the T4's 320 GB/s ceiling, so for a memory-bound op there is
+little left. Below ~10k rows the kernel *loses* to eager — launch overhead outweighs
+the win — which is why the PyTorch fallback stays in.
 
-## What makes this read as "ML engineer," not a homework dump
-Reproducible commands + one config; fixed seeds; a benchmark table (tokens/sec,
-memory, kernel speedup); a serving endpoint; and a short writeup of the design
-choices and trade-offs. The generated text is the first "wow"; the systems numbers
-are what convince whoever is hiring.
+End to end that kernel is worth 3%: LayerNorm is a small share of the step. Amdahl.
+The remaining bottleneck is GEMMs and launch overhead, which wants CUDA graphs next.
+
+## What was learned the hard way
+
+Documented because the mistakes were more instructive than the successes:
+
+- `torch.cuda.is_bf16_supported()` counts emulation and answers `True` on a T4, where
+  bf16 is emulated and slow. Detect the card by compute capability instead: worth 4.1x.
+- ChessBench's `puzzles.csv` is pre-advanced past the opponent's move, so `Moves[0]`
+  is already the move to find. Reading it as raw Lichess scores the model on the
+  opponent's forced replies and quietly divides accuracy by ~4.5 — from 14.7% to 2.4%.
+  The tell was accuracy that stayed *flat* across puzzle difficulty.
+- Timing a training step without `torch.cuda.synchronize()` measures how long the CPU
+  took to *queue* the work. It reported an MFU of 882%.
+- Benchmarking configurations in one process lets the first one leave the allocator
+  fragmented; a larger batch then looks slower, and OOMs on an allocation the card
+  has room for.
 
 ## Layout
+
 ```
-src/model.py    hand-written GPT (attention, MLP, LayerNorm, GPT, generate)
-src/data.py     tiktoken BPE + .bin token stream + batching
-src/train.py    config-driven loop (AMP + grad-accum hooks, cosine LR, ckpt)
-src/sample.py   load checkpoint, generate
-configs/        run configs (single source of truth)
-benchmarks/     throughput.py (Level 2), kernel bench (Level 3)
-tests/          shape / causality / generation tests
+src/model.py         hand-written GPT (attention, MLP, LayerNorm, generate)
+src/chess_data.py    ChessBench .bag reader, FEN tokenizer, 1968-move vocabulary
+src/train_chess.py   action-value training loop
+src/puzzles_eval.py  Lichess puzzle accuracy
+src/kernels/         fused LayerNorm in Triton + its bench
+src/bench_chess.py   throughput bench (isolated subprocess per config)
+src/data.py          BPE tokenizer + streaming corpus packing
+src/train.py         language-model training loop
+kaggle_chess/        builds and pushes the GPU notebooks
+results/             the log behind every number above
 ```
+
+## Still open
+
+- Alpha-beta search on top of the network, benchmarked separately (the numbers above
+  are search-free, and stay that way to remain comparable with the paper)
+- A bot account on Lichess for a public Elo
+- CUDA graphs; DDP; KV-cache serving for the language-model path

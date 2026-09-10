@@ -11,4 +11,4 @@ checkpoints/
 
 # raw kernel output pulled back from Kaggle; the logs worth keeping live in results/
 kaggle_out*/
-kaggle_*_out/
+kaggle_*out*/
