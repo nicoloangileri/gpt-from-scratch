@@ -65,7 +65,9 @@ def main() -> None:
     for i in range(0, len(overrides) - 1, 2):
         key = overrides[i].lstrip("-")
         if key in cfg:
-            cfg[key] = type(cfg[key])(overrides[i + 1])
+            cur, raw = cfg[key], overrides[i + 1]
+            # bool must be parsed from the string: bool("false") is True in Python.
+            cfg[key] = (raw.lower() in ("1", "true", "yes")) if isinstance(cur, bool) else type(cur)(raw)
 
     torch.manual_seed(cfg["seed"])
     torch.backends.cuda.matmul.allow_tf32 = True
@@ -75,6 +77,14 @@ def main() -> None:
 
     # mixed precision (LEVEL 2): bf16/fp16 autocast on CUDA, no-op elsewhere
     use_amp = cfg.get("amp", True) and device_type == "cuda"
+    # torch.cuda.is_bf16_supported() counts emulation, so ask the card directly:
+    # native bf16 starts at Ampere (sm_80).
+    native_bf16 = use_amp and torch.cuda.get_device_capability()[0] >= 8
+    if use_amp and cfg.get("dtype", "bf16") == "bf16" and not native_bf16:
+        # Turing (T4) and older have no native bf16: autocast falls back to a slow
+        # emulated path. fp16 + GradScaler is the right choice on those cards.
+        print(f"[amp] bf16 unsupported on {torch.cuda.get_device_name()} -> using fp16")
+        cfg["dtype"] = "fp16"
     ptdtype = {"bf16": torch.bfloat16, "fp16": torch.float16}.get(cfg.get("dtype", "bf16"))
     ctx = torch.autocast(device_type="cuda", dtype=ptdtype) if use_amp else _nullctx()
     scaler = torch.cuda.amp.GradScaler(enabled=use_amp and cfg.get("dtype") == "fp16")
@@ -98,7 +108,8 @@ def main() -> None:
     ckpt_dir = Path(cfg.get("out_dir", "checkpoints"))
     ckpt_dir.mkdir(parents=True, exist_ok=True)
     best_val = float("inf")
-    t0 = time.time()
+    t0 = t_log = time.time()
+    s_log = 0
 
     for step in range(cfg["max_steps"] + 1):
         for g in optimizer.param_groups:
@@ -112,6 +123,7 @@ def main() -> None:
                 best_val = losses["val"]
                 torch.save({"model": model.state_dict(), "cfg": asdict(model_cfg),
                             "step": step, "val": best_val}, ckpt_dir / "best.pt")
+            t_log, s_log = time.time(), step  # don't charge eval time to throughput
 
         # gradient accumulation: split the effective batch into `accum` micro-steps
         optimizer.zero_grad(set_to_none=True)
@@ -128,9 +140,19 @@ def main() -> None:
         scaler.update()
 
         if step % cfg["log_interval"] == 0 and step > 0:
-            # LEVEL 2: also log tokens/sec and MFU here.
+            # LEVEL 2: throughput. MFU (vs the card's peak FLOPs) is the next one.
             toks = cfg["batch_size"] * cfg["block_size"] * accum
-            print(f"  step {step} | loss {loss.item()*accum:.4f} | lr {get_lr(step, cfg):.2e} | ~{toks} tok/step")
+            if device_type == "cuda":
+                # CUDA is async: without this the clock measures how long the CPU
+                # took to QUEUE the step, not to run it (one A/B run reported 79k
+                # samples/s and an MFU of 882%).
+                torch.cuda.synchronize()
+            now = time.time()
+            # steps actually run since the last reset (an eval in between moves it)
+            tps = toks * (step + 1 - s_log) / max(1e-6, now - t_log)
+            t_log, s_log = now, step + 1
+            print(f"  step {step} | loss {loss.item()*accum:.4f} | lr {get_lr(step, cfg):.2e} "
+                  f"| {toks} tok/step | {tps:,.0f} tok/s")
 
     print(f"[done] best val loss {best_val:.4f} -> {ckpt_dir/'best.pt'}")
 

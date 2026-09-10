@@ -1,8 +1,14 @@
 __pycache__/
 *.pyc
 .venv/
+.DS_Store
+
+# datasets and checkpoints (multi-GB, re-downloadable)
 data/
 checkpoints/
 *.bin
 *.pt
-.DS_Store
+
+# raw kernel output pulled back from Kaggle; the logs worth keeping live in results/
+kaggle_out*/
+kaggle_*_out/
