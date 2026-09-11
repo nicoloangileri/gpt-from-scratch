@@ -18,7 +18,9 @@ from __future__ import annotations
 
 import argparse
 import os
+import random
 import sys
+import threading
 import time
 
 import chess
@@ -29,6 +31,7 @@ from .search import Searcher
 
 API = "https://lichess.org"
 MIN_INITIAL_SECONDS = 180          # below this, depth-2 search loses on time
+SEEK_CLOCK = (600, 3)              # 10+3: comfortable for a 1.5-3s per move search
 
 
 def should_accept(challenge: dict) -> tuple[bool, str]:
@@ -59,6 +62,7 @@ class LichessBot:
         self.session.headers["Authorization"] = f"Bearer {_token()}"
         self.model, self.centres, _ = load_model(ckpt, device)
         self.device, self.depth = device, depth
+        self.busy = threading.Event()          # set while a game is being played
 
     # --- helpers ---------------------------------------------------------
     def _get(self, path: str, **kw):
@@ -95,10 +99,63 @@ class LichessBot:
             self._post(f"/api/challenge/{cid}/decline", data={"reason": reason}, timeout=10)
             print(f"[bot] declined {cid}: {reason}", flush=True)
 
+    # --- seeking opponents ------------------------------------------------
+    def online_bots(self, limit: int = 50) -> list[dict]:
+        """Bots currently online, as ndjson."""
+        import json
+
+        r = self._get("/api/bot/online", params={"nb": limit}, stream=True, timeout=20)
+        bots = []
+        for line in r.iter_lines():
+            if line:
+                bots.append(json.loads(line))
+        return bots
+
+    def challenge_someone(self, rating_window: int = 400) -> None:
+        """Challenge a random online bot of comparable strength.
+
+        Waiting to be challenged can mean waiting a long time, and a rating needs
+        games. Opponents far stronger are skipped: losing 50 games to a 2500 bot
+        says nothing that one game would not.
+        """
+        try:
+            bots = self.online_bots()
+        except requests.RequestException as exc:
+            print(f"[bot] could not list bots: {type(exc).__name__}", flush=True)
+            return
+
+        mine = self.rating or 1500
+        candidates = []
+        for bot in bots:
+            if bot.get("id") == self.me:
+                continue
+            perf = bot.get("perfs", {}).get("blitz", {}) or bot.get("perfs", {}).get("rapid", {})
+            rating = perf.get("rating")
+            if rating and abs(rating - mine) <= rating_window:
+                candidates.append((bot["id"], rating))
+        if not candidates:
+            print("[bot] no comparable bot online right now", flush=True)
+            return
+
+        target, rating = random.choice(candidates)
+        r = self._post(f"/api/challenge/{target}", timeout=10, data={
+            "rated": "true", "clock.limit": SEEK_CLOCK[0], "clock.increment": SEEK_CLOCK[1],
+            "color": "random", "variant": "standard",
+        })
+        print(f"[bot] challenged {target} ({rating}): "
+              f"{'sent' if r.ok else r.text[:80]}", flush=True)
+
+    def _seek_loop(self, every: int = 90) -> None:
+        while True:
+            if not self.busy.is_set():
+                self.challenge_someone()
+            time.sleep(every)
+
     # --- playing ---------------------------------------------------------
     def play_game(self, game_id: str) -> None:
         import json
 
+        self.busy.set()
         stream = self._get(f"/api/bot/game/stream/{game_id}", stream=True, timeout=None)
         my_colour = None
         for line in stream.iter_lines():
@@ -116,6 +173,7 @@ class LichessBot:
 
             if state.get("status") != "started":
                 print(f"[bot] game {game_id} finished: {state.get('status')}", flush=True)
+                self.busy.clear()
                 return
 
             board = chess.Board()
@@ -133,11 +191,14 @@ class LichessBot:
                   f"{'' if reply.ok else ' REJECTED: ' + reply.text[:80]}", flush=True)
 
     # --- main loop -------------------------------------------------------
-    def run(self) -> None:
+    def run(self, seek: bool = False) -> None:
         import json
 
         account = self.account()
         self.me = account["id"]
+        perfs = account.get("perfs", {})
+        self.rating = (perfs.get("blitz", {}).get("rating")
+                       or perfs.get("rapid", {}).get("rating"))
         title = account.get("title", "")
         print(f"[bot] logged in as {account['username']} (title: {title or 'none'})", flush=True)
         if title != "BOT":
@@ -146,6 +207,10 @@ class LichessBot:
                      '-H "Authorization: Bearer $LICHESS_TOKEN"')
 
         print(f"[bot] waiting for challenges at {API}/@/{account['username']}", flush=True)
+        if seek:
+            print(f"[bot] also challenging online bots every 90s "
+                  f"({SEEK_CLOCK[0]//60}+{SEEK_CLOCK[1]}, rated)", flush=True)
+            threading.Thread(target=self._seek_loop, daemon=True).start()
         stream = self._get("/api/stream/event", stream=True, timeout=None)
         for line in stream.iter_lines():
             if not line:
@@ -162,6 +227,8 @@ def main() -> None:
     ap.add_argument("--ckpt", default="checkpoints/chess_best.pt")
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--depth", type=int, default=2)
+    ap.add_argument("--seek", action="store_true",
+                    help="also challenge online bots, instead of only waiting")
     ap.add_argument("--check", action="store_true",
                     help="verify the token and account, then exit without playing")
     args = ap.parse_args()
@@ -180,7 +247,7 @@ def main() -> None:
         print(f"scopes   : {scopes}")
         return
 
-    LichessBot(args.ckpt, args.device, args.depth).run()
+    LichessBot(args.ckpt, args.device, args.depth).run(seek=args.seek)
 
 
 if __name__ == "__main__":
