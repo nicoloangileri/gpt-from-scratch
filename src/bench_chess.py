@@ -27,10 +27,11 @@ from .model import GPT, GPTConfig
 from .train_chess import ActionValueStream
 
 
-def run_config(stream, device, batch_size, compile_model, steps, peak_flops, warmup=20):
+def run_config(stream, device, batch_size, compile_model, steps, peak_flops, warmup=20,
+               n_layer=8, n_head=8, n_embd=384):
     """Time one configuration; returns (samples/s, MFU, share of time in the loader)."""
     cfg = GPTConfig(vocab_size=FULL_VOCAB, block_size=SAMPLE_LENGTH, num_classes=64,
-                    n_layer=8, n_head=8, n_embd=384, dropout=0.0, bias=False)
+                    n_layer=n_layer, n_head=n_head, n_embd=n_embd, dropout=0.0, bias=False)
     model = GPT(cfg).to(device)
     flops_per_sample = model.flops_per_sample(SAMPLE_LENGTH)
     optimizer = model.configure_optimizers(0.1, 1e-3, (0.9, 0.95))
@@ -63,10 +64,11 @@ def run_config(stream, device, batch_size, compile_model, steps, peak_flops, war
         scaler.step(optimizer)
         scaler.update()
     torch.cuda.synchronize()
+    peak_gb = torch.cuda.max_memory_allocated() / 1e9
 
     dt = time.time() - t0
     sps = steps * batch_size / dt
-    return sps, sps * flops_per_sample / peak_flops, data_per_step / (dt / steps)
+    return sps, sps * flops_per_sample / peak_flops, peak_gb
 
 
 def main() -> None:
@@ -75,6 +77,9 @@ def main() -> None:
     ap.add_argument("--steps", type=int, default=300)
     ap.add_argument("--peak_tflops", type=float, default=65.0)
     ap.add_argument("--single", default=None, help="internal: '<batch>,<compile>'")
+    ap.add_argument("--n_layer", type=int, default=8)
+    ap.add_argument("--n_head", type=int, default=8)
+    ap.add_argument("--n_embd", type=int, default=384)
     args = ap.parse_args()
 
     torch.backends.cuda.matmul.allow_tf32 = True
@@ -85,21 +90,24 @@ def main() -> None:
         batch_size, compiled = args.single.split(",")
         stream = ActionValueStream(args.data_dir, "train")
         try:
-            sps, mfu, data_share = run_config(
-                stream, "cuda", int(batch_size), compiled == "True", args.steps, peak)
-            print(f"RESULT {batch_size} {compiled} {sps:.0f} {mfu*100:.2f} {data_share*100:.1f}")
+            sps, mfu, peak_gb = run_config(
+                stream, "cuda", int(batch_size), compiled == "True", args.steps, peak,
+                n_layer=args.n_layer, n_head=args.n_head, n_embd=args.n_embd)
+            print(f"RESULT {batch_size} {compiled} {sps:.0f} {mfu*100:.2f} {peak_gb:.2f}")
         except Exception as exc:
             print(f"RESULT {batch_size} {compiled} failed 0 0  {type(exc).__name__}: {str(exc)[:80]}")
         return
 
-    configs = [(256, False), (512, False), (1024, False), (2048, False),
-               (512, True), (1024, True)]
-    print(f"{'batch':>6} {'compile':>8} {'samples/s':>12} {'MFU':>7} {'in loader':>10}")
+    configs = [(128, False), (256, False), (512, False), (256, True), (512, True)]
+    print(f"model: {args.n_layer}L/{args.n_embd} heads {args.n_head}")
+    print(f"{'batch':>6} {'compile':>8} {'samples/s':>12} {'MFU':>7} {'peak GB':>9}")
     results = []
     for batch_size, compiled in configs:
         proc = subprocess.run(
             [sys.executable, "-m", "src.bench_chess", "--data_dir", args.data_dir,
-             "--steps", str(args.steps), "--single", f"{batch_size},{compiled}"],
+             "--steps", str(args.steps), "--single", f"{batch_size},{compiled}",
+             "--n_layer", str(args.n_layer), "--n_head", str(args.n_head),
+             "--n_embd", str(args.n_embd)],
             capture_output=True, text=True)
         line = next((l for l in proc.stdout.splitlines() if l.startswith("RESULT")), None)
         if line is None:
@@ -111,7 +119,7 @@ def main() -> None:
             continue
         results.append((int(b), c == "True", float(sps), float(mfu)))
         print(f"{batch_size:>6} {str(compiled):>8} {float(sps):>12,.0f} {float(mfu):>6.1f}% "
-              f"{float(rest[0]):>9.1f}%", flush=True)
+              f"{float(rest[0]):>8.2f}", flush=True)
 
     if results:
         best = max(results, key=lambda r: r[2])

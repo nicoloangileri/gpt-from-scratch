@@ -35,7 +35,8 @@ def _cell(src: str) -> dict:
 
 def build(steps: int, records: int, batch_size: int, puzzles: int,
           bench: bool = False, compile_model: bool = False, ab: bool = False,
-          shards: int = 1, triton: bool = False) -> None:
+          shards: int = 1, triton: bool = False,
+          n_layer: int = 8, n_head: int = 8, n_embd: int = 384, lr: float = 1e-3) -> None:
     blob = {p: base64.b64encode((ROOT / p).read_bytes()).decode() for p in SOURCES}
 
     setup = f'''\
@@ -78,7 +79,8 @@ for b in bags:
 
     bench_cell = f'''\
 import sys
-sys.argv = ["bench", "--data_dir", DATA + "/chess", "--steps", "300"]
+sys.argv = ["bench", "--data_dir", DATA + "/chess", "--steps", "200",
+            "--n_layer", "12", "--n_head", "10", "--n_embd", "640"]
 from src.bench_chess import main
 main()
 '''
@@ -88,6 +90,8 @@ import sys
 sys.argv = ["train_chess", "--config", "configs/chess.yaml", "--device", "cuda",
             "--max_steps", "{steps}", "--batch_size", "{batch_size}",
             "--compile", "{str(compile_model).lower()}",
+            "--n_layer", "{n_layer}", "--n_head", "{n_head}", "--n_embd", "{n_embd}",
+            "--lr", "{lr}", "--min_lr", "{lr / 10}",
             "--warmup_steps", "{max(100, steps // 40)}",
             "--eval_interval", "{max(200, steps // 20)}", "--eval_iters", "50",
             "--log_interval", "{max(100, steps // 40)}",
@@ -174,6 +178,10 @@ if __name__ == "__main__":
     ap.add_argument("--ab", action="store_true", help="A/B causal vs full attention")
     ap.add_argument("--shards", type=int, default=1)
     ap.add_argument("--triton", action="store_true", help="Level 3: kernel tests + bench")
+    ap.add_argument("--n_layer", type=int, default=8)
+    ap.add_argument("--n_head", type=int, default=8)
+    ap.add_argument("--n_embd", type=int, default=384)
+    ap.add_argument("--lr", type=float, default=1e-3)
     a = ap.parse_args()
     build(a.steps, a.records, a.batch_size, a.puzzles, a.bench, a.compile, a.ab,
-          a.shards, a.triton)
+          a.shards, a.triton, a.n_layer, a.n_head, a.n_embd, a.lr)
