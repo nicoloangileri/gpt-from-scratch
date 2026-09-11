@@ -32,6 +32,7 @@ from .search import Searcher
 API = "https://lichess.org"
 MIN_INITIAL_SECONDS = 180          # below this, depth-2 search loses on time
 SEEK_CLOCK = (600, 3)              # 10+3: comfortable for a 1.5-3s per move search
+SEEK_PERF = "rapid"                # ...which Lichess rates as rapid, so compare that
 
 
 def should_accept(challenge: dict) -> tuple[bool, str]:
@@ -111,12 +112,18 @@ class LichessBot:
                 bots.append(json.loads(line))
         return bots
 
-    def challenge_someone(self, rating_window: int = 400) -> None:
+    def challenge_someone(self, rating_window: int = 400, ceiling: int = 1800) -> None:
         """Challenge a random online bot of comparable strength.
 
         Waiting to be challenged can mean waiting a long time, and a rating needs
-        games. Opponents far stronger are skipped: losing 50 games to a 2500 bot
+        games. Opponents far stronger are skipped: losing 50 games to a 2700 bot
         says nothing that one game would not.
+
+        Two things this has to get right, both learned by getting them wrong:
+        the rating compared must be the one for the time control actually being
+        played (10+3 is rapid, not blitz -- a bot can be 1700 blitz and 2793
+        rapid), and a provisional rating cannot be trusted as the centre of the
+        window, so `ceiling` caps opponents outright until ours settles.
         """
         try:
             bots = self.online_bots()
@@ -124,17 +131,22 @@ class LichessBot:
             print(f"[bot] could not list bots: {type(exc).__name__}", flush=True)
             return
 
-        mine = self.rating or 1500
+        mine, provisional = self.rating or 1500, self.provisional
         candidates = []
         for bot in bots:
             if bot.get("id") == self.me:
                 continue
-            perf = bot.get("perfs", {}).get("blitz", {}) or bot.get("perfs", {}).get("rapid", {})
-            rating = perf.get("rating")
-            if rating and abs(rating - mine) <= rating_window:
+            rating = bot.get("perfs", {}).get(SEEK_PERF, {}).get("rating")
+            if not rating:
+                continue
+            if rating > ceiling and provisional:
+                continue                                  # no giants while we are unrated
+            if abs(rating - mine) <= rating_window:
                 candidates.append((bot["id"], rating))
         if not candidates:
-            print("[bot] no comparable bot online right now", flush=True)
+            print(f"[bot] no bot within {rating_window} of {mine} "
+                  f"({SEEK_PERF}, cap {ceiling if provisional else 'none'}) online now",
+                  flush=True)
             return
 
         target, rating = random.choice(candidates)
@@ -142,7 +154,8 @@ class LichessBot:
             "rated": "true", "clock.limit": SEEK_CLOCK[0], "clock.increment": SEEK_CLOCK[1],
             "color": "random", "variant": "standard",
         })
-        print(f"[bot] challenged {target} ({rating}): "
+        print(f"[bot] challenged {target} ({SEEK_PERF} {rating}, mine {mine}"
+              f"{' provisional' if provisional else ''}): "
               f"{'sent' if r.ok else r.text[:80]}", flush=True)
 
     def _seek_loop(self, every: int = 90) -> None:
@@ -196,9 +209,9 @@ class LichessBot:
 
         account = self.account()
         self.me = account["id"]
-        perfs = account.get("perfs", {})
-        self.rating = (perfs.get("blitz", {}).get("rating")
-                       or perfs.get("rapid", {}).get("rating"))
+        perf = account.get("perfs", {}).get(SEEK_PERF, {})
+        self.rating = perf.get("rating")
+        self.provisional = bool(perf.get("prov", True)) or not perf.get("games")
         title = account.get("title", "")
         print(f"[bot] logged in as {account['username']} (title: {title or 'none'})", flush=True)
         if title != "BOT":
