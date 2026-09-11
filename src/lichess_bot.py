@@ -139,14 +139,20 @@ class LichessBot:
             rating = bot.get("perfs", {}).get(SEEK_PERF, {}).get("rating")
             if not rating:
                 continue
-            if rating > ceiling and provisional:
-                continue                                  # no giants while we are unrated
-            if abs(rating - mine) <= rating_window:
+            if provisional:
+                # A provisional rating is not a measurement and must not steer the
+                # search. One loss to a 2793 opponent put this account at 2513 after
+                # a single game; centring a window on that finds no opponents at all
+                # under the cap, and the bot stops playing exactly when it most
+                # needs games. While provisional: anyone at or below the ceiling.
+                if rating <= ceiling:
+                    candidates.append((bot["id"], rating))
+            elif abs(rating - mine) <= rating_window:
                 candidates.append((bot["id"], rating))
         if not candidates:
-            print(f"[bot] no bot within {rating_window} of {mine} "
-                  f"({SEEK_PERF}, cap {ceiling if provisional else 'none'}) online now",
-                  flush=True)
+            print(f"[bot] no opponent online: "
+                  + (f"none at or below {ceiling} {SEEK_PERF}" if provisional
+                     else f"none within {rating_window} of {mine} {SEEK_PERF}"), flush=True)
             return
 
         target, rating = random.choice(candidates)
