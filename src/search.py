@@ -14,6 +14,24 @@ ordering. One network call per node, not one per move.
 
 Values are win probabilities in [0, 1] from the side to move, so the negamax flip
 is 1 - v rather than -v.
+
+A move's value is the MINIMUM of the network's direct Q(s,a) and the value backed
+up from the child. Both estimate the same quantity -- the position after the move
+-- and taking the worse of the two is what keeps search from being fooled.
+
+Why that matters here, measured: after 1.e4 d5 2.Nc3 dxe4 3.Nxe4, the network
+rates 3...Qxd2+ at 0.05, correctly seeing that it drops the queen. But in the
+position after Qxd2+, it rates White's queen-winning captures at only 0.25-0.35,
+because a position where a queen hangs after a pointless check is nothing like the
+Lichess games it trained on -- it is out of distribution, and the network answers
+near the mean. Backing that up gives 1 - 0.35 = 0.65 and search happily plays the
+blunder.
+
+Alpha-beta is a maximiser, so it does not merely stumble into these positions: it
+hunts for wherever the evaluator is most wrong. Deeper search amplifies
+out-of-distribution error rather than averaging it out. Taking the min is the
+cheap pessimistic fix (the same instinct as conservative value estimates in
+offline RL): a move has to look good BOTH before and after it is played.
 """
 
 from __future__ import annotations
@@ -84,8 +102,9 @@ class Searcher:
                 value = q[i]
             else:
                 board.push(chess.Move.from_uci(uci))
-                value = 1.0 - self._search(board, depth - 1, 1.0 - beta, 1.0 - alpha)
+                backed_up = 1.0 - self._search(board, depth - 1, 1.0 - beta, 1.0 - alpha)
                 board.pop()
+                value = min(float(q[i]), backed_up)     # see _combine below
             if value > best:
                 best = value
             if best > alpha:
@@ -107,8 +126,9 @@ class Searcher:
                 value = float(q[i])
             else:
                 board.push(chess.Move.from_uci(uci))
-                value = 1.0 - self._search(board, depth - 1, 0.0, 1.0 - alpha)
+                backed_up = 1.0 - self._search(board, depth - 1, 0.0, 1.0 - alpha)
                 board.pop()
+                value = min(float(q[i]), backed_up)     # see _combine below
             if value > best_value:
                 best_value, best_uci = value, uci
             alpha = max(alpha, best_value)
