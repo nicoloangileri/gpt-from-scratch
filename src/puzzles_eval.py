@@ -41,8 +41,22 @@ def load_model(ckpt_path: str | Path, device: str):
 
 
 @torch.no_grad()
-def best_move(model, centres, board: chess.Board, device: str) -> str:
-    """Highest expected win probability among the legal moves."""
+def best_move(model, centres, board: chess.Board, device: str,
+              score_draws: bool = True) -> str:
+    """Highest expected win probability among the legal moves.
+
+    The model predicts win probability, which saturates: in a won position every
+    sane move is worth ~0.99, so shuffling a rook and delivering mate look
+    identical and the model repeats until the game is drawn. It measured 21 points
+    of material up and still drew.
+
+    `score_draws` fixes that at its root rather than with a heuristic: a move that
+    forces a repetition, stalemate or the fifty-move rule is worth exactly half a
+    point, so its value is set to 0.5 instead of whatever the model imagined. When
+    winning, the model then avoids it; when losing, it steers into it. Checkmate is
+    scored 1.0 for the same reason — the model has no mate-distance signal to tell
+    it that mate now beats mate later.
+    """
     moves = [m.uci() for m in board.legal_moves]
     state = torch.from_numpy(tokenize_fen(board.fen()).astype(np.int64))
     x = state.repeat(len(moves), 1)
@@ -50,6 +64,17 @@ def best_move(model, centres, board: chess.Board, device: str) -> str:
     x = torch.cat([x, actions[:, None]], dim=1).to(device)
     logits, _ = model(x)
     values = (logits.softmax(-1) * centres).sum(-1)
+
+    if score_draws:
+        for i, uci in enumerate(moves):
+            board.push(chess.Move.from_uci(uci))
+            if board.is_checkmate():
+                values[i] = 1.0
+            elif (board.is_stalemate() or board.is_insufficient_material()
+                  or board.is_repetition(2) or board.can_claim_fifty_moves()):
+                values[i] = 0.5
+            board.pop()
+
     return moves[int(values.argmax())]
 
 
