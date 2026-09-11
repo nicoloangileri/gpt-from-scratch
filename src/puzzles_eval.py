@@ -58,6 +58,8 @@ def best_move(model, centres, board: chess.Board, device: str,
     it that mate now beats mate later.
     """
     moves = [m.uci() for m in board.legal_moves]
+    if not moves:
+        raise ValueError("no legal moves: the game is already over")
     state = torch.from_numpy(tokenize_fen(board.fen()).astype(np.int64))
     x = state.repeat(len(moves), 1)
     actions = torch.tensor([MOVE_TO_ACTION[m] + ACTION_OFFSET for m in moves], dtype=torch.long)
@@ -68,18 +70,32 @@ def best_move(model, centres, board: chess.Board, device: str,
     if score_draws:
         for i, uci in enumerate(moves):
             board.push(chess.Move.from_uci(uci))
+        # is_repetition() and can_claim_fifty_moves() both walk the move stack, and
+        # this runs for every legal move of every node -- on a long game that is
+        # quadratic, and it cost 116s per move in a match. A repetition needs at
+        # least four halfmoves without a capture or pawn move, so the clock gates
+        # the expensive check; the fifty-move rule is just the clock itself.
             if board.is_checkmate():
                 values[i] = 1.0
-            elif (board.is_stalemate() or board.is_insufficient_material()
-                  or board.is_repetition(2) or board.can_claim_fifty_moves()):
+            elif board.is_stalemate() or board.is_insufficient_material():
+                values[i] = 0.5
+            elif board.halfmove_clock >= 100:
+                values[i] = 0.5
+            elif board.halfmove_clock >= 4 and board.is_repetition(2):
                 values[i] = 0.5
             board.pop()
 
     return moves[int(values.argmax())]
 
 
-def run(ckpt: str, puzzles_csv: str, num: int, device: str) -> dict:
+def run(ckpt: str, puzzles_csv: str, num: int, device: str, depth: int = 1) -> dict:
+    """depth > 1 puts alpha-beta search on top of the network (src/search.py)."""
     model, centres, ck = load_model(ckpt, device)
+    if depth > 1:
+        from .search import Searcher
+        pick = lambda board: Searcher(model, centres, device).best_move(board, depth)
+    else:
+        pick = lambda board: best_move(model, centres, board, device)
     solved = attempted = 0
     by_rating: dict[str, list[int]] = {}
 
@@ -92,7 +108,7 @@ def run(ckpt: str, puzzles_csv: str, num: int, device: str) -> dict:
             ok = True
             for ply, uci in enumerate(line):
                 if ply % 2 == 0:            # our move: the model has to find it
-                    if best_move(model, centres, board, device) != uci:
+                    if pick(board) != uci:
                         ok = False
                         break
                 board.push(chess.Move.from_uci(uci))
@@ -102,7 +118,7 @@ def run(ckpt: str, puzzles_csv: str, num: int, device: str) -> dict:
             by_rating.setdefault(band, []).append(int(ok))
 
     acc = solved / max(1, attempted)
-    print(f"[puzzles] {solved}/{attempted} solved = {acc*100:.1f}%  "
+    print(f"[puzzles] depth {depth}: {solved}/{attempted} solved = {acc*100:.1f}%  "
           f"(checkpoint step {ck.get('step')}, val loss {ck.get('val'):.4f})")
     for band in sorted(by_rating, key=lambda b: int(b.split('-')[0])):
         v = by_rating[band]
@@ -116,5 +132,6 @@ if __name__ == "__main__":
     ap.add_argument("--puzzles", default="data/chessbench/puzzles.csv")
     ap.add_argument("--num", type=int, default=1000)
     ap.add_argument("--device", default="cpu")
+    ap.add_argument("--depth", type=int, default=1, help="1 = network alone, 2+ = search")
     args = ap.parse_args()
-    run(args.ckpt, args.puzzles, args.num, args.device)
+    run(args.ckpt, args.puzzles, args.num, args.device, args.depth)
