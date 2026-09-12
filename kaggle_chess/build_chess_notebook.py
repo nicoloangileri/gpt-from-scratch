@@ -36,7 +36,8 @@ def _cell(src: str) -> dict:
 def build(steps: int, records: int, batch_size: int, puzzles: int,
           bench: bool = False, compile_model: bool = False, ab: bool = False,
           shards: int = 1, triton: bool = False,
-          n_layer: int = 8, n_head: int = 8, n_embd: int = 384, lr: float = 1e-3) -> None:
+          n_layer: int = 8, n_head: int = 8, n_embd: int = 384, lr: float = 1e-3,
+          ab_batch: bool = False) -> None:
     blob = {p: base64.b64encode((ROOT / p).read_bytes()).decode() for p in SOURCES}
 
     setup = f'''\
@@ -133,6 +134,31 @@ for triton_ln in ("false", "true"):
     print(f"[wall] {{triton_ln}}: {{time.time()-t:.0f}}s for {steps} steps", flush=True)
 '''
 
+    # A/B on batch size: identical model and identical number of examples seen,
+    # only the gradient batch differs. The step counts are set so both arms see
+    # exactly the same data.
+    ab_batch_cell = f'''\
+import sys, importlib
+from src.puzzles_eval import run
+EXAMPLES = {steps} * {batch_size}
+for batch in ({batch_size}, 1024):
+    steps = EXAMPLES // batch
+    print("=" * 60, f"\\nBATCH = {{batch}}  ({{steps}} steps, {{EXAMPLES/1e6:.1f}}M examples)", flush=True)
+    sys.argv = ["train_chess", "--config", "configs/chess.yaml", "--device", "cuda",
+                "--max_steps", str(steps), "--batch_size", str(batch),
+                "--n_layer", "{n_layer}", "--n_head", "{n_head}", "--n_embd", "{n_embd}",
+                "--lr", "{lr}", "--min_lr", "{lr / 10}",
+                "--warmup_steps", str(max(100, steps // 40)),
+                "--eval_interval", str(max(200, steps // 8)), "--eval_iters", "50",
+                "--log_interval", str(max(200, steps // 8)),
+                "--out_dir", f"checkpoints/batch{{batch}}",
+                "--data_dir", DATA + "/chess"]
+    import src.train_chess as tc
+    importlib.reload(tc)
+    tc.main()
+    run(f"checkpoints/batch{{batch}}/chess_best.pt", DATA + "/puzzles.csv", {puzzles}, "cuda")
+'''
+
     # A/B on attention: identical budget, one variable changed.
     ab_cell = f'''\
 import sys, importlib
@@ -155,7 +181,8 @@ for causal in ("true", "false"):
 '''
 
     nb = {
-        "cells": ([_cell(setup), _cell(data), _cell(triton_cell)] if triton
+        "cells": ([_cell(setup), _cell(data), _cell(ab_batch_cell)] if ab_batch
+                  else [_cell(setup), _cell(data), _cell(triton_cell)] if triton
                   else [_cell(setup), _cell(data), _cell(ab_cell)] if ab
                   else [_cell(setup), _cell(data), _cell(bench_cell)] if bench
                   else [_cell(setup), _cell(data), _cell(train), _cell(evaluate)]),
@@ -182,6 +209,8 @@ if __name__ == "__main__":
     ap.add_argument("--n_head", type=int, default=8)
     ap.add_argument("--n_embd", type=int, default=384)
     ap.add_argument("--lr", type=float, default=1e-3)
+    ap.add_argument("--ab-batch", action="store_true", dest="ab_batch",
+                    help="A/B two batch sizes at identical examples seen")
     a = ap.parse_args()
     build(a.steps, a.records, a.batch_size, a.puzzles, a.bench, a.compile, a.ab,
-          a.shards, a.triton, a.n_layer, a.n_head, a.n_embd, a.lr)
+          a.shards, a.triton, a.n_layer, a.n_head, a.n_embd, a.lr, a.ab_batch)

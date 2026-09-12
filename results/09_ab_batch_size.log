@@ -1,0 +1,97 @@
+[{"stream_name":"stderr","time":6.146380441,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":6.147024832,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":6.948507086,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.948545032,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.948550924,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.948555264,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.527961883,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.5279936670000005,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.528004649,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.528007528,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":10.857652411,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 84.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":11.059772279,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 84.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":15.387766744,"data":"wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/bench_chess.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'src/kernels/bench_layernorm.py', 'tests/test_layernorm_triton.py', 'configs/chess.yaml']\n"}
+,{"stream_name":"stdout","time":25.001717449,"data":"[data] 1 shard(s) downloaded in 9s (1.34 GB)\n"}
+,{"stream_name":"stdout","time":41.264592481,"data":"[chess] 1,000,000 records\n"}
+,{"stream_name":"stdout","time":57.531973405,"data":"[chess] 2,000,000 records\n"}
+,{"stream_name":"stdout","time":74.454809885,"data":"[chess] 3,000,000 records\n"}
+,{"stream_name":"stdout","time":90.663862395,"data":"[chess] 4,000,000 records\n"}
+,{"stream_name":"stdout","time":107.052747078,"data":"[chess] 5,000,000 records\n"}
+,{"stream_name":"stdout","time":123.229536654,"data":"[chess] 6,000,000 records\n"}
+,{"stream_name":"stdout","time":139.290880887,"data":"[chess] 7,000,000 records\n"}
+,{"stream_name":"stdout","time":155.387690034,"data":"[chess] 8,000,000 records\n"}
+,{"stream_name":"stdout","time":171.546025247,"data":"[chess] 9,000,000 records\n"}
+,{"stream_name":"stdout","time":187.519794833,"data":"[chess] 10,000,000 records\n"}
+,{"stream_name":"stdout","time":203.594271203,"data":"[chess] 11,000,000 records\n"}
+,{"stream_name":"stdout","time":219.727745082,"data":"[chess] 12,000,000 records\n"}
+,{"stream_name":"stdout","time":219.926611723,"data":"[chess] {'train': 11800000, 'val': 200000, 'skipped': 0, 'num_buckets': 64, 'vocab': 1999}\n"}
+,{"stream_name":"stdout","time":219.926641308,"data":"[data] packed in 195s\n"}
+,{"stream_name":"stdout","time":224.26131162,"data":"============================================================ \n"}
+,{"stream_name":"stdout","time":224.261350832,"data":"BATCH = 128  (78125 steps, 10.0M examples)\n"}
+,{"stream_name":"stdout","time":224.798723114,"data":"[amp] bf16 unsupported on Tesla T4 -\u003e using fp16\n"}
+,{"stream_name":"stdout","time":224.798761048,"data":"[data] train 11,800,000 | val 200,000 samples | in RAM: True\n"}
+,{"stream_name":"stdout","time":225.33898168,"data":"[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': False, 'causal': True, 'num_classes': 64}\n"}
+,{"stream_name":"stdout","time":232.943301035,"data":"step      0 | train 4.2093 | val 4.2201 | val acc 2.7% | 3s\n"}
+,{"stream_name":"stdout","time":1010.433453479,"data":"step   9765 | train 3.2846 | val 3.2781 | val acc 12.3% | 780s\n"}
+,{"stream_name":"stdout","time":1010.584475289,"data":"  step 9765 | loss 3.3851 | lr 9.77e-04 | 1,832 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":1787.786839874,"data":"step  19530 | train 3.2386 | val 3.2335 | val acc 12.4% | 1558s\n"}
+,{"stream_name":"stdout","time":1787.978997107,"data":"  step 19530 | loss 3.2316 | lr 8.87e-04 | 1,763 samples/s | MFU 19.6%\n"}
+,{"stream_name":"stdout","time":2567.569814406,"data":"step  29295 | train 3.1680 | val 3.1678 | val acc 13.4% | 2338s\n"}
+,{"stream_name":"stdout","time":2567.736895033,"data":"  step 29295 | loss 2.8682 | lr 7.43e-04 | 1,847 samples/s | MFU 20.6%\n"}
+,{"stream_name":"stdout","time":3350.22646063,"data":"step  39060 | train 3.1610 | val 3.1702 | val acc 12.9% | 3120s\n"}
+,{"stream_name":"stdout","time":3350.303763152,"data":"  step 39060 | loss 3.2529 | lr 5.68e-04 | 1,561 samples/s | MFU 17.4%\n"}
+,{"stream_name":"stdout","time":4135.307543323,"data":"step  48825 | train 3.1339 | val 3.1427 | val acc 13.7% | 3905s\n"}
+,{"stream_name":"stdout","time":4135.482821767,"data":"  step 48825 | loss 3.1051 | lr 3.90e-04 | 1,832 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":4922.013229034,"data":"step  58590 | train 3.0695 | val 3.0918 | val acc 14.2% | 4692s\n"}
+,{"stream_name":"stdout","time":4922.189053938,"data":"  step 58590 | loss 2.9618 | lr 2.38e-04 | 1,779 samples/s | MFU 19.8%\n"}
+,{"stream_name":"stdout","time":5709.500170364,"data":"step  68355 | train 3.0338 | val 3.0458 | val acc 14.6% | 5480s\n"}
+,{"stream_name":"stdout","time":5709.676669524,"data":"  step 68355 | loss 3.0652 | lr 1.36e-04 | 1,792 samples/s | MFU 20.0%\n"}
+,{"stream_name":"stdout","time":6497.844913517,"data":"step  78120 | train 3.0455 | val 3.0364 | val acc 15.0% | 6268s\n"}
+,{"stream_name":"stdout","time":6498.022676983,"data":"  step 78120 | loss 3.0487 | lr 1.00e-04 | 1,767 samples/s | MFU 19.7%\n"}
+,{"stream_name":"stdout","time":6498.435111958,"data":"[done] best val loss 3.0364 -\u003e checkpoints/batch128/chess_best.pt\n"}
+,{"stream_name":"stdout","time":6521.139502647,"data":"[puzzles] depth 1: 100/1000 solved = 10.0%  (checkpoint step 78120, val loss 3.0364)\n"}
+,{"stream_name":"stdout","time":6521.139538383,"data":"  rating     0-499:  40.0%  (n=5)\n"}
+,{"stream_name":"stdout","time":6521.139544113,"data":"  rating   500-999:  20.8%  (n=207)\n"}
+,{"stream_name":"stdout","time":6521.139549304,"data":"  rating 1000-1499:  12.4%  (n=322)\n"}
+,{"stream_name":"stdout","time":6521.139554052,"data":"  rating 1500-1999:   4.6%  (n=263)\n"}
+,{"stream_name":"stdout","time":6521.13955855,"data":"  rating 2000-2499:   1.7%  (n=176)\n"}
+,{"stream_name":"stdout","time":6521.139563175,"data":"  rating 2500-2999:   0.0%  (n=27)\n"}
+,{"stream_name":"stdout","time":6521.139567823,"data":"============================================================ \n"}
+,{"stream_name":"stdout","time":6521.139582531,"data":"BATCH = 1024  (9765 steps, 10.0M examples)\n"}
+,{"stream_name":"stdout","time":6521.339901208,"data":"[amp] bf16 unsupported on Tesla T4 -\u003e using fp16\n"}
+,{"stream_name":"stdout","time":6521.339935756,"data":"[data] train 11,800,000 | val 200,000 samples | in RAM: True\n"}
+,{"stream_name":"stdout","time":6521.613013893,"data":"[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': False, 'causal': True, 'num_classes': 64}\n"}
+,{"stream_name":"stdout","time":6542.33353775,"data":"step      0 | train 4.2141 | val 4.2120 | val acc 2.7% | 21s\n"}
+,{"stream_name":"stdout","time":7277.018568269,"data":"step   1220 | train 3.3611 | val 3.3614 | val acc 10.7% | 756s\n"}
+,{"stream_name":"stdout","time":7277.65838456,"data":"  step 1220 | loss 3.3761 | lr 9.77e-04 | 1,776 samples/s | MFU 19.8%\n"}
+,{"stream_name":"stdout","time":8006.724764789,"data":"step   2440 | train 3.2966 | val 3.2809 | val acc 11.8% | 1485s\n"}
+,{"stream_name":"stdout","time":8007.403589782,"data":"  step 2440 | loss 3.2043 | lr 8.87e-04 | 1,781 samples/s | MFU 19.8%\n"}
+,{"stream_name":"stdout","time":8734.566936315,"data":"step   3660 | train 3.2034 | val 3.2004 | val acc 12.7% | 2213s\n"}
+,{"stream_name":"stdout","time":8735.238153913,"data":"  step 3660 | loss 3.2632 | lr 7.43e-04 | 1,784 samples/s | MFU 19.9%\n"}
+,{"stream_name":"stdout","time":9462.977845693,"data":"step   4880 | train 3.1539 | val 3.1541 | val acc 13.2% | 2942s\n"}
+,{"stream_name":"stdout","time":9463.659150858,"data":"  step 4880 | loss 3.1907 | lr 5.68e-04 | 1,784 samples/s | MFU 19.9%\n"}
+,{"stream_name":"stdout","time":10192.848966438,"data":"step   6100 | train 3.1315 | val 3.1345 | val acc 13.7% | 3671s\n"}
+,{"stream_name":"stdout","time":10193.532286783,"data":"  step 6100 | loss 3.1663 | lr 3.91e-04 | 1,775 samples/s | MFU 19.8%\n"}
+,{"stream_name":"stdout","time":10925.687509431,"data":"step   7320 | train 3.1033 | val 3.1024 | val acc 14.0% | 4404s\n"}
+,{"stream_name":"stdout","time":10926.37808723,"data":"  step 7320 | loss 3.0567 | lr 2.39e-04 | 1,762 samples/s | MFU 19.6%\n"}
+,{"stream_name":"stdout","time":11661.252843663,"data":"step   8540 | train 3.0522 | val 3.0616 | val acc 14.6% | 5140s\n"}
+,{"stream_name":"stdout","time":11661.940356736,"data":"  step 8540 | loss 3.0813 | lr 1.36e-04 | 1,760 samples/s | MFU 19.6%\n"}
+,{"stream_name":"stdout","time":12397.807605655,"data":"step   9760 | train 3.0377 | val 3.0429 | val acc 14.8% | 5876s\n"}
+,{"stream_name":"stdout","time":12398.498232184,"data":"  step 9760 | loss 3.0215 | lr 1.00e-04 | 1,762 samples/s | MFU 19.6%\n"}
+,{"stream_name":"stdout","time":12401.442925266,"data":"[done] best val loss 3.0429 -\u003e checkpoints/batch1024/chess_best.pt\n"}
+,{"stream_name":"stdout","time":12424.024192505,"data":"[puzzles] depth 1: 91/1000 solved = 9.1%  (checkpoint step 9760, val loss 3.0429)\n"}
+,{"stream_name":"stdout","time":12424.024239464,"data":"  rating     0-499:  40.0%  (n=5)\n"}
+,{"stream_name":"stdout","time":12424.024245849,"data":"  rating   500-999:  16.9%  (n=207)\n"}
+,{"stream_name":"stdout","time":12424.024250617,"data":"  rating 1000-1499:  11.8%  (n=322)\n"}
+,{"stream_name":"stdout","time":12424.024254862,"data":"  rating 1500-1999:   5.3%  (n=263)\n"}
+,{"stream_name":"stdout","time":12424.024259122,"data":"  rating 2000-2499:   1.1%  (n=176)\n"}
+,{"stream_name":"stdout","time":12424.024271703,"data":"  rating 2500-2999:   0.0%  (n=27)\n"}
+,{"stream_name":"stderr","time":12429.552466986,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":12429.552513662,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":12429.713722564,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":12429.713755519,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":12430.314644565,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":12430.601235014,"data":"[NbConvertApp] Writing 98387 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":12432.910458162,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":12433.683992627,"data":"[NbConvertApp] Writing 381343 bytes to __results__.html\n"}
+]
