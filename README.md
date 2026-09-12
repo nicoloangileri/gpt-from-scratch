@@ -15,29 +15,45 @@ The model reads a chess position and a candidate move and predicts how good the 
 is, learning from Stockfish 16 annotations (DeepMind's ChessBench). No search, no
 rollouts — one forward pass per legal move, best expected value wins.
 
-**14.7% of Lichess puzzles solved**, after 30.7M training examples on a free Kaggle T4:
+**20.5% of Lichess puzzles solved**, after 50M training examples on a free Kaggle T4:
 
 | rating | solved |
 |---|---|
-| < 500 | 60.0% |
-| 500–999 | 28.0% |
-| 1000–1499 | 19.3% |
-| 1500–1999 | 7.2% |
-| 2000–2499 | 2.8% |
+| < 500 | 80.0% |
+| 500–999 | 38.2% |
+| 1000–1499 | 25.8% |
+| 1500–1999 | 8.7% |
+| 2000–2499 | 9.1% |
 
 The point of the project is the curve, not the single number — how much accuracy an
 hour of free GPU buys:
 
-| examples | T4 hours | puzzles solved | val loss |
-|---|---|---|---|
-| 1M | 0.2 | 5.4% | 3.234 |
-| 6.1M | 0.9 | 9.7% | 3.088 |
-| 20.5M | 3.9 | 10.9% | 2.911 |
-| 30.7M | 5.3 | **14.7%** | 2.751 |
+| model | examples | T4 hours | puzzles solved | val loss |
+|---|---|---|---|---|
+| 15M | 1M | 0.2 | 5.4% | 3.234 |
+| 15M | 6.1M | 0.9 | 9.7% | 3.088 |
+| 15M | 10M | 1.5 | 10.0% | 3.036 |
+| 15M | 20.5M | 3.9 | 10.9% | 2.911 |
+| 15M | 30.7M | 5.3 | 14.7% | 2.751 |
+| 15M | **50M** | 10.0 | **20.5%** | **2.543** |
+| 60M | 15.4M | 9.5 | 11.9% | 3.006 |
 
-For scale: the ChessBench paper reaches 88.9% at a comparable model size, with ~40
-billion examples — about 1300x this budget. Training was still improving when the run
-ended; the limit here is compute, not data.
+The curve is not flattening: the last point gained 5.8 points from 63% more data,
+having gained 5.2 from tripling it before that. Validation loss was still falling at
+the final step and train and val sit on top of each other, so this model is nowhere
+near saturated — and 2145 of the dataset's 2148 shards are untouched.
+
+**Capacity was the wrong lever, and the experiment is in the table.** Chinchilla
+scaling puts the optimum for a 9-hour T4 budget at ~60M parameters; that model scored
+11.9%, worse than the 15M one on a shorter run. At comparable data it is slightly
+better, but it sees half as many examples per hour, so ten million more examples beat
+forty-five million more parameters. That is a statement about a budget where the
+larger model is 4x slower, not about architecture — and it would flip on better
+hardware, which is exactly the kind of thing papers running on clusters never have to
+report.
+
+For scale: the ChessBench paper reaches 88.9% at a comparable model size with ~40
+billion examples, about 800x this budget.
 
 ## Quickstart
 
