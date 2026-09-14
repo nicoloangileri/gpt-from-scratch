@@ -11,6 +11,8 @@ probability falls into. One label per sequence instead of next-token prediction.
 from __future__ import annotations
 
 import argparse
+import os
+import sys
 import time
 from dataclasses import asdict
 from pathlib import Path
@@ -83,15 +85,27 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/chess.yaml")
     ap.add_argument("--data_dir", default=None)
+    ap.add_argument("--resume", default=None, help="last.pt from an earlier session")
+    ap.add_argument("--deadline_s", type=float, default=None,
+                    help="stop cleanly and save last.pt after this many seconds")
+    ap.add_argument("--stop_at_step", type=int, default=None,
+                    help="stop cleanly and save last.pt before running this step")
+    ap.add_argument("--save_every", type=int, default=2000)
     args, overrides = ap.parse_known_args()
+    t_start = time.time()
     cfg = yaml.safe_load(Path(args.config).read_text())
     if args.data_dir:
         cfg["data_dir"] = args.data_dir
     for i in range(0, len(overrides) - 1, 2):
         key = overrides[i].lstrip("-")
-        if key in cfg:
-            cur, raw = cfg[key], overrides[i + 1]
-            cfg[key] = (raw.lower() in ("1", "true", "yes")) if isinstance(cur, bool) else type(cur)(raw)
+        if key not in cfg:
+            # Ignoring it silently is how --max_ram_gb once did nothing at all: the key
+            # was read with cfg.get() but missing from the yaml, so no override landed.
+            print(f"[config] WARNING: unknown option --{key} ignored (not in {args.config})",
+                  flush=True)
+            continue
+        cur, raw = cfg[key], overrides[i + 1]
+        cfg[key] = (raw.lower() in ("1", "true", "yes")) if isinstance(cur, bool) else type(cur)(raw)
 
     torch.manual_seed(cfg["seed"])
     torch.backends.cuda.matmul.allow_tf32 = True
@@ -122,6 +136,42 @@ def main() -> None:
     print(f"[model] {model.num_params()/1e6:.2f}M non-embedding "
           f"({sum(p.numel() for p in model.parameters())/1e6:.2f}M total) | {asdict(model_cfg)}")
     optimizer = model.configure_optimizers(cfg["weight_decay"], cfg["lr"], (cfg["beta1"], cfg["beta2"]))
+    raw_model = model                      # compile wraps it; checkpoints store the raw one
+
+    ckpt_dir = Path(cfg.get("out_dir", "checkpoints"))
+    ckpt_dir.mkdir(parents=True, exist_ok=True)
+    start_step, best_val = 0, float("inf")
+    if args.resume:
+        # A run longer than one Kaggle session (12h) is split in two. Resuming only
+        # the weights would reset AdamW's moment estimates and restart the cosine
+        # schedule, so everything that shapes the next step is restored -- including
+        # the RNG, which picks the batches, so a split run matches an unsplit one
+        # exactly (tests/test_resume.py).
+        state = torch.load(args.resume, map_location=device, weights_only=False)
+        if state["max_steps"] != cfg["max_steps"]:
+            sys.exit(f"--max_steps {cfg['max_steps']} differs from the checkpoint's "
+                     f"{state['max_steps']}: the LR schedule would silently change")
+        if state["cfg"] != asdict(model_cfg):
+            sys.exit("model config differs from the checkpoint's")
+        raw_model.load_state_dict(state["model"])
+        optimizer.load_state_dict(state["optimizer"])
+        scaler.load_state_dict(state["scaler"])
+        start_step, best_val = state["next_step"], state["best_val"]
+        torch.set_rng_state(state["rng"])
+        if device_type == "cuda" and state.get("cuda_rng") is not None:
+            torch.cuda.set_rng_state(state["cuda_rng"])
+        print(f"[resume] from {args.resume}: step {start_step}, best val {best_val:.4f}", flush=True)
+
+    def save_state(next_step: int) -> None:
+        tmp = ckpt_dir / "last.pt.tmp"
+        torch.save({"model": raw_model.state_dict(), "optimizer": optimizer.state_dict(),
+                    "scaler": scaler.state_dict(), "next_step": next_step, "best_val": best_val,
+                    "rng": torch.get_rng_state(),
+                    "cuda_rng": torch.cuda.get_rng_state() if device_type == "cuda" else None,
+                    "cfg": asdict(model_cfg), "max_steps": cfg["max_steps"],
+                    "num_buckets": cfg["num_buckets"]}, tmp)
+        os.replace(tmp, ckpt_dir / "last.pt")     # atomic: a kill mid-save cannot corrupt it
+
     if cfg.get("compile", False):
         model = torch.compile(model)
 
@@ -129,13 +179,23 @@ def main() -> None:
     # MFU reference: T4 peak is 65 TFLOP/s fp16, A100 312 TFLOP/s bf16.
     peak_flops = cfg.get("peak_tflops", 65.0) * 1e12
     flops_per_sample = model.flops_per_sample(SAMPLE_LENGTH)
-    ckpt_dir = Path(cfg.get("out_dir", "checkpoints"))
-    ckpt_dir.mkdir(parents=True, exist_ok=True)
-    best_val = float("inf")
     t0 = t_log = time.time()
-    s_log = 0
+    s_log = start_step
+    stopped = False
 
-    for step in range(cfg["max_steps"] + 1):
+    for step in range(start_step, cfg["max_steps"] + 1):
+        # Saving happens at the top, before this step's eval and update, so the saved
+        # RNG state is exactly the one the next session needs to replay from here.
+        out_of_time = args.deadline_s is not None and time.time() - t_start > args.deadline_s
+        if out_of_time or (args.stop_at_step is not None and step >= args.stop_at_step):
+            save_state(step)
+            stopped = True
+            print(f"[stopped] before step {step} ({'deadline' if out_of_time else 'stop_at_step'}); "
+                  f"resume with --resume {ckpt_dir/'last.pt'}", flush=True)
+            break
+        if args.save_every and step > start_step and step % args.save_every == 0:
+            save_state(step)
+
         for g in optimizer.param_groups:
             g["lr"] = get_lr(step, cfg)
 
@@ -145,7 +205,7 @@ def main() -> None:
                   f"| val acc {m['val_acc']*100:.1f}% | {time.time()-t0:.0f}s", flush=True)
             if m["val"] < best_val and step > 0:
                 best_val = m["val"]
-                torch.save({"model": model.state_dict(), "cfg": asdict(model_cfg),
+                torch.save({"model": raw_model.state_dict(), "cfg": asdict(model_cfg),
                             "step": step, "val": best_val, "val_acc": m["val_acc"],
                             "num_buckets": cfg["num_buckets"]}, ckpt_dir / "chess_best.pt")
             t_log, s_log = time.time(), step
@@ -177,7 +237,9 @@ def main() -> None:
                   f"| {sps:,.0f} samples/s | MFU {mfu*100:.1f}%", flush=True)
             t_log, s_log = now, step + 1
 
-    print(f"[done] best val loss {best_val:.4f} -> {ckpt_dir/'chess_best.pt'}")
+    if not stopped:
+        save_state(cfg["max_steps"] + 1)
+        print(f"[done] best val loss {best_val:.4f} -> {ckpt_dir/'chess_best.pt'}")
 
 
 if __name__ == "__main__":

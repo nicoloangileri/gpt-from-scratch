@@ -33,6 +33,7 @@ grad_accum_steps: 1
 amp: true
 dtype: bf16            # auto-falls back to fp16 on pre-Ampere GPUs (T4)
 compile: false
+max_ram_gb: 4.0      # packed states above this stay on disk (memmap) instead of RAM
 
 # --- logging / eval / checkpoints ---
 log_interval: 250
