@@ -162,7 +162,8 @@ def main() -> None:
 
     B_DIR.mkdir(exist_ok=True)
     (B_DIR / "chess_resume_kernel.ipynb").write_text(json.dumps(_notebook(
-        [setup_cell(), data_cell(a.shards), locate_cell(),
+        # locate first: if the checkpoint is missing, fail before 20 minutes of packing
+        [setup_cell(), locate_cell(), data_cell(a.shards),
          train_cell(max_steps, a.batch_size, resume=True), eval_cell(max_steps, a.puzzles)]), indent=1))
     meta = json.loads((A_DIR / "kernel-metadata.json").read_text())
     meta.update({"id": "nicolangileri/gpt-from-scratch-chess-resume",
