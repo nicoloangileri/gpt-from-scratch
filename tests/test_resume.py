@@ -70,3 +70,28 @@ def test_resume_refuses_a_different_schedule(tmp_path):
            "--resume", str(tmp_path / "part1" / "last.pt")]
     r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     assert r.returncode != 0 and "LR schedule" in (r.stderr + r.stdout)
+
+
+import pytest
+
+
+@pytest.mark.skipif(not torch.backends.mps.is_available(), reason="needs a non-CPU device")
+def test_resume_on_an_accelerator_does_not_crash(tmp_path):
+    """Regression: resuming on a GPU loaded the whole checkpoint onto the device,
+    CPU RNG state included, and torch.set_rng_state refused it. The CPU-only test
+    above could never see it; this one runs the same split on MPS, which moves
+    tensors off the CPU exactly the way CUDA does. (It checks the resume runs, not
+    bit-exactness: MPS kernels are not guaranteed deterministic.)"""
+    data = tmp_path / "data"
+    data.mkdir()
+    _fake_packed_dataset(data)
+    _train(data, tmp_path / "p1", "--device", "mps", "--stop_at_step", "6")
+    cmd = [sys.executable, "-m", "src.train_chess", "--config", "configs/chess.yaml",
+           "--data_dir", str(data), "--device", "mps", "--amp", "false", "--compile", "false",
+           "--n_layer", "1", "--n_head", "2", "--n_embd", "32", "--batch_size", "16",
+           "--max_steps", "24", "--warmup_steps", "3", "--eval_interval", "8",
+           "--eval_iters", "2", "--log_interval", "8", "--save_every", "0",
+           "--out_dir", str(tmp_path / "p2"), "--resume", str(tmp_path / "p1" / "last.pt")]
+    r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr[-800:]
+    assert torch.load(tmp_path / "p2" / "last.pt", weights_only=False)["next_step"] == 25

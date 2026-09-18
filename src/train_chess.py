@@ -147,7 +147,11 @@ def main() -> None:
         # schedule, so everything that shapes the next step is restored -- including
         # the RNG, which picks the batches, so a split run matches an unsplit one
         # exactly (tests/test_resume.py).
-        state = torch.load(args.resume, map_location=device, weights_only=False)
+        # Load on the CPU: with map_location=device the RNG states would land on the
+        # GPU too, and torch.set_rng_state only accepts a CPU ByteTensor (this killed
+        # the first attempt at session B). load_state_dict moves the weights and the
+        # optimizer moments onto the parameters' device by itself.
+        state = torch.load(args.resume, map_location="cpu", weights_only=False)
         if state["max_steps"] != cfg["max_steps"]:
             sys.exit(f"--max_steps {cfg['max_steps']} differs from the checkpoint's "
                      f"{state['max_steps']}: the LR schedule would silently change")
@@ -157,9 +161,9 @@ def main() -> None:
         optimizer.load_state_dict(state["optimizer"])
         scaler.load_state_dict(state["scaler"])
         start_step, best_val = state["next_step"], state["best_val"]
-        torch.set_rng_state(state["rng"])
+        torch.set_rng_state(state["rng"].cpu())
         if device_type == "cuda" and state.get("cuda_rng") is not None:
-            torch.cuda.set_rng_state(state["cuda_rng"])
+            torch.cuda.set_rng_state(state["cuda_rng"].cpu())
         print(f"[resume] from {args.resume}: step {start_step}, best val {best_val:.4f}", flush=True)
 
     def save_state(next_step: int) -> None:

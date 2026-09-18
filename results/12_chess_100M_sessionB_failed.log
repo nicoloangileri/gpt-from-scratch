@@ -1,0 +1,143 @@
+[{"stream_name":"stderr","time":6.738466872,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":6.7385538,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":7.671960048,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.671996355,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.672000157,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.672002923,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.289009217,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.289053426,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.289059096999999,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.289063242,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":12.072324955,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 52.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":12.274553604,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 52.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":16.607001843,"data":"wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'configs/chess.yaml']\n"}
+,{"stream_name":"stdout","time":24.781149243,"data":"[resume] using /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess/checkpoints/last.pt\n"}
+,{"stream_name":"stdout","time":36.044831188,"data":"[data] shard 1/6 downloaded in 11s\n"}
+,{"stream_name":"stdout","time":52.911714996,"data":"[chess] 1,000,000 records\n"}
+,{"stream_name":"stdout","time":69.724070768,"data":"[chess] 2,000,000 records\n"}
+,{"stream_name":"stdout","time":87.316083124,"data":"[chess] 3,000,000 records\n"}
+,{"stream_name":"stdout","time":104.076661486,"data":"[chess] 4,000,000 records\n"}
+,{"stream_name":"stdout","time":120.974890868,"data":"[chess] 5,000,000 records\n"}
+,{"stream_name":"stdout","time":137.813363565,"data":"[chess] 6,000,000 records\n"}
+,{"stream_name":"stdout","time":154.629401198,"data":"[chess] 7,000,000 records\n"}
+,{"stream_name":"stdout","time":171.179243097,"data":"[chess] 8,000,000 records\n"}
+,{"stream_name":"stdout","time":187.837695153,"data":"[chess] 9,000,000 records\n"}
+,{"stream_name":"stdout","time":204.636596639,"data":"[chess] 10,000,000 records\n"}
+,{"stream_name":"stdout","time":221.38017128,"data":"[chess] 11,000,000 records\n"}
+,{"stream_name":"stdout","time":237.849724603,"data":"[chess] 12,000,000 records\n"}
+,{"stream_name":"stdout","time":254.478523956,"data":"[chess] 13,000,000 records\n"}
+,{"stream_name":"stdout","time":271.195315958,"data":"[chess] 14,000,000 records\n"}
+,{"stream_name":"stdout","time":287.898825837,"data":"[chess] 15,000,000 records\n"}
+,{"stream_name":"stdout","time":304.756918241,"data":"[chess] 16,000,000 records\n"}
+,{"stream_name":"stdout","time":329.034358353,"data":"[data] shard 2/6 downloaded in 11s\n"}
+,{"stream_name":"stdout","time":333.019305306,"data":"[chess] 17,000,000 records\n"}
+,{"stream_name":"stdout","time":349.439470387,"data":"[chess] 18,000,000 records\n"}
+,{"stream_name":"stdout","time":366.206080155,"data":"[chess] 19,000,000 records\n"}
+,{"stream_name":"stdout","time":382.760901836,"data":"[chess] 20,000,000 records\n"}
+,{"stream_name":"stdout","time":399.875317794,"data":"[chess] 21,000,000 records\n"}
+,{"stream_name":"stdout","time":416.359211021,"data":"[chess] 22,000,000 records\n"}
+,{"stream_name":"stdout","time":432.837044378,"data":"[chess] 23,000,000 records\n"}
+,{"stream_name":"stdout","time":449.120326533,"data":"[chess] 24,000,000 records\n"}
+,{"stream_name":"stdout","time":465.548528015,"data":"[chess] 25,000,000 records\n"}
+,{"stream_name":"stdout","time":482.046672919,"data":"[chess] 26,000,000 records\n"}
+,{"stream_name":"stdout","time":498.502310559,"data":"[chess] 27,000,000 records\n"}
+,{"stream_name":"stdout","time":514.814698269,"data":"[chess] 28,000,000 records\n"}
+,{"stream_name":"stdout","time":531.075561952,"data":"[chess] 29,000,000 records\n"}
+,{"stream_name":"stdout","time":547.502746017,"data":"[chess] 30,000,000 records\n"}
+,{"stream_name":"stdout","time":563.971245835,"data":"[chess] 31,000,000 records\n"}
+,{"stream_name":"stdout","time":580.4589613,"data":"[chess] 32,000,000 records\n"}
+,{"stream_name":"stdout","time":596.924295927,"data":"[chess] 33,000,000 records\n"}
+,{"stream_name":"stdout","time":613.338662114,"data":"[chess] 34,000,000 records\n"}
+,{"stream_name":"stdout","time":629.759668621,"data":"[chess] 35,000,000 records\n"}
+,{"stream_name":"stdout","time":646.425050286,"data":"[chess] 36,000,000 records\n"}
+,{"stream_name":"stdout","time":662.969067047,"data":"[chess] 37,000,000 records\n"}
+,{"stream_name":"stdout","time":696.124926733,"data":"[data] shard 3/6 downloaded in 17s\n"}
+,{"stream_name":"stdout","time":697.396323118,"data":"[chess] 38,000,000 records\n"}
+,{"stream_name":"stdout","time":714.188110812,"data":"[chess] 39,000,000 records\n"}
+,{"stream_name":"stdout","time":731.196255544,"data":"[chess] 40,000,000 records\n"}
+,{"stream_name":"stdout","time":747.796778264,"data":"[chess] 41,000,000 records\n"}
+,{"stream_name":"stdout","time":764.302596496,"data":"[chess] 42,000,000 records\n"}
+,{"stream_name":"stdout","time":780.66631608,"data":"[chess] 43,000,000 records\n"}
+,{"stream_name":"stdout","time":797.039488259,"data":"[chess] 44,000,000 records\n"}
+,{"stream_name":"stdout","time":813.736504273,"data":"[chess] 45,000,000 records\n"}
+,{"stream_name":"stdout","time":830.278966774,"data":"[chess] 46,000,000 records\n"}
+,{"stream_name":"stdout","time":846.75323786,"data":"[chess] 47,000,000 records\n"}
+,{"stream_name":"stdout","time":863.201381108,"data":"[chess] 48,000,000 records\n"}
+,{"stream_name":"stdout","time":879.529351159,"data":"[chess] 49,000,000 records\n"}
+,{"stream_name":"stdout","time":895.8610579,"data":"[chess] 50,000,000 records\n"}
+,{"stream_name":"stdout","time":905.83808888,"data":"[data] shard 4/6 downloaded in 4s\n"}
+,{"stream_name":"stdout","time":917.081864254,"data":"[chess] 51,000,000 records\n"}
+,{"stream_name":"stdout","time":933.641515118,"data":"[chess] 52,000,000 records\n"}
+,{"stream_name":"stdout","time":950.306359854,"data":"[chess] 53,000,000 records\n"}
+,{"stream_name":"stdout","time":966.726772984,"data":"[chess] 54,000,000 records\n"}
+,{"stream_name":"stdout","time":983.059393372,"data":"[chess] 55,000,000 records\n"}
+,{"stream_name":"stdout","time":999.550247299,"data":"[chess] 56,000,000 records\n"}
+,{"stream_name":"stdout","time":1002.103974847,"data":"[data] shard 5/6 downloaded in 2s\n"}
+,{"stream_name":"stdout","time":1017.702519749,"data":"[chess] 57,000,000 records\n"}
+,{"stream_name":"stdout","time":1034.229943109,"data":"[chess] 58,000,000 records\n"}
+,{"stream_name":"stdout","time":1069.387803759,"data":"[data] shard 6/6 downloaded in 22s\n"}
+,{"stream_name":"stdout","time":1073.014452583,"data":"[chess] 59,000,000 records\n"}
+,{"stream_name":"stdout","time":1090.072756369,"data":"[chess] 60,000,000 records\n"}
+,{"stream_name":"stdout","time":1106.752842766,"data":"[chess] 61,000,000 records\n"}
+,{"stream_name":"stdout","time":1123.25816508,"data":"[chess] 62,000,000 records\n"}
+,{"stream_name":"stdout","time":1139.730498849,"data":"[chess] 63,000,000 records\n"}
+,{"stream_name":"stdout","time":1156.195245476,"data":"[chess] 64,000,000 records\n"}
+,{"stream_name":"stdout","time":1172.660078875,"data":"[chess] 65,000,000 records\n"}
+,{"stream_name":"stdout","time":1189.053784474,"data":"[chess] 66,000,000 records\n"}
+,{"stream_name":"stdout","time":1205.716160933,"data":"[chess] 67,000,000 records\n"}
+,{"stream_name":"stdout","time":1222.27603589,"data":"[chess] 68,000,000 records\n"}
+,{"stream_name":"stdout","time":1238.869988958,"data":"[chess] 69,000,000 records\n"}
+,{"stream_name":"stdout","time":1255.214551878,"data":"[chess] 70,000,000 records\n"}
+,{"stream_name":"stdout","time":1271.657554817,"data":"[chess] 71,000,000 records\n"}
+,{"stream_name":"stdout","time":1288.057449841,"data":"[chess] 72,000,000 records\n"}
+,{"stream_name":"stdout","time":1304.723877113,"data":"[chess] 73,000,000 records\n"}
+,{"stream_name":"stdout","time":1321.276115389,"data":"[chess] 74,000,000 records\n"}
+,{"stream_name":"stdout","time":1338.294128295,"data":"[chess] 75,000,000 records\n"}
+,{"stream_name":"stdout","time":1343.177019446,"data":"[chess] {'train': 75076713, 'val': 200000, 'skipped': 0, 'num_buckets': 64, 'vocab': 1999}\n"}
+,{"stream_name":"stdout","time":1343.177056746,"data":"[data] packed in 1318s\n"}
+,{"stream_name":"stdout","time":1343.178553762,"data":"[ram] 31.4 GB available, train states 5.8 GB -\u003e in RAM\n"}
+,{"stream_name":"stdout","time":1343.197024185,"data":"[session] training budget 10.88h\n"}
+,{"stream_name":"stdout","time":1343.754834213,"data":"[amp] bf16 unsupported on Tesla T4 -\u003e using fp16\n"}
+,{"stream_name":"stdout","time":1343.754881315,"data":"[data] train 75,076,713 | val 200,000 samples | in RAM: True\n"}
+,{"stream_name":"stdout","time":1344.307100594,"data":"[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': False, 'causal': True, 'num_classes': 64}\n"}
+,{"stream_name":"stderr","time":1353.440322016,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":1353.440358752,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":1353.440364677,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":1353.440475573,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":1353.440514154,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":1353.44072156,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":1353.440947221,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":1353.440956842,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":1353.440961214,"data":"Exception encountered at \"In [4]\":\n"}
+,{"stream_name":"stderr","time":1353.440965175,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":1353.440969103,"data":"TypeError                                 Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":1353.440972976,"data":"/tmp/ipykernel_22/4201072973.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":1353.440977184,"data":"      9             \"--save_every\", \"2000\", \"--deadline_s\", str(budget)] + [\"--resume\", RESUME]\n"}
+,{"stream_name":"stderr","time":1353.44098163,"data":"     10 from src.train_chess import main\n"}
+,{"stream_name":"stderr","time":1353.440985591,"data":"---\u003e 11 main()\n"}
+,{"stream_name":"stderr","time":1353.440989454,"data":"\n"}
+,{"stream_name":"stderr","time":1353.44099306,"data":"/kaggle/working/src/train_chess.py in main()\n"}
+,{"stream_name":"stderr","time":1353.440997556,"data":"    158         scaler.load_state_dict(state[\"scaler\"])\n"}
+,{"stream_name":"stderr","time":1353.441002126,"data":"    159         start_step, best_val = state[\"next_step\"], state[\"best_val\"]\n"}
+,{"stream_name":"stderr","time":1353.441007596,"data":"--\u003e 160         torch.set_rng_state(state[\"rng\"])\n"}
+,{"stream_name":"stderr","time":1353.441012538,"data":"    161         if device_type == \"cuda\" and state.get(\"cuda_rng\") is not None:\n"}
+,{"stream_name":"stderr","time":1353.441017271,"data":"    162             torch.cuda.set_rng_state(state[\"cuda_rng\"])\n"}
+,{"stream_name":"stderr","time":1353.44102131,"data":"\n"}
+,{"stream_name":"stderr","time":1353.441024992,"data":"/usr/local/lib/python3.12/dist-packages/torch/random.py in set_rng_state(new_state)\n"}
+,{"stream_name":"stderr","time":1353.441028909,"data":"     17         new_state (torch.ByteTensor): The desired state\n"}
+,{"stream_name":"stderr","time":1353.441032752,"data":"     18     \"\"\"\n"}
+,{"stream_name":"stderr","time":1353.441036498,"data":"---\u003e 19     default_generator.set_state(new_state)\n"}
+,{"stream_name":"stderr","time":1353.441040374,"data":"     20 \n"}
+,{"stream_name":"stderr","time":1353.441044016,"data":"     21 \n"}
+,{"stream_name":"stderr","time":1353.441047632,"data":"\n"}
+,{"stream_name":"stderr","time":1353.441051321,"data":"TypeError: RNG state must be a torch.ByteTensor\n"}
+,{"stream_name":"stderr","time":1353.441055137,"data":"\n"}
+,{"stream_name":"stderr","time":1355.654179118,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1355.654217719,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1355.816392187,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1355.816416401,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1356.413009279,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":1356.720902625,"data":"[NbConvertApp] Writing 94541 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":1359.109021067,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1359.957024388,"data":"[NbConvertApp] Writing 382438 bytes to __results__.html\n"}
+]
