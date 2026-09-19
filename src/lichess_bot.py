@@ -22,6 +22,7 @@ import random
 import sys
 import threading
 import time
+from pathlib import Path
 
 import chess
 import requests
@@ -50,10 +51,27 @@ def should_accept(challenge: dict) -> tuple[bool, str]:
     return True, ""
 
 
+TOKEN_FILE = Path.home() / ".config" / "lichess" / "token"
+
+
 def _token() -> str:
-    token = os.environ.get("LICHESS_TOKEN")
+    """The token, from the environment or from a file -- never from an argument.
+
+    Exporting it in the right shell is easy to get wrong (an empty read leaves the
+    variable set to nothing and the bot exits), so a file is the durable option:
+    written once, readable only by its owner, never in the repo or in shell history.
+    """
+    token = (os.environ.get("LICHESS_TOKEN") or "").strip()
+    if not token and TOKEN_FILE.exists():
+        mode = TOKEN_FILE.stat().st_mode & 0o077
+        if mode:
+            sys.exit(f"{TOKEN_FILE} is readable by others: chmod 600 it first")
+        token = TOKEN_FILE.read_text().strip()
+        if token:
+            print(f"[bot] token read from {TOKEN_FILE}", flush=True)
     if not token:
-        sys.exit("LICHESS_TOKEN is not set. Run: export LICHESS_TOKEN='your-token'")
+        sys.exit(f"No token. Either export LICHESS_TOKEN, or put it in {TOKEN_FILE} "
+                 f"(chmod 600). Note that an empty export counts as missing.")
     return token
 
 

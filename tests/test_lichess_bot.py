@@ -39,3 +39,34 @@ def test_declines_correspondence_and_unlimited():
 def test_variant_is_checked_before_the_clock():
     """A fast Chess960 challenge is declined as a variant, not as too fast."""
     assert should_accept(challenge(variant="chess960", limit=30)) == (False, "variant")
+
+
+def test_token_comes_from_the_environment(monkeypatch):
+    from src import lichess_bot
+    monkeypatch.setenv("LICHESS_TOKEN", "  abc123  ")
+    assert lichess_bot._token() == "abc123"
+
+
+def test_empty_export_is_treated_as_missing(monkeypatch, tmp_path):
+    from src import lichess_bot
+    monkeypatch.setenv("LICHESS_TOKEN", "   ")
+    monkeypatch.setattr(lichess_bot, "TOKEN_FILE", tmp_path / "absent")
+    with pytest.raises(SystemExit) as e:
+        lichess_bot._token()
+    assert "No token" in str(e.value)
+
+
+def test_token_file_is_used_and_must_be_private(monkeypatch, tmp_path):
+    from src import lichess_bot
+    monkeypatch.delenv("LICHESS_TOKEN", raising=False)
+    f = tmp_path / "token"
+    f.write_text("lip_secret\n")
+    monkeypatch.setattr(lichess_bot, "TOKEN_FILE", f)
+
+    f.chmod(0o644)
+    with pytest.raises(SystemExit) as e:
+        lichess_bot._token()
+    assert "readable by others" in str(e.value)
+
+    f.chmod(0o600)
+    assert lichess_bot._token() == "lip_secret"
