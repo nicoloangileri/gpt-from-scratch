@@ -15,45 +15,62 @@ The model reads a chess position and a candidate move and predicts how good the 
 is, learning from Stockfish 16 annotations (DeepMind's ChessBench). No search, no
 rollouts — one forward pass per legal move, best expected value wins.
 
-**20.5% of Lichess puzzles solved**, after 50M training examples on a free Kaggle T4:
+**49.1% of Lichess puzzles solved** on all 10,000 test puzzles, after 100M training
+examples on a free Kaggle T4. The number only means something next to a baseline, so
+here is one: a ten-line rule that grabs the most valuable capture, or mates when it
+can, solves **27.4%** — and picking legal moves at random solves 0.6%.
 
-| rating | solved |
-|---|---|
-| < 500 | 80.0% |
-| 500–999 | 38.2% |
-| 1000–1499 | 25.8% |
-| 1500–1999 | 8.7% |
-| 2000–2499 | 9.1% |
+| rating | random | grab-the-piece | 50M examples | **100M examples** |
+|---|---|---|---|---|
+| < 500 | — | 74.3% | 74.3% | **93.2%** |
+| 500–999 | — | 58.3% | 61.8% | **84.4%** |
+| 1000–1499 | — | 32.0% | 34.6% | **61.6%** |
+| 1500–1999 | — | 12.0% | 14.5% | **30.3%** |
+| 2000–2499 | — | 2.8% | 6.2% | **10.8%** |
+| 2500+ | — | 1.1% | 2.5% | **3.2%** |
+| **all 10,000** | **0.6%** | **27.4%** | **30.3%** | **49.1%** |
+
+The gap widens with difficulty — nearly 4x the heuristic above 2000 — which is the
+part that cannot be explained by capturing hanging pieces. Note also what the baseline
+exposes: **every model below 50M examples scores worse than the ten-line rule.** One
+puzzle in five needs a single move, and it is usually a capture.
 
 The point of the project is the curve, not the single number — how much accuracy an
 hour of free GPU buys:
 
 | model | examples | T4 hours | puzzles solved | val loss |
 |---|---|---|---|---|
-| 15M | 1M | 0.2 | 5.4% | 3.234 |
-| 15M | 6.1M | 0.9 | 9.7% | 3.088 |
-| 15M | 10M | 1.5 | 10.0% | 3.036 |
-| 15M | 20.5M | 3.9 | 10.9% | 2.911 |
-| 15M | 30.7M | 5.3 | 14.7% | 2.751 |
-| 15M | **50M** | 10.0 | **20.5%** | **2.543** |
-| 60M | 15.4M | 9.5 | 11.9% | 3.006 |
+| 15M | 1M | 0.2 | 20.5% | 3.234 |
+| 15M | 6.1M | 0.9 | 21.5% | 3.088 |
+| 15M | 10M | 1.5 | 21.8% | 3.036 |
+| 15M | 20.5M | 3.9 | 21.9% | 2.911 |
+| 15M | 30.7M | 5.3 | 24.6% | 2.751 |
+| 15M | 50M | 10.0 | 30.3% | 2.543 |
+| 15M | **100M** | 21.4 | **49.1%** | **2.242** |
+| 60M | 15.4M | 9.5 | 21.8% | 3.006 |
 
-The curve is not flattening: the last point gained 5.8 points from 63% more data,
-having gained 5.2 from tripling it before that. Validation loss was still falling at
-the final step and train and val sit on top of each other, so this model is nowhere
-near saturated — and 2145 of the dataset's 2148 shards are untouched.
+(Rows up to 30.7M are measured on the first 2,000 puzzles, the rest on all 10,000.)
+
+The curve is not flattening: the last point nearly doubled the score by doubling the
+data. Train and validation loss sit on top of each other and were still falling at the
+final step, so the model is nowhere near saturated — and 2,142 of the dataset's 2,148
+shards are untouched.
+
+Per move, on 400 held-out positions: the model picks Stockfish's best move **38.0%** of
+the time (29.5% at 50M, 20.0% at 30.7M), gives up **3.6 points** of win probability per
+move on average (8.7 at 30.7M), and blunders more than 15 points on **5.5%** of moves,
+down from 17.5% — one every eighteen moves instead of one every six.
 
 **Capacity was the wrong lever, and the experiment is in the table.** Chinchilla
 scaling puts the optimum for a 9-hour T4 budget at ~60M parameters; that model scored
-11.9%, worse than the 15M one on a shorter run. At comparable data it is slightly
-better, but it sees half as many examples per hour, so ten million more examples beat
-forty-five million more parameters. That is a statement about a budget where the
-larger model is 4x slower, not about architecture — and it would flip on better
-hardware, which is exactly the kind of thing papers running on clusters never have to
-report.
+21.8%, level with a 15M model trained on 10M examples and below the same model at
+30.7M. It is not that scaling laws are wrong: the larger model is 4x slower, so it
+sees far fewer examples per hour, and on this budget data returns more than parameters.
+That would flip on better hardware — exactly the kind of thing papers running on
+clusters never have to report.
 
 For scale: the ChessBench paper reaches 88.9% at a comparable model size with ~40
-billion examples, about 800x this budget.
+billion examples, about 400x this budget.
 
 ## Quickstart
 
@@ -109,15 +126,29 @@ Documented because the mistakes were more instructive than the successes:
 
 - `torch.cuda.is_bf16_supported()` counts emulation and answers `True` on a T4, where
   bf16 is emulated and slow. Detect the card by compute capability instead: worth 4.1x.
-- ChessBench's `puzzles.csv` is pre-advanced past the opponent's move, so `Moves[0]`
-  is already the move to find. Reading it as raw Lichess scores the model on the
-  opponent's forced replies and quietly divides accuracy by ~4.5 — from 14.7% to 2.4%.
-  The tell was accuracy that stayed *flat* across puzzle difficulty.
+- The same metric was got wrong twice, in opposite directions. Lichess puzzle files
+  give the position *before* the opponent's move, so the solver plays the odd plies.
+  A first version read it right; a "fix" then flipped it, on the evidence that
+  `Moves[0]` matched the first move of the `Solution` column — which is that same
+  line written in another notation, so the check could only agree. For ten days every
+  reported accuracy was the model guessing the *opponent's* moves. What settled it:
+  ChessBench's file is byte-identical to `lichess_db_puzzle` for the same PuzzleId,
+  and DeepMind's own evaluator asks the engine on odd plies. The lesson is not about
+  chess: **a test that compares a field with a restatement of itself will certify
+  anything.** The replacement asks who ends up checkmated.
+- A metric without a baseline is not a measurement. Until a ten-line heuristic was run
+  on the same puzzles, there was no way to know that most models here were below it.
 - Timing a training step without `torch.cuda.synchronize()` measures how long the CPU
   took to *queue* the work. It reported an MFU of 882%.
 - Benchmarking configurations in one process lets the first one leave the allocator
   fragmented; a larger batch then looks slower, and OOMs on an allocation the card
   has room for.
+- A CPU-only test cannot catch a device-placement bug: resuming loaded the whole
+  checkpoint onto the GPU, RNG state included, and `torch.set_rng_state` refused it.
+  Running the same test on MPS reproduced it locally.
+- A mutation check can be fooled by a stale `.pyc`: the mutated and restored files had
+  the same size and the same mtime second, so Python reused the old bytecode and the
+  "restored" run still failed.
 
 ## Layout
 
