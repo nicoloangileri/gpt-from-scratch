@@ -81,16 +81,53 @@ def test_bag_reader_honours_limit(tmp_path):
     assert len(list(iter_action_value(path, limit=1))) == 1
 
 
-def test_puzzle_lines_start_with_the_solver_move():
-    """ChessBench's puzzles.csv is pre-advanced: Moves[0] is already ours.
+def test_real_mate_puzzle_is_delivered_by_the_solver():
+    """Semantic check of the puzzle format, on real data (lichess_db_puzzle 000Zo).
 
-    Regression guard: reading it as raw Lichess (opponent moves first) scores the
-    model on the opponent's forced replies instead of the key moves, which quietly
-    divides the reported accuracy by ~5.
+    Replaces a test that compared Moves[0] with the first SAN of ChessBench's
+    Solution column -- a tautology, since that column is just the whole Moves line in
+    SAN, and it had certified the wrong parity. Here the check cannot agree with
+    itself: in a mate puzzle the side that ends up mated is the opponent, so if the
+    side to move in the FEN is the one mated, the FEN precedes the opponent's move
+    and the solver plays the odd plies.
     """
-    fen = "4r1k1/2p1qpp1/3p4/1p1P2PQ/1P5b/3R3P/2PBr3/5RK1 b - - 6 26"
-    moves = "h4f2 f1f2 e2f2 g1f2".split()
-    first_san_of_solution = "Bf2+"
-
+    fen = "4r3/1k6/pp3r2/1b2P2p/3R1p2/P1R2P2/1P4PP/6K1 w - - 0 35"
     board = chess.Board(fen)
-    assert board.san(chess.Move.from_uci(moves[0])) == first_san_of_solution
+    first_mover = board.turn
+    for uci in "e5f6 e8e1 g1f2 e1f1".split():
+        board.push(chess.Move.from_uci(uci))
+    assert board.is_checkmate()
+    assert board.turn == first_mover        # the side to move when mated = the loser
+
+
+def test_solves_line_plays_the_opponent_first_and_checks_the_solver():
+    from src.puzzles_eval import solves_line
+    fen = "4r3/1k6/pp3r2/1b2P2p/3R1p2/P1R2P2/1P4PP/6K1 w - - 0 35"
+    moves = "e5f6 e8e1 g1f2 e1f1".split()
+    # an oracle that knows the solution for each position it is shown
+    board, answer = chess.Board(fen), {}
+    for ply, uci in enumerate(moves):
+        if ply % 2 == 1:
+            answer[board.fen()] = uci
+        board.push(chess.Move.from_uci(uci))
+    asked = []
+
+    def oracle(b):
+        asked.append(b.fen())
+        return answer[b.fen()]
+
+    assert solves_line(chess.Board(fen), moves, oracle)
+    assert len(asked) == 2                   # asked exactly the two solver moves
+    assert not solves_line(chess.Board(fen), moves,
+                           lambda b: next(m.uci() for m in b.legal_moves
+                                          if m.uci() != answer[b.fen()]))
+
+
+def test_any_mate_in_one_counts_as_solved():
+    from src.puzzles_eval import solves_line
+    fen, moves = "6k1/5ppp/8/8/8/8/8/RR4K1 b - - 0 1", ["g8h8", "a1a8"]
+    board = chess.Board(fen)
+    board.push(chess.Move.from_uci("g8h8"))
+    for mate in ("a1a8", "b1b8"):                       # the fixture has two mates
+        b = board.copy(); b.push(chess.Move.from_uci(mate)); assert b.is_checkmate()
+    assert solves_line(chess.Board(fen), moves, lambda b: "b1b8")

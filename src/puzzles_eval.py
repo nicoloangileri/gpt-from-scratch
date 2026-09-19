@@ -2,12 +2,20 @@
 
     python -m src.puzzles_eval --ckpt checkpoints/chess_best.pt --num 1000
 
-A puzzle gives a position and a forced winning line. In this file the FEN has
-already been advanced past the opponent's move, so `Moves[0]` IS the first move
-to find (verified against the SAN in the Solution column): the solver plays on
-even plies, the opponent's forced replies on odd ones. The puzzle counts as
-solved only if every solver move is found (the metric used in the ChessBench
-paper, so numbers are comparable).
+A puzzle gives a position and a forced winning line, in raw Lichess format: the
+FEN is the position BEFORE the opponent's move, `Moves[0]` is that opponent's
+move (usually the mistake that allows the tactic), and the solver plays on the
+odd plies. The puzzle counts as solved only if every solver move is found, or if
+a different move also mates in one -- Lichess accepts any mate. This matches
+DeepMind's searchless_chess/src/puzzles.py, so numbers are comparable.
+
+History, because the mistake was made here once: ChessBench's puzzles.csv is NOT
+pre-advanced. Its FEN and Moves are byte-identical to lichess_db_puzzle for the
+same PuzzleId (checked on 9,995 of the 10,000 test puzzles). A 9/9 "fix" read
+Moves[0] as the solver's move after checking it against the Solution column --
+but that column is simply the SAN of the whole Moves sequence, so the check was a
+tautology, and every puzzle accuracy reported from then until 19/9 asked the model
+to predict the opponent's moves instead of the solution.
 
 Scoring a position means evaluating each legal move: the model returns a
 distribution over win-probability buckets for the (position, move) pair, and we
@@ -88,6 +96,23 @@ def best_move(model, centres, board: chess.Board, device: str,
     return moves[int(values.argmax())]
 
 
+def solves_line(board: chess.Board, moves: list[str], pick) -> bool:
+    """True if `pick` finds every solver move of a raw-Lichess puzzle line.
+
+    Ply 0 is the opponent's move and is simply played; the solver moves on odd
+    plies. A different move that mates in one also solves it, as on Lichess. Same
+    logic as DeepMind's evaluate_puzzle_from_board.
+    """
+    for ply, uci in enumerate(moves):
+        if ply % 2 == 1:
+            predicted = pick(board)
+            if predicted != uci:
+                board.push(chess.Move.from_uci(predicted))
+                return board.is_checkmate()
+        board.push(chess.Move.from_uci(uci))
+    return True
+
+
 def run(ckpt: str, puzzles_csv: str, num: int, device: str, depth: int = 1) -> dict:
     """depth > 1 puts alpha-beta search on top of the network (src/search.py)."""
     model, centres, ck = load_model(ckpt, device)
@@ -103,15 +128,7 @@ def run(ckpt: str, puzzles_csv: str, num: int, device: str, depth: int = 1) -> d
         for row in csv.DictReader(fh):
             if attempted >= num:
                 break
-            board = chess.Board(row["FEN"])
-            line = row["Moves"].split()
-            ok = True
-            for ply, uci in enumerate(line):
-                if ply % 2 == 0:            # our move: the model has to find it
-                    if pick(board) != uci:
-                        ok = False
-                        break
-                board.push(chess.Move.from_uci(uci))
+            ok = solves_line(chess.Board(row["FEN"]), row["Moves"].split(), pick)
             attempted += 1
             solved += ok
             band = f"{int(row['Rating']) // 500 * 500}-{int(row['Rating']) // 500 * 500 + 499}"
