@@ -95,3 +95,41 @@ def test_resume_on_an_accelerator_does_not_crash(tmp_path):
     r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     assert r.returncode == 0, r.stderr[-800:]
     assert torch.load(tmp_path / "p2" / "last.pt", weights_only=False)["next_step"] == 25
+
+
+def test_init_from_takes_the_weights_and_restarts_the_schedule(tmp_path):
+    """Warm restart: same weights, fresh optimizer and fresh LR schedule.
+
+    Used to continue a finished run with more data. --resume would keep the old
+    schedule, which has already annealed to min_lr, so training would crawl.
+    """
+    data = tmp_path / "data"
+    data.mkdir()
+    _fake_packed_dataset(data)
+    _train(data, tmp_path / "first")
+    source = tmp_path / "first" / "last.pt"
+    before = torch.load(source, weights_only=False)
+
+    _train(data, tmp_path / "warm", "--init_from", str(source), "--max_steps", "8")
+    warm = torch.load(tmp_path / "warm" / "last.pt", weights_only=False)
+
+    assert warm["next_step"] == 9                      # fresh run, not continued at 25
+    assert torch.load(source, weights_only=False)["next_step"] == before["next_step"]
+    # the source file is untouched: experiments never overwrite the model they start from
+    for name, tensor in before["model"].items():
+        assert torch.equal(tensor, torch.load(source, weights_only=False)["model"][name])
+
+
+def test_init_from_and_resume_are_mutually_exclusive(tmp_path):
+    data = tmp_path / "data"
+    data.mkdir()
+    _fake_packed_dataset(data)
+    _train(data, tmp_path / "first", "--stop_at_step", "6")
+    ckpt = str(tmp_path / "first" / "last.pt")
+    r = subprocess.run([sys.executable, "-m", "src.train_chess", "--config", "configs/chess.yaml",
+                        "--data_dir", str(data), "--device", "cpu", "--amp", "false",
+                        "--n_layer", "1", "--n_head", "2", "--n_embd", "32", "--batch_size", "16",
+                        "--max_steps", "24", "--out_dir", str(tmp_path / "x"),
+                        "--init_from", ckpt, "--resume", ckpt],
+                       cwd=ROOT, capture_output=True, text=True)
+    assert r.returncode != 0 and "mutually exclusive" in (r.stdout + r.stderr)

@@ -86,6 +86,8 @@ def main() -> None:
     ap.add_argument("--config", default="configs/chess.yaml")
     ap.add_argument("--data_dir", default=None)
     ap.add_argument("--resume", default=None, help="last.pt from an earlier session")
+    ap.add_argument("--init_from", default=None,
+                    help="start from these weights with a fresh schedule (warm restart)")
     ap.add_argument("--deadline_s", type=float, default=None,
                     help="stop cleanly and save last.pt after this many seconds")
     ap.add_argument("--stop_at_step", type=int, default=None,
@@ -141,7 +143,21 @@ def main() -> None:
     ckpt_dir = Path(cfg.get("out_dir", "checkpoints"))
     ckpt_dir.mkdir(parents=True, exist_ok=True)
     start_step, best_val = 0, float("inf")
+    if args.init_from:
+        # Warm restart: take the weights, leave everything else new. Unlike --resume
+        # this starts a fresh cosine schedule (the finished run annealed to min_lr, so
+        # continuing on the old one would train at the floor) and fresh AdamW moments.
+        # The source checkpoint is only read, never written to.
+        init = torch.load(args.init_from, map_location="cpu", weights_only=False)
+        if init["cfg"] != asdict(model_cfg):
+            sys.exit(f"model config differs from {args.init_from}")
+        raw_model.load_state_dict(init["model"])
+        print(f"[init] weights from {args.init_from} "
+              f"(its step {init.get('step', init.get('next_step', '?'))}), fresh schedule",
+              flush=True)
     if args.resume:
+        if args.init_from:
+            sys.exit("--init_from and --resume are mutually exclusive")
         # A run longer than one Kaggle session (12h) is split in two. Resuming only
         # the weights would reset AdamW's moment estimates and restart the cosine
         # schedule, so everything that shapes the next step is restored -- including

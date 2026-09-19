@@ -23,8 +23,6 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-A_DIR = ROOT / "kaggle_chess"
-B_DIR = ROOT / "kaggle_chess_resume"
 SOURCES = [
     "src/__init__.py", "src/model.py", "src/data.py", "src/train.py",
     "src/chess_data.py", "src/train_chess.py", "src/puzzles_eval.py",
@@ -106,17 +104,30 @@ print(f"[ram] {{avail_gb:.1f}} GB available, train states {{states_gb:.1f}} GB -
 '''
 
 
-def train_cell(max_steps: int, batch: int, resume: bool) -> str:
+def init_cell(source_kernel: str) -> str:
+    """Find the checkpoint to warm-start from, mounted from another kernel's output."""
+    return f'''\
+import glob, torch
+found = [p for p in glob.glob("/kaggle/input/**/*.pt", recursive=True) if "chess_best" in p]
+assert found, "no chess_best.pt under /kaggle/input: is {source_kernel} attached?"
+INIT = found[0]
+print("[init] warm-starting from", INIT, flush=True)
+'''
+
+
+def train_cell(max_steps: int, batch: int, resume: bool, init: bool = False,
+               lr: float | None = None) -> str:
     return f'''\
 import sys, time
 budget = {SESSION_HOURS} * 3600 - (time.time() - T0)
 print(f"[session] training budget {{budget / 3600:.2f}}h", flush=True)
 sys.argv = ["train_chess", "--config", "configs/chess.yaml", "--device", "cuda",
             "--data_dir", DATA + "/chess", "--out_dir", "checkpoints",
-            "--max_steps", "{max_steps}", "--batch_size", "{batch}", "--compile", "true",
+            "--max_steps", "{max_steps}", "--batch_size", "{batch}", "--compile", "true",{f'''
+            "--lr", "{lr}", "--min_lr", "{lr / 10}",''' if lr else ''}
             "--warmup_steps", "{max(100, max_steps // 40)}", "--max_ram_gb", str(MAX_RAM_GB),
             "--eval_interval", "4000", "--eval_iters", "50", "--log_interval", "1000",
-            "--save_every", "2000", "--deadline_s", str(budget)]{' + ["--resume", RESUME]' if resume else ''}
+            "--save_every", "2000", "--deadline_s", str(budget)]{' + ["--resume", RESUME]' if resume else ''}{' + ["--init_from", INIT]' if init else ''}
 from src.train_chess import main
 main()
 '''
@@ -154,22 +165,40 @@ def main() -> None:
     ap.add_argument("--batch_size", type=int, default=1024)
     ap.add_argument("--shards", type=int, default=6)
     ap.add_argument("--puzzles", type=int, default=1000)
+    ap.add_argument("--dir-a", dest="dir_a", default="kaggle_chess")
+    ap.add_argument("--dir-b", dest="dir_b", default="kaggle_chess_resume")
+    ap.add_argument("--id-a", dest="id_a", default="nicolangileri/gpt-from-scratch-chess")
+    ap.add_argument("--id-b", dest="id_b", default="nicolangileri/gpt-from-scratch-chess-resume")
+    ap.add_argument("--lr", type=float, default=None,
+                    help="peak LR; a warm restart wants less than a fresh run")
+    ap.add_argument("--init-from-kernel", dest="init_from_kernel", default=None,
+                    help="kernel whose output holds chess_best.pt to warm-start from")
     a = ap.parse_args()
     max_steps = a.examples // a.batch_size
+    A_DIR, B_DIR = ROOT / a.dir_a, ROOT / a.dir_b
+    A_DIR.mkdir(exist_ok=True)
 
-    (A_DIR / "chess_kernel.ipynb").write_text(json.dumps(_notebook(
-        [setup_cell(), data_cell(a.shards), train_cell(max_steps, a.batch_size, resume=False)]), indent=1))
+    warm = a.init_from_kernel is not None
+    cells_a = [setup_cell()]
+    if warm:
+        cells_a.append(init_cell(a.init_from_kernel))
+    cells_a += [data_cell(a.shards), train_cell(max_steps, a.batch_size, resume=False, init=warm, lr=a.lr)]
+    (A_DIR / "chess_kernel.ipynb").write_text(json.dumps(_notebook(cells_a), indent=1))
+    meta_a = json.loads((ROOT / "kaggle_chess" / "kernel-metadata.json").read_text())
+    meta_a.update({"id": a.id_a, "title": a.id_a.split("/")[-1], "code_file": "chess_kernel.ipynb",
+                   "kernel_sources": [a.init_from_kernel] if warm else []})
+    (A_DIR / "kernel-metadata.json").write_text(json.dumps(meta_a, indent=2) + "\n")
 
     B_DIR.mkdir(exist_ok=True)
     (B_DIR / "chess_resume_kernel.ipynb").write_text(json.dumps(_notebook(
         # locate first: if the checkpoint is missing, fail before 20 minutes of packing
         [setup_cell(), locate_cell(), data_cell(a.shards),
-         train_cell(max_steps, a.batch_size, resume=True), eval_cell(max_steps, a.puzzles)]), indent=1))
-    meta = json.loads((A_DIR / "kernel-metadata.json").read_text())
-    meta.update({"id": "nicolangileri/gpt-from-scratch-chess-resume",
-                 "title": "gpt-from-scratch-chess-resume",
+         train_cell(max_steps, a.batch_size, resume=True, lr=a.lr),
+         eval_cell(max_steps, a.puzzles)]), indent=1))
+    meta = json.loads((ROOT / "kaggle_chess" / "kernel-metadata.json").read_text())
+    meta.update({"id": a.id_b, "title": a.id_b.split("/")[-1],
                  "code_file": "chess_resume_kernel.ipynb",
-                 "kernel_sources": ["nicolangileri/gpt-from-scratch-chess"]})
+                 "kernel_sources": [a.id_a]})
     (B_DIR / "kernel-metadata.json").write_text(json.dumps(meta, indent=2) + "\n")
 
     print(f"session A -> {A_DIR/'chess_kernel.ipynb'}")
