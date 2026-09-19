@@ -70,3 +70,12 @@ def test_token_file_is_used_and_must_be_private(monkeypatch, tmp_path):
 
     f.chmod(0o600)
     assert lichess_bot._token() == "lip_secret"
+
+
+def test_our_own_outgoing_challenge_is_ignored():
+    from src.lichess_bot import is_incoming
+    mine = {"id": "abc", "challenger": {"id": "imbotterthanyou"}}
+    theirs = {"id": "abc", "challenger": {"id": "maia5"}}
+    assert not is_incoming(mine, "imbotterthanyou")
+    assert is_incoming(theirs, "imbotterthanyou")
+    assert is_incoming({"id": "abc"}, "imbotterthanyou")      # no challenger field: treat as incoming

@@ -36,6 +36,16 @@ SEEK_CLOCK = (600, 3)              # 10+3: comfortable for a 1.5-3s per move sea
 SEEK_PERF = "rapid"                # ...which Lichess rates as rapid, so compare that
 
 
+def is_incoming(challenge: dict, me: str) -> bool:
+    """True if someone else challenged us.
+
+    The event stream reports our OWN outgoing challenges as `challenge` events too.
+    Trying to accept one gets refused by Lichess and no game ever starts -- which is
+    exactly how three games were "accepted" while the bot sat idle.
+    """
+    return (challenge.get("challenger") or {}).get("id") != me
+
+
 def should_accept(challenge: dict) -> tuple[bool, str]:
     """Accept standard games slow enough for the search. Returns (ok, decline reason).
 
@@ -107,16 +117,23 @@ class LichessBot:
     # --- challenges ------------------------------------------------------
     def handle_challenge(self, challenge: dict) -> None:
         cid = challenge["id"]
+        if not is_incoming(challenge, self.me):
+            return                                   # our own challenge coming back
         clock = challenge.get("timeControl", {})
         initial = clock.get("limit")
         ok, reason = should_accept(challenge)
 
+        # The reply is checked: printing "accepted" on a refusal hides the failure and
+        # leaves the bot waiting for a game that will never start.
         if ok:
-            self._post(f"/api/challenge/{cid}/accept", timeout=10)
-            print(f"[bot] accepted {cid} ({initial}s + {clock.get('increment', 0)}s)", flush=True)
+            r = self._post(f"/api/challenge/{cid}/accept", timeout=10)
+            print(f"[bot] accepted {cid} ({initial}s + {clock.get('increment', 0)}s)"
+                  if r.ok else f"[bot] accept of {cid} refused: {r.status_code} {r.text[:90]}",
+                  flush=True)
         else:
-            self._post(f"/api/challenge/{cid}/decline", data={"reason": reason}, timeout=10)
-            print(f"[bot] declined {cid}: {reason}", flush=True)
+            r = self._post(f"/api/challenge/{cid}/decline", data={"reason": reason}, timeout=10)
+            print(f"[bot] declined {cid}: {reason}"
+                  if r.ok else f"[bot] decline of {cid} failed: {r.status_code}", flush=True)
 
     # --- seeking opponents ------------------------------------------------
     def online_bots(self, limit: int = 50) -> list[dict]:
@@ -193,6 +210,7 @@ class LichessBot:
         import json
 
         self.busy.set()
+        print(f"[bot] game {game_id} started", flush=True)
         stream = self._get(f"/api/bot/game/stream/{game_id}", stream=True, timeout=None)
         my_colour = None
         for line in stream.iter_lines():
