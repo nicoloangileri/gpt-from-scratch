@@ -190,14 +190,24 @@ class LichessBot:
                      else f"none within {rating_window} of {mine} {SEEK_PERF}"), flush=True)
             return
 
-        target, rating = random.choice(candidates)
-        r = self._post(f"/api/challenge/{target}", timeout=10, data={
-            "rated": "true", "clock.limit": SEEK_CLOCK[0], "clock.increment": SEEK_CLOCK[1],
-            "color": "random", "variant": "standard",
-        })
-        print(f"[bot] challenged {target} ({SEEK_PERF} {rating}, mine {mine}"
-              f"{' provisional' if provisional else ''}): "
-              f"{'sent' if r.ok else r.text[:80]}", flush=True)
+        # Lichess caps bot-vs-bot games at 100 per bot per day, and by evening most of
+        # the pool has hit it. One challenge per cycle mostly buys a refusal, so try
+        # candidates until one is actually sent.
+        random.shuffle(candidates)
+        refused = 0
+        for target, rating in candidates[:8]:
+            r = self._post(f"/api/challenge/{target}", timeout=10, data={
+                "rated": "true", "clock.limit": SEEK_CLOCK[0], "clock.increment": SEEK_CLOCK[1],
+                "color": "random", "variant": "standard",
+            })
+            if r.ok:
+                print(f"[bot] challenged {target} ({SEEK_PERF} {rating}, mine {mine}"
+                      f"{' provisional' if provisional else ''}): sent"
+                      f"{f' (after {refused} unavailable)' if refused else ''}", flush=True)
+                return
+            refused += 1
+        print(f"[bot] no opponent took a challenge ({refused} unavailable, "
+              f"{len(candidates)} in range)", flush=True)
 
     def _seek_loop(self, every: int = 90) -> None:
         while True:
@@ -271,10 +281,18 @@ class LichessBot:
             if not line:
                 continue
             event = json.loads(line)
-            if event["type"] == "challenge":
+            kind = event["type"]
+            if kind == "challenge":
                 self.handle_challenge(event["challenge"])
-            elif event["type"] == "gameStart":
+            elif kind == "gameStart":
                 self.play_game(event["game"]["id"])
+            elif kind in ("challengeDeclined", "challengeCanceled"):
+                # Without this the log shows a challenge going out and then nothing,
+                # which looks identical to the bot being broken.
+                c = event.get("challenge", {})
+                who = (c.get("destUser") or {}).get("id", "?")
+                why = (c.get("declineReason") or kind.replace("challenge", "").lower())
+                print(f"[bot] {who} did not play: {why}", flush=True)
 
 
 def main() -> None:
