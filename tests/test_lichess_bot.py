@@ -79,3 +79,66 @@ def test_our_own_outgoing_challenge_is_ignored():
     assert not is_incoming(mine, "imbotterthanyou")
     assert is_incoming(theirs, "imbotterthanyou")
     assert is_incoming({"id": "abc"}, "imbotterthanyou")      # no challenger field: treat as incoming
+
+
+def _bare_bot():
+    """A bot with no network, no model and no token: only the fields the loop uses."""
+    import threading
+    from src.lichess_bot import LichessBot
+    bot = LichessBot.__new__(LichessBot)
+    bot.busy = threading.Event()
+    bot.rating, bot.provisional = 1270, True
+    return bot
+
+
+def test_seek_loop_survives_a_dropped_connection(monkeypatch):
+    """One RemoteDisconnected used to kill the thread and stop the bot for hours.
+
+    The process stayed up and the log stayed open, so nothing looked wrong: the bot
+    simply never challenged anyone again. The loop must swallow anything Lichess
+    throws at it and come back on the next cycle.
+    """
+    import requests
+    from src import lichess_bot
+
+    bot = _bare_bot()
+    calls = []
+
+    def flaky():
+        calls.append(1)
+        if len(calls) == 1:
+            raise requests.ConnectionError("Remote end closed connection")
+        if len(calls) == 3:
+            raise KeyboardInterrupt              # ends the otherwise infinite loop
+
+    bot.challenge_someone = flaky
+    bot._refresh_rating = lambda: None
+    monkeypatch.setattr(lichess_bot.time, "sleep", lambda _: None)
+
+    with pytest.raises(KeyboardInterrupt):       # not an Exception, so it gets through
+        bot._seek_loop(every=0)
+    assert len(calls) == 3                       # it kept going after the failure
+
+
+def test_rating_is_refreshed_before_choosing_an_opponent():
+    bot = _bare_bot()
+    bot.account = lambda: {"perfs": {"rapid": {"rating": 1461, "prov": True, "games": 17}}}
+    bot._refresh_rating()
+    assert (bot.rating, bot.provisional) == (1461, True)
+
+    bot.account = lambda: {"perfs": {"rapid": {"rating": 1520, "games": 30}}}
+    bot._refresh_rating()
+    assert (bot.rating, bot.provisional) == (1520, False)     # no "prov" key: settled
+
+
+def test_a_failed_refresh_keeps_the_last_known_rating():
+    import requests
+    bot = _bare_bot()
+    bot.rating, bot.provisional = 1461, False
+
+    def down():
+        raise requests.ConnectionError("down")
+
+    bot.account = down
+    bot._refresh_rating()
+    assert (bot.rating, bot.provisional) == (1461, False)

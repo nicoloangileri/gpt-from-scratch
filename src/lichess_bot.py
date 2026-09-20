@@ -209,10 +209,33 @@ class LichessBot:
         print(f"[bot] no opponent took a challenge ({refused} unavailable, "
               f"{len(candidates)} in range)", flush=True)
 
+    def _refresh_rating(self) -> None:
+        """Re-read our own rating before picking opponents.
+
+        It is read once at startup and then moves fast while provisional. Thirteen
+        hours into a run the log still said "mine 1270 provisional" while the account
+        was at 1461: the window was being centred on a number two hours out of date.
+        """
+        try:
+            perf = self.account().get("perfs", {}).get(SEEK_PERF, {})
+        except requests.RequestException:
+            return                                   # keep the previous value
+        if perf.get("rating"):
+            self.rating = perf["rating"]
+            self.provisional = bool(perf.get("prov", False))
+
     def _seek_loop(self, every: int = 90) -> None:
+        # Nothing restarts this thread, so it must never raise. One RemoteDisconnected
+        # from Lichess killed it mid-run and the bot then sat for four hours challenging
+        # no one -- with the process still up and the log still open, which looks exactly
+        # like a bot that simply cannot find opponents.
         while True:
-            if not self.busy.is_set():
-                self.challenge_someone()
+            try:
+                if not self.busy.is_set():
+                    self._refresh_rating()
+                    self.challenge_someone()
+            except Exception as exc:                 # noqa: BLE001 - staying alive wins
+                print(f"[bot] seek failed: {type(exc).__name__}: {exc}", flush=True)
             time.sleep(every)
 
     # --- playing ---------------------------------------------------------
@@ -276,23 +299,40 @@ class LichessBot:
             print(f"[bot] also challenging online bots every 90s "
                   f"({SEEK_CLOCK[0]//60}+{SEEK_CLOCK[1]}, rated)", flush=True)
             threading.Thread(target=self._seek_loop, daemon=True).start()
-        stream = self._get("/api/stream/event", stream=True, timeout=None)
-        for line in stream.iter_lines():
-            if not line:
-                continue
-            event = json.loads(line)
-            kind = event["type"]
-            if kind == "challenge":
-                self.handle_challenge(event["challenge"])
-            elif kind == "gameStart":
-                self.play_game(event["game"]["id"])
-            elif kind in ("challengeDeclined", "challengeCanceled"):
-                # Without this the log shows a challenge going out and then nothing,
-                # which looks identical to the bot being broken.
-                c = event.get("challenge", {})
-                who = (c.get("destUser") or {}).get("id", "?")
-                why = (c.get("declineReason") or kind.replace("challenge", "").lower())
-                print(f"[bot] {who} did not play: {why}", flush=True)
+        # The event stream is a long-lived HTTP connection and Lichess (or the local
+        # network, or a sleeping laptop) will drop it eventually. Exiting on that would
+        # end an overnight run at the first hiccup, so it reconnects instead.
+        while True:
+            try:
+                stream = self._get("/api/stream/event", stream=True, timeout=None)
+                for line in stream.iter_lines():
+                    if not line:
+                        continue
+                    event = json.loads(line)
+                    kind = event["type"]
+                    if kind == "challenge":
+                        self.handle_challenge(event["challenge"])
+                    elif kind == "gameStart":
+                        try:
+                            self.play_game(event["game"]["id"])
+                        except requests.RequestException as exc:
+                            print(f"[bot] game {event['game']['id']} dropped: "
+                                  f"{type(exc).__name__}", flush=True)
+                        finally:
+                            self.busy.clear()        # or the bot never seeks again
+                    elif kind in ("challengeDeclined", "challengeCanceled"):
+                        # Without this the log shows a challenge going out and then
+                        # nothing, which looks identical to the bot being broken.
+                        c = event.get("challenge", {})
+                        who = (c.get("destUser") or {}).get("id", "?")
+                        why = (c.get("declineReason")
+                               or kind.replace("challenge", "").lower())
+                        print(f"[bot] {who} did not play: {why}", flush=True)
+                print("[bot] event stream closed by Lichess; reconnecting", flush=True)
+            except requests.RequestException as exc:
+                print(f"[bot] event stream dropped ({type(exc).__name__}); "
+                      f"reconnecting in 5s", flush=True)
+            time.sleep(5)
 
 
 def main() -> None:
