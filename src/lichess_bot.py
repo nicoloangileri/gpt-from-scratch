@@ -292,11 +292,30 @@ class LichessBot:
             self.wake.clear()
 
     # --- playing ---------------------------------------------------------
-    def play_game(self, game_id: str) -> None:
-        import json
+    def play_game(self, game_id: str, attempts: int = 6) -> None:
+        """Play one game, reconnecting to its stream if the network drops.
 
+        Catching the error and returning is not enough: the game stays on the board at
+        Lichess and the clock keeps running, so walking away loses it. Two games went
+        exactly that way, both with more than 630 seconds left. Reconnecting is cheap and
+        safe -- the stream re-sends `gameFull`, and the position is rebuilt from the move
+        list every time anyway, so nothing is carried across the gap.
+        """
         self.busy.set()
         print(f"[bot] game {game_id} started", flush=True)
+        for attempt in range(1, attempts + 1):
+            try:
+                self._play_stream(game_id)
+                return
+            except requests.RequestException as exc:
+                print(f"[bot] game {game_id}: {type(exc).__name__}, reconnecting "
+                      f"({attempt}/{attempts})", flush=True)
+                time.sleep(2)
+        print(f"[bot] game {game_id} given up after {attempts} reconnects", flush=True)
+
+    def _play_stream(self, game_id: str) -> None:
+        import json
+
         stream = self._get(f"/api/bot/game/stream/{game_id}", stream=True, timeout=None)
         my_colour = None
         for line in stream.iter_lines():

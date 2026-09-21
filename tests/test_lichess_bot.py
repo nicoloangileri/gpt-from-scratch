@@ -254,3 +254,45 @@ def test_no_challenge_goes_out_while_a_game_is_being_played(monkeypatch):
 
     with pytest.raises(KeyboardInterrupt):
         bot._seek_loop(every=0)
+
+
+def test_a_dropped_game_is_reconnected_not_abandoned(monkeypatch):
+    """Two rated games were lost on time this way, each with 630+ seconds left.
+
+    Returning on a network error leaves the game running at Lichess with our clock
+    ticking. The only correct move is to reconnect to the stream.
+    """
+    import requests
+    from src import lichess_bot
+
+    bot = _bare_bot()
+    tries = []
+
+    def stream(game_id):
+        tries.append(game_id)
+        if len(tries) < 3:
+            raise requests.ConnectTimeout("connection timed out")
+        # third attempt: the stream comes back and the game plays out
+
+    bot._play_stream = stream
+    monkeypatch.setattr(lichess_bot.time, "sleep", lambda _: None)
+    bot.play_game("uVc5lAFA")
+    assert tries == ["uVc5lAFA"] * 3
+
+
+def test_reconnecting_gives_up_eventually(monkeypatch):
+    """Not forever, though: a game that cannot be reached is lost anyway."""
+    import requests
+    from src import lichess_bot
+
+    bot = _bare_bot()
+    tries = []
+
+    def always_down(game_id):
+        tries.append(game_id)
+        raise requests.ConnectionError("down")
+
+    bot._play_stream = always_down
+    monkeypatch.setattr(lichess_bot.time, "sleep", lambda _: None)
+    bot.play_game("uVc5lAFA", attempts=4)
+    assert len(tries) == 4
