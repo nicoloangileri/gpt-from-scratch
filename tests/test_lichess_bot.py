@@ -86,6 +86,7 @@ def _bare_bot():
     from src.lichess_bot import LichessBot
     bot = LichessBot.__new__(LichessBot)
     bot.busy = threading.Event()
+    bot.wake = threading.Event()
     bot.me = "imbotterthanyou"
     bot.ratings = {"rapid": (1461, True)}
     bot.cooldown = {}
@@ -216,3 +217,40 @@ def test_seek_falls_back_to_a_faster_clock():
     bot.online_bots = lambda: _bots(("worstfish", 1500), perf="blitz")
     assert bot.seek_any_clock() is True
     assert offered == [300]                            # rapid skipped, 5+3 sent
+
+
+def test_the_seek_loop_stops_waiting_when_a_challenge_is_refused(monkeypatch):
+    """A decline arrives seconds after the challenge, not 90 seconds later.
+
+    The POST that sent the challenge succeeded, so the loop thinks it found a game
+    and settles in for the full cycle; meanwhile the opponent has already said no.
+    """
+    bot = _bare_bot()
+    waited = []
+
+    def wait(timeout=None):
+        waited.append(timeout)
+        return True
+
+    bot.wake.wait = wait
+    bot.seek_any_clock = lambda: True
+    bot._refresh_ratings = lambda: None
+    monkeypatch.setattr(bot.wake, "clear", lambda: (_ for _ in ()).throw(KeyboardInterrupt))
+
+    with pytest.raises(KeyboardInterrupt):
+        bot._seek_loop(every=90)
+    assert waited == [90]          # the wait is interruptible, not a bare time.sleep
+
+
+def test_no_challenge_goes_out_while_a_game_is_being_played(monkeypatch):
+    """play_game blocks the event loop, so a second game would sit idle and flag."""
+    from src import lichess_bot
+    bot = _bare_bot()
+    bot.busy.set()
+    bot._refresh_ratings = lambda: None
+    bot.seek_any_clock = lambda: pytest.fail("challenged somebody mid-game")
+    monkeypatch.setattr(bot.wake, "clear", lambda: (_ for _ in ()).throw(KeyboardInterrupt))
+    monkeypatch.setattr(lichess_bot.time, "sleep", lambda _: None)
+
+    with pytest.raises(KeyboardInterrupt):
+        bot._seek_loop(every=0)

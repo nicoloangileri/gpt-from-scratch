@@ -121,6 +121,7 @@ class LichessBot:
         self.busy = threading.Event()          # set while a game is being played
         self.ratings: dict[str, tuple[int, bool]] = {}      # perf -> (rating, provisional)
         self.cooldown: dict[str, float] = {}               # bot id -> don't ask before
+        self.wake = threading.Event()          # set to make the seek loop try again now
 
     # --- helpers ---------------------------------------------------------
     def _get(self, path: str, **kw):
@@ -284,7 +285,11 @@ class LichessBot:
                     self.seek_any_clock()
             except Exception as exc:                 # noqa: BLE001 - staying alive wins
                 print(f"[bot] seek failed: {type(exc).__name__}: {exc}", flush=True)
-            time.sleep(every)
+            # A decline arrives seconds after the challenge goes out, and sleeping the
+            # full cycle on top of it wastes 90 seconds per refusal. `wake` cuts the
+            # wait short; the timeout is what paces the loop when nothing happens.
+            self.wake.wait(timeout=every)
+            self.wake.clear()
 
     # --- playing ---------------------------------------------------------
     def play_game(self, game_id: str) -> None:
@@ -344,6 +349,18 @@ class LichessBot:
                      '-H "Authorization: Bearer $LICHESS_TOKEN"')
 
         print(f"[bot] waiting for challenges at {API}/@/{account['username']}", flush=True)
+        # Restarting mid-game is safe -- the event stream re-sends gameStart and the game
+        # resumes on its own clock -- but the seek thread runs its first cycle before that
+        # event arrives, and challenged somebody while a game was on the board. Since
+        # play_game blocks this loop, that second game would have sat unplayed until the
+        # first ended, and lost on time. So ask Lichess what is already in progress.
+        try:
+            playing = self._get("/api/account/playing", timeout=10).json().get("nowPlaying")
+        except (requests.RequestException, ValueError):
+            playing = None
+        if playing:
+            self.busy.set()                      # play_game clears it when the game ends
+            print(f"[bot] {len(playing)} game(s) already in progress", flush=True)
         if seek:
             clocks = ", ".join(f"{c[0]//60}+{c[1]}" for c in SEEK_CLOCKS)
             print(f"[bot] also challenging online bots every 90s (rated, {clocks})",
@@ -378,6 +395,10 @@ class LichessBot:
                         why = (c.get("declineReason")
                                or kind.replace("challenge", "").lower())
                         print(f"[bot] {who} did not play: {why}", flush=True)
+                        # The POST succeeded, so the seek loop believes it found a game
+                        # and would sleep out the cycle. Mark the refusal and go again.
+                        self.cooldown[who] = time.time() + COOLDOWN_S
+                        self.wake.set()
                 print("[bot] event stream closed by Lichess; reconnecting", flush=True)
             except requests.RequestException as exc:
                 print(f"[bot] event stream dropped ({type(exc).__name__}); "
