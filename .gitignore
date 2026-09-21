@@ -15,3 +15,6 @@ kaggle_*out*/
 
 # bot log
 bot.log
+
+# backups written by the text-hygiene script
+*.bak
