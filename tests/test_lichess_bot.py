@@ -80,14 +80,15 @@ def test_our_own_outgoing_challenge_is_ignored():
     assert is_incoming(theirs, "imbotterthanyou")
     assert is_incoming({"id": "abc"}, "imbotterthanyou")      # no challenger field: treat as incoming
 
-
 def _bare_bot():
-    """A bot with no network, no model and no token: only the fields the loop uses."""
+    """A bot with no network, no model and no token: only the fields the loops use."""
     import threading
     from src.lichess_bot import LichessBot
     bot = LichessBot.__new__(LichessBot)
     bot.busy = threading.Event()
-    bot.rating, bot.provisional = 1270, True
+    bot.me = "imbotterthanyou"
+    bot.ratings = {"rapid": (1461, True)}
+    bot.cooldown = {}
     return bot
 
 
@@ -111,8 +112,8 @@ def test_seek_loop_survives_a_dropped_connection(monkeypatch):
         if len(calls) == 3:
             raise KeyboardInterrupt              # ends the otherwise infinite loop
 
-    bot.challenge_someone = flaky
-    bot._refresh_rating = lambda: None
+    bot.seek_any_clock = flaky
+    bot._refresh_ratings = lambda: None
     monkeypatch.setattr(lichess_bot.time, "sleep", lambda _: None)
 
     with pytest.raises(KeyboardInterrupt):       # not an Exception, so it gets through
@@ -120,25 +121,98 @@ def test_seek_loop_survives_a_dropped_connection(monkeypatch):
     assert len(calls) == 3                       # it kept going after the failure
 
 
-def test_rating_is_refreshed_before_choosing_an_opponent():
+def test_ratings_are_refreshed_before_choosing_an_opponent():
     bot = _bare_bot()
-    bot.account = lambda: {"perfs": {"rapid": {"rating": 1461, "prov": True, "games": 17}}}
-    bot._refresh_rating()
-    assert (bot.rating, bot.provisional) == (1461, True)
+    bot.account = lambda: {"perfs": {
+        "rapid": {"rating": 1520, "games": 30},           # no "prov" key: settled
+        "blitz": {"rating": 1400, "prov": True, "games": 2},
+        "puzzle": {"rating": 1600},
+    }}
+    bot._refresh_ratings()
+    assert bot.ratings["rapid"] == (1520, False)
+    assert bot.ratings["blitz"] == (1400, True)
 
-    bot.account = lambda: {"perfs": {"rapid": {"rating": 1520, "games": 30}}}
-    bot._refresh_rating()
-    assert (bot.rating, bot.provisional) == (1520, False)     # no "prov" key: settled
 
-
-def test_a_failed_refresh_keeps_the_last_known_rating():
+def test_a_failed_refresh_keeps_the_last_known_ratings():
     import requests
     bot = _bare_bot()
-    bot.rating, bot.provisional = 1461, False
+    bot.ratings = {"rapid": (1461, False)}
 
     def down():
         raise requests.ConnectionError("down")
 
     bot.account = down
-    bot._refresh_rating()
-    assert (bot.rating, bot.provisional) == (1461, False)
+    bot._refresh_ratings()
+    assert bot.ratings == {"rapid": (1461, False)}
+
+
+@pytest.mark.parametrize("clock,expected", [
+    ((600, 3), "rapid"),        # 10+3, what the bot played its first games at
+    ((300, 3), "blitz"),        # 5+3  -- 300 + 120 = 420 < 480
+    ((180, 2), "blitz"),
+    ((60, 0), "bullet"),
+    ((1800, 20), "classical"),
+])
+def test_perf_of_matches_lichess_speed_categories(clock, expected):
+    """The rating compared must belong to the clock being offered.
+
+    Comparing a blitz rating while offering a rapid game is how a 1270 provisional
+    account challenged an opponent rated 2793 at the speed it was actually offering.
+    """
+    from src.lichess_bot import perf_of
+    assert perf_of(*clock) == expected
+
+
+def _bots(*pairs, perf="rapid"):
+    return [{"id": i, "perfs": {perf: {"rating": r}}} for i, r in pairs]
+
+
+def test_a_bot_that_refuses_is_not_asked_again_this_cycle():
+    """Eleven hours of asking the same few bots produced 88 refusals and no game."""
+    from src.lichess_bot import COOLDOWN_S
+    bot = _bare_bot()
+    asked = []
+
+    class Reply:
+        ok, status_code = False, 400
+
+        def __init__(self, text):
+            self.text = text
+
+    def post(path, **kw):
+        who = path.rsplit("/", 1)[-1]
+        asked.append(who)
+        # Lichess says why: one has spent its 100 bot games today, the other is simply
+        # not accepting. Only the first deserves a cooldown measured in hours.
+        return Reply(f'{{"error":"{who} played 100 games today"}}' if who == "pawnrobot"
+                     else '{"error":"challenge declined"}')
+
+    bot._post = post
+    bot.online_bots = lambda: _bots(("pawnrobot", 1300), ("anti-bot", 1500))
+    assert bot.challenge_someone((600, 3)) is False
+    assert sorted(asked) == ["anti-bot", "pawnrobot"]
+
+    # Both are now on cooldown, the capped one for much longer than the other.
+    assert bot.challenge_someone((600, 3)) is False
+    assert len(asked) == 2                            # no second round of refusals
+    assert bot.cooldown["pawnrobot"] > bot.cooldown["anti-bot"] + COOLDOWN_S
+
+
+def test_seek_falls_back_to_a_faster_clock():
+    """Nobody takes 10+3 at 3am; more of the pool will take 5+3."""
+    bot = _bare_bot()
+    bot.ratings = {"rapid": (1461, True), "blitz": (1461, True)}
+    offered = []
+
+    class Reply:
+        ok, status_code, text = True, 200, "{}"
+
+    def post(path, **kw):
+        offered.append(int(kw["data"]["clock.limit"]))
+        return Reply()
+
+    # Only blitz-rated bots are online, so the rapid pass finds nobody to ask.
+    bot._post = post
+    bot.online_bots = lambda: _bots(("worstfish", 1500), perf="blitz")
+    assert bot.seek_any_clock() is True
+    assert offered == [300]                            # rapid skipped, 5+3 sent

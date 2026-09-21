@@ -32,8 +32,35 @@ from .search import Searcher
 
 API = "https://lichess.org"
 MIN_INITIAL_SECONDS = 180          # below this, depth-2 search loses on time
-SEEK_CLOCK = (600, 3)              # 10+3: comfortable for a 1.5-3s per move search
-SEEK_PERF = "rapid"                # ...which Lichess rates as rapid, so compare that
+
+# A bot cannot enter the lobby or a tournament -- "pools and tournaments are off-limits"
+# says the API spec -- so every game is a challenge it sends or one somebody sends it.
+# When the bot pool has spent its daily quota of 100 games, asking one bot per cycle for
+# one time control buys nothing but refusals: eleven hours of 10+3 requests once produced
+# 88 refusals and no game. Hence several clocks, tried slowest first.
+SEEK_CLOCKS = [(600, 3), (300, 3), (180, 2)]   # 10+3, 5+3, 3+2
+MAX_ASKS_PER_CYCLE = 10            # Lichess rate-limits challenges; do not burst
+COOLDOWN_S = 30 * 60               # a bot that refuses is not asked again for a while
+CAPPED_COOLDOWN_S = 6 * 3600       # ...and one that hit its daily cap, for much longer
+
+
+def perf_of(limit: int, increment: int) -> str:
+    """Lichess' speed category for a clock, from its own estimated-duration rule.
+
+    Hardcoding "rapid" once sent a challenge to an opponent rated 1700 blitz and 2793
+    rapid, because the rating compared was not the rating of the game being offered.
+    Deriving the category from the clock makes that class of mistake impossible.
+    """
+    total = limit + 40 * increment
+    if total < 30:
+        return "ultraBullet"
+    if total < 180:
+        return "bullet"
+    if total < 480:
+        return "blitz"
+    if total < 1500:
+        return "rapid"
+    return "classical"
 
 
 def is_incoming(challenge: dict, me: str) -> bool:
@@ -92,6 +119,8 @@ class LichessBot:
         self.model, self.centres, _ = load_model(ckpt, device)
         self.device, self.depth = device, depth
         self.busy = threading.Event()          # set while a game is being played
+        self.ratings: dict[str, tuple[int, bool]] = {}      # perf -> (rating, provisional)
+        self.cooldown: dict[str, float] = {}               # bot id -> don't ask before
 
     # --- helpers ---------------------------------------------------------
     def _get(self, path: str, **kw):
@@ -136,8 +165,8 @@ class LichessBot:
                   if r.ok else f"[bot] decline of {cid} failed: {r.status_code}", flush=True)
 
     # --- seeking opponents ------------------------------------------------
-    def online_bots(self, limit: int = 50) -> list[dict]:
-        """Bots currently online, as ndjson."""
+    def online_bots(self, limit: int = 300) -> list[dict]:
+        """Bots currently online, as ndjson. The API allows up to 512."""
         import json
 
         r = self._get("/api/bot/online", params={"nb": limit}, stream=True, timeout=20)
@@ -147,33 +176,17 @@ class LichessBot:
                 bots.append(json.loads(line))
         return bots
 
-    def challenge_someone(self, rating_window: int = 400, ceiling: int = 1800) -> None:
-        """Challenge a random online bot of comparable strength.
-
-        Waiting to be challenged can mean waiting a long time, and a rating needs
-        games. Opponents far stronger are skipped: losing 50 games to a 2700 bot
-        says nothing that one game would not.
-
-        Two things this has to get right, both learned by getting them wrong:
-        the rating compared must be the one for the time control actually being
-        played (10+3 is rapid, not blitz -- a bot can be 1700 blitz and 2793
-        rapid), and a provisional rating cannot be trusted as the centre of the
-        window, so `ceiling` caps opponents outright until ours settles.
-        """
-        try:
-            bots = self.online_bots()
-        except requests.RequestException as exc:
-            print(f"[bot] could not list bots: {type(exc).__name__}", flush=True)
-            return
-
-        mine, provisional = self.rating or 1500, self.provisional
+    def _in_range(self, bots: list[dict], perf: str,
+                  rating_window: int, ceiling: int) -> list[tuple[str, int]]:
+        """Opponents worth asking, by the rating for the clock actually being offered."""
+        (mine, provisional), now = self.ratings.get(perf, (1500, True)), time.time()
         candidates = []
         for bot in bots:
-            if bot.get("id") == self.me:
-                continue
-            rating = bot.get("perfs", {}).get(SEEK_PERF, {}).get("rating")
+            if bot.get("id") == self.me or now < self.cooldown.get(bot.get("id"), 0):
+                continue                             # ourselves, or one that just refused
+            rating = bot.get("perfs", {}).get(perf, {}).get("rating")
             if not rating:
-                continue
+                continue                             # never played this speed
             if provisional:
                 # A provisional rating is not a measurement and must not steer the
                 # search. One loss to a 2793 opponent put this account at 2513 after
@@ -184,45 +197,80 @@ class LichessBot:
                     candidates.append((bot["id"], rating))
             elif abs(rating - mine) <= rating_window:
                 candidates.append((bot["id"], rating))
-        if not candidates:
-            print(f"[bot] no opponent online: "
-                  + (f"none at or below {ceiling} {SEEK_PERF}" if provisional
-                     else f"none within {rating_window} of {mine} {SEEK_PERF}"), flush=True)
-            return
-
-        # Lichess caps bot-vs-bot games at 100 per bot per day, and by evening most of
-        # the pool has hit it. One challenge per cycle mostly buys a refusal, so try
-        # candidates until one is actually sent.
         random.shuffle(candidates)
+        return candidates
+
+    def challenge_someone(self, clock: tuple[int, int] | None = None,
+                          rating_window: int = 400, ceiling: int = 1800) -> bool:
+        """Offer one clock to online bots of comparable strength. True if one was sent.
+
+        Opponents far stronger are skipped: losing 50 games to a 2700 bot says nothing
+        that one game would not.
+        """
+        clock = clock or SEEK_CLOCKS[0]
+        perf = perf_of(*clock)
+        try:
+            bots = self.online_bots()
+        except requests.RequestException as exc:
+            print(f"[bot] could not list bots: {type(exc).__name__}", flush=True)
+            return False
+
+        candidates = self._in_range(bots, perf, rating_window, ceiling)
+        if not candidates:
+            return False
+        mine, provisional = self.ratings.get(perf, (1500, True))
+
+        # Lichess caps bot-vs-bot games at 100 per bot per day and by evening most of the
+        # pool has spent it. Asking the same few every 90 seconds is how eleven hours
+        # produced 88 refusals, so a bot that says no is remembered and skipped, and each
+        # cycle reaches further down the list. Bursting is not an option either: the
+        # challenge endpoint is rate-limited, and a 429 stops everything.
         refused = 0
-        for target, rating in candidates[:8]:
+        for target, rating in candidates[:MAX_ASKS_PER_CYCLE]:
             r = self._post(f"/api/challenge/{target}", timeout=10, data={
-                "rated": "true", "clock.limit": SEEK_CLOCK[0], "clock.increment": SEEK_CLOCK[1],
+                "rated": "true", "clock.limit": clock[0], "clock.increment": clock[1],
                 "color": "random", "variant": "standard",
             })
             if r.ok:
-                print(f"[bot] challenged {target} ({SEEK_PERF} {rating}, mine {mine}"
-                      f"{' provisional' if provisional else ''}): sent"
+                print(f"[bot] challenged {target} ({perf} {rating}, mine "
+                      f"{mine}{' provisional' if provisional else ''}) "
+                      f"at {clock[0]//60}+{clock[1]}"
                       f"{f' (after {refused} unavailable)' if refused else ''}", flush=True)
-                return
+                return True
+            if r.status_code == 429:
+                print("[bot] rate-limited by Lichess; pausing this cycle", flush=True)
+                time.sleep(60)
+                return False
+            capped = "100 games" in r.text
+            self.cooldown[target] = time.time() + (CAPPED_COOLDOWN_S if capped
+                                                   else COOLDOWN_S)
             refused += 1
-        print(f"[bot] no opponent took a challenge ({refused} unavailable, "
-              f"{len(candidates)} in range)", flush=True)
+        print(f"[bot] {perf} {clock[0]//60}+{clock[1]}: {refused} refused, "
+              f"{len(candidates)} in range", flush=True)
+        return False
 
-    def _refresh_rating(self) -> None:
-        """Re-read our own rating before picking opponents.
+    def seek_any_clock(self) -> bool:
+        """Try each clock, slowest first: more bots accept blitz than rapid."""
+        for clock in SEEK_CLOCKS:
+            if self.challenge_someone(clock):
+                return True
+        return False
 
-        It is read once at startup and then moves fast while provisional. Thirteen
-        hours into a run the log still said "mine 1270 provisional" while the account
-        was at 1461: the window was being centred on a number two hours out of date.
+    def _refresh_ratings(self) -> None:
+        """Re-read our own ratings, one per speed, before picking opponents.
+
+        They were read once at startup and move fast while provisional: thirteen hours
+        into a run the log still said "mine 1270 provisional" while the account was at
+        1461, so the opponent window was centred on a number hours out of date. One
+        entry per speed, because the bot now offers rapid and blitz.
         """
         try:
-            perf = self.account().get("perfs", {}).get(SEEK_PERF, {})
+            perfs = self.account().get("perfs", {})
         except requests.RequestException:
-            return                                   # keep the previous value
-        if perf.get("rating"):
-            self.rating = perf["rating"]
-            self.provisional = bool(perf.get("prov", False))
+            return                                   # keep the previous values
+        for perf, v in perfs.items():
+            if v.get("rating"):
+                self.ratings[perf] = (v["rating"], bool(v.get("prov", False)))
 
     def _seek_loop(self, every: int = 90) -> None:
         # Nothing restarts this thread, so it must never raise. One RemoteDisconnected
@@ -232,8 +280,8 @@ class LichessBot:
         while True:
             try:
                 if not self.busy.is_set():
-                    self._refresh_rating()
-                    self.challenge_someone()
+                    self._refresh_ratings()
+                    self.seek_any_clock()
             except Exception as exc:                 # noqa: BLE001 - staying alive wins
                 print(f"[bot] seek failed: {type(exc).__name__}: {exc}", flush=True)
             time.sleep(every)
@@ -284,9 +332,10 @@ class LichessBot:
 
         account = self.account()
         self.me = account["id"]
-        perf = account.get("perfs", {}).get(SEEK_PERF, {})
-        self.rating = perf.get("rating")
-        self.provisional = bool(perf.get("prov", True)) or not perf.get("games")
+        for perf, v in account.get("perfs", {}).items():
+            if v.get("rating"):
+                self.ratings[perf] = (v["rating"],
+                                      bool(v.get("prov", True)) or not v.get("games"))
         title = account.get("title", "")
         print(f"[bot] logged in as {account['username']} (title: {title or 'none'})", flush=True)
         if title != "BOT":
@@ -296,8 +345,9 @@ class LichessBot:
 
         print(f"[bot] waiting for challenges at {API}/@/{account['username']}", flush=True)
         if seek:
-            print(f"[bot] also challenging online bots every 90s "
-                  f"({SEEK_CLOCK[0]//60}+{SEEK_CLOCK[1]}, rated)", flush=True)
+            clocks = ", ".join(f"{c[0]//60}+{c[1]}" for c in SEEK_CLOCKS)
+            print(f"[bot] also challenging online bots every 90s (rated, {clocks})",
+                  flush=True)
             threading.Thread(target=self._seek_loop, daemon=True).start()
         # The event stream is a long-lived HTTP connection and Lichess (or the local
         # network, or a sleeping laptop) will drop it eventually. Exiting on that would
