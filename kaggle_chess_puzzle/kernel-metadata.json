@@ -1,0 +1,17 @@
+{
+  "id": "nicolangileri/gpt-from-scratch-chess-puzzle",
+  "title": "gpt-from-scratch-chess-puzzle",
+  "code_file": "puzzle_kernel.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [],
+  "kernel_sources": [
+    "nicolangileri/gpt-from-scratch-chess-225b"
+  ],
+  "competition_sources": []
+}

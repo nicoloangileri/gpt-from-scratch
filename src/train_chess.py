@@ -19,6 +19,7 @@ from pathlib import Path
 
 import numpy as np
 import torch
+import torch.nn.functional as F
 import yaml
 
 from .chess_data import ACTION_OFFSET, FULL_VOCAB, SAMPLE_LENGTH, SEQUENCE_LENGTH
@@ -61,8 +62,74 @@ class ActionValueStream:
         return x, y
 
 
+class PuzzleRankStream:
+    """Puzzle positions with their correct move and the legal moves it must beat.
+
+    Same packing idea as ActionValueStream, but a sample is a whole SET of moves for
+    one position, so a batch of B positions becomes B * num_candidates sequences.
+    """
+
+    def __init__(self, data_dir: str | Path, split: str, max_ram_gb: float = 2.0) -> None:
+        d = Path(data_dir)
+        self.states = np.memmap(d / f"{split}_states.bin", dtype=np.uint8, mode="r")
+        self.states = self.states.reshape(-1, SEQUENCE_LENGTH)
+        self.ncand = np.memmap(d / f"{split}_ncand.bin", dtype=np.uint8, mode="r")
+        self.cands = np.memmap(d / f"{split}_cands.bin", dtype=np.uint16, mode="r")
+        self.k = self.cands.size // len(self.ncand)
+        self.cands = self.cands.reshape(-1, self.k)
+        self.n = min(len(self.states), len(self.ncand), len(self.cands))
+        if self.states.nbytes / 1e9 <= max_ram_gb:
+            self.states, self.cands = np.asarray(self.states), np.asarray(self.cands)
+            self.ncand = np.asarray(self.ncand)
+            self.in_ram = True
+        else:
+            self.in_ram = False
+
+    def batch(self, batch_size: int, device: str, generator=None):
+        """-> x (B*k, 78) and mask (B, k), the correct move always at column 0."""
+        ix = torch.randint(self.n, (batch_size,), generator=generator).numpy()
+        states = torch.from_numpy(self.states[ix].astype(np.int64))
+        cands = torch.from_numpy(self.cands[ix].astype(np.int64)) + ACTION_OFFSET
+        ncand = torch.from_numpy(self.ncand[ix].astype(np.int64))
+        # one sequence per candidate move: the position repeated, each with its action
+        x = torch.cat([states.repeat_interleave(self.k, 0),
+                       cands.reshape(-1, 1)], dim=1)
+        mask = torch.arange(self.k)[None, :] < ncand[:, None]
+        if device.startswith("cuda"):
+            x = x.pin_memory().to(device, non_blocking=True)
+            mask = mask.pin_memory().to(device, non_blocking=True)
+        else:
+            x, mask = x.to(device), mask.to(device)
+        return x, mask
+
+
+def listwise_loss(values: torch.Tensor, mask: torch.Tensor, temp: float) -> torch.Tensor:
+    """Cross-entropy over the legal moves of a position, correct move at index 0.
+
+    `values` are expected win probabilities in [0, 1], so the spread between a good
+    and a bad move is a few hundredths; fed to a softmax as they are, every move looks
+    equally likely and there is almost no gradient. `temp` sets how much of a win
+    probability difference counts as a preference -- 0.05 makes a 5-point difference
+    one logit.
+    """
+    logits = (values / temp).masked_fill(~mask, float("-inf"))
+    target = torch.zeros(len(logits), dtype=torch.long, device=logits.device)
+    return F.cross_entropy(logits, target)
+
+
+def rank_step(model, centres, stream, cfg, ctx, device):
+    """One puzzle batch -> (loss, top-1 accuracy over the candidate moves)."""
+    x, mask = stream.batch(cfg["rank_batch"], device)
+    with ctx:
+        logits, _ = model(x)
+        values = (F.softmax(logits.float(), dim=-1) @ centres).view(len(mask), -1)
+        loss = listwise_loss(values, mask, cfg["rank_temp"])
+    picked = values.masked_fill(~mask, float("-inf")).argmax(-1)
+    return loss, (picked == 0).float().mean().item()
+
+
 @torch.no_grad()
-def evaluate(model, streams, cfg, ctx) -> dict:
+def evaluate(model, streams, cfg, ctx, rank_streams=None, centres=None) -> dict:
     out = {}
     model.eval()
     for split, stream in streams.items():
@@ -77,6 +144,15 @@ def evaluate(model, streams, cfg, ctx) -> dict:
             total += y.numel()
         out[split] = losses.mean().item()
         out[f"{split}_acc"] = correct / total
+    if rank_streams:
+        # "Picks the puzzle move out of its legal alternatives" -- the quantity the
+        # puzzle data is here to improve, measured on puzzles never trained on.
+        for split, stream in rank_streams.items():
+            hits = 0.0
+            for _ in range(cfg["eval_iters"]):
+                _, acc = rank_step(model, centres, stream, cfg, ctx, cfg["device"])
+                hits += acc
+            out[f"rank_{split}_acc"] = hits / cfg["eval_iters"]
     model.train()
     return out
 
@@ -127,6 +203,19 @@ def main() -> None:
                for s in ("train", "val")}
     print(f"[data] train {streams['train'].n:,} | val {streams['val'].n:,} samples "
           f"| in RAM: {streams['train'].in_ram}")
+
+    # The puzzle ranking loss is optional and additive: the action-value loss keeps
+    # running underneath it. Training on the ranking alone would teach the model which
+    # move is best and let it forget how good moves ARE, which is what the search and
+    # the bot read out of it.
+    rank_streams, centres = None, None
+    if cfg.get("puzzle_dir"):
+        rank_streams = {s: PuzzleRankStream(cfg["puzzle_dir"], s) for s in ("train", "val")}
+        centres = torch.tensor((np.arange(cfg["num_buckets"]) + 0.5) / cfg["num_buckets"],
+                               dtype=torch.float32, device=device)
+        print(f"[puzzles] train {rank_streams['train'].n:,} | val {rank_streams['val'].n:,} "
+              f"positions | {rank_streams['train'].k} candidate moves each "
+              f"| weight {cfg['rank_weight']} | in RAM: {rank_streams['train'].in_ram}")
 
     model_cfg = GPTConfig(
         vocab_size=FULL_VOCAB, block_size=SAMPLE_LENGTH, num_classes=cfg["num_buckets"],
@@ -220,9 +309,12 @@ def main() -> None:
             g["lr"] = get_lr(step, cfg)
 
         if step % cfg["eval_interval"] == 0:
-            m = evaluate(model, streams, cfg, ctx)
+            m = evaluate(model, streams, cfg, ctx, rank_streams, centres)
+            rank = (f" | puzzle move {m['rank_val_acc']*100:.1f}%"
+                    if "rank_val_acc" in m else "")
             print(f"step {step:6d} | train {m['train']:.4f} | val {m['val']:.4f} "
-                  f"| val acc {m['val_acc']*100:.1f}% | {time.time()-t0:.0f}s", flush=True)
+                  f"| val acc {m['val_acc']*100:.1f}%{rank} | {time.time()-t0:.0f}s",
+                  flush=True)
             if m["val"] < best_val and step > 0:
                 best_val = m["val"]
                 torch.save({"model": raw_model.state_dict(), "cfg": asdict(model_cfg),
@@ -231,12 +323,20 @@ def main() -> None:
             t_log, s_log = time.time(), step
 
         optimizer.zero_grad(set_to_none=True)
+        rank_loss = rank_acc = None
         for _ in range(accum):
             x, y = streams["train"].batch(cfg["batch_size"], device)
             with ctx:
                 _, loss = model(x, y)
                 loss = loss / accum
             scaler.scale(loss).backward()
+        if rank_streams is not None and cfg["rank_weight"]:
+            # A separate batch, backward on its own: the two losses never share a graph,
+            # so adding the ranking term cannot change what the action-value term does to
+            # the gradients -- it only adds to them.
+            rank_loss, rank_acc = rank_step(model, centres, rank_streams["train"],
+                                            cfg, ctx, device)
+            scaler.scale(rank_loss * cfg["rank_weight"]).backward()
         if cfg.get("grad_clip", 0):
             scaler.unscale_(optimizer)
             torch.nn.utils.clip_grad_norm_(model.parameters(), cfg["grad_clip"])
@@ -250,10 +350,20 @@ def main() -> None:
                 # samples/s and an MFU of 882%).
                 torch.cuda.synchronize()
             now = time.time()
-            samples = cfg["batch_size"] * accum * (step + 1 - s_log)
+            # Every sequence through the model counts, including the puzzle batch
+            # (rank_batch positions x k candidates each). Leaving it out made the
+            # fine-tune report 822 samples/s at 9% MFU while it was really moving
+            # twice that -- a halved number that looks exactly like a slowdown.
+            per_step = cfg["batch_size"] * accum
+            if rank_streams is not None and cfg["rank_weight"]:
+                per_step += cfg["rank_batch"] * rank_streams["train"].k
+            samples = per_step * (step + 1 - s_log)
             sps = samples / max(1e-6, now - t_log)
             mfu = sps * flops_per_sample / peak_flops
-            print(f"  step {step} | loss {loss.item()*accum:.4f} | lr {get_lr(step, cfg):.2e} "
+            rank = (f" | rank {rank_loss.item():.4f} ({rank_acc*100:.0f}%)"
+                    if rank_loss is not None else "")
+            print(f"  step {step} | loss {loss.item()*accum:.4f}{rank} "
+                  f"| lr {get_lr(step, cfg):.2e} "
                   f"| {sps:,.0f} samples/s | MFU {mfu*100:.1f}%", flush=True)
             t_log, s_log = now, step + 1
 

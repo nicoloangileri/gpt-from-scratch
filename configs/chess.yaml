@@ -29,6 +29,12 @@ grad_clip: 1.0
 batch_size: 256        # sequences are 78 tokens, so batches can be much larger
 grad_accum_steps: 1
 
+# --- puzzle ranking loss (optional: empty puzzle_dir turns it off) ---
+puzzle_dir: ""         # packed by src/puzzle_data.py, held-out puzzles excluded
+rank_weight: 1.0       # 0 disables the term without unpacking the data
+rank_batch: 64         # positions; each costs `num_candidates` sequences
+rank_temp: 0.05        # win-probability difference that counts as one logit
+
 # --- precision / speed ---
 amp: true
 dtype: bf16            # auto-falls back to fp16 on pre-Ampere GPUs (T4)
