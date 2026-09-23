@@ -1,0 +1,66 @@
+gpt-from-scratch
+Copyright 2026 Nicolo Angileri
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+
+What this project is
+--------------------
+
+A decoder-only Transformer written from scratch in PyTorch, applied to chess: the
+model reads a position and a candidate move and predicts the Stockfish 16 win
+probability of that move, discretised into buckets. There is no search in the model
+itself; an alpha-beta layer on top of the network and a Lichess bot are separate
+components of this repository.
+
+
+Reimplementations of DeepMind's searchless_chess
+------------------------------------------------
+
+This project is not a fork of, and contains no copied source from, DeepMind's
+searchless_chess. It does reimplement specific design choices from it, deliberately
+and for comparability of the reported numbers:
+
+  searchless_chess
+  Copyright 2024 DeepMind Technologies Limited
+  Licensed under the Apache License, Version 2.0
+  https://github.com/google-deepmind/searchless_chess
+
+The pieces that are reimplementations rather than original work:
+
+  * The FEN tokenizer in src/chess_data.py: the same 77-token fixed-length encoding
+    over the same 31-symbol vocabulary.
+  * The action space in src/chess_data.py: the 1968 UCI moves, generated in the same
+    order, so action indices line up with the reference implementation.
+  * The bucketed win-probability target in src/chess_data.py: the Stockfish win
+    probability is discretised into uniform bins and learned as a classification
+    problem rather than regressed.
+  * The record layout of the ChessBench .bag files, decoded in src/chess_data.py
+    without the Apache Beam dependency.
+  * The puzzle scoring rule in src/puzzles_eval.py: the solver plays the odd plies of
+    the puzzle line, every solver move must be found, and any move that mates in one
+    is accepted. This matches searchless_chess/src/puzzles.py so that accuracies are
+    comparable.
+
+Everything else in this repository -- the Transformer implementation, the training
+loops, the Triton kernel, the alpha-beta search, the evaluation harnesses, the
+baselines and the Lichess bot -- was written for this project.
+
+
+Datasets
+--------
+
+Training and evaluation use the ChessBench dataset released with searchless_chess
+(action_value shards: one record per (position, legal move) pair, annotated by
+Stockfish 16), fetched at run time from
+https://storage.googleapis.com/searchless_chess/data/.
+
+Puzzle accuracy is measured on Lichess puzzles. The Lichess open databases, including
+the puzzle and evaluation databases (https://database.lichess.org), are released under
+the Creative Commons CC0 1.0 Universal public domain dedication.
+
+No dataset file is committed to this repository: data/ and checkpoints/ are ignored by
+.gitignore, and downloaded copies live locally under data/chessbench/ (ChessBench
+action-value shards and puzzles.csv) and data/lichess/ (lichess_db_puzzle.csv.zst).
+The only chess data in version control is a single Lichess puzzle (id 000Zo) inlined
+as a FEN and move list in tests/test_chess_data.py, used as a test fixture.

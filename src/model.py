@@ -7,6 +7,13 @@ object of modern ML, and it runs.
 
 Level-2/3 extension points are marked with `# LEVEL 2:` / `# LEVEL 3:` comments
 (mixed precision, KV-cache, a fused Triton/CUDA kernel) — see README.md.
+
+Credit where it is due: the structure follows Andrej Karpathy's nanoGPT (MIT) --
+the config dataclass, the fused `c_attn` projection with the `flash` flag, the
+`c_fc`/`c_proj` MLP, a LayerNorm class that exists so bias can be turned off, and
+the weight-decay split in `configure_optimizers`. The code here is written out
+rather than copied, and the chess head, the classification path and the Triton
+norm are new, but the skeleton is that one and saying otherwise would be a lie.
 """
 
 from __future__ import annotations

@@ -1,0 +1,63 @@
+name: CI
+
+on: [push, pull_request]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: pytest (CPU)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # 3.12 is what the local venv runs (.venv/lib/python3.12).
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # torch first, from the CPU wheel index: the plain PyPI wheel pulls in
+          # the CUDA build plus the nvidia-* runtime packages, which a GPU-less
+          # runner cannot use. The CPU build satisfies the "torch>=2.1" line of
+          # requirements.txt, so the next command leaves torch alone and installs
+          # the rest (tiktoken, numpy, pyyaml, pytest, chess, requests) from it.
+          pip install torch \
+            --index-url https://download.pytorch.org/whl/cpu \
+            --extra-index-url https://pypi.org/simple
+          pip install -r requirements.txt
+
+      # Same invocation as the local run, plus -rs so the log names every skip
+      # instead of printing a bare "s".
+      #
+      # What is expected to skip here, and why it is not a silent hole:
+      #
+      #   * 11 tests in tests/test_layernorm_triton.py, reason "needs CUDA +
+      #     Triton". The hand-written fused LayerNorm has a CUDA-only path, and
+      #     triton is deliberately absent from requirements.txt (no macOS wheel;
+      #     it ships with torch on Linux/CUDA). The CPU fallback is still covered
+      #     on this runner by test_fallback_matches_pytorch and
+      #     test_module_shapes_and_params, which do not skip.
+      #
+      #   * tests/test_resume.py::test_resume_on_an_accelerator_does_not_crash,
+      #     reason "needs a non-CPU device". It exercises the resume path on MPS,
+      #     which exists only on the Apple-silicon dev machine, so it skips on
+      #     Linux and the skip count here is one higher than the local one
+      #     (locally: 48 passed, 11 skipped).
+      #
+      # Nothing skips for want of data: tests/test_resume.py writes its own
+      # synthetic .bin shards under tmp_path and the Lichess tests monkeypatch
+      # every HTTP call, so no dataset download and no network are involved.
+      - name: Run tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONPATH: src
+        run: python -m pytest -q -rs

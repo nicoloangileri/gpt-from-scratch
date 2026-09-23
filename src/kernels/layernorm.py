@@ -12,6 +12,12 @@ forward and a backward, so the launches add up.
 Correctness is checked against F.layer_norm in tests/test_layernorm_triton.py,
 including gradients; speed against both eager and torch.compile in
 src/kernels/bench_layernorm.py.
+
+The two-stage backward follows the scheme of Triton's own `05-layer-norm`
+tutorial (MIT): partial dw/db into GROUP_SIZE slots guarded by a `tl.atomic_cas`
+spinlock, then a second kernel to sum them, with the same `GROUP_SIZE = 256 if
+N <= 8192 else 96` heuristic. That is a specific design, not something one
+arrives at by accident, so it is cited rather than presented as original.
 """
 
 from __future__ import annotations
