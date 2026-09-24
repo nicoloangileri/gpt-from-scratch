@@ -1,0 +1,15 @@
+{
+ "a": "checkpoints/chess_225M.pt",
+ "b": "checkpoints/chess_225M_puzzles.pt",
+ "depth": 1,
+ "seed": 0,
+ "seconds": 2472,
+ "games": 400,
+ "wins": 174,
+ "draws": 167,
+ "losses": 59,
+ "score": 0.64375,
+ "elo": 102.78494761307233,
+ "elo_low": 77.05441164472602,
+ "elo_high": 129.66220118224751
+}

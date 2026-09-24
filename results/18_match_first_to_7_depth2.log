@@ -1,0 +1,40 @@
+[match] A = checkpoints/chess_225M.pt
+[match] B = checkpoints/chess_225M_puzzles.pt
+[match] depth 2, 20 positions x 2 colours, 2 threads
+[match] game 1: A 0.5 - B 0.5
+[match] game 2: A 0.5 - B 1.5
+[match] 1/20 positions: A 0W 1D 1L, score 0.250, Elo -191 [-1200, +68]
+[match] game 3: A 1 - B 2
+[match] game 4: A 2 - B 2
+[match] 2/20 positions: A 1W 2D 1L, score 0.500, Elo -0 [-297, +297]
+[match] game 5: A 3 - B 2
+[match] game 6: A 3 - B 3
+[match] 3/20 positions: A 2W 2D 2L, score 0.500, Elo -0 [-271, +271]
+[match] game 7: A 3.5 - B 3.5
+[match] game 8: A 4 - B 4
+[match] 4/20 positions: A 2W 4D 2L, score 0.500, Elo -0 [-186, +186]
+[match] game 9: A 5 - B 4
+[match] game 10: A 6 - B 4
+[match] 5/20 positions: A 4W 4D 2L, score 0.600, Elo +70 [-94, +278]
+[match] game 11: A 6 - B 5
+[match] game 12: A 6.5 - B 5.5
+[match] 6/20 positions: A 4W 5D 3L, score 0.542, Elo +29 [-125, +197]
+[match] game 13: A 6.5 - B 6.5
+[match] game 14: A 6.5 - B 7.5
+{
+ "a": "checkpoints/chess_225M.pt",
+ "b": "checkpoints/chess_225M_puzzles.pt",
+ "depth": 2,
+ "seed": 0,
+ "seconds": 3616,
+ "games": 14,
+ "wins": 4,
+ "draws": 5,
+ "losses": 5,
+ "score": 0.4642857142857143,
+ "elo": -24.859162699537773,
+ "elo_low": -186.1360760684063,
+ "elo_high": 125.74283713919829,
+ "first_to": 7.0,
+ "winner": "B"
+}

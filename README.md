@@ -138,9 +138,18 @@ moves that throw away more than 15 points fell from one in ten to one in thirty-
 in ordinary positions: action accuracy down 2.1 points, and the blunder rate up from
 3.1% to 5.0% -- back to the 100M model's level. The action-value loss that ran alongside
 the ranking loss limited the damage (tau barely moved, 0.632 to 0.619) but did not
-prevent it. So "better" depends on the job: for finding tactics the fine-tuned model,
-for playing a game, where one blunder in forty moves decides it, quite possibly the
-225M one. With 61,833 positions these differences are far outside the noise.
+prevent it. With 61,833 positions these differences are far outside the noise.
+
+And they cost games. In a head-to-head match without search
+([`src/match.py`](src/match.py): balanced middlegame starts from the held-out test shard,
+each played twice with colours swapped), the model **before** the fine-tune beat the one
+after it **174-59 with 167 draws over 400 games: +103 Elo, 95% interval +77 to +130**.
+So "better" depends on the job: for finding tactics the fine-tuned model, for playing a
+game the 225M one, by about a hundred Elo. With depth-2 search on both sides, a
+first-to-7 match went 7.5-6.5 to the fine-tuned model over 14 games -- an interval of
+roughly +-150 Elo, so it neither confirms nor rules out the cost there. Search may absorb
+part of it, since one-move blunders are exactly what a two-ply search catches; that is
+a hypothesis, and testing it takes ~400 games at depth 2, about 30 hours of laptop CPU.
 
 **Calibrated from the start; what training buys is sharpness.** When the model predicts
 a win probability, Stockfish's own number agrees on average: the binned calibration
@@ -363,6 +372,6 @@ results/             the logs behind the numbers above
 
 - A lighter puzzle fine-tune: the ranking loss at a fraction of its weight, to keep
   most of the 14 points without the blunders
-- The 225M and the fine-tuned model against each other in games, where blunders count
-  more than tactics
+- Whether depth-2 search absorbs the fine-tune's ~100 Elo cost: ~400 games at depth 2,
+  a job for a GPU rather than a laptop
 - CUDA graphs; DDP; KV-cache serving for the language-model path
