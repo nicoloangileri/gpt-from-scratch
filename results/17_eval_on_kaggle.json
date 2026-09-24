@@ -1,0 +1,254 @@
+{
+ "chess_1M.pt": {
+  "puzzles": {
+   "accuracy": 0.1992,
+   "solved": 1992,
+   "attempted": 10000
+  },
+  "agreement": {
+   "checkpoint_step": 4000,
+   "positions": 61833,
+   "moves_scored": 1837490,
+   "action_acc": 8.501932624973719,
+   "any_best_acc": 10.914883638186728,
+   "top3": 25.316578526029794,
+   "kendall_tau": 0.19007652777622958,
+   "tau_undefined": 863,
+   "mean_given_up": 0.1422039024516278,
+   "median_given_up": 0.06042935236264191,
+   "blunder_pct": 29.925767793896462,
+   "mae": 0.12447956942349465,
+   "ece": 0.00516399213797587,
+   "cover50": 0.5041181176496199,
+   "cover90": 0.9093039962122242
+  }
+ },
+ "chess_6.1M.pt": {
+  "puzzles": {
+   "accuracy": 0.2054,
+   "solved": 2054,
+   "attempted": 10000
+  },
+  "agreement": {
+   "checkpoint_step": 6000,
+   "positions": 61833,
+   "moves_scored": 1837490,
+   "action_acc": 13.289020425986124,
+   "any_best_acc": 15.687416104669028,
+   "top3": 32.81257580903401,
+   "kendall_tau": 0.26083031348065333,
+   "tau_undefined": 863,
+   "mean_given_up": 0.12014805552181752,
+   "median_given_up": 0.046935718095202694,
+   "blunder_pct": 24.740834182394515,
+   "mae": 0.11422205448778047,
+   "ece": 0.005803922832132544,
+   "cover50": 0.5019700787487279,
+   "cover90": 0.9073676591437232
+  }
+ },
+ "chess_10M.pt": {
+  "puzzles": {
+   "accuracy": 0.2093,
+   "solved": 2093,
+   "attempted": 10000
+  },
+  "agreement": {
+   "checkpoint_step": 78120,
+   "positions": 61833,
+   "moves_scored": 1837490,
+   "action_acc": 14.655604612423787,
+   "any_best_acc": 17.105752591658177,
+   "top3": 34.73549722640014,
+   "kendall_tau": 0.2822722385976873,
+   "tau_undefined": 863,
+   "mean_given_up": 0.11381300781338594,
+   "median_given_up": 0.04316108357891557,
+   "blunder_pct": 23.34352206750441,
+   "mae": 0.11013389676761261,
+   "ece": 0.00203939873192697,
+   "cover50": 0.5219353574713331,
+   "cover90": 0.9191995602697157
+  }
+ },
+ "chess_20.5M.pt": {
+  "puzzles": {
+   "accuracy": 0.2145,
+   "solved": 2145,
+   "attempted": 10000
+  },
+  "agreement": {
+   "checkpoint_step": 40000,
+   "positions": 61833,
+   "moves_scored": 1837490,
+   "action_acc": 18.090663561528633,
+   "any_best_acc": 20.620057250982484,
+   "top3": 39.91557905972539,
+   "kendall_tau": 0.31631978162608043,
+   "tau_undefined": 863,
+   "mean_given_up": 0.10271155064620552,
+   "median_given_up": 0.03518986988939321,
+   "blunder_pct": 20.590946581922275,
+   "mae": 0.09915608359929834,
+   "ece": 0.006091961406121544,
+   "cover50": 0.5135064680624112,
+   "cover90": 0.9095799160811759
+  }
+ },
+ "chess_30.7M.pt": {
+  "puzzles": {
+   "accuracy": 0.2366,
+   "solved": 2366,
+   "attempted": 10000
+  },
+  "agreement": {
+   "checkpoint_step": 30000,
+   "positions": 61833,
+   "moves_scored": 1837490,
+   "action_acc": 22.158070932996942,
+   "any_best_acc": 24.729513366648877,
+   "top3": 45.9188459236977,
+   "kendall_tau": 0.3813164637706151,
+   "tau_undefined": 863,
+   "mean_given_up": 0.0841181941995127,
+   "median_given_up": 0.02619586678799246,
+   "blunder_pct": 16.4394417220578,
+   "mae": 0.0824244550326706,
+   "ece": 0.007115414265401958,
+   "cover50": 0.5227685592846764,
+   "cover90": 0.9166939684025491
+  }
+ },
+ "chess_50M.pt": {
+  "puzzles": {
+   "accuracy": 0.303,
+   "solved": 3030,
+   "attempted": 10000
+  },
+  "agreement": {
+   "checkpoint_step": 48820,
+   "positions": 61833,
+   "moves_scored": 1837490,
+   "action_acc": 30.10204906764996,
+   "any_best_acc": 32.904759594391344,
+   "top3": 55.42671389064092,
+   "kendall_tau": 0.4703672615372046,
+   "tau_undefined": 863,
+   "mean_given_up": 0.0569995588837389,
+   "median_given_up": 0.014571851464661112,
+   "blunder_pct": 10.53967945918846,
+   "mae": 0.06561101078522769,
+   "ece": 0.0015180616838924128,
+   "cover50": 0.529551725451567,
+   "cover90": 0.9164735590397771
+  }
+ },
+ "chess_100M.pt": {
+  "puzzles": {
+   "accuracy": 0.4915,
+   "solved": 4915,
+   "attempted": 10000
+  },
+  "agreement": {
+   "checkpoint_step": 96000,
+   "positions": 61833,
+   "moves_scored": 1837490,
+   "action_acc": 39.69401452298934,
+   "any_best_acc": 42.941471382595054,
+   "top3": 67.38958161499524,
+   "kendall_tau": 0.5756415447643362,
+   "tau_undefined": 863,
+   "mean_given_up": 0.03287466158622255,
+   "median_given_up": 0.004701181467756943,
+   "blunder_pct": 5.2383031714456685,
+   "mae": 0.045109042158518145,
+   "ece": 0.002371351775879512,
+   "cover50": 0.5410511077611306,
+   "cover90": 0.91892091929752
+  }
+ },
+ "chess_225M.pt": {
+  "puzzles": {
+   "accuracy": 0.6029,
+   "solved": 6029,
+   "attempted": 10000
+  },
+  "agreement": {
+   "checkpoint_step": 120000,
+   "positions": 61833,
+   "moves_scored": 1837490,
+   "action_acc": 45.1894619378002,
+   "any_best_acc": 48.580854883314736,
+   "top3": 73.68557242896188,
+   "kendall_tau": 0.6318663918278702,
+   "tau_undefined": 863,
+   "mean_given_up": 0.023218660927932788,
+   "median_given_up": 0.0009205127199584107,
+   "blunder_pct": 3.13101418336487,
+   "mae": 0.036173764412284454,
+   "ece": 0.0016621654292996568,
+   "cover50": 0.542938464971238,
+   "cover90": 0.9170488002655797
+  }
+ },
+ "chess_225M_puzzles.pt": {
+  "puzzles": {
+   "accuracy": 0.7455,
+   "solved": 7455,
+   "attempted": 10000
+  },
+  "agreement": {
+   "checkpoint_step": 10000,
+   "positions": 61833,
+   "moves_scored": 1837490,
+   "action_acc": 43.13392525027089,
+   "any_best_acc": 46.46547959827277,
+   "top3": 70.39121504698139,
+   "kendall_tau": 0.6189830128318142,
+   "tau_undefined": 863,
+   "mean_given_up": 0.02972968727550171,
+   "median_given_up": 0.0023143815955230518,
+   "blunder_pct": 4.971455371727071,
+   "mae": 0.03913166948001043,
+   "ece": 0.003884345758755588,
+   "cover50": 0.551170890725936,
+   "cover90": 0.9230341389613005
+  }
+ },
+ "chess_60M_params.pt": {
+  "puzzles": {
+   "accuracy": 0.214,
+   "solved": 2140,
+   "attempted": 10000
+  },
+  "agreement": {
+   "checkpoint_step": 114000,
+   "positions": 61833,
+   "moves_scored": 1837490,
+   "action_acc": 16.969902802710525,
+   "any_best_acc": 19.452395969789592,
+   "top3": 38.1851115100351,
+   "kendall_tau": 0.30649636445202344,
+   "tau_undefined": 863,
+   "mean_given_up": 0.10577073120410481,
+   "median_given_up": 0.0381600069971299,
+   "blunder_pct": 21.4028107968237,
+   "mae": 0.10655621374909542,
+   "ece": 0.0022762998329351742,
+   "cover50": 0.5196757533374331,
+   "cover90": 0.9160735568628945
+  }
+ },
+ "search_225M": {
+  "1": {
+   "accuracy": 0.585,
+   "solved": 585,
+   "attempted": 1000
+  },
+  "2": {
+   "accuracy": 0.608,
+   "solved": 608,
+   "attempted": 1000
+  }
+ }
+}

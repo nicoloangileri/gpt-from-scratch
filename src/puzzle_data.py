@@ -4,10 +4,10 @@
         --exclude data/chessbench/puzzles.csv --out data/puzzles --max_puzzles 200000
 
 The action-value model learns how good a move is, which is not the same as knowing
-which move to play: the 100M-example model agrees with Stockfish's first choice 38%
-of the time while giving up only 3.6 points of win probability per move on average
-(src/agreement_eval.py; not yet re-measured for the 225M model). It plays reasonably
-and misses tactics. Lichess publishes 6,100,952 puzzles (CC0)
+which move to play: the 225M-example model picks Stockfish's first choice on 45% of
+the test positions while giving up only 2.3 points of win probability per move on
+average (src/agreement_eval.py, full test shard). It plays reasonably and misses
+tactics. Lichess publishes 6,100,952 puzzles (CC0)
 whose label is exactly the missing one -- "this move, not the others" -- so they are
 packed here as a ranking problem: one position, the correct move, and a sample of the
 legal moves it has to beat.

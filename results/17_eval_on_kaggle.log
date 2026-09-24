@@ -1,0 +1,319 @@
+[{"stream_name":"stderr","time":6.236808634,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":6.236900487,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":7.10327773,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.103308838,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.103320234,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.103323927,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.728023387,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.728061094,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.728066648,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.728070727,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":11.31262396,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 87.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":11.513775308,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 87.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":16.229639757,"data":"wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/puzzle_data.py', 'src/search.py', 'src/agreement_eval.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'configs/chess.yaml']\n"}
+,{"stream_name":"stdout","time":17.282618113,"data":"[data] puzzles + test shard in 1s\n"}
+,{"stream_name":"stdout","time":22.132045694,"data":"===== chess_1M.pt =====\n"}
+,{"stream_name":"stdout","time":290.466627938,"data":"[puzzles] depth 1: 1992/10000 solved = 19.9%  (checkpoint step 4000, val loss 3.2343)\n"}
+,{"stream_name":"stdout","time":290.466667861,"data":"  rating     0-499:  63.5%  (n=74)\n"}
+,{"stream_name":"stdout","time":290.466674072,"data":"  rating   500-999:  48.7%  (n=2161)\n"}
+,{"stream_name":"stdout","time":290.466679466,"data":"  rating 1000-1499:  22.5%  (n=3367)\n"}
+,{"stream_name":"stdout","time":290.466684037,"data":"  rating 1500-1999:   4.9%  (n=2543)\n"}
+,{"stream_name":"stdout","time":290.466689869,"data":"  rating 2000-2499:   0.4%  (n=1571)\n"}
+,{"stream_name":"stdout","time":290.466698441,"data":"  rating 2500-2999:   1.1%  (n=284)\n"}
+,{"stream_name":"stdout","time":1908.717518678,"data":"[agreement] /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_1M.pt (step 4000): 61,833 positions, 1,837,490 moves\n"}
+,{"stream_name":"stdout","time":1908.717589517,"data":"  action accuracy (paper: = argmax)  : 8.5%\n"}
+,{"stream_name":"stdout","time":1908.717608645,"data":"  picks a move of maximal value      : 10.9%\n"}
+,{"stream_name":"stdout","time":1908.717614075,"data":"  one of Stockfish's top 3           : 25.3%\n"}
+,{"stream_name":"stdout","time":1908.717619419,"data":"  Kendall's tau-b, mean over positions: 0.190 (863 positions undefined)\n"}
+,{"stream_name":"stdout","time":1908.717635067,"data":"  win probability given up           : mean 0.1422, median 0.0604\n"}
+,{"stream_name":"stdout","time":1908.717638934,"data":"  moves giving up \u003e 0.15           : 29.9%\n"}
+,{"stream_name":"stdout","time":1908.71764284,"data":"  value calibration                  : MAE 0.1245, ECE 0.0052\n"}
+,{"stream_name":"stdout","time":1908.717646295,"data":"  truth inside central 50% / 90%     : 50.4% / 90.9%\n"}
+,{"stream_name":"stdout","time":1908.717654505,"data":"  reliability (predicted bin: n, mean predicted, mean Stockfish)\n"}
+,{"stream_name":"stdout","time":1908.717657447,"data":"    [0.0, 0.1) n=  170,338  0.064  0.066\n"}
+,{"stream_name":"stdout","time":1908.717659645,"data":"    [0.1, 0.2) n=  267,146  0.149  0.148\n"}
+,{"stream_name":"stdout","time":1908.717661888,"data":"    [0.2, 0.3) n=  344,606  0.253  0.246\n"}
+,{"stream_name":"stdout","time":1908.717664062,"data":"    [0.3, 0.4) n=  396,279  0.351  0.346\n"}
+,{"stream_name":"stdout","time":1908.717666246,"data":"    [0.4, 0.5) n=  304,862  0.444  0.435\n"}
+,{"stream_name":"stdout","time":1908.717668464,"data":"    [0.5, 0.6) n=  113,394  0.541  0.536\n"}
+,{"stream_name":"stdout","time":1908.717670863,"data":"    [0.6, 0.7) n=   62,165  0.648  0.642\n"}
+,{"stream_name":"stdout","time":1908.717673113,"data":"    [0.7, 0.8) n=   58,248  0.750  0.742\n"}
+,{"stream_name":"stdout","time":1908.717675558,"data":"    [0.8, 0.9) n=   59,172  0.850  0.850\n"}
+,{"stream_name":"stdout","time":1908.717677768,"data":"    [0.9, 1.0) n=   61,280  0.949  0.959\n"}
+,{"stream_name":"stdout","time":1908.717679982,"data":"===== chess_6.1M.pt =====\n"}
+,{"stream_name":"stdout","time":2192.354834918,"data":"[puzzles] depth 1: 2054/10000 solved = 20.5%  (checkpoint step 6000, val loss 3.0884)\n"}
+,{"stream_name":"stdout","time":2192.354914128,"data":"  rating     0-499:  64.9%  (n=74)\n"}
+,{"stream_name":"stdout","time":2192.354920153,"data":"  rating   500-999:  49.7%  (n=2161)\n"}
+,{"stream_name":"stdout","time":2192.354924822,"data":"  rating 1000-1499:  23.1%  (n=3367)\n"}
+,{"stream_name":"stdout","time":2192.354929302,"data":"  rating 1500-1999:   5.3%  (n=2543)\n"}
+,{"stream_name":"stdout","time":2192.354938369,"data":"  rating 2000-2499:   1.0%  (n=1571)\n"}
+,{"stream_name":"stdout","time":2192.354942209,"data":"  rating 2500-2999:   0.4%  (n=284)\n"}
+,{"stream_name":"stdout","time":3807.848816364,"data":"[agreement] /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_6.1M.pt (step 6000): 61,833 positions, 1,837,490 moves\n"}
+,{"stream_name":"stdout","time":3807.84886252,"data":"  action accuracy (paper: = argmax)  : 13.3%\n"}
+,{"stream_name":"stdout","time":3807.848925527,"data":"  picks a move of maximal value      : 15.7%\n"}
+,{"stream_name":"stdout","time":3807.848931739,"data":"  one of Stockfish's top 3           : 32.8%\n"}
+,{"stream_name":"stdout","time":3807.848942388,"data":"  Kendall's tau-b, mean over positions: 0.261 (863 positions undefined)\n"}
+,{"stream_name":"stdout","time":3807.848947442,"data":"  win probability given up           : mean 0.1201, median 0.0469\n"}
+,{"stream_name":"stdout","time":3807.848952561,"data":"  moves giving up \u003e 0.15           : 24.7%\n"}
+,{"stream_name":"stdout","time":3807.848957895,"data":"  value calibration                  : MAE 0.1142, ECE 0.0058\n"}
+,{"stream_name":"stdout","time":3807.848962721,"data":"  truth inside central 50% / 90%     : 50.2% / 90.7%\n"}
+,{"stream_name":"stdout","time":3807.848967575,"data":"  reliability (predicted bin: n, mean predicted, mean Stockfish)\n"}
+,{"stream_name":"stdout","time":3807.848972248,"data":"    [0.0, 0.1) n=  181,066  0.064  0.061\n"}
+,{"stream_name":"stdout","time":3807.848992262,"data":"    [0.1, 0.2) n=  297,970  0.149  0.143\n"}
+,{"stream_name":"stdout","time":3807.848995344,"data":"    [0.2, 0.3) n=  318,432  0.251  0.248\n"}
+,{"stream_name":"stdout","time":3807.848997732,"data":"    [0.3, 0.4) n=  364,788  0.350  0.351\n"}
+,{"stream_name":"stdout","time":3807.849000146,"data":"    [0.4, 0.5) n=  287,439  0.446  0.435\n"}
+,{"stream_name":"stdout","time":3807.849002466,"data":"    [0.5, 0.6) n=  131,300  0.542  0.524\n"}
+,{"stream_name":"stdout","time":3807.849004872,"data":"    [0.6, 0.7) n=   69,149  0.648  0.638\n"}
+,{"stream_name":"stdout","time":3807.849007324,"data":"    [0.7, 0.8) n=   58,034  0.749  0.740\n"}
+,{"stream_name":"stdout","time":3807.849009741,"data":"    [0.8, 0.9) n=   57,665  0.851  0.842\n"}
+,{"stream_name":"stdout","time":3807.849012059,"data":"    [0.9, 1.0) n=   71,647  0.953  0.954\n"}
+,{"stream_name":"stdout","time":3807.849014416,"data":"===== chess_10M.pt =====\n"}
+,{"stream_name":"stdout","time":4093.600360609,"data":"[puzzles] depth 1: 2093/10000 solved = 20.9%  (checkpoint step 78120, val loss 3.0364)\n"}
+,{"stream_name":"stdout","time":4093.600395629,"data":"  rating     0-499:  63.5%  (n=74)\n"}
+,{"stream_name":"stdout","time":4093.600401304,"data":"  rating   500-999:  49.5%  (n=2161)\n"}
+,{"stream_name":"stdout","time":4093.60040631,"data":"  rating 1000-1499:  23.9%  (n=3367)\n"}
+,{"stream_name":"stdout","time":4093.600410835,"data":"  rating 1500-1999:   5.8%  (n=2543)\n"}
+,{"stream_name":"stdout","time":4093.600415366,"data":"  rating 2000-2499:   1.5%  (n=1571)\n"}
+,{"stream_name":"stdout","time":4093.600419865,"data":"  rating 2500-2999:   0.7%  (n=284)\n"}
+,{"stream_name":"stdout","time":5706.419218174,"data":"[agreement] /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_10M.pt (step 78120): 61,833 positions, 1,837,490 moves\n"}
+,{"stream_name":"stdout","time":5706.419276625,"data":"  action accuracy (paper: = argmax)  : 14.7%\n"}
+,{"stream_name":"stdout","time":5706.419283441,"data":"  picks a move of maximal value      : 17.1%\n"}
+,{"stream_name":"stdout","time":5706.41929104,"data":"  one of Stockfish's top 3           : 34.7%\n"}
+,{"stream_name":"stdout","time":5706.41929954,"data":"  Kendall's tau-b, mean over positions: 0.282 (863 positions undefined)\n"}
+,{"stream_name":"stdout","time":5706.419303265,"data":"  win probability given up           : mean 0.1138, median 0.0432\n"}
+,{"stream_name":"stdout","time":5706.419307097,"data":"  moves giving up \u003e 0.15           : 23.3%\n"}
+,{"stream_name":"stdout","time":5706.419311018,"data":"  value calibration                  : MAE 0.1101, ECE 0.0020\n"}
+,{"stream_name":"stdout","time":5706.419314527,"data":"  truth inside central 50% / 90%     : 52.2% / 91.9%\n"}
+,{"stream_name":"stdout","time":5706.41931789,"data":"  reliability (predicted bin: n, mean predicted, mean Stockfish)\n"}
+,{"stream_name":"stdout","time":5706.419321281,"data":"    [0.0, 0.1) n=  190,302  0.065  0.061\n"}
+,{"stream_name":"stdout","time":5706.41932478,"data":"    [0.1, 0.2) n=  323,368  0.149  0.147\n"}
+,{"stream_name":"stdout","time":5706.419328112,"data":"    [0.2, 0.3) n=  300,555  0.250  0.252\n"}
+,{"stream_name":"stdout","time":5706.419345188,"data":"    [0.3, 0.4) n=  344,809  0.352  0.352\n"}
+,{"stream_name":"stdout","time":5706.419351,"data":"    [0.4, 0.5) n=  317,607  0.445  0.444\n"}
+,{"stream_name":"stdout","time":5706.419356567,"data":"    [0.5, 0.6) n=  111,321  0.541  0.543\n"}
+,{"stream_name":"stdout","time":5706.41936221,"data":"    [0.6, 0.7) n=   61,906  0.649  0.645\n"}
+,{"stream_name":"stdout","time":5706.419378653,"data":"    [0.7, 0.8) n=   56,164  0.749  0.744\n"}
+,{"stream_name":"stdout","time":5706.419382839,"data":"    [0.8, 0.9) n=   62,699  0.852  0.845\n"}
+,{"stream_name":"stdout","time":5706.419386666,"data":"    [0.9, 1.0) n=   68,759  0.950  0.958\n"}
+,{"stream_name":"stdout","time":5706.419390535,"data":"===== chess_20.5M.pt =====\n"}
+,{"stream_name":"stdout","time":5997.029211672,"data":"[puzzles] depth 1: 2145/10000 solved = 21.4%  (checkpoint step 40000, val loss 2.9107)\n"}
+,{"stream_name":"stdout","time":5997.029257468,"data":"  rating     0-499:  68.9%  (n=74)\n"}
+,{"stream_name":"stdout","time":5997.029276456,"data":"  rating   500-999:  50.1%  (n=2161)\n"}
+,{"stream_name":"stdout","time":5997.029282571,"data":"  rating 1000-1499:  24.4%  (n=3367)\n"}
+,{"stream_name":"stdout","time":5997.029288584,"data":"  rating 1500-1999:   6.7%  (n=2543)\n"}
+,{"stream_name":"stdout","time":5997.029294514,"data":"  rating 2000-2499:   1.0%  (n=1571)\n"}
+,{"stream_name":"stdout","time":5997.029299499,"data":"  rating 2500-2999:   1.1%  (n=284)\n"}
+,{"stream_name":"stdout","time":7613.979462677,"data":"[agreement] /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_20.5M.pt (step 40000): 61,833 positions, 1,837,490 moves\n"}
+,{"stream_name":"stdout","time":7613.979542376,"data":"  action accuracy (paper: = argmax)  : 18.1%\n"}
+,{"stream_name":"stdout","time":7613.979552784,"data":"  picks a move of maximal value      : 20.6%\n"}
+,{"stream_name":"stdout","time":7613.979558104,"data":"  one of Stockfish's top 3           : 39.9%\n"}
+,{"stream_name":"stdout","time":7613.979563468,"data":"  Kendall's tau-b, mean over positions: 0.316 (863 positions undefined)\n"}
+,{"stream_name":"stdout","time":7613.979568926,"data":"  win probability given up           : mean 0.1027, median 0.0352\n"}
+,{"stream_name":"stdout","time":7613.979574015,"data":"  moves giving up \u003e 0.15           : 20.6%\n"}
+,{"stream_name":"stdout","time":7613.979579325,"data":"  value calibration                  : MAE 0.0992, ECE 0.0061\n"}
+,{"stream_name":"stdout","time":7613.97958434,"data":"  truth inside central 50% / 90%     : 51.4% / 91.0%\n"}
+,{"stream_name":"stdout","time":7613.979589268,"data":"  reliability (predicted bin: n, mean predicted, mean Stockfish)\n"}
+,{"stream_name":"stdout","time":7613.979599587,"data":"    [0.0, 0.1) n=  216,989  0.062  0.061\n"}
+,{"stream_name":"stdout","time":7613.979603647,"data":"    [0.1, 0.2) n=  318,793  0.147  0.143\n"}
+,{"stream_name":"stdout","time":7613.97960703,"data":"    [0.2, 0.3) n=  252,665  0.250  0.240\n"}
+,{"stream_name":"stdout","time":7613.979610399,"data":"    [0.3, 0.4) n=  314,176  0.353  0.344\n"}
+,{"stream_name":"stdout","time":7613.979613697,"data":"    [0.4, 0.5) n=  335,351  0.446  0.439\n"}
+,{"stream_name":"stdout","time":7613.97961698,"data":"    [0.5, 0.6) n=  135,188  0.540  0.535\n"}
+,{"stream_name":"stdout","time":7613.979620339,"data":"    [0.6, 0.7) n=   67,816  0.648  0.646\n"}
+,{"stream_name":"stdout","time":7613.979623699,"data":"    [0.7, 0.8) n=   62,910  0.750  0.739\n"}
+,{"stream_name":"stdout","time":7613.979627116,"data":"    [0.8, 0.9) n=   60,050  0.849  0.847\n"}
+,{"stream_name":"stdout","time":7613.979630505,"data":"    [0.9, 1.0) n=   73,552  0.955  0.954\n"}
+,{"stream_name":"stdout","time":7613.97963389,"data":"===== chess_30.7M.pt =====\n"}
+,{"stream_name":"stdout","time":7916.265252193,"data":"[puzzles] depth 1: 2366/10000 solved = 23.7%  (checkpoint step 30000, val loss 2.7505)\n"}
+,{"stream_name":"stdout","time":7916.265291438,"data":"  rating     0-499:  73.0%  (n=74)\n"}
+,{"stream_name":"stdout","time":7916.265297719,"data":"  rating   500-999:  52.9%  (n=2161)\n"}
+,{"stream_name":"stdout","time":7916.265317883,"data":"  rating 1000-1499:  27.2%  (n=3367)\n"}
+,{"stream_name":"stdout","time":7916.265320966,"data":"  rating 1500-1999:   8.3%  (n=2543)\n"}
+,{"stream_name":"stdout","time":7916.265323317,"data":"  rating 2000-2499:   2.5%  (n=1571)\n"}
+,{"stream_name":"stdout","time":7916.265325744,"data":"  rating 2500-2999:   0.7%  (n=284)\n"}
+,{"stream_name":"stdout","time":9534.436959799,"data":"[agreement] /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_30.7M.pt (step 30000): 61,833 positions, 1,837,490 moves\n"}
+,{"stream_name":"stdout","time":9534.437016489,"data":"  action accuracy (paper: = argmax)  : 22.2%\n"}
+,{"stream_name":"stdout","time":9534.437021542,"data":"  picks a move of maximal value      : 24.7%\n"}
+,{"stream_name":"stdout","time":9534.437025561,"data":"  one of Stockfish's top 3           : 45.9%\n"}
+,{"stream_name":"stdout","time":9534.437029121,"data":"  Kendall's tau-b, mean over positions: 0.381 (863 positions undefined)\n"}
+,{"stream_name":"stdout","time":9534.437032661,"data":"  win probability given up           : mean 0.0841, median 0.0262\n"}
+,{"stream_name":"stdout","time":9534.437036085,"data":"  moves giving up \u003e 0.15           : 16.4%\n"}
+,{"stream_name":"stdout","time":9534.437040071,"data":"  value calibration                  : MAE 0.0824, ECE 0.0071\n"}
+,{"stream_name":"stdout","time":9534.437043556,"data":"  truth inside central 50% / 90%     : 52.3% / 91.7%\n"}
+,{"stream_name":"stdout","time":9534.437046909,"data":"  reliability (predicted bin: n, mean predicted, mean Stockfish)\n"}
+,{"stream_name":"stdout","time":9534.437050376,"data":"    [0.0, 0.1) n=  253,875  0.063  0.059\n"}
+,{"stream_name":"stdout","time":9534.43705397,"data":"    [0.1, 0.2) n=  333,088  0.146  0.141\n"}
+,{"stream_name":"stdout","time":9534.437057426,"data":"    [0.2, 0.3) n=  222,212  0.249  0.241\n"}
+,{"stream_name":"stdout","time":9534.437060842,"data":"    [0.3, 0.4) n=  265,632  0.353  0.343\n"}
+,{"stream_name":"stdout","time":9534.437064323,"data":"    [0.4, 0.5) n=  321,806  0.449  0.439\n"}
+,{"stream_name":"stdout","time":9534.437067901,"data":"    [0.5, 0.6) n=  157,007  0.541  0.531\n"}
+,{"stream_name":"stdout","time":9534.437071213,"data":"    [0.6, 0.7) n=   75,438  0.647  0.643\n"}
+,{"stream_name":"stdout","time":9534.437074534,"data":"    [0.7, 0.8) n=   63,702  0.750  0.747\n"}
+,{"stream_name":"stdout","time":9534.437077836,"data":"    [0.8, 0.9) n=   64,895  0.850  0.849\n"}
+,{"stream_name":"stdout","time":9534.437081134,"data":"    [0.9, 1.0) n=   79,835  0.952  0.955\n"}
+,{"stream_name":"stdout","time":9534.437084487,"data":"===== chess_50M.pt =====\n"}
+,{"stream_name":"stdout","time":9863.451191065,"data":"[puzzles] depth 1: 3030/10000 solved = 30.3%  (checkpoint step 48820, val loss 2.5432)\n"}
+,{"stream_name":"stdout","time":9863.451234001,"data":"  rating     0-499:  74.3%  (n=74)\n"}
+,{"stream_name":"stdout","time":9863.451241932,"data":"  rating   500-999:  61.8%  (n=2161)\n"}
+,{"stream_name":"stdout","time":9863.451250759,"data":"  rating 1000-1499:  34.6%  (n=3367)\n"}
+,{"stream_name":"stdout","time":9863.451254144,"data":"  rating 1500-1999:  14.5%  (n=2543)\n"}
+,{"stream_name":"stdout","time":9863.451257126,"data":"  rating 2000-2499:   6.2%  (n=1571)\n"}
+,{"stream_name":"stdout","time":9863.451260188,"data":"  rating 2500-2999:   2.5%  (n=284)\n"}
+,{"stream_name":"stdout","time":11482.40263898,"data":"[agreement] /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_50M.pt (step 48820): 61,833 positions, 1,837,490 moves\n"}
+,{"stream_name":"stdout","time":11482.40267634,"data":"  action accuracy (paper: = argmax)  : 30.1%\n"}
+,{"stream_name":"stdout","time":11482.402691379,"data":"  picks a move of maximal value      : 32.9%\n"}
+,{"stream_name":"stdout","time":11482.402695091,"data":"  one of Stockfish's top 3           : 55.4%\n"}
+,{"stream_name":"stdout","time":11482.402700052,"data":"  Kendall's tau-b, mean over positions: 0.470 (863 positions undefined)\n"}
+,{"stream_name":"stdout","time":11482.402707057,"data":"  win probability given up           : mean 0.0570, median 0.0146\n"}
+,{"stream_name":"stdout","time":11482.402709425,"data":"  moves giving up \u003e 0.15           : 10.5%\n"}
+,{"stream_name":"stdout","time":11482.40271245,"data":"  value calibration                  : MAE 0.0656, ECE 0.0015\n"}
+,{"stream_name":"stdout","time":11482.402714842,"data":"  truth inside central 50% / 90%     : 53.0% / 91.6%\n"}
+,{"stream_name":"stdout","time":11482.402717299,"data":"  reliability (predicted bin: n, mean predicted, mean Stockfish)\n"}
+,{"stream_name":"stdout","time":11482.402719542,"data":"    [0.0, 0.1) n=  303,396  0.061  0.059\n"}
+,{"stream_name":"stdout","time":11482.402721808,"data":"    [0.1, 0.2) n=  344,623  0.145  0.144\n"}
+,{"stream_name":"stdout","time":11482.402723978,"data":"    [0.2, 0.3) n=  199,464  0.249  0.250\n"}
+,{"stream_name":"stdout","time":11482.402726232,"data":"    [0.3, 0.4) n=  244,206  0.353  0.353\n"}
+,{"stream_name":"stdout","time":11482.402728402,"data":"    [0.4, 0.5) n=  305,415  0.450  0.448\n"}
+,{"stream_name":"stdout","time":11482.402730635,"data":"    [0.5, 0.6) n=  150,841  0.541  0.543\n"}
+,{"stream_name":"stdout","time":11482.402732888,"data":"    [0.6, 0.7) n=   69,095  0.647  0.651\n"}
+,{"stream_name":"stdout","time":11482.402735087,"data":"    [0.7, 0.8) n=   61,176  0.751  0.750\n"}
+,{"stream_name":"stdout","time":11482.402737265,"data":"    [0.8, 0.9) n=   74,645  0.852  0.857\n"}
+,{"stream_name":"stdout","time":11482.402739458,"data":"    [0.9, 1.0) n=   84,629  0.952  0.957\n"}
+,{"stream_name":"stdout","time":11482.402741682,"data":"===== chess_100M.pt =====\n"}
+,{"stream_name":"stdout","time":11881.73167261,"data":"[puzzles] depth 1: 4915/10000 solved = 49.1%  (checkpoint step 96000, val loss 2.2419)\n"}
+,{"stream_name":"stdout","time":11881.731721208,"data":"  rating     0-499:  93.2%  (n=74)\n"}
+,{"stream_name":"stdout","time":11881.731728027,"data":"  rating   500-999:  84.4%  (n=2161)\n"}
+,{"stream_name":"stdout","time":11881.731733667,"data":"  rating 1000-1499:  61.6%  (n=3367)\n"}
+,{"stream_name":"stdout","time":11881.73173892,"data":"  rating 1500-1999:  30.3%  (n=2543)\n"}
+,{"stream_name":"stdout","time":11881.731744082,"data":"  rating 2000-2499:  10.8%  (n=1571)\n"}
+,{"stream_name":"stdout","time":11881.731753748,"data":"  rating 2500-2999:   3.2%  (n=284)\n"}
+,{"stream_name":"stdout","time":13499.361665403,"data":"[agreement] /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_100M.pt (step 96000): 61,833 positions, 1,837,490 moves\n"}
+,{"stream_name":"stdout","time":13499.361720955,"data":"  action accuracy (paper: = argmax)  : 39.7%\n"}
+,{"stream_name":"stdout","time":13499.361745341,"data":"  picks a move of maximal value      : 42.9%\n"}
+,{"stream_name":"stdout","time":13499.361752339,"data":"  one of Stockfish's top 3           : 67.4%\n"}
+,{"stream_name":"stdout","time":13499.361758541,"data":"  Kendall's tau-b, mean over positions: 0.576 (863 positions undefined)\n"}
+,{"stream_name":"stdout","time":13499.361764302,"data":"  win probability given up           : mean 0.0329, median 0.0047\n"}
+,{"stream_name":"stdout","time":13499.361769953,"data":"  moves giving up \u003e 0.15           : 5.2%\n"}
+,{"stream_name":"stdout","time":13499.361775335,"data":"  value calibration                  : MAE 0.0451, ECE 0.0024\n"}
+,{"stream_name":"stdout","time":13499.3617959,"data":"  truth inside central 50% / 90%     : 54.1% / 91.9%\n"}
+,{"stream_name":"stdout","time":13499.361799218,"data":"  reliability (predicted bin: n, mean predicted, mean Stockfish)\n"}
+,{"stream_name":"stdout","time":13499.361801863,"data":"    [0.0, 0.1) n=  341,353  0.060  0.057\n"}
+,{"stream_name":"stdout","time":13499.361804472,"data":"    [0.1, 0.2) n=  345,388  0.143  0.142\n"}
+,{"stream_name":"stdout","time":13499.361807066,"data":"    [0.2, 0.3) n=  176,078  0.249  0.246\n"}
+,{"stream_name":"stdout","time":13499.361809548,"data":"    [0.3, 0.4) n=  212,602  0.353  0.350\n"}
+,{"stream_name":"stdout","time":13499.36181204,"data":"    [0.4, 0.5) n=  286,208  0.451  0.448\n"}
+,{"stream_name":"stdout","time":13499.361814517,"data":"    [0.5, 0.6) n=  161,405  0.541  0.537\n"}
+,{"stream_name":"stdout","time":13499.361817108,"data":"    [0.6, 0.7) n=   70,682  0.646  0.640\n"}
+,{"stream_name":"stdout","time":13499.361819594,"data":"    [0.7, 0.8) n=   59,154  0.751  0.745\n"}
+,{"stream_name":"stdout","time":13499.361822081,"data":"    [0.8, 0.9) n=   85,806  0.854  0.853\n"}
+,{"stream_name":"stdout","time":13499.361824608,"data":"    [0.9, 1.0) n=   98,814  0.952  0.954\n"}
+,{"stream_name":"stdout","time":13499.361827247,"data":"===== chess_225M.pt =====\n"}
+,{"stream_name":"stdout","time":13935.125144636,"data":"[puzzles] depth 1: 6029/10000 solved = 60.3%  (checkpoint step 120000, val loss 2.0557)\n"}
+,{"stream_name":"stdout","time":13935.125187171,"data":"  rating     0-499: 100.0%  (n=74)\n"}
+,{"stream_name":"stdout","time":13935.125193639,"data":"  rating   500-999:  93.6%  (n=2161)\n"}
+,{"stream_name":"stdout","time":13935.125198987,"data":"  rating 1000-1499:  76.3%  (n=3367)\n"}
+,{"stream_name":"stdout","time":13935.125203836,"data":"  rating 1500-1999:  42.3%  (n=2543)\n"}
+,{"stream_name":"stdout","time":13935.125209101,"data":"  rating 2000-2499:  17.4%  (n=1571)\n"}
+,{"stream_name":"stdout","time":13935.125214371,"data":"  rating 2500-2999:   6.0%  (n=284)\n"}
+,{"stream_name":"stdout","time":15551.130286887,"data":"[agreement] /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_225M.pt (step 120000): 61,833 positions, 1,837,490 moves\n"}
+,{"stream_name":"stdout","time":15551.130327686,"data":"  action accuracy (paper: = argmax)  : 45.2%\n"}
+,{"stream_name":"stdout","time":15551.130333492,"data":"  picks a move of maximal value      : 48.6%\n"}
+,{"stream_name":"stdout","time":15551.130337957,"data":"  one of Stockfish's top 3           : 73.7%\n"}
+,{"stream_name":"stdout","time":15551.130342311,"data":"  Kendall's tau-b, mean over positions: 0.632 (863 positions undefined)\n"}
+,{"stream_name":"stdout","time":15551.130347071,"data":"  win probability given up           : mean 0.0232, median 0.0009\n"}
+,{"stream_name":"stdout","time":15551.130351535,"data":"  moves giving up \u003e 0.15           : 3.1%\n"}
+,{"stream_name":"stdout","time":15551.130356201,"data":"  value calibration                  : MAE 0.0362, ECE 0.0017\n"}
+,{"stream_name":"stdout","time":15551.130360588,"data":"  truth inside central 50% / 90%     : 54.3% / 91.7%\n"}
+,{"stream_name":"stdout","time":15551.130364913,"data":"  reliability (predicted bin: n, mean predicted, mean Stockfish)\n"}
+,{"stream_name":"stdout","time":15551.130369457,"data":"    [0.0, 0.1) n=  358,960  0.058  0.057\n"}
+,{"stream_name":"stdout","time":15551.130375524,"data":"    [0.1, 0.2) n=  343,004  0.143  0.142\n"}
+,{"stream_name":"stdout","time":15551.130383642,"data":"    [0.2, 0.3) n=  167,534  0.248  0.246\n"}
+,{"stream_name":"stdout","time":15551.130387083,"data":"    [0.3, 0.4) n=  201,253  0.353  0.349\n"}
+,{"stream_name":"stdout","time":15551.130397465,"data":"    [0.4, 0.5) n=  284,576  0.451  0.449\n"}
+,{"stream_name":"stdout","time":15551.130400064,"data":"    [0.5, 0.6) n=  163,734  0.540  0.540\n"}
+,{"stream_name":"stdout","time":15551.130402357,"data":"    [0.6, 0.7) n=   71,338  0.647  0.646\n"}
+,{"stream_name":"stdout","time":15551.130404546,"data":"    [0.7, 0.8) n=   58,785  0.750  0.750\n"}
+,{"stream_name":"stdout","time":15551.130406739,"data":"    [0.8, 0.9) n=   86,174  0.855  0.856\n"}
+,{"stream_name":"stdout","time":15551.130408924,"data":"    [0.9, 1.0) n=  102,132  0.952  0.955\n"}
+,{"stream_name":"stdout","time":15551.130411207,"data":"===== chess_225M_puzzles.pt =====\n"}
+,{"stream_name":"stdout","time":16033.570493277,"data":"[puzzles] depth 1: 7455/10000 solved = 74.6%  (checkpoint step 10000, val loss 2.0562)\n"}
+,{"stream_name":"stdout","time":16033.570555101,"data":"  rating     0-499: 100.0%  (n=74)\n"}
+,{"stream_name":"stdout","time":16033.570561581,"data":"  rating   500-999:  99.4%  (n=2161)\n"}
+,{"stream_name":"stdout","time":16033.570566155,"data":"  rating 1000-1499:  93.2%  (n=3367)\n"}
+,{"stream_name":"stdout","time":16033.570570863,"data":"  rating 1500-1999:  64.9%  (n=2543)\n"}
+,{"stream_name":"stdout","time":16033.570575748,"data":"  rating 2000-2499:  27.4%  (n=1571)\n"}
+,{"stream_name":"stdout","time":16033.570580655,"data":"  rating 2500-2999:   4.9%  (n=284)\n"}
+,{"stream_name":"stdout","time":17649.819637213,"data":"[agreement] /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_225M_puzzles.pt (step 10000): 61,833 positions, 1,837,490 moves\n"}
+,{"stream_name":"stdout","time":17649.819684442,"data":"  action accuracy (paper: = argmax)  : 43.1%\n"}
+,{"stream_name":"stdout","time":17649.819689437,"data":"  picks a move of maximal value      : 46.5%\n"}
+,{"stream_name":"stdout","time":17649.819692773,"data":"  one of Stockfish's top 3           : 70.4%\n"}
+,{"stream_name":"stdout","time":17649.819696042,"data":"  Kendall's tau-b, mean over positions: 0.619 (863 positions undefined)\n"}
+,{"stream_name":"stdout","time":17649.819699241,"data":"  win probability given up           : mean 0.0297, median 0.0023\n"}
+,{"stream_name":"stdout","time":17649.819721071,"data":"  moves giving up \u003e 0.15           : 5.0%\n"}
+,{"stream_name":"stdout","time":17649.819726798,"data":"  value calibration                  : MAE 0.0391, ECE 0.0039\n"}
+,{"stream_name":"stdout","time":17649.819731952,"data":"  truth inside central 50% / 90%     : 55.1% / 92.3%\n"}
+,{"stream_name":"stdout","time":17649.819736693,"data":"  reliability (predicted bin: n, mean predicted, mean Stockfish)\n"}
+,{"stream_name":"stdout","time":17649.819741733,"data":"    [0.0, 0.1) n=  352,014  0.058  0.057\n"}
+,{"stream_name":"stdout","time":17649.819746531,"data":"    [0.1, 0.2) n=  335,782  0.143  0.141\n"}
+,{"stream_name":"stdout","time":17649.819751309,"data":"    [0.2, 0.3) n=  171,061  0.249  0.242\n"}
+,{"stream_name":"stdout","time":17649.819755981,"data":"    [0.3, 0.4) n=  209,282  0.353  0.347\n"}
+,{"stream_name":"stdout","time":17649.819760828,"data":"    [0.4, 0.5) n=  280,956  0.451  0.446\n"}
+,{"stream_name":"stdout","time":17649.819765892,"data":"    [0.5, 0.6) n=  166,921  0.541  0.534\n"}
+,{"stream_name":"stdout","time":17649.819770481,"data":"    [0.6, 0.7) n=   75,888  0.646  0.639\n"}
+,{"stream_name":"stdout","time":17649.819775313,"data":"    [0.7, 0.8) n=   59,892  0.750  0.750\n"}
+,{"stream_name":"stdout","time":17649.819780217,"data":"    [0.8, 0.9) n=   82,838  0.854  0.856\n"}
+,{"stream_name":"stdout","time":17649.819784946,"data":"    [0.9, 1.0) n=  102,856  0.952  0.954\n"}
+,{"stream_name":"stdout","time":17649.819790026,"data":"===== chess_60M_params.pt =====\n"}
+,{"stream_name":"stdout","time":18780.24916977,"data":"[puzzles] depth 1: 2140/10000 solved = 21.4%  (checkpoint step 114000, val loss 2.9855)\n"}
+,{"stream_name":"stdout","time":18780.249231643,"data":"  rating     0-499:  66.2%  (n=74)\n"}
+,{"stream_name":"stdout","time":18780.249238521,"data":"  rating   500-999:  50.1%  (n=2161)\n"}
+,{"stream_name":"stdout","time":18780.249243413,"data":"  rating 1000-1499:  24.5%  (n=3367)\n"}
+,{"stream_name":"stdout","time":18780.249251605,"data":"  rating 1500-1999:   6.4%  (n=2543)\n"}
+,{"stream_name":"stdout","time":18780.24925495,"data":"  rating 2000-2499:   1.1%  (n=1571)\n"}
+,{"stream_name":"stdout","time":18780.249258211,"data":"  rating 2500-2999:   0.7%  (n=284)\n"}
+,{"stream_name":"stdout","time":24594.983655882,"data":"[agreement] /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_60M_params.pt (step 114000): 61,833 positions, 1,837,490 moves\n"}
+,{"stream_name":"stdout","time":24594.983696287,"data":"  action accuracy (paper: = argmax)  : 17.0%\n"}
+,{"stream_name":"stdout","time":24594.983700723,"data":"  picks a move of maximal value      : 19.5%\n"}
+,{"stream_name":"stdout","time":24594.983704021,"data":"  one of Stockfish's top 3           : 38.2%\n"}
+,{"stream_name":"stdout","time":24594.983707259,"data":"  Kendall's tau-b, mean over positions: 0.306 (863 positions undefined)\n"}
+,{"stream_name":"stdout","time":24594.983710493,"data":"  win probability given up           : mean 0.1058, median 0.0382\n"}
+,{"stream_name":"stdout","time":24594.983713778,"data":"  moves giving up \u003e 0.15           : 21.4%\n"}
+,{"stream_name":"stdout","time":24594.983717152,"data":"  value calibration                  : MAE 0.1066, ECE 0.0023\n"}
+,{"stream_name":"stdout","time":24594.983720214,"data":"  truth inside central 50% / 90%     : 52.0% / 91.6%\n"}
+,{"stream_name":"stdout","time":24594.983723289,"data":"  reliability (predicted bin: n, mean predicted, mean Stockfish)\n"}
+,{"stream_name":"stdout","time":24594.983726319,"data":"    [0.0, 0.1) n=  203,406  0.063  0.061\n"}
+,{"stream_name":"stdout","time":24594.983729257,"data":"    [0.1, 0.2) n=  313,055  0.148  0.145\n"}
+,{"stream_name":"stdout","time":24594.983732172,"data":"    [0.2, 0.3) n=  291,333  0.251  0.250\n"}
+,{"stream_name":"stdout","time":24594.983735132,"data":"    [0.3, 0.4) n=  340,094  0.352  0.351\n"}
+,{"stream_name":"stdout","time":24594.983738072,"data":"    [0.4, 0.5) n=  313,483  0.445  0.442\n"}
+,{"stream_name":"stdout","time":24594.983741007,"data":"    [0.5, 0.6) n=  123,595  0.541  0.539\n"}
+,{"stream_name":"stdout","time":24594.983743938,"data":"    [0.6, 0.7) n=   62,834  0.648  0.647\n"}
+,{"stream_name":"stdout","time":24594.983746897,"data":"    [0.7, 0.8) n=   59,374  0.751  0.745\n"}
+,{"stream_name":"stdout","time":24594.983750006,"data":"    [0.8, 0.9) n=   62,734  0.851  0.851\n"}
+,{"stream_name":"stdout","time":24594.983753076,"data":"    [0.9, 1.0) n=   67,582  0.949  0.960\n"}
+,{"stream_name":"stdout","time":24594.983756108,"data":"===== search on chess_225M.pt, first 1000 puzzles =====\n"}
+,{"stream_name":"stdout","time":24638.119321467,"data":"[puzzles] depth 1: 585/1000 solved = 58.5%  (checkpoint step 120000, val loss 2.0557)\n"}
+,{"stream_name":"stdout","time":24638.119356621,"data":"  rating     0-499: 100.0%  (n=5)\n"}
+,{"stream_name":"stdout","time":24638.119362204,"data":"  rating   500-999:  96.1%  (n=207)\n"}
+,{"stream_name":"stdout","time":24638.119367686,"data":"  rating 1000-1499:  76.4%  (n=322)\n"}
+,{"stream_name":"stdout","time":24638.119372531,"data":"  rating 1500-1999:  36.9%  (n=263)\n"}
+,{"stream_name":"stdout","time":24638.11937684,"data":"  rating 2000-2499:  21.6%  (n=176)\n"}
+,{"stream_name":"stdout","time":24638.119381544,"data":"  rating 2500-2999:   0.0%  (n=27)\n"}
+,{"stream_name":"stdout","time":26047.530263856,"data":"[puzzles] depth 2: 608/1000 solved = 60.8%  (checkpoint step 120000, val loss 2.0557)\n"}
+,{"stream_name":"stdout","time":26047.530321792,"data":"  rating     0-499: 100.0%  (n=5)\n"}
+,{"stream_name":"stdout","time":26047.530326636,"data":"  rating   500-999:  96.6%  (n=207)\n"}
+,{"stream_name":"stdout","time":26047.530330318,"data":"  rating 1000-1499:  79.2%  (n=322)\n"}
+,{"stream_name":"stdout","time":26047.530333596,"data":"  rating 1500-1999:  41.1%  (n=263)\n"}
+,{"stream_name":"stdout","time":26047.530336849,"data":"  rating 2000-2499:  22.2%  (n=176)\n"}
+,{"stream_name":"stdout","time":26047.530340158,"data":"  rating 2500-2999:   3.7%  (n=27)\n"}
+,{"stream_name":"stdout","time":26047.530343371,"data":"[done]\n"}
+,{"stream_name":"stderr","time":26052.538552618,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":26052.538591518,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":26052.710933321,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":26052.710959142,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":26053.333344057,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":26053.630451934,"data":"[NbConvertApp] Writing 148304 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":26055.970233094,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":26056.837309489,"data":"[NbConvertApp] Writing 427892 bytes to __results__.html\n"}
+]
