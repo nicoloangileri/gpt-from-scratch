@@ -18,3 +18,6 @@ bot.log
 
 # backups written by the text-hygiene script
 *.bak
+
+# hard links to the checkpoints, staged for the private Kaggle dataset
+kaggle_ckpt_dataset/

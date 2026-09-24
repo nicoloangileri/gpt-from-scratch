@@ -134,3 +134,12 @@ def test_the_evaluator_reads_the_right_numbers(tmp_path, monkeypatch, agree):
     else:
         assert out["kendall_tau"] == -1.0 and out["action_acc"] == 0.0
         assert out["mean_given_up"] == pytest.approx(0.95 - 0.05)
+
+
+def test_the_vectorised_pit_matches_the_definition_row_by_row():
+    from src.agreement_eval import mid_pits
+    rng = np.random.default_rng(0)
+    probs = rng.dirichlet(np.ones(64), size=200)
+    buckets = rng.integers(0, 64, size=200)
+    expected = [mid_pit(p, int(b)) for p, b in zip(probs, buckets)]
+    assert np.allclose(mid_pits(probs, buckets), expected)

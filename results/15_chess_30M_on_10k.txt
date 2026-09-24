@@ -1,0 +1,7 @@
+[puzzles] depth 1: 2366/10000 solved = 23.7%  (checkpoint step 30000, val loss 2.7505)
+  rating     0-499:  73.0%  (n=74)
+  rating   500-999:  52.9%  (n=2161)
+  rating 1000-1499:  27.2%  (n=3367)
+  rating 1500-1999:   8.3%  (n=2543)
+  rating 2000-2499:   2.5%  (n=1571)
+  rating 2500-2999:   0.7%  (n=284)

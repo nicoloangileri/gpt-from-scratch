@@ -63,6 +63,14 @@ def mid_pit(probs: np.ndarray, bucket: int) -> float:
     return float(probs[:bucket].sum() + 0.5 * probs[bucket])
 
 
+def mid_pits(probs: np.ndarray, buckets: np.ndarray) -> np.ndarray:
+    """mid_pit for every row at once. The per-move Python loop it replaces ran 1.84M
+    times per model and was most of the evaluation's time -- and of the laptop's heat."""
+    rows = np.arange(len(buckets))
+    own = probs[rows, buckets]
+    return np.cumsum(probs, axis=1)[rows, buckets] - own + 0.5 * own
+
+
 def position_metrics(predicted: np.ndarray, truth: np.ndarray) -> dict:
     """Everything measured on one position, from the model's and Stockfish's values."""
     chosen = int(predicted.argmax())
@@ -146,7 +154,7 @@ def run(ckpt: str, bag: str, positions: int | None, device: str,
             buckets = win_prob_to_bucket(truth, num_buckets)
             preds.append(values)
             truths.append(truth)
-            pits.append([mid_pit(p, int(b)) for p, b in zip(probs, buckets)])
+            pits.append(mid_pits(probs, buckets.astype(np.int64)))
 
     pp = per_position
     taus = np.array([m["tau"] for m in pp])
