@@ -5,6 +5,7 @@ pyyaml>=6.0
 pytest>=7.0
 chess>=1.10          # legal-move generation, puzzle replay, the move vocabulary
 requests>=2.31      # Lichess bot API
+zstandard>=0.22     # streams the Lichess puzzle database without unpacking it
 
 # triton is not listed: it ships with torch on Linux/CUDA and has no macOS wheel.
 # src/kernels/ falls back to PyTorch when it is missing, so CPU installs are fine.
