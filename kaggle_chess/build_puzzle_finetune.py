@@ -59,7 +59,8 @@ print(f"[puzzles] packed in {{time.time() - t:.0f}}s", flush=True)
 '''
 
 
-def finetune_cell(max_steps: int, batch: int, rank_batch: int, lr: float) -> str:
+def finetune_cell(max_steps: int, batch: int, rank_batch: int, lr: float,
+                  rank_weight: float = 1.0) -> str:
     return f'''\
 import sys, time
 budget = {SESSION_HOURS} * 3600 - (time.time() - T0)
@@ -67,6 +68,7 @@ print(f"[session] training budget {{budget / 3600:.2f}}h", flush=True)
 sys.argv = ["train_chess", "--config", "configs/chess.yaml", "--device", "cuda",
             "--data_dir", DATA + "/chess", "--out_dir", "checkpoints",
             "--puzzle_dir", DATA + "/puzzles", "--rank_batch", "{rank_batch}",
+            "--rank_weight", "{rank_weight}",
             "--max_steps", "{max_steps}", "--batch_size", "{batch}", "--compile", "true",
             "--lr", "{lr}", "--min_lr", "{lr / 10}",
             "--warmup_steps", "{max(100, max_steps // 50)}", "--max_ram_gb", str(MAX_RAM_GB),
@@ -100,6 +102,41 @@ print("[summary]", {{"before": before, "after": after, "depth1": d1, "depth2": d
 '''
 
 
+def named_init_cell(name: str, dataset: str) -> str:
+    """Start from a checkpoint in the private dataset, chosen by name -- the dataset
+    holds ten of them, so "the first .pt found" would be a coin toss."""
+    return f'''\
+import glob, os
+found = {{os.path.basename(p): p for p in glob.glob("/kaggle/input/**/*.pt", recursive=True)}}
+assert "{name}" in found, "{name} not under /kaggle/input: is {dataset} attached?"
+INIT = found["{name}"]
+print("[init] warm-starting from", INIT, flush=True)
+'''
+
+
+def new_model_eval_cell(puzzles: int, search_puzzles: int) -> str:
+    """Only the new checkpoint, with the same code and precision that measured the
+    others (results/17_eval_on_kaggle.json): that evaluation reproduced its numbers
+    exactly across sessions, so re-measuring the references would only spend quota.
+    The move-quality pass is the slow one -- ~27 min per model in fp32 on a T4."""
+    return f'''\
+import json, urllib.request
+from src.puzzles_eval import run as puzzles
+from src.agreement_eval import run as agreement
+urllib.request.urlretrieve("https://storage.googleapis.com/searchless_chess/data/test/action_value_data.bag",
+                           DATA + "/test.bag")
+NEW = "checkpoints/chess_best.pt"
+results = {{"puzzles": puzzles(NEW, DATA + "/puzzles.csv", {puzzles}, "cuda")}}
+json.dump(results, open("results.json", "w"), indent=1, default=float)
+results["agreement"] = agreement(NEW, DATA + "/test.bag", None, "cuda")
+json.dump(results, open("results.json", "w"), indent=1, default=float)
+print("===== search, on the first {search_puzzles} puzzles =====", flush=True)
+results["search"] = {{d: puzzles(NEW, DATA + "/puzzles.csv", {search_puzzles}, "cuda", d) for d in (1, 2)}}
+json.dump(results, open("results.json", "w"), indent=1, default=float)
+print("[done]", flush=True)
+'''
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--steps", type=int, default=12000)
@@ -116,27 +153,37 @@ def main() -> None:
     ap.add_argument("--id", default="nicolangileri/gpt-from-scratch-chess-puzzle")
     ap.add_argument("--source", default="nicolangileri/gpt-from-scratch-chess-225b",
                     help="kernel whose output holds the chess_best.pt to start from")
+    ap.add_argument("--rank_weight", type=float, default=1.0,
+                    help="weight of the ranking loss; 1.0 is the first fine-tune")
+    ap.add_argument("--init-dataset", dest="init_dataset", default=None,
+                    help="start from a named checkpoint in this dataset instead of --source")
+    ap.add_argument("--init-name", dest="init_name", default="chess_225M.pt")
     a = ap.parse_args()
 
     out = ROOT / a.dir
     out.mkdir(exist_ok=True)
+    from_dataset = a.init_dataset is not None
     cells = [
         setup_cell(),
-        init_cell(a.source),                    # fail before any download if it is missing
+        # fail before any download if the starting weights are missing
+        named_init_cell(a.init_name, a.init_dataset) if from_dataset else init_cell(a.source),
         data_cell(a.shards),
         puzzle_data_cell(a.max_puzzles, a.val_positions),
-        finetune_cell(a.steps, a.batch_size, a.rank_batch, a.lr),
-        compare_cell(a.puzzles, a.search_puzzles),
+        finetune_cell(a.steps, a.batch_size, a.rank_batch, a.lr, a.rank_weight),
+        new_model_eval_cell(a.puzzles, a.search_puzzles) if from_dataset
+        else compare_cell(a.puzzles, a.search_puzzles),
     ]
     (out / "puzzle_kernel.ipynb").write_text(json.dumps(_notebook(cells), indent=1))
 
     meta = json.loads((ROOT / "kaggle_chess" / "kernel-metadata.json").read_text())
-    meta.update({"id": a.id, "title": a.id.split("/")[-1],
-                 "code_file": "puzzle_kernel.ipynb", "kernel_sources": [a.source]})
+    meta.update({"id": a.id, "title": a.id.split("/")[-1], "code_file": "puzzle_kernel.ipynb",
+                 "kernel_sources": [] if from_dataset else [a.source],
+                 "dataset_sources": [a.init_dataset] if from_dataset else []})
     (out / "kernel-metadata.json").write_text(json.dumps(meta, indent=2) + "\n")
     print(f"wrote {out}/puzzle_kernel.ipynb and kernel-metadata.json\n"
-          f"  start from : {a.source}\n"
-          f"  {a.steps} steps, batch {a.batch_size} + {a.rank_batch} puzzle positions, lr {a.lr}\n"
+          f"  start from : {a.init_dataset + '/' + a.init_name if from_dataset else a.source}\n"
+          f"  {a.steps} steps, batch {a.batch_size} + {a.rank_batch} puzzle positions, "
+          f"lr {a.lr}, rank weight {a.rank_weight}\n"
           f"  push with  : kaggle kernels push -p {a.dir}/")
 
 
