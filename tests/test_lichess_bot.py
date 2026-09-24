@@ -1,5 +1,6 @@
 """Challenge filtering, tested without touching the network or a token."""
 
+import chess
 import pytest
 
 from src.lichess_bot import MIN_INITIAL_SECONDS, should_accept
@@ -296,3 +297,51 @@ def test_reconnecting_gives_up_eventually(monkeypatch):
     monkeypatch.setattr(lichess_bot.time, "sleep", lambda _: None)
     bot.play_game("uVc5lAFA", attempts=4)
     assert len(tries) == 4
+
+
+class _FakeStream:
+    """What /api/bot/game/stream returns: one JSON event per line."""
+
+    def __init__(self, events):
+        self.events = events
+
+    def iter_lines(self):
+        import json
+        for event in self.events:
+            yield json.dumps(event).encode()
+
+
+def test_the_bot_moves_only_on_its_own_turn():
+    """The game loop itself had no test: the suite stayed green with the turn check
+    inverted, i.e. a bot that tries to move for its opponent and never for itself.
+
+    Here the bot is black. The stream echoes every move, its own included, so it sees
+    a position after each ply and must answer only when white has just moved.
+    """
+    bot = _bare_bot()
+    clock = {"wtime": 600_000, "btime": 600_000}
+    events = [
+        {"type": "gameFull", "white": {"id": "someone"}, "black": {"id": "imbotterthanyou"},
+         "state": {"type": "gameState", "moves": "", "status": "started", **clock}},
+        {"type": "gameState", "moves": "e2e4", "status": "started", **clock},
+        {"type": "gameState", "moves": "e2e4 e7e5", "status": "started", **clock},
+        {"type": "gameState", "moves": "e2e4 e7e5 g1f3", "status": "started", **clock},
+        {"type": "gameState", "moves": "e2e4 e7e5 g1f3 b8c6", "status": "resign", **clock},
+    ]
+    bot._get = lambda path, **kw: _FakeStream(events)
+
+    asked, posted = [], []
+
+    class Reply:
+        ok, text = True, ""
+
+    def pick(board, clock_ms):
+        asked.append(board.turn)
+        return {1: "e7e5", 3: "b8c6"}[len(board.move_stack)]
+
+    bot.pick = pick
+    bot._post = lambda path, **kw: posted.append(path.rsplit("/", 1)[-1]) or Reply()
+
+    bot._play_stream("g1")
+    assert asked == [chess.BLACK, chess.BLACK]        # asked twice, both times as black
+    assert posted == ["e7e5", "b8c6"]

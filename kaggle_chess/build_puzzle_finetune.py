@@ -1,7 +1,7 @@
 """Assemble the Kaggle notebook that fine-tunes on Lichess puzzles.
 
-The action-value model knows how good a move is and still misses tactics: it agrees
-with Stockfish's first choice 38% of the time. Lichess publishes 6.1M puzzles (CC0)
+The action-value model knows how good a move is and still misses tactics: at 100M
+examples it agreed with Stockfish's first choice 38% of the time. Lichess publishes 6.1M puzzles (CC0)
 whose label is exactly "this move, not the others", so this run adds a listwise
 ranking loss over the legal moves on top of the action-value loss it was trained on.
 

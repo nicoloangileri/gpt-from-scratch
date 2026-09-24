@@ -180,7 +180,7 @@ and remember who already said no.
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-pytest -q                     # CPU, ~14s: 61 passed, 11 skipped (Triton needs CUDA)
+pytest -q                     # CPU, ~25s: 88 passed, 11 skipped (Triton needs CUDA)
 ```
 
 Chess, one shard end to end (1.34 GB download, packs to .bin, trains, scores puzzles):

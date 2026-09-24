@@ -4,9 +4,10 @@
         --exclude data/chessbench/puzzles.csv --out data/puzzles --max_puzzles 200000
 
 The action-value model learns how good a move is, which is not the same as knowing
-which move to play: the 225M-example model agrees with Stockfish's first choice 38%
-of the time while giving up only 3.6 points of win probability per move on average.
-It plays reasonably and misses tactics. Lichess publishes 6,100,952 puzzles (CC0)
+which move to play: the 100M-example model agrees with Stockfish's first choice 38%
+of the time while giving up only 3.6 points of win probability per move on average
+(src/agreement_eval.py; not yet re-measured for the 225M model). It plays reasonably
+and misses tactics. Lichess publishes 6,100,952 puzzles (CC0)
 whose label is exactly the missing one -- "this move, not the others" -- so they are
 packed here as a ranking problem: one position, the correct move, and a sample of the
 legal moves it has to beat.
@@ -75,9 +76,9 @@ def candidates(board: chess.Board, correct: str, num: int,
                rng: random.Random) -> list[int] | None:
     """Action indices: the correct move first, then a sample of its alternatives.
 
-    Returns None when the position cannot be used -- no alternatives to rank
-    against, or a move outside the 1968-move action space (underpromotions to
-    pieces the action space does not encode).
+    Returns None when the position cannot be used: no alternatives to rank against.
+    The action-space checks are defensive only -- all 1968 UCI moves are encoded,
+    underpromotions and castling included (tests/test_chess_data.py).
 
     Mating alternatives are dropped when the correct move is itself a mate: Lichess
     accepts any mate in one, so scoring another one is not an error and punishing it

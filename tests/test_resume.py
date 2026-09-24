@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+import pytest
 import torch
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,14 +36,32 @@ def _train(data: Path, out: Path, *extra: str) -> None:
     subprocess.run(cmd, cwd=ROOT, check=True, capture_output=True, text=True)
 
 
-def test_split_run_matches_unsplit_run(tmp_path):
+def _fake_puzzles(d: Path, n: int = 400, k: int = 16) -> None:
+    """Packed puzzle arrays in the layout src/puzzle_data.py writes. The values are
+    random: the model does not care whether a position is a real one."""
+    d.mkdir()
+    rng = np.random.default_rng(1)
+    for split, size in (("train", n), ("val", n // 4)):
+        rng.integers(0, 31, (size, 77), dtype=np.uint8).tofile(d / f"{split}_states.bin")
+        rng.integers(0, 1968, (size, k), dtype=np.uint16).tofile(d / f"{split}_cands.bin")
+        rng.integers(2, k + 1, size, dtype=np.uint8).tofile(d / f"{split}_ncand.bin")
+
+
+@pytest.mark.parametrize("with_puzzles", [False, True])
+def test_split_run_matches_unsplit_run(tmp_path, with_puzzles):
+    """With puzzles too: the ranking batch draws from the same RNG, so a fine-tune
+    split across two sessions has to replay it exactly as well."""
     data = tmp_path / "data"
     data.mkdir()
     _fake_packed_dataset(data)
+    extra = ()
+    if with_puzzles:
+        _fake_puzzles(tmp_path / "puzzles")
+        extra = ("--puzzle_dir", str(tmp_path / "puzzles"), "--rank_batch", "4")
 
-    _train(data, tmp_path / "straight")
-    _train(data, tmp_path / "part1", "--stop_at_step", "12")      # stops before an eval step's update
-    _train(data, tmp_path / "part2", "--resume", str(tmp_path / "part1" / "last.pt"))
+    _train(data, tmp_path / "straight", *extra)
+    _train(data, tmp_path / "part1", "--stop_at_step", "12", *extra)  # stops before an eval step's update
+    _train(data, tmp_path / "part2", "--resume", str(tmp_path / "part1" / "last.pt"), *extra)
 
     straight = torch.load(tmp_path / "straight" / "last.pt", weights_only=False)
     part1 = torch.load(tmp_path / "part1" / "last.pt", weights_only=False)
@@ -70,9 +89,6 @@ def test_resume_refuses_a_different_schedule(tmp_path):
            "--resume", str(tmp_path / "part1" / "last.pt")]
     r = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     assert r.returncode != 0 and "LR schedule" in (r.stderr + r.stdout)
-
-
-import pytest
 
 
 @pytest.mark.skipif(not torch.backends.mps.is_available(), reason="needs a non-CPU device")
@@ -133,3 +149,45 @@ def test_init_from_and_resume_are_mutually_exclusive(tmp_path):
                         "--init_from", ckpt, "--resume", ckpt],
                        cwd=ROOT, capture_output=True, text=True)
     assert r.returncode != 0 and "mutually exclusive" in (r.stdout + r.stderr)
+
+
+def test_init_from_loads_the_source_weights(tmp_path):
+    """The test above checks the schedule restarts and the source is untouched -- and
+    stayed green with the line that loads the weights deleted. Stopping at step 0,
+    before any update, the saved weights must be the source's, bit for bit."""
+    data = tmp_path / "data"
+    data.mkdir()
+    _fake_packed_dataset(data)
+    _train(data, tmp_path / "first")
+    source = torch.load(tmp_path / "first" / "last.pt", weights_only=False)["model"]
+
+    _train(data, tmp_path / "warm", "--init_from", str(tmp_path / "first" / "last.pt"),
+           "--stop_at_step", "0")
+    _train(data, tmp_path / "cold", "--stop_at_step", "0")
+    warm = torch.load(tmp_path / "warm" / "last.pt", weights_only=False)["model"]
+    cold = torch.load(tmp_path / "cold" / "last.pt", weights_only=False)["model"]
+
+    for name, tensor in source.items():
+        assert torch.equal(tensor, warm[name]), f"{name} was not taken from the source"
+    # control: without --init_from the same step-0 save is a fresh initialisation
+    assert any(not torch.equal(source[n], cold[n]) for n in source)
+
+
+def test_the_puzzle_loss_reaches_the_weights(tmp_path):
+    """rank_weight 1 and 2 draw identical batches -- same seed, same calls -- and differ
+    only in how much the ranking gradient counts. If that loss never reached backward,
+    both runs would end bit-identical, which is exactly what the suite could not tell
+    before this test. A third run repeats the first to show the runs are deterministic,
+    so a difference can only come from the loss."""
+    data = tmp_path / "data"
+    data.mkdir()
+    _fake_packed_dataset(data)
+    _fake_puzzles(tmp_path / "puzzles")
+    common = ("--puzzle_dir", str(tmp_path / "puzzles"), "--rank_batch", "4",
+              "--max_steps", "6")
+    for name, weight in (("w1", "1.0"), ("w1_again", "1.0"), ("w2", "2.0")):
+        _train(data, tmp_path / name, *common, "--rank_weight", weight)
+    w1, again, w2 = (torch.load(tmp_path / n / "last.pt", weights_only=False)["model"]
+                     for n in ("w1", "w1_again", "w2"))
+    assert all(torch.equal(w1[n], again[n]) for n in w1)
+    assert any(not torch.equal(w1[n], w2[n]) for n in w1)

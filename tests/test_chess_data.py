@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 
 from src.chess_data import (
-    ACTION_OFFSET, FULL_VOCAB, MOVE_TO_ACTION, NUM_ACTIONS, SEQUENCE_LENGTH,
+    ACTION_OFFSET, MOVE_TO_ACTION, NUM_ACTIONS, SEQUENCE_LENGTH,
     iter_action_value, tokenize_fen, win_prob_to_bucket,
 )
 
@@ -15,18 +15,32 @@ START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
 
 def test_move_vocabulary_matches_paper():
+    """1968 moves, one index each. (FEN symbols staying below ACTION_OFFSET is
+    checked by test_tokenize_fen_is_fixed_length.)
+
+    A second assertion used to check FULL_VOCAB == ACTION_OFFSET + NUM_ACTIONS,
+    which is how FULL_VOCAB is defined: it could not fail."""
     assert NUM_ACTIONS == 1968
-    assert FULL_VOCAB == ACTION_OFFSET + NUM_ACTIONS
+    assert sorted(MOVE_TO_ACTION.values()) == list(range(NUM_ACTIONS))   # a bijection
 
 
-def test_every_legal_move_of_a_real_game_is_in_the_vocabulary():
-    board = chess.Board()
-    for _ in range(40):
-        moves = list(board.legal_moves)
-        if not moves:
-            break
-        assert all(m.uci() in MOVE_TO_ACTION for m in moves)
-        board.push(moves[0])
+@pytest.mark.parametrize("fen", [
+    chess.STARTING_FEN,
+    "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1",                 # castling, both sides
+    "rnbqkbnr/ppp1p1pp/8/3pPp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3",  # en passant
+    "1r2k3/P7/8/8/8/8/8/4K3 w - - 0 1",                     # promotions, incl. by capture
+    "4k3/8/8/8/8/8/p7/1R2K3 b - - 0 1",                     # black promotions
+])
+def test_every_legal_move_is_in_the_vocabulary(fen):
+    """Including the special moves. The old version walked one deterministic line
+    from the start position -- no castling, no en passant, no promotion -- and was
+    named as if it played a real game."""
+    board = chess.Board(fen)
+    missing = [m.uci() for m in board.legal_moves if m.uci() not in MOVE_TO_ACTION]
+    assert not missing
+    special = [m for m in board.legal_moves
+               if board.is_castling(m) or board.is_en_passant(m) or m.promotion]
+    assert special or fen == chess.STARTING_FEN          # each fixture earns its place
 
 
 def test_tokenize_fen_is_fixed_length():

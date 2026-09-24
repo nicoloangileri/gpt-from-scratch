@@ -1,13 +1,15 @@
 """Play on Lichess with the trained model.
 
-    export LICHESS_TOKEN="..."          # never committed, never passed as an argument
+    export LICHESS_TOKEN="..."          # or put it in ~/.config/lichess/token, chmod 600
     python -m src.lichess_bot --check   # verify the token and the account
     python -m src.lichess_bot --ckpt checkpoints/chess_best.pt --depth 2
 
 Listens on the event stream, accepts challenges that fit the time control, and
-plays each game with alpha-beta on top of the network. The token is read from the
-environment only: it is never logged, never written to disk, and never included in
-an error message.
+plays each game with alpha-beta on top of the network. The token comes from the
+LICHESS_TOKEN environment variable or from ~/.config/lichess/token, which must be
+readable by its owner only (the bot refuses it otherwise). It is never a command-line
+argument, never logged, never written by the bot, and never included in an error
+message.
 
 Search depth adapts to the clock. Depth 2 costs 1.5-3s per move on CPU, which is
 fine at 3+2 and suicide in bullet, so the bot declines what it cannot play and

@@ -2,6 +2,12 @@
 
 Skipped without a GPU: Triton needs CUDA, so on the dev laptop these run only as
 the fallback path (covered by test_fallback_matches_pytorch).
+
+Nothing runs the CUDA tests automatically -- not the Mac, not the CPU-only CI. They
+last ran in full on a Kaggle T4 on 10 Sept 2026, 13 passed
+(results/07_triton_layernorm.log), and the kernel's code has not changed since:
+the only later edit to src/kernels/layernorm.py is its docstring. Any change to the
+kernel itself must be re-run on a GPU before it is trusted.
 """
 
 import pytest
