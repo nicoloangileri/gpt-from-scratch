@@ -1,0 +1,17 @@
+{
+  "id": "nicolangileri/gpt-from-scratch-chess-match-d2",
+  "title": "gpt-from-scratch-chess-match-d2",
+  "code_file": "match_kernel.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [
+    "nicolangileri/gpt-from-scratch-checkpoints"
+  ],
+  "kernel_sources": [],
+  "competition_sources": []
+}

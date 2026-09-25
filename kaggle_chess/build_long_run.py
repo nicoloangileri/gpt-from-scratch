@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SOURCES = [
     "src/__init__.py", "src/model.py", "src/data.py", "src/train.py",
     "src/chess_data.py", "src/train_chess.py", "src/puzzles_eval.py",
-    "src/puzzle_data.py", "src/search.py", "src/agreement_eval.py",
+    "src/puzzle_data.py", "src/search.py", "src/agreement_eval.py", "src/match.py",
     "src/kernels/__init__.py", "src/kernels/layernorm.py", "configs/chess.yaml",
 ]
 SESSION_HOURS = 11.25          # Kaggle kills at 12h; the rest is margin to save outputs

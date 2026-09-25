@@ -94,3 +94,22 @@ def test_level_at_the_target_is_not_a_win(monkeypatch):
     results = run_match(["p1", "p2", "p3"], "A", "B", log=lambda _: None, first_to=2)
     assert len(results) == 6
     assert match.decided(results, 2) is None
+
+
+def test_a_long_match_saves_after_every_position_and_stops_at_its_deadline(monkeypatch):
+    """A cut must never split a position's two colours, and what was played is kept."""
+    import time as clock
+    monkeypatch.setattr(match, "play", lambda fen, w, b, max_plies=300: 1.0)
+    saved = []
+    results = run_match(["p1", "p2", "p3"], "A", "B", log=lambda _: None,
+                        on_position=lambda r: saved.append(len(r)))
+    assert saved == [2, 4, 6]
+
+    results = run_match(["p1", "p2"], "A", "B", log=lambda _: None,
+                        deadline=clock.time() - 1)       # already past: play nothing
+    assert results == []
+
+
+def test_an_empty_match_summarises_without_nan():
+    s = summarise([])
+    assert s["games"] == 0 and s["elo"] is None

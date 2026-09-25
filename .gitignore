@@ -21,3 +21,6 @@ bot.log
 
 # hard links to the checkpoints, staged for the private Kaggle dataset
 kaggle_ckpt_dataset/
+
+# progress of kaggle_chess/queue_after_reset.sh
+kaggle_queue.log

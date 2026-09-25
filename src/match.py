@@ -40,6 +40,9 @@ def summarise(results: list[float]) -> dict:
     """Score, Elo and a 95% interval from per-game results for player A (1, 0.5, 0)."""
     x = np.asarray(results, dtype=np.float64)
     n = len(x)
+    if n == 0:                        # a deadline hit before the first position
+        return {"games": 0, "wins": 0, "draws": 0, "losses": 0, "score": None,
+                "elo": None, "elo_low": None, "elo_high": None}
     s = float(x.mean())
     se = float(x.std(ddof=0) / math.sqrt(n)) if n > 1 else 0.5
     lo, hi = s - 1.96 * se, s + 1.96 * se
@@ -90,14 +93,22 @@ def decided(results: list[float], first_to: float) -> str | None:
 
 
 def run_match(positions: list[str], a, b, log=print, max_plies: int = 300,
-              first_to: float | None = None) -> list[float]:
+              first_to: float | None = None, on_position=None,
+              deadline: float | None = None) -> list[float]:
     """A plays each position once as white and once as black. Results from A's side.
 
     With `first_to`, the match stops at the first game after which one side has that
     many points (win 1, draw 1/2) and leads -- a first-to-7 match, like a set in
-    tennis. Colours still alternate game by game."""
+    tennis. Colours still alternate game by game.
+
+    `on_position(results)` runs after every position, so a long match can save as it
+    goes; `deadline` (a time.time() value) stops it cleanly between positions, never
+    between the two colours of one, so the colour balance survives a cut."""
     results = []
     for i, fen in enumerate(positions):
+        if deadline is not None and time.time() > deadline:
+            log(f"[match] deadline reached after {i} positions")
+            break
         for a_is_white in (True, False):
             if a_is_white:
                 results.append(play(fen, a, b, max_plies))
@@ -108,6 +119,8 @@ def run_match(positions: list[str], a, b, log=print, max_plies: int = 300,
                 log(f"[match] game {len(results)}: A {pa:g} - B {len(results) - pa:g}")
                 if decided(results, first_to):
                     return results
+        if on_position is not None:
+            on_position(results)
         s = summarise(results)
         log(f"[match] {i + 1}/{len(positions)} positions: A {s['wins']}W {s['draws']}D "
             f"{s['losses']}L, score {s['score']:.3f}, Elo {s['elo']:+.0f} "
@@ -126,6 +139,9 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--first-to", dest="first_to", type=float, default=None,
                     help="stop when one side reaches this many points and leads")
+    ap.add_argument("--device", default="cpu")
+    ap.add_argument("--hours", type=float, default=None,
+                    help="stop cleanly after this long; results so far are kept")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
 
@@ -137,16 +153,24 @@ def main() -> None:
     positions = balanced_positions(args.bag, args.positions, args.seed)
     players = []
     for ckpt in (args.a, args.b):
-        model, centres, _ = load_model(ckpt, "cpu")
-        players.append(make_player(model, centres, "cpu", args.depth))
+        model, centres, _ = load_model(ckpt, args.device)
+        players.append(make_player(model, centres, args.device, args.depth))
     print(f"[match] A = {args.a}\n[match] B = {args.b}\n[match] depth {args.depth}, "
           f"{len(positions)} positions x 2 colours, {args.threads} threads", flush=True)
 
     t = time.time()
+
+    def report(results):
+        summary = {"a": args.a, "b": args.b, "depth": args.depth, "seed": args.seed,
+                   "seconds": round(time.time() - t), **summarise(results)}
+        if args.out:                  # rewritten after every position: a cut keeps them
+            Path(args.out).write_text(json.dumps(summary, indent=1) + "\n")
+        return summary
+
     results = run_match(positions, *players, log=lambda m: print(m, flush=True),
-                        first_to=args.first_to)
-    summary = {"a": args.a, "b": args.b, "depth": args.depth, "seed": args.seed,
-               "seconds": round(time.time() - t), **summarise(results)}
+                        first_to=args.first_to, on_position=report,
+                        deadline=t + args.hours * 3600 if args.hours else None)
+    summary = report(results)
     if args.first_to is not None:
         summary["first_to"] = args.first_to
         summary["winner"] = decided(results, args.first_to)   # None: ran out of positions
