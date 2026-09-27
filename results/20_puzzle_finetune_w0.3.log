@@ -1,0 +1,227 @@
+[{"stream_name":"stderr","time":5.423318861,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":5.423370901,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":6.141941189,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.141975198,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.14199177,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.141996139,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.698399605,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.698425782,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.69843075,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.698451704,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.70987994,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 74.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":9.912035428,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 74.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":14.342968542,"data":"wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/puzzle_data.py', 'src/search.py', 'src/agreement_eval.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'configs/chess.yaml']\n"}
+,{"stream_name":"stdout","time":14.363977739,"data":"[init] warm-starting from /kaggle/input/gpt-from-scratch-checkpoints/chess_225M.pt\n"}
+,{"stream_name":"stdout","time":55.43219018,"data":"[data] shard 1/3 downloaded in 40s\n"}
+,{"stream_name":"stdout","time":71.708420916,"data":"[chess] 1,000,000 records\n"}
+,{"stream_name":"stdout","time":88.258759454,"data":"[chess] 2,000,000 records\n"}
+,{"stream_name":"stdout","time":104.689644997,"data":"[chess] 3,000,000 records\n"}
+,{"stream_name":"stdout","time":120.751560446,"data":"[chess] 4,000,000 records\n"}
+,{"stream_name":"stdout","time":136.863145287,"data":"[chess] 5,000,000 records\n"}
+,{"stream_name":"stdout","time":153.075080713,"data":"[chess] 6,000,000 records\n"}
+,{"stream_name":"stdout","time":169.124153919,"data":"[chess] 7,000,000 records\n"}
+,{"stream_name":"stdout","time":185.217539153,"data":"[chess] 8,000,000 records\n"}
+,{"stream_name":"stdout","time":201.285566773,"data":"[chess] 9,000,000 records\n"}
+,{"stream_name":"stdout","time":217.316181609,"data":"[chess] 10,000,000 records\n"}
+,{"stream_name":"stdout","time":233.405994008,"data":"[chess] 11,000,000 records\n"}
+,{"stream_name":"stdout","time":249.551330434,"data":"[chess] 12,000,000 records\n"}
+,{"stream_name":"stdout","time":265.614631237,"data":"[chess] 13,000,000 records\n"}
+,{"stream_name":"stdout","time":281.558863135,"data":"[chess] 14,000,000 records\n"}
+,{"stream_name":"stdout","time":297.689860452,"data":"[chess] 15,000,000 records\n"}
+,{"stream_name":"stdout","time":313.952567931,"data":"[chess] 16,000,000 records\n"}
+,{"stream_name":"stdout","time":377.762723588,"data":"[data] shard 2/3 downloaded in 51s\n"}
+,{"stream_name":"stdout","time":381.612972183,"data":"[chess] 17,000,000 records\n"}
+,{"stream_name":"stdout","time":398.29579298,"data":"[chess] 18,000,000 records\n"}
+,{"stream_name":"stdout","time":414.690810837,"data":"[chess] 19,000,000 records\n"}
+,{"stream_name":"stdout","time":430.888007324,"data":"[chess] 20,000,000 records\n"}
+,{"stream_name":"stdout","time":447.120185363,"data":"[chess] 21,000,000 records\n"}
+,{"stream_name":"stdout","time":463.258099273,"data":"[chess] 22,000,000 records\n"}
+,{"stream_name":"stdout","time":479.540404035,"data":"[chess] 23,000,000 records\n"}
+,{"stream_name":"stdout","time":495.740138193,"data":"[chess] 24,000,000 records\n"}
+,{"stream_name":"stdout","time":511.939576212,"data":"[chess] 25,000,000 records\n"}
+,{"stream_name":"stdout","time":528.008825809,"data":"[chess] 26,000,000 records\n"}
+,{"stream_name":"stdout","time":544.249042,"data":"[chess] 27,000,000 records\n"}
+,{"stream_name":"stdout","time":560.448129737,"data":"[chess] 28,000,000 records\n"}
+,{"stream_name":"stdout","time":576.673036236,"data":"[chess] 29,000,000 records\n"}
+,{"stream_name":"stdout","time":592.799777921,"data":"[chess] 30,000,000 records\n"}
+,{"stream_name":"stdout","time":609.170027149,"data":"[chess] 31,000,000 records\n"}
+,{"stream_name":"stdout","time":625.433148058,"data":"[chess] 32,000,000 records\n"}
+,{"stream_name":"stdout","time":641.778613471,"data":"[chess] 33,000,000 records\n"}
+,{"stream_name":"stdout","time":658.224881909,"data":"[chess] 34,000,000 records\n"}
+,{"stream_name":"stdout","time":674.806182066,"data":"[chess] 35,000,000 records\n"}
+,{"stream_name":"stdout","time":691.11348497,"data":"[chess] 36,000,000 records\n"}
+,{"stream_name":"stdout","time":707.628724388,"data":"[chess] 37,000,000 records\n"}
+,{"stream_name":"stdout","time":749.688120543,"data":"[data] shard 3/3 downloaded in 26s\n"}
+,{"stream_name":"stdout","time":750.967320471,"data":"[chess] 38,000,000 records\n"}
+,{"stream_name":"stdout","time":767.704525858,"data":"[chess] 39,000,000 records\n"}
+,{"stream_name":"stdout","time":783.934636831,"data":"[chess] 40,000,000 records\n"}
+,{"stream_name":"stdout","time":800.180916537,"data":"[chess] 41,000,000 records\n"}
+,{"stream_name":"stdout","time":816.503641183,"data":"[chess] 42,000,000 records\n"}
+,{"stream_name":"stdout","time":832.785216659,"data":"[chess] 43,000,000 records\n"}
+,{"stream_name":"stdout","time":849.445803036,"data":"[chess] 44,000,000 records\n"}
+,{"stream_name":"stdout","time":866.095342894,"data":"[chess] 45,000,000 records\n"}
+,{"stream_name":"stdout","time":883.445458114,"data":"[chess] 46,000,000 records\n"}
+,{"stream_name":"stdout","time":900.726711575,"data":"[chess] 47,000,000 records\n"}
+,{"stream_name":"stdout","time":917.83736808,"data":"[chess] 48,000,000 records\n"}
+,{"stream_name":"stdout","time":935.037925339,"data":"[chess] 49,000,000 records\n"}
+,{"stream_name":"stdout","time":952.256125682,"data":"[chess] 50,000,000 records\n"}
+,{"stream_name":"stdout","time":957.89371004,"data":"[chess] {'train': 50121317, 'val': 200000, 'skipped': 0, 'num_buckets': 64, 'vocab': 1999}\n"}
+,{"stream_name":"stdout","time":957.893742053,"data":"[data] packed in 942s\n"}
+,{"stream_name":"stdout","time":957.894955195,"data":"[ram] 31.6 GB available, train states 3.9 GB -\u003e in RAM\n"}
+,{"stream_name":"stdout","time":968.560646498,"data":"[puzzles] database downloaded in 7s (304 MB)\n"}
+,{"stream_name":"stdout","time":968.636305447,"data":"[puzzles] excluding 10,000 held-out ids\n"}
+,{"stream_name":"stdout","time":1102.12117246,"data":"[puzzles] 200,000 puzzles -\u003e 439,878 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":1234.365049953,"data":"[puzzles] 400,000 puzzles -\u003e 900,029 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":1368.477339354,"data":"[puzzles] 600,000 puzzles -\u003e 1,359,912 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":1501.617487539,"data":"[puzzles] 800,000 puzzles -\u003e 1,819,668 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":1634.796773352,"data":"[puzzles] 1,000,000 puzzles -\u003e 2,280,269 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":1768.017807878,"data":"[puzzles] 1,200,000 puzzles -\u003e 2,740,130 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":1900.624617987,"data":"[puzzles] 1,400,000 puzzles -\u003e 3,200,174 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":2027.304100546,"data":"[puzzles] 1,600,000 puzzles -\u003e 3,660,051 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":2153.395003624,"data":"[puzzles] 1,800,000 puzzles -\u003e 4,120,048 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":2278.481967043,"data":"[puzzles] 2,000,000 puzzles -\u003e 4,580,069 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":2402.700291745,"data":"[puzzles] 2,200,000 puzzles -\u003e 5,040,033 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":2526.79622951,"data":"[puzzles] 2,400,000 puzzles -\u003e 5,499,697 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":2651.209535609,"data":"[puzzles] 2,600,000 puzzles -\u003e 5,960,202 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":2775.426770765,"data":"[puzzles] 2,800,000 puzzles -\u003e 6,421,009 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":2900.154335331,"data":"[puzzles] 3,000,000 puzzles -\u003e 6,880,803 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":3025.18992393,"data":"[puzzles] 3,200,000 puzzles -\u003e 7,343,278 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":3150.885189508,"data":"[puzzles] 3,400,000 puzzles -\u003e 7,805,137 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":3279.538744975,"data":"[puzzles] 3,600,000 puzzles -\u003e 8,266,906 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":3406.077895384,"data":"[puzzles] 3,800,000 puzzles -\u003e 8,728,090 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":3535.013016118,"data":"[puzzles] 4,000,000 puzzles -\u003e 9,189,433 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":3662.371239822,"data":"[puzzles] 4,200,000 puzzles -\u003e 9,651,027 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":3789.505594112,"data":"[puzzles] 4,400,000 puzzles -\u003e 10,112,733 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":3915.70310241,"data":"[puzzles] 4,600,000 puzzles -\u003e 10,574,381 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":4040.614630497,"data":"[puzzles] 4,800,000 puzzles -\u003e 11,035,979 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":4165.231516922,"data":"[puzzles] 5,000,000 puzzles -\u003e 11,498,243 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":4289.774887744,"data":"[puzzles] 5,200,000 puzzles -\u003e 11,959,882 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":4414.186431666,"data":"[puzzles] 5,400,000 puzzles -\u003e 12,421,228 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":4539.416621624,"data":"[puzzles] 5,600,000 puzzles -\u003e 12,882,781 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":4664.763220981,"data":"[puzzles] 5,800,000 puzzles -\u003e 13,344,334 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":4789.991809202,"data":"[puzzles] 6,000,000 puzzles -\u003e 13,805,579 train + 20,000 val positions\n"}
+,{"stream_name":"stdout","time":4853.354105836,"data":"[puzzles] done: {'puzzles_read': 6100952, 'excluded': 9995, 'unusable_positions': 41595, 'val': 20000, 'train': 14038542, 'num_candidates': 16}\n"}
+,{"stream_name":"stdout","time":4853.397408713,"data":"[puzzles] packed in 3885s\n"}
+,{"stream_name":"stdout","time":4853.417036088,"data":"[session] training budget 9.90h\n"}
+,{"stream_name":"stdout","time":4857.632153553,"data":"[amp] bf16 unsupported on Tesla T4 -\u003e using fp16\n"}
+,{"stream_name":"stdout","time":4857.632207966,"data":"[data] train 50,121,317 | val 200,000 samples | in RAM: True\n"}
+,{"stream_name":"stdout","time":4857.886390627,"data":"[puzzles] train 14,038,542 | val 20,000 positions | 16 candidate moves each | weight 0.3 | in RAM: True\n"}
+,{"stream_name":"stdout","time":4858.149663841,"data":"[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': False, 'causal': True, 'num_classes': 64}\n"}
+,{"stream_name":"stdout","time":4863.237642287,"data":"[init] weights from /kaggle/input/gpt-from-scratch-checkpoints/chess_225M.pt (its step 120000), fresh schedule\n"}
+,{"stream_name":"stderr","time":4872.333203349,"data":"W0926 01:42:48.925000 23 torch/_inductor/utils.py:1679] [0/0] Not enough SMs to use max_autotune_gemm mode\n"}
+,{"stream_name":"stderr","time":4872.333236335,"data":"\n"}
+,{"stream_name":"stderr","time":4872.333242008,"data":"W0926 01:42:48.925000 23 torch/_inductor/utils.py:1679] [0/0] Not enough SMs to use max_autotune_gemm mode\n"}
+,{"stream_name":"stdout","time":4899.292610554,"data":"step      0 | train 2.0263 | val 2.0427 | val acc 29.9% | puzzle move 81.6% | 33s\n"}
+,{"stream_name":"stdout","time":5193.815611825,"data":"  step 250 | loss 2.0593 | rank 0.3904 (86%) | lr 1.00e-04 | 1,745 samples/s | MFU 19.4%\n"}
+,{"stream_name":"stdout","time":5474.15489216,"data":"  step 500 | loss 2.0483 | rank 0.3266 (92%) | lr 9.99e-05 | 1,826 samples/s | MFU 20.3%\n"}
+,{"stream_name":"stdout","time":5755.036243632,"data":"  step 750 | loss 2.1264 | rank 0.4194 (91%) | lr 9.96e-05 | 1,823 samples/s | MFU 20.3%\n"}
+,{"stream_name":"stdout","time":6053.177236291,"data":"step   1000 | train 2.0807 | val 2.1065 | val acc 28.5% | puzzle move 87.4% | 1187s\n"}
+,{"stream_name":"stdout","time":6054.362860778,"data":"  step 1000 | loss 2.1564 | rank 0.3067 (91%) | lr 9.91e-05 | 1,869 samples/s | MFU 20.8%\n"}
+,{"stream_name":"stdout","time":6333.70255201,"data":"  step 1250 | loss 2.0272 | rank 0.1862 (91%) | lr 9.84e-05 | 1,833 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":6613.063156201,"data":"  step 1500 | loss 2.0856 | rank 0.2343 (95%) | lr 9.75e-05 | 1,833 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":6892.508314503,"data":"  step 1750 | loss 2.1422 | rank 0.4379 (86%) | lr 9.64e-05 | 1,832 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":7190.654324715,"data":"step   2000 | train 2.0758 | val 2.0775 | val acc 29.6% | puzzle move 87.4% | 2324s\n"}
+,{"stream_name":"stdout","time":7191.854932122,"data":"  step 2000 | loss 2.0628 | rank 0.2646 (97%) | lr 9.51e-05 | 1,872 samples/s | MFU 20.8%\n"}
+,{"stream_name":"stdout","time":7471.254597157,"data":"  step 2250 | loss 2.1057 | rank 0.2794 (89%) | lr 9.37e-05 | 1,833 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":7751.023365816,"data":"  step 2500 | loss 2.0610 | rank 0.1977 (91%) | lr 9.20e-05 | 1,830 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":8030.338960002,"data":"  step 2750 | loss 2.1067 | rank 0.3563 (89%) | lr 9.03e-05 | 1,833 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":8327.923381806,"data":"step   3000 | train 2.0630 | val 2.1108 | val acc 29.0% | puzzle move 89.0% | 3462s\n"}
+,{"stream_name":"stdout","time":8329.043048247,"data":"  step 3000 | loss 2.1166 | rank 0.3831 (84%) | lr 8.83e-05 | 1,818 samples/s | MFU 20.2%\n"}
+,{"stream_name":"stdout","time":8609.142531893,"data":"  step 3250 | loss 2.0408 | rank 0.4143 (88%) | lr 8.62e-05 | 1,828 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":8889.813027266,"data":"  step 3500 | loss 2.0409 | rank 0.2728 (91%) | lr 8.40e-05 | 1,824 samples/s | MFU 20.3%\n"}
+,{"stream_name":"stdout","time":9169.422574602,"data":"  step 3750 | loss 2.0720 | rank 0.2992 (92%) | lr 8.16e-05 | 1,831 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":9467.388730203,"data":"step   4000 | train 2.0884 | val 2.0915 | val acc 29.0% | puzzle move 87.6% | 4601s\n"}
+,{"stream_name":"stdout","time":9468.507131483,"data":"  step 4000 | loss 2.1015 | rank 0.4178 (84%) | lr 7.91e-05 | 1,818 samples/s | MFU 20.2%\n"}
+,{"stream_name":"stdout","time":9748.545479536,"data":"  step 4250 | loss 2.1355 | rank 0.2656 (91%) | lr 7.66e-05 | 1,828 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":10028.531402502,"data":"  step 4500 | loss 2.0724 | rank 0.3893 (89%) | lr 7.39e-05 | 1,829 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":10308.348113279,"data":"  step 4750 | loss 2.0171 | rank 0.3874 (91%) | lr 7.11e-05 | 1,830 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":10606.318314423,"data":"step   5000 | train 2.0753 | val 2.0805 | val acc 28.9% | puzzle move 89.2% | 5740s\n"}
+,{"stream_name":"stdout","time":10607.438937452,"data":"  step 5000 | loss 2.0784 | rank 0.5230 (84%) | lr 6.83e-05 | 1,814 samples/s | MFU 20.2%\n"}
+,{"stream_name":"stdout","time":10887.809123649,"data":"  step 5250 | loss 2.0608 | rank 0.4317 (86%) | lr 6.54e-05 | 1,826 samples/s | MFU 20.3%\n"}
+,{"stream_name":"stdout","time":11167.425659678,"data":"  step 5500 | loss 2.0566 | rank 0.3836 (86%) | lr 6.24e-05 | 1,831 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":11447.293734037,"data":"  step 5750 | loss 2.0413 | rank 0.4433 (89%) | lr 5.94e-05 | 1,829 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":11745.507641496,"data":"step   6000 | train 2.0358 | val 2.0825 | val acc 29.5% | puzzle move 89.9% | 6879s\n"}
+,{"stream_name":"stdout","time":11746.636985807,"data":"  step 6000 | loss 2.1009 | rank 0.4160 (88%) | lr 5.64e-05 | 1,800 samples/s | MFU 20.0%\n"}
+,{"stream_name":"stdout","time":12025.811339682,"data":"  step 6250 | loss 2.0517 | rank 0.3646 (86%) | lr 5.34e-05 | 1,834 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":12304.888549915,"data":"  step 6500 | loss 2.0471 | rank 0.2801 (89%) | lr 5.04e-05 | 1,835 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":12583.999469751,"data":"  step 6750 | loss 2.0960 | rank 0.2048 (92%) | lr 4.75e-05 | 1,834 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":12881.495602003,"data":"step   7000 | train 2.0400 | val 2.0689 | val acc 29.5% | puzzle move 89.2% | 8015s\n"}
+,{"stream_name":"stdout","time":12882.727753316,"data":"  step 7000 | loss 2.0638 | rank 0.3075 (86%) | lr 4.45e-05 | 1,818 samples/s | MFU 20.2%\n"}
+,{"stream_name":"stdout","time":13162.301983108,"data":"  step 7250 | loss 1.9962 | rank 0.1106 (94%) | lr 4.16e-05 | 1,831 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":13440.901547627,"data":"  step 7500 | loss 2.0696 | rank 0.3202 (91%) | lr 3.88e-05 | 1,838 samples/s | MFU 20.5%\n"}
+,{"stream_name":"stdout","time":13719.923525566,"data":"  step 7750 | loss 2.0649 | rank 0.2744 (92%) | lr 3.60e-05 | 1,835 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":14018.836018833,"data":"step   8000 | train 2.0371 | val 2.0555 | val acc 30.1% | puzzle move 90.1% | 9153s\n"}
+,{"stream_name":"stdout","time":14020.05079483,"data":"  step 8000 | loss 2.0423 | rank 0.2149 (92%) | lr 3.33e-05 | 1,845 samples/s | MFU 20.5%\n"}
+,{"stream_name":"stdout","time":14299.534527552,"data":"  step 8250 | loss 2.0570 | rank 0.2954 (89%) | lr 3.08e-05 | 1,832 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":14579.614456617,"data":"  step 8500 | loss 2.0487 | rank 0.4175 (83%) | lr 2.83e-05 | 1,828 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":14858.573513441,"data":"  step 8750 | loss 2.0455 | rank 0.3095 (88%) | lr 2.59e-05 | 1,835 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":15156.005350918,"data":"step   9000 | train 2.0333 | val 2.0457 | val acc 30.0% | puzzle move 91.9% | 10290s\n"}
+,{"stream_name":"stdout","time":15157.218590795,"data":"  step 9000 | loss 2.0475 | rank 0.3350 (89%) | lr 2.37e-05 | 1,846 samples/s | MFU 20.5%\n"}
+,{"stream_name":"stdout","time":15435.878711557,"data":"  step 9250 | loss 1.9776 | rank 0.1370 (95%) | lr 2.16e-05 | 1,837 samples/s | MFU 20.5%\n"}
+,{"stream_name":"stdout","time":15714.45473827,"data":"  step 9500 | loss 1.9481 | rank 0.3159 (86%) | lr 1.97e-05 | 1,838 samples/s | MFU 20.5%\n"}
+,{"stream_name":"stdout","time":15993.278551824,"data":"  step 9750 | loss 2.0560 | rank 0.3103 (88%) | lr 1.79e-05 | 1,836 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":16291.216089817,"data":"step  10000 | train 2.0194 | val 2.0311 | val acc 30.0% | puzzle move 91.1% | 11425s\n"}
+,{"stream_name":"stdout","time":16292.432865383,"data":"  step 10000 | loss 1.9987 | rank 0.2428 (89%) | lr 1.63e-05 | 1,846 samples/s | MFU 20.6%\n"}
+,{"stream_name":"stdout","time":16571.422662415,"data":"  step 10250 | loss 2.0907 | rank 0.2440 (89%) | lr 1.48e-05 | 1,835 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":16850.193991096,"data":"  step 10500 | loss 2.0165 | rank 0.2496 (94%) | lr 1.36e-05 | 1,837 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":17128.988896102,"data":"  step 10750 | loss 2.0522 | rank 0.2282 (94%) | lr 1.25e-05 | 1,836 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":17427.064635273,"data":"step  11000 | train 2.0134 | val 2.0342 | val acc 29.6% | puzzle move 90.8% | 12561s\n"}
+,{"stream_name":"stdout","time":17428.190523729,"data":"  step 11000 | loss 2.0527 | rank 0.2926 (91%) | lr 1.16e-05 | 1,804 samples/s | MFU 20.1%\n"}
+,{"stream_name":"stdout","time":17706.980823136,"data":"  step 11250 | loss 1.9971 | rank 0.3033 (88%) | lr 1.09e-05 | 1,837 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":17985.584327465,"data":"  step 11500 | loss 2.0612 | rank 0.3573 (91%) | lr 1.04e-05 | 1,838 samples/s | MFU 20.5%\n"}
+,{"stream_name":"stdout","time":18265.307063677,"data":"  step 11750 | loss 2.0443 | rank 0.2360 (92%) | lr 1.01e-05 | 1,830 samples/s | MFU 20.4%\n"}
+,{"stream_name":"stdout","time":18563.282843605,"data":"step  12000 | train 2.0227 | val 2.0364 | val acc 30.5% | puzzle move 89.9% | 13697s\n"}
+,{"stream_name":"stdout","time":18564.41250301,"data":"  step 12000 | loss 2.0686 | rank 0.2027 (95%) | lr 1.00e-05 | 1,798 samples/s | MFU 20.0%\n"}
+,{"stream_name":"stdout","time":18564.959572566,"data":"[done] best val loss 2.0311 -\u003e checkpoints/chess_best.pt\n"}
+,{"stream_name":"stdout","time":19028.004132949,"data":"[puzzles] depth 1: 7436/10000 solved = 74.4%  (checkpoint step 10000, val loss 2.0311)\n"}
+,{"stream_name":"stdout","time":19028.00417327,"data":"  rating     0-499: 100.0%  (n=74)\n"}
+,{"stream_name":"stdout","time":19028.004188926,"data":"  rating   500-999:  99.3%  (n=2161)\n"}
+,{"stream_name":"stdout","time":19028.004192691,"data":"  rating 1000-1499:  93.0%  (n=3367)\n"}
+,{"stream_name":"stdout","time":19028.00419609,"data":"  rating 1500-1999:  64.9%  (n=2543)\n"}
+,{"stream_name":"stdout","time":19028.004199519,"data":"  rating 2000-2499:  26.7%  (n=1571)\n"}
+,{"stream_name":"stdout","time":19028.004202954,"data":"  rating 2500-2999:   5.6%  (n=284)\n"}
+,{"stream_name":"stdout","time":20555.955153302,"data":"[agreement] checkpoints/chess_best.pt (step 10000): 61,833 positions, 1,837,490 moves\n"}
+,{"stream_name":"stdout","time":20555.955205989,"data":"  action accuracy (paper: = argmax)  : 44.4%\n"}
+,{"stream_name":"stdout","time":20555.95521777,"data":"  picks a move of maximal value      : 47.7%\n"}
+,{"stream_name":"stdout","time":20555.955222128,"data":"  one of Stockfish's top 3           : 72.0%\n"}
+,{"stream_name":"stdout","time":20555.955225274,"data":"  Kendall's tau-b, mean over positions: 0.628 (863 positions undefined)\n"}
+,{"stream_name":"stdout","time":20555.955228411,"data":"  win probability given up           : mean 0.0269, median 0.0017\n"}
+,{"stream_name":"stdout","time":20555.95523145,"data":"  moves giving up \u003e 0.15           : 4.2%\n"}
+,{"stream_name":"stdout","time":20555.95523504,"data":"  value calibration                  : MAE 0.0371, ECE 0.0022\n"}
+,{"stream_name":"stdout","time":20555.955237996,"data":"  truth inside central 50% / 90%     : 55.0% / 92.1%\n"}
+,{"stream_name":"stdout","time":20555.955240857,"data":"  reliability (predicted bin: n, mean predicted, mean Stockfish)\n"}
+,{"stream_name":"stdout","time":20555.955243753,"data":"    [0.0, 0.1) n=  357,529  0.058  0.057\n"}
+,{"stream_name":"stdout","time":20555.955246612,"data":"    [0.1, 0.2) n=  339,259  0.143  0.142\n"}
+,{"stream_name":"stdout","time":20555.955249593,"data":"    [0.2, 0.3) n=  169,407  0.249  0.245\n"}
+,{"stream_name":"stdout","time":20555.955252412,"data":"    [0.3, 0.4) n=  207,095  0.353  0.350\n"}
+,{"stream_name":"stdout","time":20555.955255194,"data":"    [0.4, 0.5) n=  279,848  0.451  0.448\n"}
+,{"stream_name":"stdout","time":20555.955258026,"data":"    [0.5, 0.6) n=  166,097  0.541  0.538\n"}
+,{"stream_name":"stdout","time":20555.955260906,"data":"    [0.6, 0.7) n=   73,064  0.646  0.645\n"}
+,{"stream_name":"stdout","time":20555.955263714,"data":"    [0.7, 0.8) n=   58,324  0.751  0.753\n"}
+,{"stream_name":"stdout","time":20555.955266641,"data":"    [0.8, 0.9) n=   83,527  0.854  0.856\n"}
+,{"stream_name":"stdout","time":20555.955269482,"data":"    [0.9, 1.0) n=  103,340  0.952  0.955\n"}
+,{"stream_name":"stdout","time":20555.955272384,"data":"===== search, on the first 1000 puzzles =====\n"}
+,{"stream_name":"stdout","time":20601.461935009,"data":"[puzzles] depth 1: 732/1000 solved = 73.2%  (checkpoint step 10000, val loss 2.0311)\n"}
+,{"stream_name":"stdout","time":20601.461970117,"data":"  rating     0-499: 100.0%  (n=5)\n"}
+,{"stream_name":"stdout","time":20601.461975322,"data":"  rating   500-999:  98.6%  (n=207)\n"}
+,{"stream_name":"stdout","time":20601.461979858,"data":"  rating 1000-1499:  92.9%  (n=322)\n"}
+,{"stream_name":"stdout","time":20601.461984425,"data":"  rating 1500-1999:  63.1%  (n=263)\n"}
+,{"stream_name":"stdout","time":20601.461988839,"data":"  rating 2000-2499:  32.4%  (n=176)\n"}
+,{"stream_name":"stdout","time":20601.461993031,"data":"  rating 2500-2999:   3.7%  (n=27)\n"}
+,{"stream_name":"stdout","time":22062.941160187,"data":"[puzzles] depth 2: 726/1000 solved = 72.6%  (checkpoint step 10000, val loss 2.0311)\n"}
+,{"stream_name":"stdout","time":22062.941198079,"data":"  rating     0-499: 100.0%  (n=5)\n"}
+,{"stream_name":"stdout","time":22062.941212157,"data":"  rating   500-999:  95.2%  (n=207)\n"}
+,{"stream_name":"stdout","time":22062.94122236,"data":"  rating 1000-1499:  88.2%  (n=322)\n"}
+,{"stream_name":"stdout","time":22062.941225236,"data":"  rating 1500-1999:  69.2%  (n=263)\n"}
+,{"stream_name":"stdout","time":22062.941227415,"data":"  rating 2000-2499:  32.4%  (n=176)\n"}
+,{"stream_name":"stdout","time":22062.941229607,"data":"  rating 2500-2999:   3.7%  (n=27)\n"}
+,{"stream_name":"stdout","time":22062.941231769,"data":"[done]\n"}
+,{"stream_name":"stderr","time":22067.945883917,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":22067.945922271,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":22068.09811926,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":22068.098145884,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":22068.697633746,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":22069.005648495,"data":"[NbConvertApp] Writing 150695 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":22071.272045146,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":22072.09021956,"data":"[NbConvertApp] Writing 443371 bytes to __results__.html\n"}
+]

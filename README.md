@@ -126,6 +126,7 @@ position of ChessBench's test shard -- 61,833 positions, 1.84M scored moves
 | 100M | 39.7% | 42.9% | 67.4% | 0.576 | 3.3 pts | 5.2% |
 | **225M** | **45.2%** | **48.6%** | **73.7%** | **0.632** | **2.3 pts** | **3.1%** |
 | + puzzle fine-tune | 43.1% | 46.5% | 70.4% | 0.619 | 3.0 pts | 5.0% |
+| + light puzzle fine-tune | 44.4% | 47.7% | 72.0% | 0.628 | 2.7 pts | 4.2% |
 
 Action accuracy and Kendall's tau (tau-b, over all legal moves, averaged per position)
 are the two metrics the ChessBench paper uses in its ablations. Action accuracy is the
@@ -140,16 +141,38 @@ in ordinary positions: action accuracy down 2.1 points, and the blunder rate up 
 the ranking loss limited the damage (tau barely moved, 0.632 to 0.619) but did not
 prevent it. With 61,833 positions these differences are far outside the noise.
 
+Turning the ranking loss down removes part of that cost, unevenly. The same fine-tune
+with the ranking loss at 0.3 instead of 1.0 -- same data, steps, schedule and card,
+only that number changed -- solves **74.4%** of the puzzles (7,436 against 7,455: the
+gain is kept). Of the damage it removes about 60% of the action-accuracy drop (0.8
+points instead of 2.1) and 70% of tau's (0.003 instead of 0.013), but only 40% of the
+extra blunders: 4.2% instead of 5.0%, still 35% more than the 225M model's 3.1%
+([`results/20_puzzle_finetune_w0.3.json`](results/20_puzzle_finetune_w0.3.json); the
+training logs of both runs are next to it). The blunder differences are 6 to 10
+standard errors wide even without pairing the models position by position; the
+0.8-point action-accuracy drop is about 3. It is one training run per weight, and a
+fine-tune with no ranking loss at all has not been run, so how much of what remains is
+the cost of the ranking loss and how much the cost of fine-tuning at all is open.
+
 And they cost games. In a head-to-head match without search
 ([`src/match.py`](src/match.py): balanced middlegame starts from the held-out test shard,
 each played twice with colours swapped), the model **before** the fine-tune beat the one
 after it **174-59 with 167 draws over 400 games: +103 Elo, 95% interval +77 to +130**.
-So "better" depends on the job: for finding tactics the fine-tuned model, for playing a
-game the 225M one, by about a hundred Elo. With depth-2 search on both sides, a
-first-to-7 match went 7.5-6.5 to the fine-tuned model over 14 games -- an interval of
-roughly +-150 Elo, so it neither confirms nor rules out the cost there. Search may absorb
-part of it, since one-move blunders are exactly what a two-ply search catches; that is
-a hypothesis, and testing it takes ~400 games at depth 2, about 30 hours of laptop CPU.
+With depth-2 search on both sides, on the same 200 starting positions, the gap nearly
+closes: **134-114 with 152 draws, +17 Elo, 95% interval -9 to +44**
+([`results/21_match_400_depth2.json`](results/21_match_400_depth2.json)). The two
+intervals do not overlap, and paired by starting position the score drop from depth 1
+to depth 2 is 4.7 standard errors. Search absorbs most of the fine-tune's cost in
+play -- which fits the move-quality table, since the extra errors are one-move
+blunders and those are exactly what a two-ply search looks at, though that part is an
+explanation, not a measurement. (Each position's two games are not independent; an
+interval computed over the 200 colour-swapped pairs instead of the 400 games comes out
+within a point of these.) So "better" depends on the job and on the search: for
+finding tactics the fine-tuned model; for playing without search the 225M one, by about
+a hundred Elo; with depth-2 search, a difference this match cannot resolve. The
+first-to-7 match at depth 2 earlier, 7.5-6.5 to the fine-tuned model over 14 games,
+was consistent with that and could not have shown it. The 400 games took 8.0 hours on
+a T4; on the laptop's CPU the estimate had been about 30.
 
 **Calibrated from the start; what training buys is sharpness.** When the model predicts
 a win probability, Stockfish's own number agrees on average: the binned calibration
@@ -192,7 +215,8 @@ openings times 2 colours. It costs 1.5-3 s per move on CPU against 0.03 s for th
 network.
 
 On puzzles it does the opposite. Same fine-tuned checkpoint, same first 1,000
-puzzles, the only difference the search: **74.3% at depth 1, 70.9% at depth 2**. The
+puzzles, the only difference the search: **74.3% at depth 1, 70.9% at depth 2**
+([`results/20_puzzle_finetune_w1.0.log`](results/20_puzzle_finetune_w1.0.log)). The
 loss is concentrated where puzzles are easy -- 500-999 drops from 99.0% to 93.7%,
 1000-1499 from 93.2% to 86.6% -- while 1500-2499 is level. A game rewards not
 hanging pieces over a two-move horizon; a puzzle rewards trusting one move, and a
@@ -208,6 +232,14 @@ differences of 2-3 points on 1,000 puzzles are suggestive rather than conclusive
 makes the explanation credible is that it agrees with a measurement on 61,833 positions
 that was taken for a different reason. (An earlier depth-2 figure was measured with the
 puzzle-parity bug described below and was withdrawn.)
+
+The light fine-tune, with the ranking loss at 0.3, sits in between on both counts: 4.2%
+blunders, and on the same 1,000 puzzles **73.2% at depth 1 and 72.6% at depth 2**. In
+order -- no fine-tune, ranking loss at 0.3, ranking loss at 1.0 -- search changes the
+puzzle score by +2.3, -0.6 and -3.4 points while the blunder rate goes 3.1%, 4.2%,
+5.0%. Each of those changes carries a standard error of one to two points on 1,000
+puzzles, so this is a trend, not a proof, but it runs the way the explanation
+predicts.
 
 [`src/lichess_bot.py`](src/lichess_bot.py) plays the same search online as
 **`imbotterthanyou`**: rapid **1634** after 70 rated games, no longer provisional
@@ -359,19 +391,20 @@ src/puzzles_eval.py  Lichess puzzle accuracy
 src/puzzle_data.py   Lichess puzzle database -> a ranking task (held-out ids excluded)
 src/agreement_eval.py  per-move agreement with Stockfish
 src/search.py        alpha-beta on top of the network
-src/lichess_bot.py   plays online, token from the environment only
+src/match.py         head-to-head matches between two checkpoints, Elo with an interval
+src/lichess_bot.py   plays online; token from the environment or an owner-only file
 src/kernels/         fused LayerNorm in Triton + its bench
 src/bench_chess.py   throughput bench (isolated subprocess per config)
 src/data.py          BPE tokenizer + streaming corpus packing
 src/train.py         language-model training loop
-kaggle_chess/        builds the GPU notebooks (pretraining, resume, puzzle fine-tune)
+kaggle_chess/        builds the Kaggle notebooks (training, fine-tunes, evaluation, matches)
 results/             the logs behind the numbers above
 ```
 
 ## Still open
 
-- A lighter puzzle fine-tune: the ranking loss at a fraction of its weight, to keep
-  most of the 14 points without the blunders
-- Whether depth-2 search absorbs the fine-tune's ~100 Elo cost: ~400 games at depth 2,
-  a job for a GPU rather than a laptop
+- Whether the light fine-tune also costs less in play: its match against the 225M
+  model without search, on the same 200 starting positions
+- A fine-tune with the ranking loss switched off, to split what remains of the cost
+  between the ranking loss and the fine-tune itself
 - CUDA graphs; DDP; KV-cache serving for the language-model path

@@ -1,0 +1,36 @@
+{
+ "puzzles": {
+  "accuracy": 0.7436,
+  "solved": 7436,
+  "attempted": 10000
+ },
+ "agreement": {
+  "checkpoint_step": 10000,
+  "positions": 61833,
+  "moves_scored": 1837490,
+  "action_acc": 44.35819061019197,
+  "any_best_acc": 47.69944851454725,
+  "top3": 71.96804295440946,
+  "kendall_tau": 0.628415749974038,
+  "tau_undefined": 863,
+  "mean_given_up": 0.026896093422155824,
+  "median_given_up": 0.0016707424489080802,
+  "blunder_pct": 4.237219607652872,
+  "mae": 0.037080809723784136,
+  "ece": 0.0022032604519509552,
+  "cover50": 0.5500628574849387,
+  "cover90": 0.9212768504862612
+ },
+ "search": {
+  "1": {
+   "accuracy": 0.732,
+   "solved": 732,
+   "attempted": 1000
+  },
+  "2": {
+   "accuracy": 0.726,
+   "solved": 726,
+   "attempted": 1000
+  }
+ }
+}

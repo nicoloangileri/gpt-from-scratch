@@ -31,15 +31,22 @@ wait_done() {                           # $1 = kernel id
     done
 }
 
-fetch() {                               # $1 = kernel id, $2 = local folder
-    $K kernels output "$1" -p "$2" --file-pattern '(chess_best\.pt|results\.json|\.log)$' -q
-    say "$1: output in $2/"
+fetch() {                               # $1 = kernel id, $2 = local folder, $3 = a file that must arrive
+    # The first fetch of the w0.3 run sat for 18 hours and came back empty, with no
+    # error; the same command by hand worked at once. So check, and retry.
+    for try in 1 2 3 4 5 6; do
+        $K kernels output "$1" -p "$2" --file-pattern '(chess_best\.pt|results\.json|\.log)$' -q
+        if [ -s "$2/$3" ]; then say "$1: output in $2/"; return; fi
+        say "$1: $2/$3 not there after try $try -- retrying in 10 min"
+        sleep 600
+    done
+    say "$1: output NOT fetched -- fetch it by hand"
 }
 
 say "queue started"
 push_when_quota kaggle_chess_puzzle_w03
 wait_done nicolangileri/gpt-from-scratch-chess-puzzle-w03
-fetch nicolangileri/gpt-from-scratch-chess-puzzle-w03 kaggle_w03_out
+fetch nicolangileri/gpt-from-scratch-chess-puzzle-w03 kaggle_w03_out checkpoints/chess_best.pt
 if [ -f kaggle_w03_out/checkpoints/chess_best.pt ] && [ ! -e checkpoints/chess_225M_puzzles_w0.3.pt ]; then
     cp kaggle_w03_out/checkpoints/chess_best.pt checkpoints/chess_225M_puzzles_w0.3.pt
     say "saved checkpoints/chess_225M_puzzles_w0.3.pt"
@@ -47,5 +54,5 @@ fi
 
 push_when_quota kaggle_chess_match_d2
 wait_done nicolangileri/gpt-from-scratch-chess-match-d2
-fetch nicolangileri/gpt-from-scratch-chess-match-d2 kaggle_match_d2_out
+fetch nicolangileri/gpt-from-scratch-chess-match-d2 kaggle_match_d2_out results.json
 say "queue done"
