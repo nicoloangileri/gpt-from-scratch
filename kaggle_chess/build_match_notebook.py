@@ -20,8 +20,9 @@ hoped, it stops cleanly with what it has, never between the two colours of a
 position. The deadline turned out not to matter: 400 games took 8.0 hours on the T4
 (28,795 s, results/21).
 
-A depth-1 match is cheap enough for a CPU session, which does not count against the
-weekly GPU quota: 400 games took 41 minutes on two laptop threads. A checkpoint that
+A depth-1 match can run in a CPU session, which does not count against the weekly GPU
+quota -- slowly: 400 games took 5.6 hours on Kaggle's four CPU threads (results/22),
+against 41 minutes on two laptop threads. A checkpoint that
 is on Kaggle only as another kernel's output, not in the checkpoints dataset, is
 attached with --kernel-source instead of uploading a new version of the dataset.
 Checkpoints are found by file name, and the notebook refuses to start if the name

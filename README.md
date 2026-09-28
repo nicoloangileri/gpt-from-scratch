@@ -158,8 +158,14 @@ And they cost games. In a head-to-head match without search
 ([`src/match.py`](src/match.py): balanced middlegame starts from the held-out test shard,
 each played twice with colours swapped), the model **before** the fine-tune beat the one
 after it **174-59 with 167 draws over 400 games: +103 Elo, 95% interval +77 to +130**.
-With depth-2 search on both sides, on the same 200 starting positions, the gap nearly
-closes: **134-114 with 152 draws, +17 Elo, 95% interval -9 to +44**
+Against the light fine-tune, on the same 200 starting positions, it wins 150-93 with 157
+draws: **+50 Elo, interval +23 to +77**
+([`results/22_match_400_depth1_light.json`](results/22_match_400_depth1_light.json)).
+Turning the ranking loss down to 0.3 halved the cost in play, and paired by starting
+position the gap between the two matches is 3.0 standard errors -- roughly in line
+with the blunders, whose excess over the 225M model it cut by 40%.
+With depth-2 search on both sides, on the same 200 starting positions, the full
+fine-tune's gap nearly closes: **134-114 with 152 draws, +17 Elo, 95% interval -9 to +44**
 ([`results/21_match_400_depth2.json`](results/21_match_400_depth2.json)). The two
 intervals do not overlap, and paired by starting position the score drop from depth 1
 to depth 2 is 4.7 standard errors. Search absorbs most of the fine-tune's cost in
@@ -403,8 +409,6 @@ results/             the logs behind the numbers above
 
 ## Still open
 
-- Whether the light fine-tune also costs less in play: its match against the 225M
-  model without search, on the same 200 starting positions
 - A fine-tune with the ranking loss switched off, to split what remains of the cost
   between the ranking loss and the fine-tune itself
 - CUDA graphs; DDP; KV-cache serving for the language-model path
