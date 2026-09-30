@@ -345,8 +345,9 @@ is fusion and fewer launches.
 ### Two GPUs, not one
 
 Kaggle's "GPU" accelerator is two T4s -- a single T4 is not offered (kaggle-cli PR
-1198) -- and the weekly quota counts the session, not the cards. Every run above
-trained on one of the two. The same session, the same data, the same starting
+1198) -- and the weekly quota counts the session, not the cards. Every run above asked
+for that accelerator (`NvidiaTeslaT4`) and trained on one card: the probe below saw
+both, the earlier logs never counted them. The same session, the same data, the same starting
 checkpoint, measured back to back
 ([`results/23_one_vs_two_t4.log`](results/23_one_vs_two_t4.log)):
 
@@ -407,10 +408,10 @@ Documented because the mistakes were more instructive than the successes:
 - A mutation check can be fooled by a stale `.pyc`: the mutated and restored files had
   the same size and the same mtime second, so Python reused the old bytecode and the
   "restored" run still failed.
-- Read the hardware before tuning for it. For a month every run here trained on one
-  of the two T4s Kaggle's GPU sessions come with, while the kernels and the batch size
-  were being tuned for "the T4": `torch.cuda.device_count()` would have said 2 on the
-  first day.
+- Read the hardware before tuning for it. For a month the runs here asked for Kaggle's
+  GPU accelerator, which is two T4s, and trained on one, while kernels and batch size
+  were tuned for "the T4". No log counted the cards; `torch.cuda.device_count()` would
+  have said 2 on the first day.
 - Deeper search does not average out evaluator error, it amplifies it. Alpha-beta
   actively searches for the positions where the network is most wrong, which is why a
   move is scored by the minimum of its two estimates rather than the backed-up one.
