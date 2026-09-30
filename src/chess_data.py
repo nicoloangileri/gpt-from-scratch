@@ -205,3 +205,59 @@ def prepare_chessbench(
             "num_buckets": num_buckets, "vocab": FULL_VOCAB}
     print(f"[chess] {meta}")
     return meta
+
+
+def bag_records(path: str | Path) -> int:
+    """Records in a shard, from its index alone.
+
+    The index is one int64 end offset per record, and the file's last 8 bytes are the
+    LAST record's end offset -- which is also where the index starts. So the index is
+    (size - index_start) / 8 entries, one per record. Reading those last 8 bytes as a
+    separate footer undercounts by one per shard (checked on shard 8: 201,809 records,
+    and the index equals the parsed record ends)."""
+    size = Path(path).stat().st_size
+    with open(path, "rb") as fh:
+        fh.seek(-8, 2)
+        (index_start,) = struct.unpack("<Q", fh.read(8))
+    return (size - index_start) // 8
+
+
+def _drop_empty(out: Path) -> None:
+    """prepare_chessbench opens both splits; a pack that has only one leaves the other's
+    files empty, and ActionValueStream would find them as parts."""
+    for f in out.glob("*.bin"):
+        if f.stat().st_size == 0:
+            f.unlink()
+
+
+def pack_val(bag: str | Path, out_dir: str | Path, records: int = 200_000) -> dict:
+    """The validation split every run so far used: the first `records` of shard 0."""
+    meta = prepare_chessbench([bag], out_dir, max_records=records, val_records=records,
+                              report_every=10**12)
+    _drop_empty(Path(out_dir))
+    assert meta["val"] == records and meta["train"] == 0, meta
+    return meta
+
+
+def pack_train_shard(bag: str | Path, out_dir: str | Path) -> dict:
+    """One whole shard as training data in its own folder, checked against its index."""
+    meta = prepare_chessbench([bag], out_dir, val_records=0, report_every=10**12)
+    _drop_empty(Path(out_dir))
+    expected = bag_records(bag)
+    assert meta["train"] + meta["skipped"] == expected, (meta, expected)
+    return meta
+
+
+def download_and_pack(shard: int, out_root: str, tmp_dir: str, base_url: str) -> dict:
+    """Worker for a process pool: fetch one training shard, pack it, delete the bag.
+
+    Module-level on purpose: a pool can only run functions it can import."""
+    import time
+    import urllib.request
+    t = time.time()
+    bag = Path(tmp_dir) / f"shard_{shard:05d}.bag"
+    urllib.request.urlretrieve(f"{base_url}train/action_value-{shard:05d}-of-02148_data.bag", bag)
+    t_dl = time.time() - t
+    meta = pack_train_shard(bag, Path(out_root) / f"shard_{shard:05d}")
+    bag.unlink()
+    return {"shard": shard, **meta, "download_s": round(t_dl), "total_s": round(time.time() - t)}

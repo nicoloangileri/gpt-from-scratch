@@ -27,26 +27,88 @@ from .model import GPT, GPTConfig
 from .train import get_lr, _nullctx
 
 
-class ActionValueStream:
-    """Memory-mapped (state, action, bucket) triples -> batched tensors."""
+def _parts(data_dir: Path, split: str) -> list[Path]:
+    """Folders holding a packed `split`: the data dir itself, or any folder below it.
 
-    def __init__(self, data_dir: str | Path, split: str, max_ram_gb: float = 4.0) -> None:
-        d = Path(data_dir)
-        self.states = np.memmap(d / f"{split}_states.bin", dtype=np.uint8, mode="r")
-        self.states = self.states.reshape(-1, SEQUENCE_LENGTH)
-        self.actions = np.memmap(d / f"{split}_actions.bin", dtype=np.uint16, mode="r")
-        self.buckets = np.memmap(d / f"{split}_buckets.bin", dtype=np.uint8, mode="r")
-        n = min(len(self.states), len(self.actions), len(self.buckets))
-        self.n = n
-        # Random access into a memmap costs one page fault per sample; holding the
-        # arrays in RAM is ~13x faster and a packed shard is under a GB.
-        if self.states.nbytes / 1e9 <= max_ram_gb:
-            self.states = np.asarray(self.states)
-            self.actions = np.asarray(self.actions)
-            self.buckets = np.asarray(self.buckets)
-            self.in_ram = True
-        else:
-            self.in_ram = False
+    One pack per shard (the 500M run packs each shard in its own folder, in parallel)
+    keeps packing embarrassingly parallel; empty files, which a packer leaves for a
+    split it had nothing for, are not parts.
+    """
+    found = sorted(p.parent for p in data_dir.glob(f"**/{split}_states.bin")
+                   if p.stat().st_size > 0)
+    if not found:
+        raise FileNotFoundError(f"no {split}_states.bin under {data_dir}")
+    return found
+
+
+class ActionValueStream:
+    """Memory-mapped (state, action, bucket) triples -> batched tensors.
+
+    With `world` > 1 (data-parallel training), rank r keeps only its slice of every
+    part: rows [n*r/world, n*(r+1)/world). The slices are disjoint and cover the data,
+    so each GPU holds 1/world of it in RAM instead of a full copy, and a global batch
+    made of one local batch per rank is still a uniform sample of the whole.
+    """
+
+    def __init__(self, data_dir: str | Path, split: str, max_ram_gb: float = 4.0,
+                 rank: int = 0, world: int = 1) -> None:
+        parts = _parts(Path(data_dir), split)
+        if len(parts) == 1 and world == 1:
+            d = parts[0]
+            self.states = np.memmap(d / f"{split}_states.bin", dtype=np.uint8, mode="r")
+            self.states = self.states.reshape(-1, SEQUENCE_LENGTH)
+            self.actions = np.memmap(d / f"{split}_actions.bin", dtype=np.uint16, mode="r")
+            self.buckets = np.memmap(d / f"{split}_buckets.bin", dtype=np.uint8, mode="r")
+            self.n = min(len(self.states), len(self.actions), len(self.buckets))
+            # Random access into a memmap costs one page fault per sample; holding the
+            # arrays in RAM is ~13x faster and a packed shard is under a GB.
+            if self.states.nbytes / 1e9 <= max_ram_gb:
+                self.states = np.asarray(self.states)
+                self.actions = np.asarray(self.actions)
+                self.buckets = np.asarray(self.buckets)
+                self.in_ram = True
+            else:
+                self.in_ram = False
+            return
+        # Several parts, or a slice per rank: always in RAM. Sampling across many
+        # memmaps would need an index of indices, and the slices are sized to fit.
+        slices = []
+        for d in parts:
+            n = min((d / f"{split}_states.bin").stat().st_size // SEQUENCE_LENGTH,
+                    (d / f"{split}_actions.bin").stat().st_size // 2,
+                    (d / f"{split}_buckets.bin").stat().st_size)
+            lo, hi = n * rank // world, n * (rank + 1) // world
+            slices.append((d, lo, hi))
+        need_gb = sum(hi - lo for _, lo, hi in slices) * (SEQUENCE_LENGTH + 3) / 1e9
+        if need_gb > max_ram_gb:
+            raise MemoryError(f"{split}: {need_gb:.1f} GB for this rank, max_ram_gb is "
+                              f"{max_ram_gb}: pack fewer shards or use more ranks")
+
+        total = sum(hi - lo for _, lo, hi in slices)
+
+        # Read each slice straight into one preallocated array: concatenating a list
+        # of arrays would hold everything twice at the peak, per rank.
+        def gather(name, dtype, width=1):
+            out = np.empty(total * width, dtype=dtype)
+            size, pos = np.dtype(dtype).itemsize, 0
+            for d, lo, hi in slices:
+                count = (hi - lo) * width
+                view = memoryview(out[pos:pos + count]).cast("B")
+                with open(d / f"{split}_{name}.bin", "rb") as fh:
+                    fh.seek(lo * width * size)
+                    done = 0
+                    while done < len(view):          # a single read() stops near 2 GB
+                        got = fh.readinto(view[done:done + (1 << 28)])
+                        if not got:
+                            raise IOError(f"short read in {d / f'{split}_{name}.bin'}")
+                        done += got
+                pos += count
+            return out
+        self.states = gather("states", np.uint8, SEQUENCE_LENGTH).reshape(-1, SEQUENCE_LENGTH)
+        self.actions = gather("actions", np.uint16)
+        self.buckets = gather("buckets", np.uint8)
+        self.n = total
+        self.in_ram = True
 
     def batch(self, batch_size: int, device: str, generator=None):
         ix = torch.randint(self.n, (batch_size,), generator=generator).numpy()
@@ -157,6 +219,9 @@ def evaluate(model, streams, cfg, ctx, rank_streams=None, centres=None) -> dict:
     return out
 
 
+DEADLINE_CHECK = 50                           # steps between deadline votes across ranks
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/chess.yaml")
@@ -185,6 +250,31 @@ def main() -> None:
         cur, raw = cfg[key], overrides[i + 1]
         cfg[key] = (raw.lower() in ("1", "true", "yes")) if isinstance(cur, bool) else type(cur)(raw)
 
+    # Data-parallel when launched by torchrun (the 500M run: Kaggle's "GPU" is two T4s).
+    # Every rank seeds the same RNG, so all of them draw the same batch indices -- each
+    # from its own slice of the data -- and the RNG state saved by rank 0 is the state
+    # of every rank: resuming stays exact without per-rank bookkeeping.
+    world = int(os.environ.get("WORLD_SIZE", "1"))
+    rank = int(os.environ.get("RANK", "0"))
+    ddp, is_main = world > 1, rank == 0
+    say = print if is_main else (lambda *a, **k: None)
+    if ddp:
+        import torch.distributed as dist
+        from torch.nn.parallel import DistributedDataParallel as DDP
+        local_rank = int(os.environ["LOCAL_RANK"])
+        if cfg["device"].startswith("cuda"):
+            torch.cuda.set_device(local_rank)
+            cfg["device"] = f"cuda:{local_rank}"
+        dist.init_process_group("nccl" if cfg["device"].startswith("cuda") else "gloo")
+        if cfg["batch_size"] % world:
+            sys.exit(f"--batch_size {cfg['batch_size']} is the global batch: it must "
+                     f"divide by the {world} ranks")
+        if cfg.get("puzzle_dir") and cfg["rank_weight"]:
+            # Two backward passes per step would make DDP all-reduce twice; the ranking
+            # fine-tunes are short and single-GPU, so this is not worth supporting.
+            sys.exit("the puzzle ranking loss runs on one GPU only")
+    local_batch = cfg["batch_size"] // world
+
     torch.manual_seed(cfg["seed"])
     torch.backends.cuda.matmul.allow_tf32 = True
     torch.backends.cudnn.allow_tf32 = True
@@ -193,16 +283,20 @@ def main() -> None:
 
     use_amp = cfg.get("amp", True) and device_type == "cuda"
     if use_amp and cfg.get("dtype", "bf16") == "bf16" and torch.cuda.get_device_capability()[0] < 8:
-        print(f"[amp] bf16 unsupported on {torch.cuda.get_device_name()} -> using fp16")
+        say(f"[amp] bf16 unsupported on {torch.cuda.get_device_name()} -> using fp16")
         cfg["dtype"] = "fp16"
     ptdtype = {"bf16": torch.bfloat16, "fp16": torch.float16}.get(cfg.get("dtype", "bf16"))
     ctx = torch.autocast(device_type="cuda", dtype=ptdtype) if use_amp else _nullctx()
     scaler = torch.amp.GradScaler("cuda", enabled=use_amp and cfg.get("dtype") == "fp16")
 
-    streams = {s: ActionValueStream(cfg["data_dir"], s, cfg.get("max_ram_gb", 4.0))
-               for s in ("train", "val")}
-    print(f"[data] train {streams['train'].n:,} | val {streams['val'].n:,} samples "
-          f"| in RAM: {streams['train'].in_ram}")
+    # Only train is sliced across ranks; every rank keeps the whole (small) val split,
+    # so all ranks measure the same val loss on the same batches.
+    streams = {"train": ActionValueStream(cfg["data_dir"], "train", cfg.get("max_ram_gb", 4.0),
+                                          rank, world),
+               "val": ActionValueStream(cfg["data_dir"], "val", cfg.get("max_ram_gb", 4.0))}
+    say(f"[data] train {streams['train'].n:,} | val {streams['val'].n:,} samples "
+        f"| in RAM: {streams['train'].in_ram}"
+        + (f" | {world} ranks, each with its own slice of train" if ddp else ""), flush=True)
 
     # The puzzle ranking loss is optional and additive: the action-value loss keeps
     # running underneath it. Training on the ranking alone would teach the model which
@@ -213,7 +307,7 @@ def main() -> None:
         rank_streams = {s: PuzzleRankStream(cfg["puzzle_dir"], s) for s in ("train", "val")}
         centres = torch.tensor((np.arange(cfg["num_buckets"]) + 0.5) / cfg["num_buckets"],
                                dtype=torch.float32, device=device)
-        print(f"[puzzles] train {rank_streams['train'].n:,} | val {rank_streams['val'].n:,} "
+        say(f"[puzzles] train {rank_streams['train'].n:,} | val {rank_streams['val'].n:,} "
               f"positions | {rank_streams['train'].k} candidate moves each "
               f"| weight {cfg['rank_weight']} | in RAM: {rank_streams['train'].in_ram}")
 
@@ -224,7 +318,7 @@ def main() -> None:
         triton_ln=cfg.get("triton_ln", False),
     )
     model = GPT(model_cfg).to(device)
-    print(f"[model] {model.num_params()/1e6:.2f}M non-embedding "
+    say(f"[model] {model.num_params()/1e6:.2f}M non-embedding "
           f"({sum(p.numel() for p in model.parameters())/1e6:.2f}M total) | {asdict(model_cfg)}")
     optimizer = model.configure_optimizers(cfg["weight_decay"], cfg["lr"], (cfg["beta1"], cfg["beta2"]))
     raw_model = model                      # compile wraps it; checkpoints store the raw one
@@ -241,7 +335,7 @@ def main() -> None:
         if init["cfg"] != asdict(model_cfg):
             sys.exit(f"model config differs from {args.init_from}")
         raw_model.load_state_dict(init["model"])
-        print(f"[init] weights from {args.init_from} "
+        say(f"[init] weights from {args.init_from} "
               f"(its step {init.get('step', init.get('next_step', '?'))}), fresh schedule",
               flush=True)
     if args.resume:
@@ -269,9 +363,11 @@ def main() -> None:
         torch.set_rng_state(state["rng"].cpu())
         if device_type == "cuda" and state.get("cuda_rng") is not None:
             torch.cuda.set_rng_state(state["cuda_rng"].cpu())
-        print(f"[resume] from {args.resume}: step {start_step}, best val {best_val:.4f}", flush=True)
+        say(f"[resume] from {args.resume}: step {start_step}, best val {best_val:.4f}", flush=True)
 
     def save_state(next_step: int) -> None:
+        if not is_main:                       # all ranks hold the same state
+            return
         tmp = ckpt_dir / "last.pt.tmp"
         torch.save({"model": raw_model.state_dict(), "optimizer": optimizer.state_dict(),
                     "scaler": scaler.state_dict(), "next_step": next_step, "best_val": best_val,
@@ -281,13 +377,27 @@ def main() -> None:
                     "num_buckets": cfg["num_buckets"]}, tmp)
         os.replace(tmp, ckpt_dir / "last.pt")     # atomic: a kill mid-save cannot corrupt it
 
+    if ddp:
+        # No buffer broadcast: the only buffer is the constant attention mask, and a
+        # broadcast is a collective in every forward, evaluation included.
+        model = DDP(model, device_ids=[local_rank] if device_type == "cuda" else None,
+                    broadcast_buffers=False)
     if cfg.get("compile", False):
         model = torch.compile(model)
 
+    def any_rank(flag: bool) -> bool:
+        """True on every rank if it is true on any: a stop must be taken together, or
+        the ranks still training wait forever for the one that left."""
+        if not ddp:
+            return flag
+        t = torch.tensor([int(flag)], device=device)
+        dist.all_reduce(t, op=dist.ReduceOp.MAX)
+        return bool(t.item())
+
     accum = cfg.get("grad_accum_steps", 1)
     # MFU reference: T4 peak is 65 TFLOP/s fp16, A100 312 TFLOP/s bf16.
-    peak_flops = cfg.get("peak_tflops", 65.0) * 1e12
-    flops_per_sample = model.flops_per_sample(SAMPLE_LENGTH)
+    peak_flops = cfg.get("peak_tflops", 65.0) * 1e12 * world
+    flops_per_sample = raw_model.flops_per_sample(SAMPLE_LENGTH)
     t0 = t_log = time.time()
     s_log = start_step
     stopped = False
@@ -295,12 +405,16 @@ def main() -> None:
     for step in range(start_step, cfg["max_steps"] + 1):
         # Saving happens at the top, before this step's eval and update, so the saved
         # RNG state is exactly the one the next session needs to replay from here.
-        out_of_time = args.deadline_s is not None and time.time() - t_start > args.deadline_s
+        # Across ranks the clock is only compared every DEADLINE_CHECK steps (a
+        # collective each step would stall the pipeline); stop_at_step needs no vote.
+        out_of_time = False
+        if args.deadline_s is not None and (not ddp or step % DEADLINE_CHECK == 0):
+            out_of_time = any_rank(time.time() - t_start > args.deadline_s)
         if out_of_time or (args.stop_at_step is not None and step >= args.stop_at_step):
             save_state(step)
             stopped = True
-            print(f"[stopped] before step {step} ({'deadline' if out_of_time else 'stop_at_step'}); "
-                  f"resume with --resume {ckpt_dir/'last.pt'}", flush=True)
+            say(f"[stopped] before step {step} ({'deadline' if out_of_time else 'stop_at_step'}); "
+                f"resume with --resume {ckpt_dir/'last.pt'}", flush=True)
             break
         if args.save_every and step > start_step and step % args.save_every == 0:
             save_state(step)
@@ -310,22 +424,23 @@ def main() -> None:
 
         if step % cfg["eval_interval"] == 0:
             m = evaluate(model, streams, cfg, ctx, rank_streams, centres)
-            rank = (f" | puzzle move {m['rank_val_acc']*100:.1f}%"
+            note = (f" | puzzle move {m['rank_val_acc']*100:.1f}%"
                     if "rank_val_acc" in m else "")
-            print(f"step {step:6d} | train {m['train']:.4f} | val {m['val']:.4f} "
-                  f"| val acc {m['val_acc']*100:.1f}%{rank} | {time.time()-t0:.0f}s",
+            say(f"step {step:6d} | train {m['train']:.4f} | val {m['val']:.4f} "
+                  f"| val acc {m['val_acc']*100:.1f}%{note} | {time.time()-t0:.0f}s",
                   flush=True)
             if m["val"] < best_val and step > 0:
                 best_val = m["val"]
-                torch.save({"model": raw_model.state_dict(), "cfg": asdict(model_cfg),
-                            "step": step, "val": best_val, "val_acc": m["val_acc"],
-                            "num_buckets": cfg["num_buckets"]}, ckpt_dir / "chess_best.pt")
+                if is_main:
+                        torch.save({"model": raw_model.state_dict(), "cfg": asdict(model_cfg),
+                                "step": step, "val": best_val, "val_acc": m["val_acc"],
+                                "num_buckets": cfg["num_buckets"]}, ckpt_dir / "chess_best.pt")
             t_log, s_log = time.time(), step
 
         optimizer.zero_grad(set_to_none=True)
         rank_loss = rank_acc = None
         for _ in range(accum):
-            x, y = streams["train"].batch(cfg["batch_size"], device)
+            x, y = streams["train"].batch(local_batch, device)
             with ctx:
                 _, loss = model(x, y)
                 loss = loss / accum
@@ -360,16 +475,19 @@ def main() -> None:
             samples = per_step * (step + 1 - s_log)
             sps = samples / max(1e-6, now - t_log)
             mfu = sps * flops_per_sample / peak_flops
-            rank = (f" | rank {rank_loss.item():.4f} ({rank_acc*100:.0f}%)"
+            note = (f" | rank {rank_loss.item():.4f} ({rank_acc*100:.0f}%)"
                     if rank_loss is not None else "")
-            print(f"  step {step} | loss {loss.item()*accum:.4f}{rank} "
+            say(f"  step {step} | loss {loss.item()*accum:.4f}{note} "
                   f"| lr {get_lr(step, cfg):.2e} "
                   f"| {sps:,.0f} samples/s | MFU {mfu*100:.1f}%", flush=True)
             t_log, s_log = now, step + 1
 
     if not stopped:
         save_state(cfg["max_steps"] + 1)
-        print(f"[done] best val loss {best_val:.4f} -> {ckpt_dir/'chess_best.pt'}")
+        say(f"[done] best val loss {best_val:.4f} -> {ckpt_dir/'chess_best.pt'}")
+    if ddp:
+        dist.barrier()                        # rank 0 has finished writing
+        dist.destroy_process_group()
 
 
 if __name__ == "__main__":
