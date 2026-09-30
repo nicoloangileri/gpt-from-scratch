@@ -1,0 +1,92 @@
+[{"stream_name":"stderr","time":5.654102988,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":5.654177871,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":6.439590501,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.439623936,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.439629784,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.439744323,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.000006121,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.000053474,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.000059487,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.000063321,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":10.156743259,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 90.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":10.359230431,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 90.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":14.902722443,"data":"wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/puzzle_data.py', 'src/search.py', 'src/agreement_eval.py', 'src/match.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'configs/chess.yaml']\n"}
+,{"stream_name":"stdout","time":15.090505613,"data":"[data] pack a: 144,140,178 records from shards 10-30\n"}
+,{"stream_name":"stdout","time":15.14899648,"data":"[init] warm-starting from /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_225M.pt\n"}
+,{"stream_name":"stdout","time":19.377073206,"data":"name, memory.total [MiB]\n"}
+,{"stream_name":"stdout","time":19.377114586,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":19.377120548,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":19.377125376,"data":"\n"}
+,{"stream_name":"stdout","time":19.40524566,"data":"[session] 2 GPU(s), 31.3 GB RAM available, 12.5 GB per rank\n"}
+,{"stream_name":"stdout","time":19.434236446,"data":"===== two GPUs =====\n"}
+,{"stream_name":"stdout","time":21.390058322,"data":"\n"}
+,{"stream_name":"stdout","time":21.390971805,"data":"*****************************************\n"}
+,{"stream_name":"stdout","time":21.391749674,"data":"Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. \n"}
+,{"stream_name":"stdout","time":21.392352931,"data":"*****************************************\n"}
+,{"stream_name":"stdout","time":21.974415894,"data":"[W930 10:44:04.474340720 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3\n"}
+,{"stream_name":"stdout","time":24.38653504,"data":"[W930 10:44:06.886260447 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3\n"}
+,{"stream_name":"stdout","time":24.387551832,"data":"[W930 10:44:06.887856287 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3\n"}
+,{"stream_name":"stdout","time":24.392098286,"data":"[amp] bf16 unsupported on Tesla T4 -\u003e using fp16\n"}
+,{"stream_name":"stdout","time":58.036468659,"data":"[data] train 72,070,085 | val 200,000 samples | in RAM: True | 2 ranks, each with its own slice of train\n"}
+,{"stream_name":"stdout","time":58.29964714,"data":"[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': False, 'causal': True, 'num_classes': 64}\n"}
+,{"stream_name":"stdout","time":63.93563982,"data":"[init] weights from /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_225M.pt (its step 120000), fresh schedule\n"}
+,{"stream_name":"stdout","time":67.467111228,"data":"[rank0]:W0930 10:44:49.801000 71 torch/_logging/_internal.py:1204] [0/0] Profiler function \u003cclass 'torch.autograd.profiler.record_function'\u003e will be ignored\n"}
+,{"stream_name":"stdout","time":67.468049001,"data":"[rank1]:W0930 10:44:49.801000 72 torch/_logging/_internal.py:1204] [0/0] Profiler function \u003cclass 'torch.autograd.profiler.record_function'\u003e will be ignored\n"}
+,{"stream_name":"stdout","time":74.82728452,"data":"[rank1]:W0930 10:44:57.159000 72 torch/_inductor/utils.py:1679] [4/0] Not enough SMs to use max_autotune_gemm mode\n"}
+,{"stream_name":"stdout","time":74.832611299,"data":"[rank0]:W0930 10:44:57.160000 71 torch/_inductor/utils.py:1679] [4/0] Not enough SMs to use max_autotune_gemm mode\n"}
+,{"stream_name":"stdout","time":90.728165858,"data":"step      0 | train 2.0701 | val 2.0861 | val acc 29.3% | 23s\n"}
+,{"stream_name":"stdout","time":147.313692117,"data":"  step 100 | loss 2.1156 | lr 4.51e-06 | 1,828 samples/s | MFU 10.2%\n"}
+,{"stream_name":"stdout","time":177.283545536,"data":"  step 200 | loss 2.0044 | lr 8.98e-06 | 3,416 samples/s | MFU 19.0%\n"}
+,{"stream_name":"stdout","time":206.167250088,"data":"  step 300 | loss 2.0485 | lr 1.35e-05 | 3,546 samples/s | MFU 19.7%\n"}
+,{"stream_name":"stdout","time":234.495365948,"data":"  step 400 | loss 2.0801 | lr 1.79e-05 | 3,614 samples/s | MFU 20.1%\n"}
+,{"stream_name":"stdout","time":263.665458928,"data":"  step 500 | loss 2.0144 | lr 2.24e-05 | 3,511 samples/s | MFU 19.5%\n"}
+,{"stream_name":"stdout","time":292.286378666,"data":"  step 600 | loss 2.0510 | lr 2.69e-05 | 3,577 samples/s | MFU 19.9%\n"}
+,{"stream_name":"stdout","time":320.651109198,"data":"  step 700 | loss 2.0549 | lr 3.13e-05 | 3,611 samples/s | MFU 20.1%\n"}
+,{"stream_name":"stdout","time":349.442497765,"data":"[stopped] before step 800 (stop_at_step); resume with --resume probe2/last.pt\n"}
+,{"stream_name":"stdout","time":349.443652944,"data":"/usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.\n"}
+,{"stream_name":"stdout","time":349.444495443,"data":"  return func(*args, **kwargs)\n"}
+,{"stream_name":"stdout","time":353.875445251,"data":"[probe] two GPUs: 334s wall\n"}
+,{"stream_name":"stdout","time":353.876330736,"data":"===== resume on two GPUs =====\n"}
+,{"stream_name":"stdout","time":355.846256724,"data":"\n"}
+,{"stream_name":"stdout","time":355.847370032,"data":"*****************************************\n"}
+,{"stream_name":"stdout","time":355.848432387,"data":"Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. \n"}
+,{"stream_name":"stdout","time":355.849543314,"data":"*****************************************\n"}
+,{"stream_name":"stdout","time":356.168006968,"data":"[W930 10:49:38.668358600 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3\n"}
+,{"stream_name":"stdout","time":358.570980825,"data":"[W930 10:49:40.071022341 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3\n"}
+,{"stream_name":"stdout","time":358.591722955,"data":"[W930 10:49:40.092087648 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3\n"}
+,{"stream_name":"stdout","time":358.592993368,"data":"[amp] bf16 unsupported on Tesla T4 -\u003e using fp16\n"}
+,{"stream_name":"stdout","time":364.726090181,"data":"[data] train 72,070,085 | val 200,000 samples | in RAM: True | 2 ranks, each with its own slice of train\n"}
+,{"stream_name":"stdout","time":364.992736601,"data":"[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': False, 'causal': True, 'num_classes': 64}\n"}
+,{"stream_name":"stdout","time":366.234775591,"data":"[resume] from probe2/last.pt: step 800, best val inf\n"}
+,{"stream_name":"stdout","time":367.810199596,"data":"[rank1]:W0930 10:49:50.145000 454 torch/_logging/_internal.py:1204] [0/0] Profiler function \u003cclass 'torch.autograd.profiler.record_function'\u003e will be ignored\n"}
+,{"stream_name":"stdout","time":367.817733164,"data":"[rank0]:W0930 10:49:50.153000 453 torch/_logging/_internal.py:1204] [0/0] Profiler function \u003cclass 'torch.autograd.profiler.record_function'\u003e will be ignored\n"}
+,{"stream_name":"stdout","time":375.049996701,"data":"[rank1]:W0930 10:49:57.382000 454 torch/_inductor/utils.py:1679] [4/0] Not enough SMs to use max_autotune_gemm mode\n"}
+,{"stream_name":"stdout","time":375.129480678,"data":"[rank0]:W0930 10:49:57.465000 453 torch/_inductor/utils.py:1679] [4/0] Not enough SMs to use max_autotune_gemm mode\n"}
+,{"stream_name":"stdout","time":394.994395195,"data":"  step 800 | loss 2.0409 | lr 3.58e-05 | 38 samples/s | MFU 0.2%\n"}
+,{"stream_name":"stdout","time":425.23969019,"data":"[stopped] before step 900 (stop_at_step); resume with --resume probe2r/last.pt\n"}
+,{"stream_name":"stdout","time":425.240385906,"data":"/usr/local/lib/python3.12/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.\n"}
+,{"stream_name":"stdout","time":425.241081309,"data":"  return func(*args, **kwargs)\n"}
+,{"stream_name":"stdout","time":428.448626325,"data":"[probe] resume on two GPUs: 75s wall\n"}
+,{"stream_name":"stdout","time":428.449445532,"data":"===== one GPU =====\n"}
+,{"stream_name":"stdout","time":431.668327196,"data":"[W930 10:50:54.168729878 socket.cpp:207] [c10d] The hostname of the client socket cannot be retrieved. err=-3\n"}
+,{"stream_name":"stdout","time":433.747021598,"data":"[amp] bf16 unsupported on Tesla T4 -\u003e using fp16\n"}
+,{"stream_name":"stdout","time":437.541269063,"data":"[data] train 144,140,178 | val 200,000 samples | in RAM: True\n"}
+,{"stream_name":"stdout","time":438.000664834,"data":"[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': False, 'causal': True, 'num_classes': 64}\n"}
+,{"stream_name":"stdout","time":439.68137482,"data":"[init] weights from /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_225M.pt (its step 120000), fresh schedule\n"}
+,{"stream_name":"stdout","time":445.656689572,"data":"W0930 10:51:07.992000 671 torch/_inductor/utils.py:1679] [0/0] Not enough SMs to use max_autotune_gemm mode\n"}
+,{"stream_name":"stdout","time":451.164790736,"data":"step      0 | train 2.0435 | val 2.0861 | val acc 29.3% | 10s\n"}
+,{"stream_name":"stdout","time":522.913337497,"data":"  step 100 | loss 2.0270 | lr 4.51e-06 | 1,442 samples/s | MFU 16.1%\n"}
+,{"stream_name":"stdout","time":576.120898326,"data":"  step 200 | loss 2.1407 | lr 8.98e-06 | 1,925 samples/s | MFU 21.4%\n"}
+,{"stream_name":"stdout","time":630.201412192,"data":"  step 300 | loss 2.0362 | lr 1.35e-05 | 1,894 samples/s | MFU 21.1%\n"}
+,{"stream_name":"stdout","time":684.07406649,"data":"  step 400 | loss 2.0691 | lr 1.79e-05 | 1,901 samples/s | MFU 21.2%\n"}
+,{"stream_name":"stdout","time":737.823097345,"data":"[stopped] before step 500 (stop_at_step); resume with --resume probe1/last.pt\n"}
+,{"stream_name":"stdout","time":740.261389402,"data":"[probe] one GPU: 312s wall\n"}
+,{"stream_name":"stderr","time":743.303297795,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":743.303338667,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":743.513674869,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":743.513703099,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":744.125586887,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":744.424012958,"data":"[NbConvertApp] Writing 163142 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":746.742531989,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":747.748299282,"data":"[NbConvertApp] Writing 453009 bytes to __results__.html\n"}
+]

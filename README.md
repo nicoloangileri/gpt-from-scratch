@@ -340,8 +340,32 @@ the T4 ran 681 s with the PyTorch LayerNorm and 661 s with the Triton one,
 small share of the step. Amdahl. And the GEMMs that dominate it are not reachable from
 here either: on a T4 torch.compile logs `Not enough SMs to use max_autotune_gemm mode`
 and skips the autotuned GEMM templates altogether, so what `compile` buys on this card
-is fusion and fewer launches. The remaining bottleneck is launch overhead, which wants
-CUDA graphs next.
+is fusion and fewer launches.
+
+### Two GPUs, not one
+
+Kaggle's "GPU" accelerator is two T4s -- a single T4 is not offered (kaggle-cli PR
+1198) -- and the weekly quota counts the session, not the cards. Every run above
+trained on one of the two. The same session, the same data, the same starting
+checkpoint, measured back to back
+([`results/23_one_vs_two_t4.log`](results/23_one_vs_two_t4.log)):
+
+| | samples/s | MFU per GPU |
+|---|---|---|
+| one T4 | 1,907 | 21.2% |
+| two T4s, DDP, global batch still 1024 | **3,546** | 19.8% |
+
+1.86x, 93% scaling efficiency, at no extra quota (every log line from step 200 on, once
+compilation is over). The ranks read disjoint slices of the data and seed the same RNG,
+so the RNG state one rank saves is every rank's and a run split across sessions still
+matches an unsplit one bit for bit (`tests/test_ddp.py`, on two gloo ranks).
+
+The same numbers settle what an earlier draft of this section got wrong. It guessed
+that the step was bound by kernel launches and wanted CUDA graphs next. A launch-bound
+step costs the same whatever the batch; here each card's step fell from 0.537 s to
+0.289 s when its batch halved from 1,024 to 512. The fixed part -- launches and the
+gradient all-reduce together -- is at most 0.289 - 0.537/2 = 20 ms of 289, about 7%, and
+that is all CUDA graphs could win. The step is bound by the work itself.
 
 ## What was learned the hard way
 
@@ -383,6 +407,10 @@ Documented because the mistakes were more instructive than the successes:
 - A mutation check can be fooled by a stale `.pyc`: the mutated and restored files had
   the same size and the same mtime second, so Python reused the old bytecode and the
   "restored" run still failed.
+- Read the hardware before tuning for it. For a month every run here trained on one
+  of the two T4s Kaggle's GPU sessions come with, while the kernels and the batch size
+  were being tuned for "the T4": `torch.cuda.device_count()` would have said 2 on the
+  first day.
 - Deeper search does not average out evaluator error, it amplifies it. Alpha-beta
   actively searches for the positions where the network is most wrong, which is why a
   move is scored by the minimum of its two estimates rather than the backed-up one.
@@ -411,4 +439,5 @@ results/             the logs behind the numbers above
 
 - A fine-tune with the ranking loss switched off, to split what remains of the cost
   between the ranking loss and the fine-tune itself
-- CUDA graphs; DDP; KV-cache serving for the language-model path
+- KV-cache serving for the language-model path (CUDA graphs: worth at most ~7% here,
+  see Systems)
