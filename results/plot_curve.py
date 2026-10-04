@@ -29,7 +29,11 @@ CURVE_15M = [
     (225e6, 60.3, "17_eval_on_kaggle.json, chess_225M.pt"),
     (500e6, 64.8, "24_chess_500M_eval.json, chess_500M.pt"),
 ]
-FINE_TUNE = (225e6, 74.6, "17_eval_on_kaggle.json, chess_225M_puzzles.pt")
+# each puzzle fine-tune is drawn up from the model it started from: (examples, %, base %)
+FINE_TUNES = [
+    (225e6, 74.6, 60.3, "17_eval_on_kaggle.json, chess_225M_puzzles.pt"),
+    (500e6, 77.5, 64.8, "26_puzzle_finetune_500M_w0.3.json, chess_500M_puzzles_w0.3.pt"),
+]
 MODEL_60M = (14.6e6, 21.4, "17_eval_on_kaggle.json, chess_60M_params.pt")
 REFERENCES = [
     (88.9, "DeepMind's 9M model, ~600x the data"),
@@ -77,7 +81,9 @@ def draw(theme: str) -> str:
            "<title id='t'>Puzzles solved against training examples seen</title>",
            "<desc id='d'>"
            + "; ".join(f"{e / 1e6:g}M examples: {p}%" for e, p, _ in CURVE_15M)
-           + f"; after a puzzle fine-tune: {FINE_TUNE[1]}%; a 60M-parameter model at "
+           + "; after a puzzle fine-tune: "
+           + ", ".join(f"{p}% from {e / 1e6:g}M" for e, p, _, _ in FINE_TUNES)
+           + "; a 60M-parameter model at "
            f"{MODEL_60M[0] / 1e6:g}M examples: {MODEL_60M[1]}%.</desc>",
            f"<rect width='{W}' height='{H}' fill='{c['surface']}'/>",
            text(LEFT, 30, "Puzzles solved vs training examples seen", c["ink"], 16, weight="600"),
@@ -111,12 +117,12 @@ def draw(theme: str) -> str:
         out.append(text(x(e) - 10, y(p) - 2, f"{p}%", c["ink"], 12, "end", "600"))
 
     # the fine-tune: same model, one more step, drawn as a jump from its starting point
-    fe, fp, _ = FINE_TUNE
-    out.append(f"<line x1='{x(fe):.1f}' x2='{x(fe):.1f}' y1='{y(CURVE_15M[-1][1]) - 7:.1f}' "
-               f"y2='{y(fp) + 7:.1f}' stroke='{c['s2']}' stroke-width='2' "
-               f"stroke-dasharray='3 3'/>")
-    out.append(dot(x(fe), y(fp), c["s2"], c["surface"]))
-    out.append(text(x(fe) - 10, y(fp) - 2, f"{fp}%", c["ink"], 12, "end", "600"))
+    for fe, fp, base, _ in FINE_TUNES:
+        out.append(f"<line x1='{x(fe):.1f}' x2='{x(fe):.1f}' y1='{y(base) - 7:.1f}' "
+                   f"y2='{y(fp) + 7:.1f}' stroke='{c['s2']}' stroke-width='2' "
+                   f"stroke-dasharray='3 3'/>")
+        out.append(dot(x(fe), y(fp), c["s2"], c["surface"]))
+        out.append(text(x(fe) - 10, y(fp) - 2, f"{fp}%", c["ink"], 12, "end", "600"))
 
     # the 60M-parameter model: more capacity, fewer examples per GPU-hour
     me, mp, _ = MODEL_60M

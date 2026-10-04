@@ -1,0 +1,15 @@
+{
+ "a": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt",
+ "b": "/kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_225M.pt",
+ "depth": 1,
+ "seed": 0,
+ "seconds": 20973,
+ "games": 400,
+ "wins": 165,
+ "draws": 180,
+ "losses": 55,
+ "score": 0.6375,
+ "elo": 98.06887127959205,
+ "elo_low": 73.15609544308128,
+ "elo_high": 124.00638711007818
+}
