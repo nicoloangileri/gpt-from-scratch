@@ -158,11 +158,16 @@ def main() -> None:
     ap.add_argument("--init-dataset", dest="init_dataset", default=None,
                     help="start from a named checkpoint in this dataset instead of --source")
     ap.add_argument("--init-name", dest="init_name", default="chess_225M.pt")
+    ap.add_argument("--eval", choices=["new", "compare"], default=None,
+                    help="new: the new model as results/17 measured the others (puzzles, "
+                         "move quality, search); compare: before/after puzzles, as the first "
+                         "fine-tune ran. Default: new from a dataset, compare from a kernel")
     a = ap.parse_args()
 
     out = ROOT / a.dir
     out.mkdir(exist_ok=True)
     from_dataset = a.init_dataset is not None
+    evaluation = a.eval or ("new" if from_dataset else "compare")
     cells = [
         setup_cell(),
         # fail before any download if the starting weights are missing
@@ -170,7 +175,7 @@ def main() -> None:
         data_cell(a.shards),
         puzzle_data_cell(a.max_puzzles, a.val_positions),
         finetune_cell(a.steps, a.batch_size, a.rank_batch, a.lr, a.rank_weight),
-        new_model_eval_cell(a.puzzles, a.search_puzzles) if from_dataset
+        new_model_eval_cell(a.puzzles, a.search_puzzles) if evaluation == "new"
         else compare_cell(a.puzzles, a.search_puzzles),
     ]
     (out / "puzzle_kernel.ipynb").write_text(json.dumps(_notebook(cells), indent=1))
