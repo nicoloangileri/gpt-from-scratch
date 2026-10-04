@@ -1,0 +1,243 @@
+{
+ "pack": "a",
+ "shards": [
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30
+ ],
+ "train_records": 144140178,
+ "skipped": 0,
+ "val_records": 200000,
+ "val_source": "first 200,000 records of shard 0",
+ "per_shard": [
+  {
+   "shard": 10,
+   "train": 22677302,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 12,
+   "total_s": 1092
+  },
+  {
+   "shard": 11,
+   "train": 12346148,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 7,
+   "total_s": 590
+  },
+  {
+   "shard": 12,
+   "train": 6939595,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 4,
+   "total_s": 344
+  },
+  {
+   "shard": 13,
+   "train": 1526246,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 1,
+   "total_s": 70
+  },
+  {
+   "shard": 14,
+   "train": 8308296,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 4,
+   "total_s": 401
+  },
+  {
+   "shard": 15,
+   "train": 8447128,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 5,
+   "total_s": 410
+  },
+  {
+   "shard": 16,
+   "train": 4380589,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 3,
+   "total_s": 207
+  },
+  {
+   "shard": 17,
+   "train": 604414,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 1,
+   "total_s": 28
+  },
+  {
+   "shard": 18,
+   "train": 8888524,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 5,
+   "total_s": 423
+  },
+  {
+   "shard": 19,
+   "train": 598174,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 1,
+   "total_s": 21
+  },
+  {
+   "shard": 20,
+   "train": 2273145,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 2,
+   "total_s": 105
+  },
+  {
+   "shard": 21,
+   "train": 3012883,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 2,
+   "total_s": 142
+  },
+  {
+   "shard": 22,
+   "train": 1225038,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 1,
+   "total_s": 57
+  },
+  {
+   "shard": 23,
+   "train": 461772,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 1,
+   "total_s": 17
+  },
+  {
+   "shard": 24,
+   "train": 2488725,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 2,
+   "total_s": 116
+  },
+  {
+   "shard": 25,
+   "train": 1160127,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 1,
+   "total_s": 54
+  },
+  {
+   "shard": 26,
+   "train": 16765692,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 17,
+   "total_s": 809
+  },
+  {
+   "shard": 27,
+   "train": 16758119,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 10,
+   "total_s": 804
+  },
+  {
+   "shard": 28,
+   "train": 8487930,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 6,
+   "total_s": 392
+  },
+  {
+   "shard": 29,
+   "train": 8282072,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 7,
+   "total_s": 407
+  },
+  {
+   "shard": 30,
+   "train": 8508259,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 6,
+   "total_s": 391
+  }
+ ],
+ "seconds": 1738
+}

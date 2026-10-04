@@ -52,8 +52,15 @@ def say(msg: str) -> None:
         fh.write(f"{dt.datetime.now():%Y-%m-%d %H:%M:%S} {msg}\n")
 
 
-def kaggle(*args: str) -> str:
-    r = subprocess.run([K, *args], capture_output=True, text=True, cwd=ROOT)
+def kaggle(*args: str, timeout_s: int = 1800) -> str:
+    """One CLI call, never longer than `timeout_s`. A download once sat for 9 hours on
+    a 0-byte file (the laptop slept that night); the file check caught it, but
+    every retry was behind that one hung call."""
+    try:
+        r = subprocess.run([K, *args], capture_output=True, text=True, cwd=ROOT,
+                           timeout=timeout_s)
+    except subprocess.TimeoutExpired:
+        return f"timed out after {timeout_s}s"
     return (r.stdout + r.stderr).strip()
 
 

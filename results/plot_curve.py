@@ -27,11 +27,12 @@ CURVE_15M = [
     (50.0e6, 30.3, "17_eval_on_kaggle.json, chess_50M.pt"),
     (98.3e6, 49.1, "17_eval_on_kaggle.json, chess_100M.pt"),
     (225e6, 60.3, "17_eval_on_kaggle.json, chess_225M.pt"),
+    (500e6, 64.8, "24_chess_500M_eval.json, chess_500M.pt"),
 ]
 FINE_TUNE = (225e6, 74.6, "17_eval_on_kaggle.json, chess_225M_puzzles.pt")
 MODEL_60M = (14.6e6, 21.4, "17_eval_on_kaggle.json, chess_60M_params.pt")
 REFERENCES = [
-    (88.9, "DeepMind's 9M model, ~1300x the data"),
+    (88.9, "DeepMind's 9M model, ~600x the data"),
     (27.4, "ten-line heuristic: take the biggest piece, or mate"),
     (0.6, "random legal move"),
 ]
@@ -45,7 +46,7 @@ THEMES = {
 
 W, H = 900, 460
 LEFT, RIGHT, TOP, BOTTOM = 64, 596, 78, 392          # the legend lives right of the plot
-X_MIN, X_MAX = 1e6, 3e8
+X_MIN, X_MAX = 1e6, 1e9
 FONT = "font-family='-apple-system, Segoe UI, Helvetica, Arial, sans-serif'"
 
 
@@ -80,7 +81,7 @@ def draw(theme: str) -> str:
            f"{MODEL_60M[0] / 1e6:g}M examples: {MODEL_60M[1]}%.</desc>",
            f"<rect width='{W}' height='{H}' fill='{c['surface']}'/>",
            text(LEFT, 30, "Puzzles solved vs training examples seen", c["ink"], 16, weight="600"),
-           text(LEFT, 50, "15M-parameter model on a free Kaggle T4, all 10,000 ChessBench "
+           text(LEFT, 50, "15M-parameter model on free Kaggle T4s, all 10,000 ChessBench "
                 "test puzzles", c["ink2"], 12)]
 
     # grid and axes: recessive
@@ -89,7 +90,7 @@ def draw(theme: str) -> str:
                    f"stroke='{c['grid'] if pct else c['axis']}' stroke-width='1'/>")
         out.append(text(LEFT - 8, y(pct) + 4, f"{pct}%", c["muted"], 11, "end"))
     for tick, label in [(1e6, "1M"), (3e6, "3M"), (1e7, "10M"), (3e7, "30M"),
-                        (1e8, "100M"), (3e8, "300M")]:
+                        (1e8, "100M"), (3e8, "300M"), (1e9, "1B")]:
         out.append(text(x(tick), BOTTOM + 18, label, c["muted"], 11, "middle"))
     out.append(text((LEFT + RIGHT) / 2, BOTTOM + 40, "training examples seen (log scale)",
                     c["ink2"], 12, "middle"))

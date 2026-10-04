@@ -1,0 +1,133 @@
+{
+ "pack": "b",
+ "shards": [
+  31,
+  32,
+  33,
+  34,
+  35,
+  36,
+  37,
+  38,
+  39,
+  40,
+  41
+ ],
+ "train_records": 140806584,
+ "skipped": 0,
+ "val_records": 200000,
+ "val_source": "first 200,000 records of shard 0",
+ "per_shard": [
+  {
+   "shard": 31,
+   "train": 5362274,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 20,
+   "total_s": 145
+  },
+  {
+   "shard": 32,
+   "train": 2907007,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 9,
+   "total_s": 48
+  },
+  {
+   "shard": 33,
+   "train": 16778286,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 63,
+   "total_s": 443
+  },
+  {
+   "shard": 34,
+   "train": 16769844,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 60,
+   "total_s": 430
+  },
+  {
+   "shard": 35,
+   "train": 4334472,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 15,
+   "total_s": 79
+  },
+  {
+   "shard": 36,
+   "train": 20946914,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 88,
+   "total_s": 536
+  },
+  {
+   "shard": 37,
+   "train": 16688538,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 59,
+   "total_s": 430
+  },
+  {
+   "shard": 38,
+   "train": 16845665,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 62,
+   "total_s": 444
+  },
+  {
+   "shard": 39,
+   "train": 16688996,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 47,
+   "total_s": 405
+  },
+  {
+   "shard": 40,
+   "train": 7170227,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 20,
+   "total_s": 180
+  },
+  {
+   "shard": 41,
+   "train": 16314361,
+   "val": 0,
+   "skipped": 0,
+   "num_buckets": 64,
+   "vocab": 1999,
+   "download_s": 59,
+   "total_s": 419
+  }
+ ],
+ "seconds": 964
+}

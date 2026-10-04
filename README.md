@@ -24,20 +24,22 @@ rollouts -- one forward pass per legal move, best expected value wins. 15M param
 plus 1,968 UCI moves), 78 tokens per sample (77 for the position, 1 for the move), and
 a 64-way classification head over buckets of the Stockfish win probability.
 
-**60.3% of Lichess puzzles solved** -- 6,029 of the 10,000 ChessBench test puzzles --
-after 225M training examples of Stockfish annotations on a free Kaggle T4.
+**64.8% of Lichess puzzles solved** -- 6,484 of the 10,000 ChessBench test puzzles --
+after 500M training examples of Stockfish annotations on free Kaggle GPUs
+([`results/24_chess_500M_eval.json`](results/24_chess_500M_eval.json)); 60.3% at 225M.
 
-**74.6%** (7,455 of 10,000) after a 4-hour fine-tune on *other* Lichess puzzles, with a
-ranking loss over the legal moves added on top of the original one. The 10,000 test
-puzzles were excluded by id before packing (9,995 of them are in the Lichess database;
-the packer asserts that the exclusion removed something), and the checkpoint was chosen
-by the action-value validation loss, never by puzzle accuracy. Both numbers come from
-the same session with the same evaluator, one after the other.
+**74.6%** (7,455 of 10,000) after a 4-hour fine-tune of the 225M checkpoint on *other*
+Lichess puzzles, with a ranking loss over the legal moves added on top of the original
+one. The 10,000 test puzzles were excluded by id before packing (9,995 of them are in
+the Lichess database; the packer asserts that the exclusion removed something), and the
+checkpoint was chosen by the action-value validation loss, never by puzzle accuracy.
+The fine-tune's before and after come from the same session with the same evaluator,
+one after the other.
 
-Those two numbers answer different questions. 60.3% is what Stockfish's annotations
-alone teach, which is the setting of DeepMind's paper. 74.6% is what the model does once
-it has also been told which move solves a puzzle -- more useful, and no longer
-comparable to the paper, which never trains on puzzles.
+Those numbers answer different questions. 64.8% is what Stockfish's annotations alone
+teach, which is the setting of DeepMind's paper. 74.6% is what the model does once it
+has also been told which move solves a puzzle -- more useful, and no longer comparable
+to the paper, which never trains on puzzles.
 
 Neither is readable without a baseline, which is why the headline here is puzzle
 accuracy and not a validation loss. Two baselines run on the same 10,000 puzzles: a
@@ -46,15 +48,15 @@ ten-line rule that grabs the most valuable hanging piece, or mates when it can, 
 
 ### By difficulty
 
-| puzzle rating | puzzles | grab-the-piece | 100M examples | 225M examples | **+ puzzle fine-tune** |
-|---|---|---|---|---|---|
-| 0-499 | 74 | 74.3% | 93.2% | 100.0% | **100.0%** |
-| 500-999 | 2,161 | 58.3% | 84.4% | 93.6% | **99.4%** |
-| 1000-1499 | 3,367 | 32.0% | 61.6% | 76.3% | **93.2%** |
-| 1500-1999 | 2,543 | 12.0% | 30.3% | 42.3% | **64.9%** |
-| 2000-2499 | 1,571 | 2.8% | 10.8% | 17.4% | **27.4%** |
-| 2500-2999 | 284 | 1.1% | 3.2% | 6.0% | **4.9%** |
-| **all** | **10,000** | **27.4%** | **49.1%** | **60.3%** | **74.6%** |
+| puzzle rating | puzzles | grab-the-piece | 100M examples | 225M examples | 500M examples | **225M + puzzle fine-tune** |
+|---|---|---|---|---|---|---|
+| 0-499 | 74 | 74.3% | 93.2% | 100.0% | 100.0% | **100.0%** |
+| 500-999 | 2,161 | 58.3% | 84.4% | 93.6% | 95.1% | **99.4%** |
+| 1000-1499 | 3,367 | 32.0% | 61.6% | 76.3% | 80.1% | **93.2%** |
+| 1500-1999 | 2,543 | 12.0% | 30.3% | 42.3% | 51.0% | **64.9%** |
+| 2000-2499 | 1,571 | 2.8% | 10.8% | 17.4% | 21.7% | **27.4%** |
+| 2500-2999 | 284 | 1.1% | 3.2% | 6.0% | 7.0% | **4.9%** |
+| **all** | **10,000** | **27.4%** | **49.1%** | **60.3%** | **64.8%** | **74.6%** |
 
 (A random legal move solves 0.6% overall; it is not broken out by band.)
 
@@ -63,9 +65,9 @@ The fine-tune gained most in the middle, 1000-2000, and nothing at the top: 6.0%
 suspect: the solver has 1.4 moves to find on average below 500 and 3.6 above 2500, and
 every one of them has to be right. That is a correlation, not a measured cause.
 
-The gap widens with difficulty -- above 2000 the model is around six times the
-heuristic -- and that is the part which cannot be explained by capturing hanging
-pieces. Note also what the baseline exposes at the other end: 20.1% of the puzzles
+The gap widens with difficulty -- at 2000-2499 the 500M model solves 21.7% against the
+heuristic's 2.8%, nearly eight times as many -- and that is the part which cannot be
+explained by capturing hanging pieces. Note also what the baseline exposes at the other end: 20.1% of the puzzles
 need a single move from the solver, usually a capture, which is exactly the move the
 ten-line rule finds.
 
@@ -76,7 +78,7 @@ hour of free GPU buys:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="results/curve_dark.svg">
-  <img alt="Puzzle accuracy against training examples seen: flat near 20% up to 20M examples and below the 27.4% heuristic, then 30.3% at 50M, 49.1% at 100M, 60.3% at 225M, and 74.6% after the puzzle fine-tune" src="results/curve_light.svg">
+  <img alt="Puzzle accuracy against training examples seen: flat near 20% up to 20M examples and below the 27.4% heuristic, then 30.3% at 50M, 49.1% at 100M, 60.3% at 225M, 64.8% at 500M, and 74.6% after the puzzle fine-tune of the 225M model" src="results/curve_light.svg">
 </picture>
 
 | model | examples | T4 hours | puzzles solved | val loss |
@@ -88,7 +90,8 @@ hour of free GPU buys:
 | 15M | 30.7M | 5.3 | 23.7% | 2.751 |
 | 15M | 50M | 10.0 | 30.3% | 2.5432 |
 | 15M | 100M | 21.4 | 49.1% | 2.2419 |
-| 15M | **225M** | -- | **60.3%** | **2.0557** |
+| 15M | 225M | -- | 60.3% | 2.0557 |
+| 15M | **500M** | 23.8 on two T4s | **64.8%** | **1.9371** |
 | 15M | 225M + 12k puzzle steps | 4.2 | **74.6%** | 2.0562 |
 | 60M | 14.6M | 9.5 (whole run) | 21.4% | 2.986 |
 
@@ -98,7 +101,11 @@ that had been measured before came out identical. Earlier drafts had the small r
 the first 2,000 puzzles only, which turned out half a point to a point easier. The
 T4 hours are wall clock from the run logs; the 225M run is warm-started from the 100M
 checkpoint and split across two Kaggle sessions, so a single wall-clock figure would
-not be comparable -- it held 1,830 samples/s at 20.3% MFU throughout. The fine-tune
+not be comparable -- it held 1,830 samples/s at 20.3% MFU throughout. The 500M run is
+warm-started from the 225M one and ran on both T4s of a Kaggle session (see Systems):
+three sessions of 11.3, 4.0 and 8.6 hours, the last including the final evaluation, at
+3,240-3,450 samples/s by session median ([`results/24_chess_500M_session1.log`](results/24_chess_500M_session1.log)
+and the next two). On one T4 its training alone would have taken about 42 hours. The fine-tune
 row is the training time only; packing the 6.1M-puzzle database took another 65
 minutes. Its validation loss is on a different split, so read it as "unchanged",
 not as a comparison to four decimals.
@@ -107,9 +114,14 @@ not as a comparison to four decimals.
 single most useful thing the baseline did.
 
 Returns are diminishing but not gone: doubling from 50M to 100M examples bought 18.8
-points, and 2.25x more on top of that bought a further 11.2. Data is not what is
-running out -- the 225M run used 82,195,730 positions from 10 of ChessBench's 2,148
-shards, held in RAM, and went over them about 1.5 times.
+points, 2.25x more on top of that a further 11.2, and 2.2x more again 4.5. The
+validation loss slowed down less: it fell by 0.119 from 225M to 500M examples, against
+0.186 the step before. The model is still learning the annotations; the puzzles are
+rewarding it less for each unit of loss. Data is not what is running out -- the 225M
+run used 82,195,730 positions from 10 of ChessBench's 2,148 shards and went over them
+about 1.5 times; the 500M run added 285M positions from shards 10-41, never used
+before, drawn with replacement at about one draw per position (so roughly 4 in 10 were
+never drawn at all).
 
 ### Per move, not per puzzle
 
@@ -124,7 +136,8 @@ position of ChessBench's test shard -- 61,833 positions, 1.84M scored moves
 | 30.7M | 22.2% | 24.7% | 45.9% | 0.381 | 8.4 pts | 16.4% |
 | 50M | 30.1% | 32.9% | 55.4% | 0.470 | 5.7 pts | 10.5% |
 | 100M | 39.7% | 42.9% | 67.4% | 0.576 | 3.3 pts | 5.2% |
-| **225M** | **45.2%** | **48.6%** | **73.7%** | **0.632** | **2.3 pts** | **3.1%** |
+| 225M | 45.2% | 48.6% | 73.7% | 0.632 | 2.3 pts | 3.1% |
+| **500M** | **48.2%** | **51.7%** | **76.8%** | **0.660** | **1.9 pts** | **2.3%** |
 | + puzzle fine-tune | 43.1% | 46.5% | 70.4% | 0.619 | 3.0 pts | 5.0% |
 | + light puzzle fine-tune | 44.4% | 47.7% | 72.0% | 0.628 | 2.7 pts | 4.2% |
 
@@ -132,8 +145,9 @@ Action accuracy and Kendall's tau (tau-b, over all legal moves, averaged per pos
 are the two metrics the ChessBench paper uses in its ablations. Action accuracy is the
 paper's definition, the argmax of Stockfish's values; "picks *a* best move" also accepts
 a move tied with it, which matters in 5.9% of these positions because win probability
-saturates and several moves share the top value. From 50M to 225M examples the rate of
-moves that throw away more than 15 points fell from one in ten to one in thirty-two.
+saturates and several moves share the top value. From 50M to 500M examples the rate of
+moves that throw away more than 15 points fell from one in ten to one in thirty-two at
+225M and one in forty-four at 500M.
 
 **The puzzle fine-tune is not free.** It bought 14.3 points on puzzles and paid for them
 in ordinary positions: action accuracy down 2.1 points, and the blunder rate up from
@@ -184,7 +198,7 @@ a T4; on the laptop's CPU the estimate had been about 30.
 a win probability, Stockfish's own number agrees on average: the binned calibration
 error is at most 0.007 for every model, the 1M one included. What improves with data is
 how close each prediction lands -- mean absolute error 0.125 at 1M examples, 0.036 at
-225M, 3.4x smaller. The full predicted distribution is slightly conservative: its
+225M and 0.032 at 500M, 3.9x smaller. The full predicted distribution is slightly conservative: its
 central 50% interval contains Stockfish's value 50-55% of the time and its 90% interval
 91-92%, a little more as training goes on.
 
@@ -202,8 +216,8 @@ report.
 
 DeepMind's ChessBench reaches **88.9%** on these puzzles with a **9M**-parameter model
 -- smaller than this one, on the same data and the same task. The difference is
-training examples seen: theirs is roughly 1300x this budget. 60.3% from a free T4 is
-a budget result, not an architecture result, and the curve above is the honest way to
+training examples seen: theirs is roughly 600x this budget. 64.8% from free T4s is a
+budget result, not an architecture result, and the curve above is the honest way to
 read it.
 
 ## Search and the Lichess bot
@@ -379,7 +393,10 @@ Documented because the mistakes were more instructive than the successes:
   budgetary: if the budget cannot cover the whole decay, restarting is worse than not
   restarting. It held at a fifth of the learning rate too: the puzzle fine-tune, at
   1e-4, still lifted the validation loss from 2.043 to 2.150 in its first 3,000 steps
-  and only got it back as the schedule decayed.
+  and only got it back as the schedule decayed. The 500M run restarted at 3e-4 instead
+  of 5e-4 and its detour was smaller, 2.051 to 2.247, with one spike to 2.781 just after
+  the warmup that took 8,000 steps to settle; it was back below where it started at 64%
+  of the schedule and ended at 1.937.
 - A throughput number that counts only one of two batches halves itself. The fine-tune
   logged 822 samples/s at 9% MFU because the puzzle batch -- as many sequences again --
   was not counted; it looked exactly like a regression.
@@ -438,6 +455,8 @@ results/             the logs behind the numbers above
 
 ## Still open
 
+- The 500M model in play: a head-to-head match against the 225M one, and the bot on it
+- Search on the 500M model's puzzles (depth 1 against depth 2), as for the 225M one
 - A fine-tune with the ranking loss switched off, to split what remains of the cost
   between the ranking loss and the fine-tune itself
 - KV-cache serving for the language-model path (CUDA graphs: worth at most ~7% here,
