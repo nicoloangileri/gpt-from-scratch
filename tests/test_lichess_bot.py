@@ -91,6 +91,7 @@ def _bare_bot():
     bot.me = "imbotterthanyou"
     bot.ratings = {"rapid": (1461, True)}
     bot.cooldown = {}
+    bot.stopping = threading.Event()
     return bot
 
 
@@ -345,3 +346,66 @@ def test_the_bot_moves_only_on_its_own_turn():
     bot._play_stream("g1")
     assert asked == [chess.BLACK, chess.BLACK]        # asked twice, both times as black
     assert posted == ["e7e5", "b8c6"]
+
+
+def test_a_stop_with_no_game_on_leaves_at_once():
+    bot = _bare_bot()
+    with pytest.raises(SystemExit):
+        bot.request_stop()
+
+
+def test_a_stop_during_a_game_lets_it_finish_and_takes_no_new_one(monkeypatch):
+    """`pkill` used to kill the bot mid-game, and Lichess kept the clock running: a
+    lost game. A stop with a game on now only stops new games."""
+    from src import lichess_bot
+    bot = _bare_bot()
+    bot.busy.set()
+    bot.request_stop()                                   # no exit: a game is on
+    assert bot.stopping.is_set()
+
+    posted = []
+
+    class Reply:
+        ok, text, status_code = True, "", 200
+
+    bot._post = lambda path, **kw: posted.append((path, kw.get("data"))) or Reply()
+    bot.handle_challenge(challenge() | {"id": "c1", "challenger": {"id": "someone"},
+                                        "destUser": {"id": bot.me}})
+    assert posted == [("/api/challenge/c1/decline", {"reason": "later"})]
+
+    bot.busy.clear()                                     # even between games: no seeking
+    bot._refresh_ratings = lambda: None
+    bot.seek_any_clock = lambda: pytest.fail("challenged somebody while stopping")
+    monkeypatch.setattr(bot.wake, "clear", lambda: (_ for _ in ()).throw(KeyboardInterrupt))
+    with pytest.raises(KeyboardInterrupt):
+        bot._seek_loop(every=0)
+
+    bot.busy.set()
+    with pytest.raises(SystemExit):                      # asked twice: leave now
+        bot.request_stop()
+
+
+def test_after_a_stop_the_bot_leaves_when_the_game_ends(monkeypatch):
+    from src import lichess_bot
+    # if it kept going, it would reconnect to the stream forever: fail instead of hang
+    monkeypatch.setattr(lichess_bot.time, "sleep", lambda _: pytest.fail("kept running"))
+    bot = _bare_bot()
+    bot.account = lambda: {"id": bot.me, "username": "imbotterthanyou", "title": "BOT"}
+    played, handled = [], []
+    events = [{"type": "gameStart", "game": {"id": "g1"}},
+              {"type": "challenge", "challenge": {"id": "later-one"}}]
+
+    class Playing:
+        def json(self):
+            return {"nowPlaying": []}
+
+    bot._get = lambda path, **kw: Playing() if path.endswith("playing") else _FakeStream(events)
+
+    def play(game_id):
+        played.append(game_id)
+        bot.stopping.set()                               # the stop arrives mid-game
+
+    bot.play_game = play
+    bot.handle_challenge = handled.append
+    bot.run(seek=False)                                  # returns instead of looping
+    assert played == ["g1"] and handled == []

@@ -277,7 +277,10 @@ Running a bot is mostly a lesson in failure modes that look like success. A thre
 died on one dropped connection left the process up, the log open, and the bot silently
 challenging nobody for four hours. Catching a network error during a game and returning
 kept the process alive and *forfeited* two rated games, since Lichess keeps the clock
-running: the fix is to reconnect, not to survive. And a bot cannot enter the lobby or a
+running: the fix is to reconnect, not to survive. The same clock makes stopping the bot
+a decision about a game: a stop request (`pkill` or Ctrl+C) with a game on the board
+declines new challenges and leaves when that game is over; only a second request leaves
+at once. And a bot cannot enter the lobby or a
 tournament -- the API spec says pools and tournaments are off-limits -- so when the bot
 pool has spent its 100 daily games, the only lever left is to offer faster time controls
 and remember who already said no.

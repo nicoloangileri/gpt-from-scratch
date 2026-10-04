@@ -21,6 +21,7 @@ from __future__ import annotations
 import argparse
 import os
 import random
+import signal
 import sys
 import threading
 import time
@@ -124,6 +125,7 @@ class LichessBot:
         self.ratings: dict[str, tuple[int, bool]] = {}      # perf -> (rating, provisional)
         self.cooldown: dict[str, float] = {}               # bot id -> don't ask before
         self.wake = threading.Event()          # set to make the seek loop try again now
+        self.stopping = threading.Event()      # a stop was asked: no new games, then leave
 
     # --- helpers ---------------------------------------------------------
     def _get(self, path: str, **kw):
@@ -154,6 +156,8 @@ class LichessBot:
         clock = challenge.get("timeControl", {})
         initial = clock.get("limit")
         ok, reason = should_accept(challenge)
+        if self.stopping.is_set():
+            ok, reason = False, "later"              # one of Lichess's decline reasons
 
         # The reply is checked: printing "accepted" on a refusal hides the failure and
         # leaves the bot waiting for a game that will never start.
@@ -282,7 +286,7 @@ class LichessBot:
         # like a bot that simply cannot find opponents.
         while True:
             try:
-                if not self.busy.is_set():
+                if not self.busy.is_set() and not self.stopping.is_set():
                     self._refresh_ratings()
                     self.seek_any_clock()
             except Exception as exc:                 # noqa: BLE001 - staying alive wins
@@ -292,6 +296,21 @@ class LichessBot:
             # wait short; the timeout is what paces the loop when nothing happens.
             self.wake.wait(timeout=every)
             self.wake.clear()
+
+    def request_stop(self, signum=None, frame=None) -> None:
+        """SIGTERM / Ctrl+C: leave without forfeiting a game.
+
+        Killing the process mid-game loses that game on time -- Lichess keeps the clock
+        running for a bot that has gone. So with a game on the board a stop request only
+        stops new games: no more challenges go out, incoming ones are declined, and the
+        bot leaves when the game is over. With no game on, or on a second request, it
+        leaves at once."""
+        if self.stopping.is_set() or not self.busy.is_set():
+            print("[bot] stopped", flush=True)
+            raise SystemExit(0)
+        self.stopping.set()
+        print("[bot] stop requested: finishing the game in progress, then leaving "
+              "(ask again to leave now and lose it)", flush=True)
 
     # --- playing ---------------------------------------------------------
     def play_game(self, game_id: str, attempts: int = 6) -> None:
@@ -408,6 +427,9 @@ class LichessBot:
                                   f"{type(exc).__name__}", flush=True)
                         finally:
                             self.busy.clear()        # or the bot never seeks again
+                        if self.stopping.is_set():
+                            print("[bot] game over, stopping as asked", flush=True)
+                            return
                     elif kind in ("challengeDeclined", "challengeCanceled"):
                         # Without this the log shows a challenge going out and then
                         # nothing, which looks identical to the bot being broken.
@@ -452,7 +474,10 @@ def main() -> None:
         print(f"scopes   : {scopes}")
         return
 
-    LichessBot(args.ckpt, args.device, args.depth).run(seek=args.seek)
+    bot = LichessBot(args.ckpt, args.device, args.depth)
+    signal.signal(signal.SIGTERM, bot.request_stop)     # what `pkill` sends
+    signal.signal(signal.SIGINT, bot.request_stop)      # Ctrl+C
+    bot.run(seek=args.seek)
 
 
 if __name__ == "__main__":
