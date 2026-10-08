@@ -1,0 +1,20 @@
+{
+  "id": "nicolangileri/gpt-from-scratch-chess-two-gpus-500m",
+  "title": "gpt-from-scratch-chess-two-gpus-500m",
+  "code_file": "two_gpus_kernel.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [
+    "nicolangileri/gpt-from-scratch-checkpoints"
+  ],
+  "kernel_sources": [
+    "nicolangileri/gpt-from-scratch-chess-500m-s3",
+    "nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03"
+  ],
+  "competition_sources": []
+}

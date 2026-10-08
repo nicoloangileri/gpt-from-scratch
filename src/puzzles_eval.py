@@ -26,6 +26,8 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
+import time
 from pathlib import Path
 
 import chess
@@ -113,14 +115,18 @@ def solves_line(board: chess.Board, moves: list[str], pick) -> bool:
     return True
 
 
+def picker(model, centres, device: str, depth: int):
+    """The move chooser for a depth: the network alone at 1, alpha-beta on top beyond."""
+    if depth > 1:
+        from .search import Searcher
+        return lambda board: Searcher(model, centres, device).best_move(board, depth)
+    return lambda board: best_move(model, centres, board, device)
+
+
 def run(ckpt: str, puzzles_csv: str, num: int, device: str, depth: int = 1) -> dict:
     """depth > 1 puts alpha-beta search on top of the network (src/search.py)."""
     model, centres, ck = load_model(ckpt, device)
-    if depth > 1:
-        from .search import Searcher
-        pick = lambda board: Searcher(model, centres, device).best_move(board, depth)
-    else:
-        pick = lambda board: best_move(model, centres, board, device)
+    pick = picker(model, centres, device, depth)
     solved = attempted = 0
     by_rating: dict[str, list[int]] = {}
 
@@ -143,6 +149,93 @@ def run(ckpt: str, puzzles_csv: str, num: int, device: str, depth: int = 1) -> d
     return {"accuracy": acc, "solved": solved, "attempted": attempted}
 
 
+def summarise_compare(rows: list[dict], keys: list[str]) -> dict:
+    """Accuracy per checkpoint@depth on the first 1,000 puzzles -- the slice every earlier
+    search figure used -- and on all of them, plus depth 2 minus depth 1 per checkpoint,
+    paired by puzzle: the noise of a difference between two configurations that saw the
+    same puzzles is that of the puzzles where they disagree, not of two separate samples."""
+    out: dict = {"attempted": len(rows)}
+    for part_name, part in (("first_1000", rows[:1000]), ("all", rows)):
+        out[part_name] = {k: {"solved": sum(r[k] for r in part),
+                              "accuracy": sum(r[k] for r in part) / max(1, len(part))}
+                          for k in keys}
+    bands: dict = {}
+    for r in rows:
+        lo = r["rating"] // 500 * 500
+        bands.setdefault(f"{lo}-{lo + 499}", []).append(r)
+    out["all_by_rating"] = {
+        band: {"n": len(v), **{k: sum(r[k] for r in v) / len(v) for k in keys}}
+        for band, v in sorted(bands.items(), key=lambda kv: int(kv[0].split("-")[0]))}
+    out["depth2_minus_depth1"] = {}
+    for name in sorted({k.split("@")[0] for k in keys}):
+        if f"{name}@1" not in keys or f"{name}@2" not in keys or len(rows) < 2:
+            continue
+        d = np.array([r[f"{name}@2"] - r[f"{name}@1"] for r in rows], dtype=np.float64)
+        out["depth2_minus_depth1"][name] = {
+            "points": float(d.mean() * 100), "se_points": float(d.std(ddof=1) / np.sqrt(len(d)) * 100),
+            "only_depth2_solves": int((d > 0).sum()), "only_depth1_solves": int((d < 0).sum())}
+    return out
+
+
+def compare_search(ckpts: dict[str, str], puzzles_csv: str, num: int, device: str,
+                   depths=(1, 2), hours: float | None = None, out: str | None = None,
+                   picks: dict | None = None) -> dict:
+    """Every checkpoint at every depth on the same puzzles, one puzzle at a time.
+
+    The search figures so far are 1,000 puzzles per point, a point or two of noise
+    each, and the trend they suggest has a point that does not fit. Here every
+    checkpoint@depth answers a puzzle before the next one starts, so the comparisons
+    are paired, and a deadline cuts the list without leaving one configuration ahead of
+    another. The picks are run()'s, so the first 1,000 reproduce its numbers. The
+    output is rewritten every 100 puzzles: a session killed at its limit keeps them.
+    """
+    if picks is None:
+        picks = {}
+        for name, path in ckpts.items():
+            model, centres, _ = load_model(path, device)
+            for d in depths:
+                picks[f"{name}@{d}"] = picker(model, centres, device, d)
+    keys = list(picks)
+    t0 = time.time()
+    deadline = t0 + hours * 3600 if hours is not None else None
+    rows: list[dict] = []
+
+    def save(final: bool = False) -> dict:
+        summary = {"checkpoints": ckpts, "depths": list(depths), "seconds": round(time.time() - t0),
+                   "finished": final, **summarise_compare(rows, keys), "rows": rows}
+        if out:
+            tmp = Path(out).with_suffix(".tmp")
+            tmp.write_text(json.dumps(summary) + "\n")
+            tmp.replace(out)
+        return summary
+
+    with open(puzzles_csv, newline="") as fh:
+        for row in csv.DictReader(fh):
+            if len(rows) >= num:
+                break
+            if deadline is not None and time.time() > deadline:
+                print(f"[compare] deadline reached after {len(rows)} puzzles", flush=True)
+                break
+            moves = row["Moves"].split()
+            rows.append({"id": row.get("PuzzleId"), "rating": int(row["Rating"]),
+                         **{k: int(solves_line(chess.Board(row["FEN"]), moves, pick))
+                            for k, pick in picks.items()}})
+            if len(rows) % 100 == 0:
+                acc = "  ".join(f"{k} {sum(r[k] for r in rows) / len(rows) * 100:.1f}%" for k in keys)
+                print(f"[compare] {len(rows)} puzzles, {(time.time() - t0) / 3600:.2f}h: {acc}", flush=True)
+                save()
+    summary = save(final=True)
+    for part in ("first_1000", "all"):
+        n = min(len(rows), 1000) if part == "first_1000" else len(rows)
+        print(f"[compare] {part} ({n} puzzles): " + "  ".join(
+            f"{k} {v['solved']}/{n} = {v['accuracy'] * 100:.1f}%" for k, v in summary[part].items()), flush=True)
+    for name, v in summary["depth2_minus_depth1"].items():
+        print(f"[compare] {name}: depth 2 - depth 1 = {v['points']:+.2f} points (se {v['se_points']:.2f}), "
+              f"{v['only_depth2_solves']} solved only at depth 2, {v['only_depth1_solves']} only at depth 1",
+              flush=True)
+    return summary
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", default="checkpoints/chess_best.pt")
@@ -150,5 +243,17 @@ if __name__ == "__main__":
     ap.add_argument("--num", type=int, default=1000)
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--depth", type=int, default=1, help="1 = network alone, 2+ = search")
+    ap.add_argument("--compare", action="append", default=[], metavar="NAME=CKPT",
+                    help="repeatable: every checkpoint at every --depths, paired by puzzle")
+    ap.add_argument("--depths", type=int, nargs="+", default=[1, 2])
+    ap.add_argument("--hours", type=float, default=None, help="--compare stops cleanly after this")
+    ap.add_argument("--out", default=None, help="--compare's JSON, rewritten every 100 puzzles")
+    ap.add_argument("--threads", type=int, default=None)
     args = ap.parse_args()
-    run(args.ckpt, args.puzzles, args.num, args.device, args.depth)
+    if args.threads:
+        torch.set_num_threads(args.threads)
+    if args.compare:
+        compare_search(dict(c.split("=", 1) for c in args.compare), args.puzzles, args.num,
+                       args.device, args.depths, args.hours, args.out)
+    else:
+        run(args.ckpt, args.puzzles, args.num, args.device, args.depth)
