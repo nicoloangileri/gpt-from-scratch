@@ -1,0 +1,241 @@
+[{"stream_name":"stderr","time":5.512289517,"data":"/usr/local/lib/python3.13/dist-packages/nbformat/validator.py:434: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":5.512336096,"data":"  _validate(nbdict, ref, version, version_minor, relax_add_props)\n"}
+,{"stream_name":"stderr","time":6.335574613,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.33561814,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.335622666,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.335656677,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.960522353,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.960558692,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.9605625,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.960566129,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":10.59564852,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 18.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":10.798625387,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 18.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":15.666278187,"data":"wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/puzzle_data.py', 'src/search.py', 'src/agreement_eval.py', 'src/match.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'configs/chess.yaml']\n"}
+,{"stream_name":"stdout","time":23.594277068,"data":"[session] match budget 10.75h\n"}
+,{"stream_name":"stdout","time":51.077220695,"data":"[match] A = /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt\n"}
+,{"stream_name":"stdout","time":51.077264095,"data":"[match] B = /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_225M.pt\n"}
+,{"stream_name":"stdout","time":51.077270663,"data":"[match] depth 2, 200 positions x 2 colours, 4 threads\n"}
+,{"stream_name":"stdout","time":240.47620451,"data":"[match] 1/200 positions: A 1W 1D 0L, score 0.750, Elo +191 [-68, +1200]\n"}
+,{"stream_name":"stdout","time":407.09808094,"data":"[match] 2/200 positions: A 2W 2D 0L, score 0.750, Elo +191 [+3, +920]\n"}
+,{"stream_name":"stdout","time":638.229278169,"data":"[match] 3/200 positions: A 3W 2D 1L, score 0.667, Elo +120 [-94, +576]\n"}
+,{"stream_name":"stdout","time":807.682395994,"data":"[match] 4/200 positions: A 4W 3D 1L, score 0.688, Elo +137 [-37, +446]\n"}
+,{"stream_name":"stdout","time":947.344169843,"data":"[match] 5/200 positions: A 6W 3D 1L, score 0.750, Elo +191 [+29, +543]\n"}
+,{"stream_name":"stdout","time":1089.11874481,"data":"[match] 6/200 positions: A 8W 3D 1L, score 0.792, Elo +232 [+78, +621]\n"}
+,{"stream_name":"stdout","time":1158.356983178,"data":"[match] 7/200 positions: A 10W 3D 1L, score 0.821, Elo +265 [+116, +688]\n"}
+,{"stream_name":"stdout","time":1306.598715804,"data":"[match] 8/200 positions: A 11W 4D 1L, score 0.812, Elo +255 [+120, +549]\n"}
+,{"stream_name":"stdout","time":1398.337429686,"data":"[match] 9/200 positions: A 12W 4D 2L, score 0.778, Elo +218 [+85, +466]\n"}
+,{"stream_name":"stdout","time":1577.036200319,"data":"[match] 10/200 positions: A 13W 5D 2L, score 0.775, Elo +215 [+91, +428]\n"}
+,{"stream_name":"stdout","time":1760.793722133,"data":"[match] 11/200 positions: A 14W 6D 2L, score 0.773, Elo +213 [+97, +401]\n"}
+,{"stream_name":"stdout","time":1916.018967995,"data":"[match] 12/200 positions: A 16W 6D 2L, score 0.792, Elo +232 [+118, +424]\n"}
+,{"stream_name":"stdout","time":2077.490016644,"data":"[match] 13/200 positions: A 17W 7D 2L, score 0.788, Elo +229 [+121, +401]\n"}
+,{"stream_name":"stdout","time":2260.004843995,"data":"[match] 14/200 positions: A 18W 8D 2L, score 0.786, Elo +226 [+123, +384]\n"}
+,{"stream_name":"stdout","time":2463.415253328,"data":"[match] 15/200 positions: A 19W 9D 2L, score 0.783, Elo +223 [+126, +369]\n"}
+,{"stream_name":"stdout","time":2617.055646798,"data":"[match] 16/200 positions: A 21W 9D 2L, score 0.797, Elo +237 [+141, +385]\n"}
+,{"stream_name":"stdout","time":2758.721833629,"data":"[match] 17/200 positions: A 22W 10D 2L, score 0.794, Elo +235 [+142, +372]\n"}
+,{"stream_name":"stdout","time":2918.033755274,"data":"[match] 18/200 positions: A 24W 10D 2L, score 0.806, Elo +247 [+155, +386]\n"}
+,{"stream_name":"stdout","time":3087.936415505,"data":"[match] 19/200 positions: A 25W 10D 3L, score 0.789, Elo +230 [+138, +364]\n"}
+,{"stream_name":"stdout","time":3210.814753329,"data":"[match] 20/200 positions: A 26W 11D 3L, score 0.787, Elo +228 [+139, +354]\n"}
+,{"stream_name":"stdout","time":3330.477523153,"data":"[match] 21/200 positions: A 27W 12D 3L, score 0.786, Elo +226 [+140, +346]\n"}
+,{"stream_name":"stdout","time":3421.306331102,"data":"[match] 22/200 positions: A 28W 13D 3L, score 0.784, Elo +224 [+141, +339]\n"}
+,{"stream_name":"stdout","time":3496.685741785,"data":"[match] 23/200 positions: A 29W 14D 3L, score 0.783, Elo +223 [+142, +332]\n"}
+,{"stream_name":"stdout","time":3570.839509128,"data":"[match] 24/200 positions: A 31W 14D 3L, score 0.792, Elo +232 [+152, +342]\n"}
+,{"stream_name":"stdout","time":3702.57958964,"data":"[match] 25/200 positions: A 33W 14D 3L, score 0.800, Elo +241 [+161, +351]\n"}
+,{"stream_name":"stdout","time":3896.495087785,"data":"[match] 26/200 positions: A 34W 15D 3L, score 0.798, Elo +239 [+161, +345]\n"}
+,{"stream_name":"stdout","time":4090.639094472,"data":"[match] 27/200 positions: A 36W 15D 3L, score 0.806, Elo +247 [+170, +353]\n"}
+,{"stream_name":"stdout","time":4253.446206841,"data":"[match] 28/200 positions: A 37W 16D 3L, score 0.804, Elo +245 [+170, +347]\n"}
+,{"stream_name":"stdout","time":4436.328748861,"data":"[match] 29/200 positions: A 38W 16D 4L, score 0.793, Elo +233 [+159, +334]\n"}
+,{"stream_name":"stdout","time":4574.839685976,"data":"[match] 30/200 positions: A 40W 16D 4L, score 0.800, Elo +241 [+166, +342]\n"}
+,{"stream_name":"stdout","time":4683.427432034,"data":"[match] 31/200 positions: A 42W 16D 4L, score 0.806, Elo +248 [+174, +349]\n"}
+,{"stream_name":"stdout","time":4888.363385179,"data":"[match] 32/200 positions: A 43W 17D 4L, score 0.805, Elo +246 [+174, +344]\n"}
+,{"stream_name":"stdout","time":5079.413278809,"data":"[match] 33/200 positions: A 44W 18D 4L, score 0.803, Elo +244 [+173, +339]\n"}
+,{"stream_name":"stdout","time":5161.578824913,"data":"[match] 34/200 positions: A 45W 19D 4L, score 0.801, Elo +242 [+173, +334]\n"}
+,{"stream_name":"stdout","time":5301.755935962,"data":"[match] 35/200 positions: A 47W 19D 4L, score 0.807, Elo +249 [+180, +341]\n"}
+,{"stream_name":"stdout","time":5417.083568503,"data":"[match] 36/200 positions: A 47W 21D 4L, score 0.799, Elo +239 [+173, +326]\n"}
+,{"stream_name":"stdout","time":5555.787311378,"data":"[match] 37/200 positions: A 48W 22D 4L, score 0.797, Elo +238 [+173, +322]\n"}
+,{"stream_name":"stdout","time":5691.027406359,"data":"[match] 38/200 positions: A 49W 23D 4L, score 0.796, Elo +237 [+173, +319]\n"}
+,{"stream_name":"stdout","time":5944.887142009,"data":"[match] 39/200 positions: A 50W 24D 4L, score 0.795, Elo +235 [+173, +315]\n"}
+,{"stream_name":"stdout","time":6109.150825524,"data":"[match] 40/200 positions: A 52W 24D 4L, score 0.800, Elo +241 [+178, +321]\n"}
+,{"stream_name":"stdout","time":6241.017779444,"data":"[match] 41/200 positions: A 53W 24D 5L, score 0.793, Elo +233 [+170, +313]\n"}
+,{"stream_name":"stdout","time":6434.520507317,"data":"[match] 42/200 positions: A 53W 25D 6L, score 0.780, Elo +220 [+158, +297]\n"}
+,{"stream_name":"stdout","time":6608.733516381,"data":"[match] 43/200 positions: A 54W 26D 6L, score 0.779, Elo +219 [+158, +294]\n"}
+,{"stream_name":"stdout","time":6880.316976764,"data":"[match] 44/200 positions: A 56W 26D 6L, score 0.784, Elo +224 [+164, +299]\n"}
+,{"stream_name":"stdout","time":7001.681949789,"data":"[match] 45/200 positions: A 57W 27D 6L, score 0.783, Elo +223 [+164, +297]\n"}
+,{"stream_name":"stdout","time":7142.772569365,"data":"[match] 46/200 positions: A 57W 29D 6L, score 0.777, Elo +217 [+159, +288]\n"}
+,{"stream_name":"stdout","time":7327.486112783,"data":"[match] 47/200 positions: A 57W 30D 7L, score 0.766, Elo +206 [+149, +275]\n"}
+,{"stream_name":"stdout","time":7456.063570187,"data":"[match] 48/200 positions: A 59W 30D 7L, score 0.771, Elo +211 [+154, +280]\n"}
+,{"stream_name":"stdout","time":7529.325800961,"data":"[match] 49/200 positions: A 60W 30D 8L, score 0.765, Elo +205 [+149, +274]\n"}
+,{"stream_name":"stdout","time":7637.123891057,"data":"[match] 50/200 positions: A 60W 32D 8L, score 0.760, Elo +200 [+145, +267]\n"}
+,{"stream_name":"stdout","time":7745.703676938,"data":"[match] 51/200 positions: A 62W 32D 8L, score 0.765, Elo +205 [+150, +271]\n"}
+,{"stream_name":"stdout","time":7869.572463764,"data":"[match] 52/200 positions: A 64W 32D 8L, score 0.769, Elo +209 [+154, +276]\n"}
+,{"stream_name":"stdout","time":8057.002557946,"data":"[match] 53/200 positions: A 64W 32D 10L, score 0.755, Elo +195 [+140, +261]\n"}
+,{"stream_name":"stdout","time":8264.072300591,"data":"[match] 54/200 positions: A 65W 33D 10L, score 0.755, Elo +195 [+141, +260]\n"}
+,{"stream_name":"stdout","time":8362.009321165,"data":"[match] 55/200 positions: A 66W 34D 10L, score 0.755, Elo +195 [+142, +259]\n"}
+,{"stream_name":"stdout","time":8565.890402722,"data":"[match] 56/200 positions: A 67W 34D 11L, score 0.750, Elo +191 [+137, +254]\n"}
+,{"stream_name":"stdout","time":8639.380161744,"data":"[match] 57/200 positions: A 69W 34D 11L, score 0.754, Elo +195 [+142, +258]\n"}
+,{"stream_name":"stdout","time":8814.702287921,"data":"[match] 58/200 positions: A 71W 34D 11L, score 0.759, Elo +199 [+146, +262]\n"}
+,{"stream_name":"stdout","time":8947.351626338,"data":"[match] 59/200 positions: A 71W 36D 11L, score 0.754, Elo +195 [+143, +256]\n"}
+,{"stream_name":"stdout","time":9146.036145997,"data":"[match] 60/200 positions: A 73W 36D 11L, score 0.758, Elo +199 [+147, +260]\n"}
+,{"stream_name":"stdout","time":9293.477274233,"data":"[match] 61/200 positions: A 74W 37D 11L, score 0.758, Elo +199 [+147, +259]\n"}
+,{"stream_name":"stdout","time":9351.147375332,"data":"[match] 62/200 positions: A 75W 38D 11L, score 0.758, Elo +198 [+148, +258]\n"}
+,{"stream_name":"stdout","time":9442.052056934,"data":"[match] 63/200 positions: A 76W 39D 11L, score 0.758, Elo +198 [+148, +257]\n"}
+,{"stream_name":"stdout","time":9609.796235134,"data":"[match] 64/200 positions: A 78W 39D 11L, score 0.762, Elo +202 [+152, +261]\n"}
+,{"stream_name":"stdout","time":9704.888873084,"data":"[match] 65/200 positions: A 78W 41D 11L, score 0.758, Elo +198 [+149, +256]\n"}
+,{"stream_name":"stdout","time":9836.89454836,"data":"[match] 66/200 positions: A 78W 43D 11L, score 0.754, Elo +194 [+146, +251]\n"}
+,{"stream_name":"stdout","time":9934.19154438,"data":"[match] 67/200 positions: A 79W 44D 11L, score 0.754, Elo +194 [+147, +250]\n"}
+,{"stream_name":"stdout","time":10126.727847789,"data":"[match] 68/200 positions: A 80W 45D 11L, score 0.754, Elo +194 [+147, +249]\n"}
+,{"stream_name":"stdout","time":10189.595669077,"data":"[match] 69/200 positions: A 81W 46D 11L, score 0.754, Elo +194 [+147, +249]\n"}
+,{"stream_name":"stdout","time":10333.456882024,"data":"[match] 70/200 positions: A 82W 47D 11L, score 0.754, Elo +194 [+148, +248]\n"}
+,{"stream_name":"stdout","time":10495.862571698,"data":"[match] 71/200 positions: A 84W 47D 11L, score 0.757, Elo +197 [+151, +251]\n"}
+,{"stream_name":"stdout","time":10704.596949508,"data":"[match] 72/200 positions: A 86W 47D 11L, score 0.760, Elo +201 [+154, +254]\n"}
+,{"stream_name":"stdout","time":10779.517162156,"data":"[match] 73/200 positions: A 88W 47D 11L, score 0.764, Elo +204 [+158, +258]\n"}
+,{"stream_name":"stdout","time":10900.043500551,"data":"[match] 74/200 positions: A 89W 48D 11L, score 0.764, Elo +204 [+158, +257]\n"}
+,{"stream_name":"stdout","time":11004.896201421,"data":"[match] 75/200 positions: A 91W 48D 11L, score 0.767, Elo +207 [+161, +260]\n"}
+,{"stream_name":"stdout","time":11104.61430272,"data":"[match] 76/200 positions: A 92W 49D 11L, score 0.766, Elo +206 [+161, +259]\n"}
+,{"stream_name":"stdout","time":11341.903224108,"data":"[match] 77/200 positions: A 94W 49D 11L, score 0.769, Elo +209 [+164, +262]\n"}
+,{"stream_name":"stdout","time":11473.366479447,"data":"[match] 78/200 positions: A 96W 49D 11L, score 0.772, Elo +212 [+167, +265]\n"}
+,{"stream_name":"stdout","time":11540.39862352,"data":"[match] 79/200 positions: A 97W 49D 12L, score 0.769, Elo +209 [+164, +261]\n"}
+,{"stream_name":"stdout","time":11652.847764314,"data":"[match] 80/200 positions: A 98W 49D 13L, score 0.766, Elo +206 [+161, +258]\n"}
+,{"stream_name":"stdout","time":11824.98642727,"data":"[match] 81/200 positions: A 99W 50D 13L, score 0.765, Elo +205 [+161, +257]\n"}
+,{"stream_name":"stdout","time":11997.295115316,"data":"[match] 82/200 positions: A 100W 51D 13L, score 0.765, Elo +205 [+161, +257]\n"}
+,{"stream_name":"stdout","time":12104.206230086,"data":"[match] 83/200 positions: A 101W 51D 14L, score 0.762, Elo +202 [+158, +253]\n"}
+,{"stream_name":"stdout","time":12262.802348704,"data":"[match] 84/200 positions: A 101W 52D 15L, score 0.756, Elo +196 [+153, +247]\n"}
+,{"stream_name":"stdout","time":12500.772186702,"data":"[match] 85/200 positions: A 102W 52D 16L, score 0.753, Elo +194 [+150, +244]\n"}
+,{"stream_name":"stdout","time":12522.957506962,"data":"[match] 86/200 positions: A 102W 54D 16L, score 0.750, Elo +191 [+148, +240]\n"}
+,{"stream_name":"stdout","time":12633.019739694,"data":"[match] 87/200 positions: A 103W 54D 17L, score 0.747, Elo +188 [+145, +237]\n"}
+,{"stream_name":"stdout","time":12815.215760246,"data":"[match] 88/200 positions: A 103W 56D 17L, score 0.744, Elo +186 [+143, +234]\n"}
+,{"stream_name":"stdout","time":13004.521703462,"data":"[match] 89/200 positions: A 104W 56D 18L, score 0.742, Elo +183 [+141, +231]\n"}
+,{"stream_name":"stdout","time":13253.015213452,"data":"[match] 90/200 positions: A 105W 57D 18L, score 0.742, Elo +183 [+141, +231]\n"}
+,{"stream_name":"stdout","time":13320.584619437,"data":"[match] 91/200 positions: A 105W 58D 19L, score 0.736, Elo +178 [+137, +225]\n"}
+,{"stream_name":"stdout","time":13447.526780971,"data":"[match] 92/200 positions: A 105W 58D 21L, score 0.728, Elo +171 [+130, +218]\n"}
+,{"stream_name":"stdout","time":13512.725283585,"data":"[match] 93/200 positions: A 105W 59D 22L, score 0.723, Elo +167 [+126, +213]\n"}
+,{"stream_name":"stdout","time":13640.42368541,"data":"[match] 94/200 positions: A 106W 59D 23L, score 0.721, Elo +165 [+124, +211]\n"}
+,{"stream_name":"stdout","time":13762.250568265,"data":"[match] 95/200 positions: A 107W 60D 23L, score 0.721, Elo +165 [+124, +211]\n"}
+,{"stream_name":"stdout","time":13918.495079818,"data":"[match] 96/200 positions: A 108W 61D 23L, score 0.721, Elo +165 [+125, +211]\n"}
+,{"stream_name":"stdout","time":14119.460752026,"data":"[match] 97/200 positions: A 109W 62D 23L, score 0.722, Elo +165 [+125, +210]\n"}
+,{"stream_name":"stdout","time":14275.31768021,"data":"[match] 98/200 positions: A 111W 62D 23L, score 0.724, Elo +168 [+128, +213]\n"}
+,{"stream_name":"stdout","time":14316.81070433,"data":"[match] 99/200 positions: A 111W 64D 23L, score 0.722, Elo +166 [+126, +210]\n"}
+,{"stream_name":"stdout","time":14494.676704,"data":"[match] 100/200 positions: A 112W 65D 23L, score 0.723, Elo +166 [+127, +210]\n"}
+,{"stream_name":"stdout","time":14519.275392676,"data":"[match] 101/200 positions: A 113W 65D 24L, score 0.720, Elo +164 [+125, +208]\n"}
+,{"stream_name":"stdout","time":14723.776062353,"data":"[match] 102/200 positions: A 114W 66D 24L, score 0.721, Elo +165 [+125, +208]\n"}
+,{"stream_name":"stdout","time":14837.820717046,"data":"[match] 103/200 positions: A 115W 66D 25L, score 0.718, Elo +163 [+124, +206]\n"}
+,{"stream_name":"stdout","time":15066.278144974,"data":"[match] 104/200 positions: A 115W 67D 26L, score 0.714, Elo +159 [+120, +202]\n"}
+,{"stream_name":"stdout","time":15229.003578824,"data":"[match] 105/200 positions: A 117W 67D 26L, score 0.717, Elo +161 [+122, +204]\n"}
+,{"stream_name":"stdout","time":15378.079442712,"data":"[match] 106/200 positions: A 118W 68D 26L, score 0.717, Elo +161 [+123, +204]\n"}
+,{"stream_name":"stdout","time":15568.755285667,"data":"[match] 107/200 positions: A 119W 68D 27L, score 0.715, Elo +160 [+121, +202]\n"}
+,{"stream_name":"stdout","time":15669.252955907,"data":"[match] 108/200 positions: A 120W 68D 28L, score 0.713, Elo +158 [+120, +201]\n"}
+,{"stream_name":"stdout","time":15805.920443649,"data":"[match] 109/200 positions: A 121W 69D 28L, score 0.713, Elo +158 [+120, +201]\n"}
+,{"stream_name":"stdout","time":15941.576711601,"data":"[match] 110/200 positions: A 122W 69D 29L, score 0.711, Elo +157 [+119, +199]\n"}
+,{"stream_name":"stdout","time":16101.891341682,"data":"[match] 111/200 positions: A 123W 70D 29L, score 0.712, Elo +157 [+119, +199]\n"}
+,{"stream_name":"stdout","time":16256.879413479,"data":"[match] 112/200 positions: A 125W 70D 29L, score 0.714, Elo +159 [+121, +201]\n"}
+,{"stream_name":"stdout","time":16380.681837982,"data":"[match] 113/200 positions: A 125W 72D 29L, score 0.712, Elo +158 [+120, +199]\n"}
+,{"stream_name":"stdout","time":16447.336917475,"data":"[match] 114/200 positions: A 125W 74D 29L, score 0.711, Elo +156 [+119, +197]\n"}
+,{"stream_name":"stdout","time":16601.364412557,"data":"[match] 115/200 positions: A 126W 75D 29L, score 0.711, Elo +156 [+119, +197]\n"}
+,{"stream_name":"stdout","time":16706.575984053,"data":"[match] 116/200 positions: A 127W 76D 29L, score 0.711, Elo +157 [+120, +197]\n"}
+,{"stream_name":"stdout","time":16906.928053601,"data":"[match] 117/200 positions: A 127W 78D 29L, score 0.709, Elo +155 [+119, +195]\n"}
+,{"stream_name":"stdout","time":17079.194743242,"data":"[match] 118/200 positions: A 129W 78D 29L, score 0.712, Elo +157 [+121, +197]\n"}
+,{"stream_name":"stdout","time":17205.947485835,"data":"[match] 119/200 positions: A 130W 79D 29L, score 0.712, Elo +157 [+121, +197]\n"}
+,{"stream_name":"stdout","time":17257.491234493,"data":"[match] 120/200 positions: A 131W 79D 30L, score 0.710, Elo +156 [+120, +195]\n"}
+,{"stream_name":"stdout","time":17512.36620029,"data":"[match] 121/200 positions: A 131W 79D 32L, score 0.705, Elo +151 [+115, +190]\n"}
+,{"stream_name":"stdout","time":17668.927185215,"data":"[match] 122/200 positions: A 132W 79D 33L, score 0.703, Elo +150 [+114, +189]\n"}
+,{"stream_name":"stdout","time":17715.378020458,"data":"[match] 123/200 positions: A 134W 79D 33L, score 0.705, Elo +152 [+116, +191]\n"}
+,{"stream_name":"stdout","time":17994.207733304,"data":"[match] 124/200 positions: A 134W 81D 33L, score 0.704, Elo +150 [+115, +189]\n"}
+,{"stream_name":"stdout","time":18057.198454893,"data":"[match] 125/200 positions: A 136W 81D 33L, score 0.706, Elo +152 [+117, +191]\n"}
+,{"stream_name":"stdout","time":18243.202685247,"data":"[match] 126/200 positions: A 138W 81D 33L, score 0.708, Elo +154 [+119, +193]\n"}
+,{"stream_name":"stdout","time":18424.408978361,"data":"[match] 127/200 positions: A 140W 81D 33L, score 0.711, Elo +156 [+121, +195]\n"}
+,{"stream_name":"stdout","time":18496.250517288,"data":"[match] 128/200 positions: A 141W 82D 33L, score 0.711, Elo +156 [+121, +195]\n"}
+,{"stream_name":"stdout","time":18665.221845723,"data":"[match] 129/200 positions: A 142W 83D 33L, score 0.711, Elo +157 [+122, +195]\n"}
+,{"stream_name":"stdout","time":18879.712510315,"data":"[match] 130/200 positions: A 143W 84D 33L, score 0.712, Elo +157 [+122, +195]\n"}
+,{"stream_name":"stdout","time":19064.19432163,"data":"[match] 131/200 positions: A 145W 84D 33L, score 0.714, Elo +159 [+124, +197]\n"}
+,{"stream_name":"stdout","time":19321.545679446,"data":"[match] 132/200 positions: A 146W 85D 33L, score 0.714, Elo +159 [+124, +197]\n"}
+,{"stream_name":"stdout","time":19449.628181785,"data":"[match] 133/200 positions: A 146W 87D 33L, score 0.712, Elo +158 [+123, +195]\n"}
+,{"stream_name":"stdout","time":19582.590149286,"data":"[match] 134/200 positions: A 147W 87D 34L, score 0.711, Elo +156 [+122, +194]\n"}
+,{"stream_name":"stdout","time":19841.107484537,"data":"[match] 135/200 positions: A 148W 88D 34L, score 0.711, Elo +156 [+122, +194]\n"}
+,{"stream_name":"stdout","time":19992.860164567,"data":"[match] 136/200 positions: A 148W 90D 34L, score 0.710, Elo +155 [+121, +192]\n"}
+,{"stream_name":"stdout","time":20073.409603667,"data":"[match] 137/200 positions: A 149W 90D 35L, score 0.708, Elo +154 [+120, +191]\n"}
+,{"stream_name":"stdout","time":20284.664646658,"data":"[match] 138/200 positions: A 151W 90D 35L, score 0.710, Elo +156 [+122, +192]\n"}
+,{"stream_name":"stdout","time":20389.875552607,"data":"[match] 139/200 positions: A 153W 90D 35L, score 0.712, Elo +157 [+124, +194]\n"}
+,{"stream_name":"stdout","time":20549.985457066,"data":"[match] 140/200 positions: A 154W 90D 36L, score 0.711, Elo +156 [+122, +193]\n"}
+,{"stream_name":"stdout","time":20762.743142627,"data":"[match] 141/200 positions: A 155W 91D 36L, score 0.711, Elo +156 [+123, +193]\n"}
+,{"stream_name":"stdout","time":20880.426762538,"data":"[match] 142/200 positions: A 156W 92D 36L, score 0.711, Elo +157 [+123, +193]\n"}
+,{"stream_name":"stdout","time":20952.458754275,"data":"[match] 143/200 positions: A 156W 93D 37L, score 0.708, Elo +154 [+121, +190]\n"}
+,{"stream_name":"stdout","time":21082.16103435,"data":"[match] 144/200 positions: A 157W 94D 37L, score 0.708, Elo +154 [+121, +190]\n"}
+,{"stream_name":"stdout","time":21213.533424051,"data":"[match] 145/200 positions: A 158W 95D 37L, score 0.709, Elo +154 [+121, +190]\n"}
+,{"stream_name":"stdout","time":21349.078312267,"data":"[match] 146/200 positions: A 159W 96D 37L, score 0.709, Elo +155 [+122, +190]\n"}
+,{"stream_name":"stdout","time":21434.766958322,"data":"[match] 147/200 positions: A 160W 96D 38L, score 0.707, Elo +153 [+121, +189]\n"}
+,{"stream_name":"stdout","time":21589.23757386,"data":"[match] 148/200 positions: A 162W 96D 38L, score 0.709, Elo +155 [+122, +191]\n"}
+,{"stream_name":"stdout","time":21667.987173547,"data":"[match] 149/200 positions: A 164W 96D 38L, score 0.711, Elo +157 [+124, +192]\n"}
+,{"stream_name":"stdout","time":21822.005840307,"data":"[match] 150/200 positions: A 164W 97D 39L, score 0.708, Elo +154 [+122, +189]\n"}
+,{"stream_name":"stdout","time":21924.934517433,"data":"[match] 151/200 positions: A 166W 97D 39L, score 0.710, Elo +156 [+123, +191]\n"}
+,{"stream_name":"stdout","time":22153.598828675,"data":"[match] 152/200 positions: A 166W 99D 39L, score 0.709, Elo +155 [+122, +190]\n"}
+,{"stream_name":"stdout","time":22252.896609879,"data":"[match] 153/200 positions: A 166W 100D 40L, score 0.706, Elo +152 [+120, +187]\n"}
+,{"stream_name":"stdout","time":22324.989807258,"data":"[match] 154/200 positions: A 167W 101D 40L, score 0.706, Elo +152 [+120, +187]\n"}
+,{"stream_name":"stdout","time":22400.126416478,"data":"[match] 155/200 positions: A 168W 102D 40L, score 0.706, Elo +153 [+121, +187]\n"}
+,{"stream_name":"stdout","time":22504.682529949,"data":"[match] 156/200 positions: A 169W 103D 40L, score 0.707, Elo +153 [+121, +187]\n"}
+,{"stream_name":"stdout","time":22777.387817781,"data":"[match] 157/200 positions: A 171W 103D 40L, score 0.709, Elo +154 [+123, +189]\n"}
+,{"stream_name":"stdout","time":22930.54195288,"data":"[match] 158/200 positions: A 172W 104D 40L, score 0.709, Elo +155 [+123, +189]\n"}
+,{"stream_name":"stdout","time":23079.274422328,"data":"[match] 159/200 positions: A 173W 105D 40L, score 0.709, Elo +155 [+123, +189]\n"}
+,{"stream_name":"stdout","time":23227.409692892,"data":"[match] 160/200 positions: A 175W 105D 40L, score 0.711, Elo +156 [+125, +190]\n"}
+,{"stream_name":"stdout","time":23332.61528929,"data":"[match] 161/200 positions: A 176W 106D 40L, score 0.711, Elo +157 [+125, +190]\n"}
+,{"stream_name":"stdout","time":23474.598861512,"data":"[match] 162/200 positions: A 177W 107D 40L, score 0.711, Elo +157 [+126, +190]\n"}
+,{"stream_name":"stdout","time":23598.596307653,"data":"[match] 163/200 positions: A 178W 108D 40L, score 0.712, Elo +157 [+126, +191]\n"}
+,{"stream_name":"stdout","time":23671.964112866,"data":"[match] 164/200 positions: A 179W 108D 41L, score 0.710, Elo +156 [+125, +189]\n"}
+,{"stream_name":"stdout","time":23760.491116274,"data":"[match] 165/200 positions: A 181W 108D 41L, score 0.712, Elo +157 [+126, +191]\n"}
+,{"stream_name":"stdout","time":23869.577655468,"data":"[match] 166/200 positions: A 183W 108D 41L, score 0.714, Elo +159 [+128, +192]\n"}
+,{"stream_name":"stdout","time":24030.425731509,"data":"[match] 167/200 positions: A 184W 109D 41L, score 0.714, Elo +159 [+128, +192]\n"}
+,{"stream_name":"stdout","time":24200.245461361,"data":"[match] 168/200 positions: A 185W 110D 41L, score 0.714, Elo +159 [+128, +192]\n"}
+,{"stream_name":"stdout","time":24312.678936547,"data":"[match] 169/200 positions: A 187W 110D 41L, score 0.716, Elo +161 [+130, +194]\n"}
+,{"stream_name":"stdout","time":24491.220925394,"data":"[match] 170/200 positions: A 189W 110D 41L, score 0.718, Elo +162 [+131, +195]\n"}
+,{"stream_name":"stdout","time":24689.389076601,"data":"[match] 171/200 positions: A 190W 111D 41L, score 0.718, Elo +162 [+132, +195]\n"}
+,{"stream_name":"stdout","time":24864.135713823,"data":"[match] 172/200 positions: A 192W 111D 41L, score 0.719, Elo +164 [+133, +197]\n"}
+,{"stream_name":"stdout","time":25017.09372166,"data":"[match] 173/200 positions: A 194W 111D 41L, score 0.721, Elo +165 [+135, +198]\n"}
+,{"stream_name":"stdout","time":25183.83429845,"data":"[match] 174/200 positions: A 196W 111D 41L, score 0.723, Elo +166 [+136, +199]\n"}
+,{"stream_name":"stdout","time":25357.110936524,"data":"[match] 175/200 positions: A 197W 112D 41L, score 0.723, Elo +167 [+136, +199]\n"}
+,{"stream_name":"stdout","time":25489.172552328,"data":"[match] 176/200 positions: A 197W 114D 41L, score 0.722, Elo +165 [+135, +198]\n"}
+,{"stream_name":"stdout","time":25584.23503097,"data":"[match] 177/200 positions: A 197W 116D 41L, score 0.720, Elo +164 [+134, +197]\n"}
+,{"stream_name":"stdout","time":25756.141205997,"data":"[match] 178/200 positions: A 198W 117D 41L, score 0.721, Elo +165 [+135, +197]\n"}
+,{"stream_name":"stdout","time":25904.847564564,"data":"[match] 179/200 positions: A 200W 117D 41L, score 0.722, Elo +166 [+136, +198]\n"}
+,{"stream_name":"stdout","time":25945.681616749,"data":"[match] 180/200 positions: A 202W 117D 41L, score 0.724, Elo +167 [+137, +199]\n"}
+,{"stream_name":"stdout","time":26122.486172958,"data":"[match] 181/200 positions: A 203W 117D 42L, score 0.722, Elo +166 [+136, +198]\n"}
+,{"stream_name":"stdout","time":26204.7516994,"data":"[match] 182/200 positions: A 204W 118D 42L, score 0.723, Elo +166 [+137, +198]\n"}
+,{"stream_name":"stdout","time":26362.144605237,"data":"[match] 183/200 positions: A 204W 119D 43L, score 0.720, Elo +164 [+134, +196]\n"}
+,{"stream_name":"stdout","time":26464.432810544,"data":"[match] 184/200 positions: A 205W 120D 43L, score 0.720, Elo +164 [+135, +196]\n"}
+,{"stream_name":"stdout","time":26583.037014104,"data":"[match] 185/200 positions: A 206W 121D 43L, score 0.720, Elo +164 [+135, +196]\n"}
+,{"stream_name":"stdout","time":26690.139288143,"data":"[match] 186/200 positions: A 206W 123D 43L, score 0.719, Elo +163 [+134, +195]\n"}
+,{"stream_name":"stdout","time":26871.986654567,"data":"[match] 187/200 positions: A 208W 123D 43L, score 0.721, Elo +165 [+135, +196]\n"}
+,{"stream_name":"stdout","time":27079.594615655,"data":"[match] 188/200 positions: A 209W 124D 43L, score 0.721, Elo +165 [+136, +196]\n"}
+,{"stream_name":"stdout","time":27233.306237955,"data":"[match] 189/200 positions: A 211W 124D 43L, score 0.722, Elo +166 [+137, +197]\n"}
+,{"stream_name":"stdout","time":27370.532359774,"data":"[match] 190/200 positions: A 213W 124D 43L, score 0.724, Elo +167 [+138, +199]\n"}
+,{"stream_name":"stdout","time":27545.589485855,"data":"[match] 191/200 positions: A 215W 124D 43L, score 0.725, Elo +169 [+140, +200]\n"}
+,{"stream_name":"stdout","time":27679.894600891,"data":"[match] 192/200 positions: A 216W 125D 43L, score 0.725, Elo +169 [+140, +200]\n"}
+,{"stream_name":"stdout","time":27815.057763387,"data":"[match] 193/200 positions: A 217W 126D 43L, score 0.725, Elo +169 [+140, +200]\n"}
+,{"stream_name":"stdout","time":27960.132509605,"data":"[match] 194/200 positions: A 218W 127D 43L, score 0.726, Elo +169 [+140, +200]\n"}
+,{"stream_name":"stdout","time":28043.920663648,"data":"[match] 195/200 positions: A 220W 127D 43L, score 0.727, Elo +170 [+141, +201]\n"}
+,{"stream_name":"stdout","time":28239.022277397,"data":"[match] 196/200 positions: A 221W 127D 44L, score 0.726, Elo +169 [+140, +200]\n"}
+,{"stream_name":"stdout","time":28309.356903883,"data":"[match] 197/200 positions: A 223W 127D 44L, score 0.727, Elo +170 [+142, +201]\n"}
+,{"stream_name":"stdout","time":28536.199757947,"data":"[match] 198/200 positions: A 224W 127D 45L, score 0.726, Elo +169 [+141, +200]\n"}
+,{"stream_name":"stdout","time":28744.046421027,"data":"[match] 199/200 positions: A 225W 128D 45L, score 0.726, Elo +169 [+141, +200]\n"}
+,{"stream_name":"stdout","time":28863.374808354,"data":"[match] 200/200 positions: A 227W 128D 45L, score 0.728, Elo +171 [+142, +201]\n"}
+,{"stream_name":"stdout","time":28863.375877946,"data":"{\n"}
+,{"stream_name":"stdout","time":28863.375898979,"data":" \"a\": \"/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt\",\n"}
+,{"stream_name":"stdout","time":28863.375906007,"data":" \"b\": \"/kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_225M.pt\",\n"}
+,{"stream_name":"stdout","time":28863.375923157,"data":" \"depth\": 2,\n"}
+,{"stream_name":"stdout","time":28863.375927184,"data":" \"seed\": 0,\n"}
+,{"stream_name":"stdout","time":28863.375931152,"data":" \"seconds\": 28812,\n"}
+,{"stream_name":"stdout","time":28863.375935102,"data":" \"games\": 400,\n"}
+,{"stream_name":"stdout","time":28863.375939054,"data":" \"wins\": 227,\n"}
+,{"stream_name":"stdout","time":28863.375942991,"data":" \"draws\": 128,\n"}
+,{"stream_name":"stdout","time":28863.375946808,"data":" \"losses\": 45,\n"}
+,{"stream_name":"stdout","time":28863.375950713,"data":" \"score\": 0.7275,\n"}
+,{"stream_name":"stdout","time":28863.375954634,"data":" \"elo\": 170.58659641811346,\n"}
+,{"stream_name":"stdout","time":28863.375958761,"data":" \"elo_low\": 142.09257816858437,\n"}
+,{"stream_name":"stdout","time":28863.375963496,"data":" \"elo_high\": 201.38469069452256\n"}
+,{"stream_name":"stdout","time":28863.375967496,"data":"}\n"}
+,{"stream_name":"stderr","time":28867.794212827,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":28867.794246674,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":28867.948098936,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":28867.948127547,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":28868.664174179,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":28868.763380762,"data":"[NbConvertApp] Writing 170623 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":28871.165119477,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":28871.649259724,"data":"[NbConvertApp] Writing 448014 bytes to __results__.html\n"}
+]

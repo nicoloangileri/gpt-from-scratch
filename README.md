@@ -210,6 +210,17 @@ More data buys games as well as puzzles. On the same 200 starting positions and 
 search, the 500M model beats the 225M one **165-55 with 180 draws: +98 Elo, interval +73
 to +124** ([`results/25_match_500M_vs_225M_depth1.json`](results/25_match_500M_vs_225M_depth1.json)),
 about the margin by which the 225M model beat its own fine-tuned version.
+With depth-2 search on both sides the gap widens instead of closing: **227-45 with 128
+draws, +171 Elo, interval +142 to +201**
+([`results/27_match_500M_vs_225M_depth2.json`](results/27_match_500M_vs_225M_depth2.json)).
+Paired by starting position, the 500M model scores 0.09 a game more at depth 2 than at
+depth 1, 3.6 standard errors. Search does the opposite of what it did to the fine-tune's
+gap. One reading, not a measurement: what a two-ply search absorbs is the one-move
+blunder, which it catches whichever network is evaluating; what it cannot supply is a
+better value at the leaves, and that is where the 500M model's gain lies (top-1 agreement
+with Stockfish 45.2% to 48.2%, mean absolute error 0.036 to 0.032) -- every leaf of a
+depth-2 tree is read through it. The 400 games took 8.0 hours on a T4, like the first
+depth-2 match.
 
 **Calibrated from the start; what training buys is sharpness.** When the model predicts
 a win probability, Stockfish's own number agrees on average: the binned calibration
@@ -285,11 +296,17 @@ model's own depth-1-against-depth-2 figure before any fine-tune -- the baseline 
 point would need -- has not been measured; until it is, the explanation above stays a
 hypothesis that three points of four agree with.
 
-[`src/lichess_bot.py`](src/lichess_bot.py) plays the same search online as
-**`imbotterthanyou`**: rapid **1634** after 70 rated games, no longer provisional
-(24 September 2026) -- the first 18 by the 100M model, the rest by the 225M one. The
-fine-tuned model has played 6 games since (3 won, 3 lost), too few to compare. None of
-this is comparable to the paper's 2054: that is blitz against bots, this is rapid
+[`src/lichess_bot.py`](src/lichess_bot.py) plays the same search online, at depth 2, as
+**`imbotterthanyou`**: rapid **1659** on 8 October 2026. Every game in the bot's log,
+matched to the checkpoint that played it
+([`results/28_lichess_bot_by_model.json`](results/28_lichess_bot_by_model.json)): the
+100M model took the rating from 1270 to 1461 in 10 games, the 225M one to 1634 in 55, the
+fully fine-tuned 225M played 6 (3 won, 3 lost), the 225M 12 more to 1644, and the 500M
+one 24 -- 11 won, 3 drawn, 10 lost -- to 1659. As a performance rating against the
+opponents' pre-game ratings, the 500M model's 1701 beats the 225M one's 1678 by 23, with
+a bootstrap interval of -150 to +187. A few hours online agree with the depth-2 match
+and could not have measured it: the opponents change from game to game, and 24 games
+leave an interval 300 Elo wide. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
 against bots -- a different pool at a different time control. Search depth
 adapts to the clock -- the bot declines time controls it cannot play at depth 2 and
 drops to the bare network when short on time. The API token comes from `LICHESS_TOKEN`
@@ -482,8 +499,8 @@ results/             the logs behind the numbers above
 
 ## Still open
 
-- The bot on the 500M model, and whether its light fine-tune -- with the 225M model's
-  blunder rate -- also plays at the 225M model's level (a match would say)
+- Whether the 500M model's light fine-tune -- with the 225M model's blunder rate -- also
+  plays at the 225M model's level (a match would say)
 - Search on the 500M model's puzzles before any fine-tune (depth 1 against depth 2), the
   baseline the fourth search point above is missing
 - A fine-tune with the ranking loss switched off, to split what remains of the cost
