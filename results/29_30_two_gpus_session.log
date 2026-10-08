@@ -1,0 +1,280 @@
+[{"stream_name":"stderr","time":6.619566489,"data":"/usr/local/lib/python3.13/dist-packages/nbformat/validator.py:434: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":6.61962748,"data":"  _validate(nbdict, ref, version, version_minor, relax_add_props)\n"}
+,{"stream_name":"stderr","time":7.604953968,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.604984888,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.604989563,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.604993228,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.254515639,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.254547125,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.254552488,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.254556893,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":12.114341845,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 31.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":12.317115471,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 31.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":17.131216186,"data":"wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/puzzle_data.py', 'src/search.py', 'src/agreement_eval.py', 'src/match.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'configs/chess.yaml']\n"}
+,{"stream_name":"stdout","time":18.297673416,"data":"[session] 500M /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt | w0.3 /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03/checkpoints/chess_best.pt | 225M /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_225M.pt\n"}
+,{"stream_name":"stdout","time":18.312980097,"data":"[session] 0.00h in, jobs end at 6.62h\n"}
+,{"stream_name":"stdout","time":46.087137829,"data":"[match] [match] A = /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03/checkpoints/chess_best.pt\n"}
+,{"stream_name":"stdout","time":46.088592646,"data":"[match] [match] B = /kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_225M.pt\n"}
+,{"stream_name":"stdout","time":46.089600868,"data":"[match] [match] depth 2, 200 positions x 2 colours, 2 threads\n"}
+,{"stream_name":"stdout","time":231.402604639,"data":"[match] [match] 1/200 positions: A 2W 0D 0L, score 1.000, Elo +1200 [+1200, +1200]\n"}
+,{"stream_name":"stdout","time":338.26945957,"data":"[puzzles] [compare] 100 puzzles, 0.09h: 500M@1 69.0%  500M@2 71.0%  500M_w03@1 80.0%  500M_w03@2 83.0%\n"}
+,{"stream_name":"stdout","time":428.179858787,"data":"[match] [match] 2/200 positions: A 3W 1D 0L, score 0.875, Elo +338 [+117, +1200]\n"}
+,{"stream_name":"stdout","time":547.460263316,"data":"[match] [match] 3/200 positions: A 4W 1D 1L, score 0.750, Elo +191 [-39, +1200]\n"}
+,{"stream_name":"stdout","time":637.245689837,"data":"[puzzles] [compare] 200 puzzles, 0.17h: 500M@1 62.5%  500M@2 67.0%  500M_w03@1 81.0%  500M_w03@2 79.5%\n"}
+,{"stream_name":"stdout","time":713.124000461,"data":"[match] [match] 4/200 positions: A 4W 2D 2L, score 0.625, Elo +89 [-117, +407]\n"}
+,{"stream_name":"stdout","time":859.54025332,"data":"[match] [match] 5/200 positions: A 4W 4D 2L, score 0.600, Elo +70 [-94, +278]\n"}
+,{"stream_name":"stdout","time":957.152321208,"data":"[puzzles] [compare] 300 puzzles, 0.26h: 500M@1 61.7%  500M@2 66.0%  500M_w03@1 78.3%  500M_w03@2 75.7%\n"}
+,{"stream_name":"stdout","time":972.335871395,"data":"[match] [match] 6/200 positions: A 5W 5D 2L, score 0.625, Elo +89 [-55, +274]\n"}
+,{"stream_name":"stdout","time":1087.853592306,"data":"[match] [match] 7/200 positions: A 6W 6D 2L, score 0.643, Elo +102 [-28, +271]\n"}
+,{"stream_name":"stdout","time":1195.628501489,"data":"[match] [match] 8/200 positions: A 6W 7D 3L, score 0.594, Elo +66 [-59, +212]\n"}
+,{"stream_name":"stdout","time":1297.387973915,"data":"[match] [match] 9/200 positions: A 7W 7D 4L, score 0.583, Elo +58 [-65, +200]\n"}
+,{"stream_name":"stdout","time":1301.841836569,"data":"[puzzles] [compare] 400 puzzles, 0.35h: 500M@1 62.0%  500M@2 65.8%  500M_w03@1 78.2%  500M_w03@2 75.0%\n"}
+,{"stream_name":"stdout","time":1487.82534533,"data":"[match] [match] 10/200 positions: A 8W 7D 5L, score 0.575, Elo +53 [-69, +190]\n"}
+,{"stream_name":"stdout","time":1569.800006113,"data":"[puzzles] [compare] 500 puzzles, 0.43h: 500M@1 62.6%  500M@2 65.2%  500M_w03@1 78.0%  500M_w03@2 74.8%\n"}
+,{"stream_name":"stdout","time":1729.065670058,"data":"[match] [match] 11/200 positions: A 9W 8D 5L, score 0.591, Elo +64 [-50, +194]\n"}
+,{"stream_name":"stdout","time":1838.661858625,"data":"[puzzles] [compare] 600 puzzles, 0.50h: 500M@1 62.2%  500M@2 64.7%  500M_w03@1 77.2%  500M_w03@2 74.2%\n"}
+,{"stream_name":"stdout","time":1908.976379737,"data":"[match] [match] 12/200 positions: A 10W 9D 5L, score 0.604, Elo +73 [-34, +197]\n"}
+,{"stream_name":"stdout","time":2056.572604587,"data":"[match] [match] 13/200 positions: A 10W 11D 5L, score 0.596, Elo +68 [-31, +179]\n"}
+,{"stream_name":"stdout","time":2168.361571623,"data":"[puzzles] [compare] 700 puzzles, 0.59h: 500M@1 62.7%  500M@2 65.3%  500M_w03@1 77.9%  500M_w03@2 74.9%\n"}
+,{"stream_name":"stdout","time":2264.512665896,"data":"[match] [match] 14/200 positions: A 11W 12D 5L, score 0.607, Elo +76 [-19, +183]\n"}
+,{"stream_name":"stdout","time":2377.944705308,"data":"[match] [match] 15/200 positions: A 11W 14D 5L, score 0.600, Elo +70 [-18, +169]\n"}
+,{"stream_name":"stdout","time":2472.069308832,"data":"[puzzles] [compare] 800 puzzles, 0.68h: 500M@1 62.6%  500M@2 65.2%  500M_w03@1 76.9%  500M_w03@2 75.0%\n"}
+,{"stream_name":"stdout","time":2708.526493375,"data":"[match] [match] 16/200 positions: A 12W 15D 5L, score 0.609, Elo +77 [-8, +173]\n"}
+,{"stream_name":"stdout","time":2782.249756384,"data":"[puzzles] [compare] 900 puzzles, 0.77h: 500M@1 62.1%  500M@2 64.9%  500M_w03@1 76.9%  500M_w03@2 74.9%\n"}
+,{"stream_name":"stdout","time":2893.312096139,"data":"[match] [match] 17/200 positions: A 13W 15D 6L, score 0.603, Elo +73 [-12, +167]\n"}
+,{"stream_name":"stdout","time":3059.96437348,"data":"[match] [match] 18/200 positions: A 14W 16D 6L, score 0.611, Elo +79 [-4, +170]\n"}
+,{"stream_name":"stdout","time":3097.779341512,"data":"[puzzles] [compare] 1000 puzzles, 0.85h: 500M@1 62.1%  500M@2 64.9%  500M_w03@1 77.0%  500M_w03@2 74.9%\n"}
+,{"stream_name":"stdout","time":3233.678883214,"data":"[match] [match] 19/200 positions: A 15W 17D 6L, score 0.618, Elo +84 [+4, +173]\n"}
+,{"stream_name":"stdout","time":3360.408815717,"data":"[match] [match] 20/200 positions: A 15W 17D 8L, score 0.588, Elo +61 [-19, +149]\n"}
+,{"stream_name":"stdout","time":3378.567222563,"data":"[puzzles] [compare] 1100 puzzles, 0.93h: 500M@1 62.0%  500M@2 64.8%  500M_w03@1 76.3%  500M_w03@2 74.9%\n"}
+,{"stream_name":"stdout","time":3513.220400766,"data":"[match] [match] 21/200 positions: A 16W 17D 9L, score 0.583, Elo +58 [-21, +145]\n"}
+,{"stream_name":"stdout","time":3611.989131545,"data":"[match] [match] 22/200 positions: A 17W 18D 9L, score 0.591, Elo +64 [-14, +148]\n"}
+,{"stream_name":"stdout","time":3681.232887614,"data":"[puzzles] [compare] 1200 puzzles, 1.01h: 500M@1 62.3%  500M@2 65.2%  500M_w03@1 76.7%  500M_w03@2 75.2%\n"}
+,{"stream_name":"stdout","time":3731.508237249,"data":"[match] [match] 23/200 positions: A 19W 18D 9L, score 0.609, Elo +77 [+0, +161]\n"}
+,{"stream_name":"stdout","time":3935.286426689,"data":"[match] [match] 24/200 positions: A 20W 19D 9L, score 0.615, Elo +81 [+7, +164]\n"}
+,{"stream_name":"stdout","time":4001.426366323,"data":"[puzzles] [compare] 1300 puzzles, 1.10h: 500M@1 62.1%  500M@2 65.1%  500M_w03@1 76.9%  500M_w03@2 75.1%\n"}
+,{"stream_name":"stdout","time":4055.750190712,"data":"[match] [match] 25/200 positions: A 21W 20D 9L, score 0.620, Elo +85 [+12, +166]\n"}
+,{"stream_name":"stdout","time":4209.028072868,"data":"[match] [match] 26/200 positions: A 22W 21D 9L, score 0.625, Elo +89 [+18, +168]\n"}
+,{"stream_name":"stdout","time":4328.683686669,"data":"[puzzles] [compare] 1400 puzzles, 1.19h: 500M@1 62.2%  500M@2 65.2%  500M_w03@1 77.0%  500M_w03@2 75.1%\n"}
+,{"stream_name":"stdout","time":4440.144065079,"data":"[match] [match] 27/200 positions: A 24W 21D 9L, score 0.639, Elo +99 [+29, +178]\n"}
+,{"stream_name":"stdout","time":4597.52407388,"data":"[match] [match] 28/200 positions: A 25W 22D 9L, score 0.643, Elo +102 [+33, +180]\n"}
+,{"stream_name":"stdout","time":4630.592631229,"data":"[puzzles] [compare] 1500 puzzles, 1.28h: 500M@1 62.1%  500M@2 65.0%  500M_w03@1 76.9%  500M_w03@2 75.1%\n"}
+,{"stream_name":"stdout","time":4816.315374491,"data":"[match] [match] 29/200 positions: A 26W 22D 10L, score 0.638, Elo +98 [+30, +175]\n"}
+,{"stream_name":"stdout","time":4933.762768257,"data":"[puzzles] [compare] 1600 puzzles, 1.36h: 500M@1 62.5%  500M@2 65.4%  500M_w03@1 77.0%  500M_w03@2 75.4%\n"}
+,{"stream_name":"stdout","time":5004.48506904,"data":"[match] [match] 30/200 positions: A 27W 23D 10L, score 0.642, Elo +101 [+34, +177]\n"}
+,{"stream_name":"stdout","time":5061.023536894,"data":"[match] [match] 31/200 positions: A 27W 24D 11L, score 0.629, Elo +92 [+26, +165]\n"}
+,{"stream_name":"stdout","time":5217.535136547,"data":"[match] [match] 32/200 positions: A 28W 24D 12L, score 0.625, Elo +89 [+23, +161]\n"}
+,{"stream_name":"stdout","time":5264.985461884,"data":"[puzzles] [compare] 1700 puzzles, 1.45h: 500M@1 62.3%  500M@2 65.4%  500M_w03@1 76.9%  500M_w03@2 75.3%\n"}
+,{"stream_name":"stdout","time":5336.213934635,"data":"[match] [match] 33/200 positions: A 30W 24D 12L, score 0.636, Elo +97 [+32, +170]\n"}
+,{"stream_name":"stdout","time":5436.092835363,"data":"[match] [match] 34/200 positions: A 31W 25D 12L, score 0.640, Elo +100 [+36, +171]\n"}
+,{"stream_name":"stdout","time":5619.178696066,"data":"[puzzles] [compare] 1800 puzzles, 1.55h: 500M@1 62.6%  500M@2 65.8%  500M_w03@1 76.9%  500M_w03@2 75.6%\n"}
+,{"stream_name":"stdout","time":5724.88650666,"data":"[match] [match] 35/200 positions: A 33W 25D 12L, score 0.650, Elo +108 [+44, +179]\n"}
+,{"stream_name":"stdout","time":5865.546269865,"data":"[match] [match] 36/200 positions: A 33W 27D 12L, score 0.646, Elo +104 [+43, +173]\n"}
+,{"stream_name":"stdout","time":5970.085701058,"data":"[puzzles] [compare] 1900 puzzles, 1.65h: 500M@1 62.8%  500M@2 66.1%  500M_w03@1 77.1%  500M_w03@2 75.9%\n"}
+,{"stream_name":"stdout","time":6021.183972015,"data":"[match] [match] 37/200 positions: A 35W 27D 12L, score 0.655, Elo +112 [+50, +181]\n"}
+,{"stream_name":"stdout","time":6185.253763362,"data":"[match] [match] 38/200 positions: A 36W 28D 12L, score 0.658, Elo +114 [+53, +182]\n"}
+,{"stream_name":"stdout","time":6298.821343187,"data":"[puzzles] [compare] 2000 puzzles, 1.74h: 500M@1 62.7%  500M@2 65.8%  500M_w03@1 76.9%  500M_w03@2 75.8%\n"}
+,{"stream_name":"stdout","time":6330.475441957,"data":"[match] [match] 39/200 positions: A 36W 30D 12L, score 0.654, Elo +110 [+52, +176]\n"}
+,{"stream_name":"stdout","time":6520.021523258,"data":"[match] [match] 40/200 positions: A 38W 30D 12L, score 0.662, Elo +117 [+59, +183]\n"}
+,{"stream_name":"stdout","time":6598.680845022,"data":"[puzzles] [compare] 2100 puzzles, 1.83h: 500M@1 63.3%  500M@2 66.4%  500M_w03@1 77.1%  500M_w03@2 76.0%\n"}
+,{"stream_name":"stdout","time":6613.009661642,"data":"[match] [match] 41/200 positions: A 39W 31D 12L, score 0.665, Elo +119 [+61, +184]\n"}
+,{"stream_name":"stdout","time":6879.140313878,"data":"[puzzles] [compare] 2200 puzzles, 1.90h: 500M@1 63.3%  500M@2 66.3%  500M_w03@1 77.0%  500M_w03@2 75.9%\n"}
+,{"stream_name":"stdout","time":6958.476076573,"data":"[match] [match] 42/200 positions: A 40W 32D 12L, score 0.667, Elo +120 [+64, +184]\n"}
+,{"stream_name":"stdout","time":7130.479976361,"data":"[match] [match] 43/200 positions: A 41W 33D 12L, score 0.669, Elo +122 [+66, +185]\n"}
+,{"stream_name":"stdout","time":7205.071208696,"data":"[puzzles] [compare] 2300 puzzles, 1.99h: 500M@1 63.4%  500M@2 66.3%  500M_w03@1 77.1%  500M_w03@2 76.0%\n"}
+,{"stream_name":"stdout","time":7328.14615951,"data":"[match] [match] 44/200 positions: A 41W 34D 13L, score 0.659, Elo +115 [+59, +176]\n"}
+,{"stream_name":"stdout","time":7404.181649983,"data":"[match] [match] 45/200 positions: A 41W 35D 14L, score 0.650, Elo +108 [+53, +168]\n"}
+,{"stream_name":"stdout","time":7536.157490085,"data":"[match] [match] 46/200 positions: A 42W 36D 14L, score 0.652, Elo +109 [+55, +169]\n"}
+,{"stream_name":"stdout","time":7537.062020329,"data":"[puzzles] [compare] 2400 puzzles, 2.09h: 500M@1 63.2%  500M@2 66.1%  500M_w03@1 77.0%  500M_w03@2 75.9%\n"}
+,{"stream_name":"stdout","time":7723.147467593,"data":"[match] [match] 47/200 positions: A 44W 36D 14L, score 0.660, Elo +115 [+61, +175]\n"}
+,{"stream_name":"stdout","time":7856.958423831,"data":"[puzzles] [compare] 2500 puzzles, 2.17h: 500M@1 63.3%  500M@2 66.2%  500M_w03@1 76.8%  500M_w03@2 76.0%\n"}
+,{"stream_name":"stdout","time":7970.23671472,"data":"[match] [match] 48/200 positions: A 46W 36D 14L, score 0.667, Elo +120 [+67, +180]\n"}
+,{"stream_name":"stdout","time":8043.231948397,"data":"[match] [match] 49/200 positions: A 47W 36D 15L, score 0.663, Elo +118 [+64, +177]\n"}
+,{"stream_name":"stdout","time":8118.874375623,"data":"[match] [match] 50/200 positions: A 48W 36D 16L, score 0.660, Elo +115 [+62, +174]\n"}
+,{"stream_name":"stdout","time":8164.602464434,"data":"[puzzles] [compare] 2600 puzzles, 2.26h: 500M@1 63.2%  500M@2 66.0%  500M_w03@1 76.5%  500M_w03@2 75.8%\n"}
+,{"stream_name":"stdout","time":8197.924452084,"data":"[match] [match] 51/200 positions: A 49W 37D 16L, score 0.662, Elo +117 [+64, +175]\n"}
+,{"stream_name":"stdout","time":8266.476385614,"data":"[match] [match] 52/200 positions: A 49W 39D 16L, score 0.659, Elo +114 [+63, +171]\n"}
+,{"stream_name":"stdout","time":8430.394659096,"data":"[match] [match] 53/200 positions: A 50W 39D 17L, score 0.656, Elo +112 [+60, +169]\n"}
+,{"stream_name":"stdout","time":8452.403410786,"data":"[puzzles] [compare] 2700 puzzles, 2.34h: 500M@1 63.2%  500M@2 66.1%  500M_w03@1 76.3%  500M_w03@2 75.6%\n"}
+,{"stream_name":"stdout","time":8697.1680774,"data":"[match] [match] 54/200 positions: A 50W 40D 18L, score 0.648, Elo +106 [+55, +162]\n"}
+,{"stream_name":"stdout","time":8762.181556648,"data":"[puzzles] [compare] 2800 puzzles, 2.43h: 500M@1 63.5%  500M@2 66.3%  500M_w03@1 76.4%  500M_w03@2 75.6%\n"}
+,{"stream_name":"stdout","time":8821.402249945,"data":"[match] [match] 55/200 positions: A 50W 41D 19L, score 0.641, Elo +101 [+50, +156]\n"}
+,{"stream_name":"stdout","time":8971.228934239,"data":"[match] [match] 56/200 positions: A 51W 42D 19L, score 0.643, Elo +102 [+52, +156]\n"}
+,{"stream_name":"stdout","time":9034.751263749,"data":"[match] [match] 57/200 positions: A 51W 43D 20L, score 0.636, Elo +97 [+48, +150]\n"}
+,{"stream_name":"stdout","time":9101.392421325,"data":"[puzzles] [compare] 2900 puzzles, 2.52h: 500M@1 63.7%  500M@2 66.5%  500M_w03@1 76.3%  500M_w03@2 75.7%\n"}
+,{"stream_name":"stdout","time":9156.216067177,"data":"[match] [match] 58/200 positions: A 51W 45D 20L, score 0.634, Elo +95 [+47, +148]\n"}
+,{"stream_name":"stdout","time":9264.310546421,"data":"[match] [match] 59/200 positions: A 52W 45D 21L, score 0.631, Elo +93 [+45, +146]\n"}
+,{"stream_name":"stdout","time":9370.97344516,"data":"[puzzles] [compare] 3000 puzzles, 2.60h: 500M@1 63.8%  500M@2 66.6%  500M_w03@1 76.4%  500M_w03@2 75.7%\n"}
+,{"stream_name":"stdout","time":9413.829563692,"data":"[match] [match] 60/200 positions: A 54W 45D 21L, score 0.637, Elo +98 [+50, +150]\n"}
+,{"stream_name":"stdout","time":9618.679382833,"data":"[match] [match] 61/200 positions: A 55W 46D 21L, score 0.639, Elo +99 [+52, +151]\n"}
+,{"stream_name":"stdout","time":9642.060768732,"data":"[puzzles] [compare] 3100 puzzles, 2.67h: 500M@1 63.6%  500M@2 66.5%  500M_w03@1 76.3%  500M_w03@2 75.7%\n"}
+,{"stream_name":"stdout","time":9700.384458263,"data":"[match] [match] 62/200 positions: A 56W 46D 22L, score 0.637, Elo +98 [+50, +149]\n"}
+,{"stream_name":"stdout","time":9833.612457005,"data":"[match] [match] 63/200 positions: A 57W 47D 22L, score 0.639, Elo +99 [+52, +150]\n"}
+,{"stream_name":"stdout","time":9983.541740498,"data":"[puzzles] [compare] 3200 puzzles, 2.77h: 500M@1 63.7%  500M@2 66.5%  500M_w03@1 76.3%  500M_w03@2 75.8%\n"}
+,{"stream_name":"stdout","time":9987.356832931,"data":"[match] [match] 64/200 positions: A 59W 47D 22L, score 0.645, Elo +103 [+56, +154]\n"}
+,{"stream_name":"stdout","time":10125.509895769,"data":"[match] [match] 65/200 positions: A 61W 47D 22L, score 0.650, Elo +108 [+61, +159]\n"}
+,{"stream_name":"stdout","time":10249.587927341,"data":"[match] [match] 66/200 positions: A 62W 48D 22L, score 0.652, Elo +109 [+62, +159]\n"}
+,{"stream_name":"stdout","time":10295.92721448,"data":"[puzzles] [compare] 3300 puzzles, 2.85h: 500M@1 63.5%  500M@2 66.4%  500M_w03@1 76.3%  500M_w03@2 75.8%\n"}
+,{"stream_name":"stdout","time":10335.255750633,"data":"[match] [match] 67/200 positions: A 64W 48D 22L, score 0.657, Elo +113 [+66, +163]\n"}
+,{"stream_name":"stdout","time":10494.146265372,"data":"[match] [match] 68/200 positions: A 64W 50D 22L, score 0.654, Elo +111 [+65, +161]\n"}
+,{"stream_name":"stdout","time":10597.306786014,"data":"[puzzles] [compare] 3400 puzzles, 2.94h: 500M@1 63.7%  500M@2 66.5%  500M_w03@1 76.6%  500M_w03@2 76.0%\n"}
+,{"stream_name":"stdout","time":10631.666782859,"data":"[match] [match] 69/200 positions: A 64W 52D 22L, score 0.652, Elo +109 [+64, +158]\n"}
+,{"stream_name":"stdout","time":10756.216727851,"data":"[match] [match] 70/200 positions: A 65W 53D 22L, score 0.654, Elo +110 [+66, +159]\n"}
+,{"stream_name":"stdout","time":10897.573315544,"data":"[puzzles] [compare] 3500 puzzles, 3.02h: 500M@1 63.5%  500M@2 66.3%  500M_w03@1 76.5%  500M_w03@2 75.8%\n"}
+,{"stream_name":"stdout","time":10905.869983756,"data":"[match] [match] 71/200 positions: A 65W 55D 22L, score 0.651, Elo +109 [+65, +156]\n"}
+,{"stream_name":"stdout","time":11088.862105494,"data":"[match] [match] 72/200 positions: A 66W 56D 22L, score 0.653, Elo +110 [+66, +157]\n"}
+,{"stream_name":"stdout","time":11181.080639128,"data":"[match] [match] 73/200 positions: A 67W 57D 22L, score 0.654, Elo +111 [+67, +157]\n"}
+,{"stream_name":"stdout","time":11204.739368607,"data":"[puzzles] [compare] 3600 puzzles, 3.10h: 500M@1 63.5%  500M@2 66.3%  500M_w03@1 76.4%  500M_w03@2 75.8%\n"}
+,{"stream_name":"stdout","time":11357.475511122,"data":"[match] [match] 74/200 positions: A 67W 58D 23L, score 0.649, Elo +107 [+64, +153]\n"}
+,{"stream_name":"stdout","time":11449.658281314,"data":"[match] [match] 75/200 positions: A 68W 59D 23L, score 0.650, Elo +108 [+65, +153]\n"}
+,{"stream_name":"stdout","time":11501.83633315,"data":"[puzzles] [compare] 3700 puzzles, 3.19h: 500M@1 63.8%  500M@2 66.5%  500M_w03@1 76.5%  500M_w03@2 76.0%\n"}
+,{"stream_name":"stdout","time":11566.008211861,"data":"[match] [match] 76/200 positions: A 68W 59D 25L, score 0.641, Elo +101 [+59, +147]\n"}
+,{"stream_name":"stdout","time":11720.515014074,"data":"[match] [match] 77/200 positions: A 69W 59D 26L, score 0.640, Elo +100 [+57, +145]\n"}
+,{"stream_name":"stdout","time":11842.110979075,"data":"[puzzles] [compare] 3800 puzzles, 3.28h: 500M@1 63.8%  500M@2 66.7%  500M_w03@1 76.6%  500M_w03@2 76.1%\n"}
+,{"stream_name":"stdout","time":11975.004322493,"data":"[match] [match] 78/200 positions: A 70W 60D 26L, score 0.641, Elo +101 [+59, +146]\n"}
+,{"stream_name":"stdout","time":12032.7434702,"data":"[match] [match] 79/200 positions: A 72W 60D 26L, score 0.646, Elo +104 [+62, +149]\n"}
+,{"stream_name":"stdout","time":12145.683933069,"data":"[puzzles] [compare] 3900 puzzles, 3.37h: 500M@1 63.9%  500M@2 66.6%  500M_w03@1 76.6%  500M_w03@2 76.2%\n"}
+,{"stream_name":"stdout","time":12221.976128102,"data":"[match] [match] 80/200 positions: A 73W 60D 27L, score 0.644, Elo +103 [+61, +148]\n"}
+,{"stream_name":"stdout","time":12461.902778549,"data":"[puzzles] [compare] 4000 puzzles, 3.45h: 500M@1 64.0%  500M@2 66.7%  500M_w03@1 76.6%  500M_w03@2 76.1%\n"}
+,{"stream_name":"stdout","time":12462.015508116,"data":"[match] [match] 81/200 positions: A 74W 60D 28L, score 0.642, Elo +101 [+60, +146]\n"}
+,{"stream_name":"stdout","time":12613.194898097,"data":"[match] [match] 82/200 positions: A 75W 60D 29L, score 0.640, Elo +100 [+58, +145]\n"}
+,{"stream_name":"stdout","time":12765.035209384,"data":"[match] [match] 83/200 positions: A 76W 61D 29L, score 0.642, Elo +101 [+60, +146]\n"}
+,{"stream_name":"stdout","time":12779.405990537,"data":"[puzzles] [compare] 4100 puzzles, 3.54h: 500M@1 64.1%  500M@2 66.8%  500M_w03@1 76.7%  500M_w03@2 76.0%\n"}
+,{"stream_name":"stdout","time":12987.886129689,"data":"[match] [match] 84/200 positions: A 77W 61D 30L, score 0.640, Elo +100 [+58, +144]\n"}
+,{"stream_name":"stdout","time":13081.155012077,"data":"[puzzles] [compare] 4200 puzzles, 3.63h: 500M@1 64.1%  500M@2 66.7%  500M_w03@1 76.6%  500M_w03@2 76.0%\n"}
+,{"stream_name":"stdout","time":13129.155562806,"data":"[match] [match] 85/200 positions: A 78W 61D 31L, score 0.638, Elo +99 [+57, +143]\n"}
+,{"stream_name":"stdout","time":13168.273352612,"data":"[match] [match] 86/200 positions: A 79W 62D 31L, score 0.640, Elo +100 [+59, +144]\n"}
+,{"stream_name":"stdout","time":13287.737340475,"data":"[match] [match] 87/200 positions: A 80W 62D 32L, score 0.638, Elo +98 [+57, +142]\n"}
+,{"stream_name":"stdout","time":13417.189601945,"data":"[puzzles] [compare] 4300 puzzles, 3.72h: 500M@1 64.1%  500M@2 66.8%  500M_w03@1 76.6%  500M_w03@2 75.9%\n"}
+,{"stream_name":"stdout","time":13472.32347649,"data":"[match] [match] 88/200 positions: A 80W 63D 33L, score 0.634, Elo +95 [+54, +138]\n"}
+,{"stream_name":"stdout","time":13645.301235407,"data":"[match] [match] 89/200 positions: A 80W 63D 35L, score 0.626, Elo +90 [+49, +133]\n"}
+,{"stream_name":"stdout","time":13745.208384947,"data":"[match] [match] 90/200 positions: A 82W 63D 35L, score 0.631, Elo +93 [+52, +136]\n"}
+,{"stream_name":"stdout","time":13766.897909204,"data":"[puzzles] [compare] 4400 puzzles, 3.82h: 500M@1 64.0%  500M@2 66.7%  500M_w03@1 76.6%  500M_w03@2 76.0%\n"}
+,{"stream_name":"stdout","time":13866.481759299,"data":"[match] [match] 91/200 positions: A 84W 63D 35L, score 0.635, Elo +96 [+56, +139]\n"}
+,{"stream_name":"stdout","time":13976.615506004,"data":"[match] [match] 92/200 positions: A 86W 63D 35L, score 0.639, Elo +99 [+59, +142]\n"}
+,{"stream_name":"stdout","time":14073.844404231,"data":"[match] [match] 93/200 positions: A 86W 65D 35L, score 0.637, Elo +98 [+58, +140]\n"}
+,{"stream_name":"stdout","time":14091.322585539,"data":"[puzzles] [compare] 4500 puzzles, 3.91h: 500M@1 64.0%  500M@2 66.6%  500M_w03@1 76.6%  500M_w03@2 75.8%\n"}
+,{"stream_name":"stdout","time":14236.476588251,"data":"[match] [match] 94/200 positions: A 86W 67D 35L, score 0.636, Elo +97 [+57, +139]\n"}
+,{"stream_name":"stdout","time":14380.320312862,"data":"[match] [match] 95/200 positions: A 88W 67D 35L, score 0.639, Elo +100 [+60, +142]\n"}
+,{"stream_name":"stdout","time":14388.892074071,"data":"[puzzles] [compare] 4600 puzzles, 3.99h: 500M@1 64.2%  500M@2 66.8%  500M_w03@1 76.7%  500M_w03@2 75.8%\n"}
+,{"stream_name":"stdout","time":14519.143545748,"data":"[match] [match] 96/200 positions: A 89W 68D 35L, score 0.641, Elo +100 [+61, +142]\n"}
+,{"stream_name":"stdout","time":14618.880730099,"data":"[match] [match] 97/200 positions: A 90W 69D 35L, score 0.642, Elo +101 [+62, +143]\n"}
+,{"stream_name":"stdout","time":14665.338671762,"data":"[puzzles] [compare] 4700 puzzles, 4.07h: 500M@1 64.2%  500M@2 66.9%  500M_w03@1 76.7%  500M_w03@2 75.8%\n"}
+,{"stream_name":"stdout","time":14781.501747863,"data":"[match] [match] 98/200 positions: A 92W 69D 35L, score 0.645, Elo +104 [+65, +145]\n"}
+,{"stream_name":"stdout","time":14883.163891393,"data":"[match] [match] 99/200 positions: A 93W 70D 35L, score 0.646, Elo +105 [+66, +146]\n"}
+,{"stream_name":"stdout","time":15005.394471579,"data":"[puzzles] [compare] 4800 puzzles, 4.16h: 500M@1 64.4%  500M@2 67.0%  500M_w03@1 76.8%  500M_w03@2 76.0%\n"}
+,{"stream_name":"stdout","time":15057.6830937,"data":"[match] [match] 100/200 positions: A 94W 70D 36L, score 0.645, Elo +104 [+65, +145]\n"}
+,{"stream_name":"stdout","time":15081.669073532,"data":"[match] [match] 101/200 positions: A 95W 70D 37L, score 0.644, Elo +103 [+64, +144]\n"}
+,{"stream_name":"stdout","time":15287.596300375,"data":"[puzzles] [compare] 4900 puzzles, 4.24h: 500M@1 64.2%  500M@2 66.9%  500M_w03@1 76.8%  500M_w03@2 75.8%\n"}
+,{"stream_name":"stdout","time":15289.821328099,"data":"[match] [match] 102/200 positions: A 95W 72D 37L, score 0.642, Elo +102 [+64, +142]\n"}
+,{"stream_name":"stdout","time":15369.479094363,"data":"[match] [match] 103/200 positions: A 96W 72D 38L, score 0.641, Elo +101 [+63, +141]\n"}
+,{"stream_name":"stdout","time":15565.300716007,"data":"[match] [match] 104/200 positions: A 96W 73D 39L, score 0.637, Elo +98 [+60, +138]\n"}
+,{"stream_name":"stdout","time":15608.80420834,"data":"[puzzles] [compare] 5000 puzzles, 4.33h: 500M@1 64.2%  500M@2 66.8%  500M_w03@1 76.9%  500M_w03@2 75.9%\n"}
+,{"stream_name":"stdout","time":15779.196741806,"data":"[match] [match] 105/200 positions: A 97W 73D 40L, score 0.636, Elo +97 [+59, +137]\n"}
+,{"stream_name":"stdout","time":15930.009379931,"data":"[puzzles] [compare] 5100 puzzles, 4.42h: 500M@1 64.4%  500M@2 67.0%  500M_w03@1 77.0%  500M_w03@2 76.0%\n"}
+,{"stream_name":"stdout","time":15956.025467655,"data":"[match] [match] 106/200 positions: A 98W 74D 40L, score 0.637, Elo +98 [+60, +137]\n"}
+,{"stream_name":"stdout","time":16206.542670433,"data":"[match] [match] 107/200 positions: A 98W 74D 42L, score 0.631, Elo +93 [+56, +133]\n"}
+,{"stream_name":"stdout","time":16254.844704469,"data":"[puzzles] [compare] 5200 puzzles, 4.51h: 500M@1 64.3%  500M@2 66.9%  500M_w03@1 77.0%  500M_w03@2 76.1%\n"}
+,{"stream_name":"stdout","time":16342.492093073,"data":"[match] [match] 108/200 positions: A 98W 76D 42L, score 0.630, Elo +92 [+55, +131]\n"}
+,{"stream_name":"stdout","time":16478.21734072,"data":"[match] [match] 109/200 positions: A 99W 76D 43L, score 0.628, Elo +91 [+54, +130]\n"}
+,{"stream_name":"stdout","time":16627.648527148,"data":"[puzzles] [compare] 5300 puzzles, 4.61h: 500M@1 64.3%  500M@2 66.9%  500M_w03@1 77.0%  500M_w03@2 76.1%\n"}
+,{"stream_name":"stdout","time":16685.937249987,"data":"[match] [match] 110/200 positions: A 100W 77D 43L, score 0.630, Elo +92 [+55, +131]\n"}
+,{"stream_name":"stdout","time":16913.273970918,"data":"[match] [match] 111/200 positions: A 101W 78D 43L, score 0.631, Elo +93 [+56, +132]\n"}
+,{"stream_name":"stdout","time":16939.435356348,"data":"[puzzles] [compare] 5400 puzzles, 4.70h: 500M@1 64.4%  500M@2 66.9%  500M_w03@1 77.0%  500M_w03@2 76.1%\n"}
+,{"stream_name":"stdout","time":17083.535293179,"data":"[match] [match] 112/200 positions: A 102W 78D 44L, score 0.629, Elo +92 [+56, +131]\n"}
+,{"stream_name":"stdout","time":17179.528981005,"data":"[match] [match] 113/200 positions: A 102W 79D 45L, score 0.626, Elo +90 [+53, +128]\n"}
+,{"stream_name":"stdout","time":17261.173308944,"data":"[puzzles] [compare] 5500 puzzles, 4.79h: 500M@1 64.5%  500M@2 67.0%  500M_w03@1 77.0%  500M_w03@2 76.2%\n"}
+,{"stream_name":"stdout","time":17298.990642589,"data":"[match] [match] 114/200 positions: A 102W 80D 46L, score 0.623, Elo +87 [+51, +125]\n"}
+,{"stream_name":"stdout","time":17474.991131243,"data":"[match] [match] 115/200 positions: A 102W 81D 47L, score 0.620, Elo +85 [+49, +122]\n"}
+,{"stream_name":"stdout","time":17587.479490581,"data":"[match] [match] 116/200 positions: A 103W 82D 47L, score 0.621, Elo +86 [+50, +123]\n"}
+,{"stream_name":"stdout","time":17612.229551661,"data":"[puzzles] [compare] 5600 puzzles, 4.88h: 500M@1 64.5%  500M@2 67.0%  500M_w03@1 77.1%  500M_w03@2 76.2%\n"}
+,{"stream_name":"stdout","time":17865.59066291,"data":"[match] [match] 117/200 positions: A 104W 82D 48L, score 0.620, Elo +85 [+49, +122]\n"}
+,{"stream_name":"stdout","time":17928.823625349,"data":"[puzzles] [compare] 5700 puzzles, 4.97h: 500M@1 64.5%  500M@2 67.0%  500M_w03@1 77.2%  500M_w03@2 76.3%\n"}
+,{"stream_name":"stdout","time":18082.438620942,"data":"[match] [match] 118/200 positions: A 104W 83D 49L, score 0.617, Elo +82 [+47, +120]\n"}
+,{"stream_name":"stdout","time":18228.420004057,"data":"[puzzles] [compare] 5800 puzzles, 5.06h: 500M@1 64.4%  500M@2 66.9%  500M_w03@1 77.1%  500M_w03@2 76.2%\n"}
+,{"stream_name":"stdout","time":18278.116476694,"data":"[match] [match] 119/200 positions: A 105W 83D 50L, score 0.616, Elo +82 [+46, +119]\n"}
+,{"stream_name":"stdout","time":18363.696669328,"data":"[match] [match] 120/200 positions: A 106W 83D 51L, score 0.615, Elo +81 [+46, +118]\n"}
+,{"stream_name":"stdout","time":18535.60350885,"data":"[match] [match] 121/200 positions: A 108W 83D 51L, score 0.618, Elo +83 [+48, +120]\n"}
+,{"stream_name":"stdout","time":18543.040357453,"data":"[puzzles] [compare] 5900 puzzles, 5.14h: 500M@1 64.5%  500M@2 67.0%  500M_w03@1 77.2%  500M_w03@2 76.3%\n"}
+,{"stream_name":"stdout","time":18638.709644697,"data":"[match] [match] 122/200 positions: A 109W 84D 51L, score 0.619, Elo +84 [+49, +121]\n"}
+,{"stream_name":"stdout","time":18702.275332237,"data":"[match] [match] 123/200 positions: A 110W 84D 52L, score 0.618, Elo +83 [+49, +120]\n"}
+,{"stream_name":"stdout","time":18857.116407098,"data":"[puzzles] [compare] 6000 puzzles, 5.23h: 500M@1 64.4%  500M@2 67.0%  500M_w03@1 77.1%  500M_w03@2 76.2%\n"}
+,{"stream_name":"stdout","time":18936.129000941,"data":"[match] [match] 124/200 positions: A 110W 85D 53L, score 0.615, Elo +81 [+47, +118]\n"}
+,{"stream_name":"stdout","time":18991.372096717,"data":"[match] [match] 125/200 positions: A 111W 85D 54L, score 0.614, Elo +81 [+46, +117]\n"}
+,{"stream_name":"stdout","time":19104.573071989,"data":"[match] [match] 126/200 positions: A 112W 85D 55L, score 0.613, Elo +80 [+45, +116]\n"}
+,{"stream_name":"stdout","time":19187.492520601,"data":"[puzzles] [compare] 6100 puzzles, 5.32h: 500M@1 64.5%  500M@2 67.1%  500M_w03@1 77.3%  500M_w03@2 76.3%\n"}
+,{"stream_name":"stdout","time":19284.677128235,"data":"[match] [match] 127/200 positions: A 114W 85D 55L, score 0.616, Elo +82 [+48, +119]\n"}
+,{"stream_name":"stdout","time":19425.803780604,"data":"[match] [match] 128/200 positions: A 115W 86D 55L, score 0.617, Elo +83 [+49, +119]\n"}
+,{"stream_name":"stdout","time":19490.930677591,"data":"[puzzles] [compare] 6200 puzzles, 5.41h: 500M@1 64.5%  500M@2 67.2%  500M_w03@1 77.3%  500M_w03@2 76.3%\n"}
+,{"stream_name":"stdout","time":19589.167254019,"data":"[match] [match] 129/200 positions: A 115W 86D 57L, score 0.612, Elo +79 [+45, +115]\n"}
+,{"stream_name":"stdout","time":19799.030264609,"data":"[match] [match] 130/200 positions: A 115W 87D 58L, score 0.610, Elo +77 [+43, +113]\n"}
+,{"stream_name":"stdout","time":19843.074312632,"data":"[puzzles] [compare] 6300 puzzles, 5.50h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.3%  500M_w03@2 76.4%\n"}
+,{"stream_name":"stdout","time":19994.445910446,"data":"[match] [match] 131/200 positions: A 116W 88D 58L, score 0.611, Elo +78 [+44, +114]\n"}
+,{"stream_name":"stdout","time":20107.730166859,"data":"[match] [match] 132/200 positions: A 117W 89D 58L, score 0.612, Elo +79 [+45, +114]\n"}
+,{"stream_name":"stdout","time":20158.236353832,"data":"[puzzles] [compare] 6400 puzzles, 5.59h: 500M@1 64.8%  500M@2 67.4%  500M_w03@1 77.3%  500M_w03@2 76.5%\n"}
+,{"stream_name":"stdout","time":20316.653494815,"data":"[match] [match] 133/200 positions: A 119W 89D 58L, score 0.615, Elo +81 [+47, +117]\n"}
+,{"stream_name":"stdout","time":20420.78972237,"data":"[match] [match] 134/200 positions: A 120W 89D 59L, score 0.614, Elo +80 [+47, +116]\n"}
+,{"stream_name":"stdout","time":20476.282934153,"data":"[puzzles] [compare] 6500 puzzles, 5.68h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.3%  500M_w03@2 76.5%\n"}
+,{"stream_name":"stdout","time":20594.831767157,"data":"[match] [match] 135/200 positions: A 121W 89D 60L, score 0.613, Elo +80 [+46, +115]\n"}
+,{"stream_name":"stdout","time":20750.594643782,"data":"[match] [match] 136/200 positions: A 122W 90D 60L, score 0.614, Elo +81 [+47, +116]\n"}
+,{"stream_name":"stdout","time":20782.126988332,"data":"[puzzles] [compare] 6600 puzzles, 5.77h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.3%  500M_w03@2 76.4%\n"}
+,{"stream_name":"stdout","time":20821.462091459,"data":"[match] [match] 137/200 positions: A 123W 90D 61L, score 0.613, Elo +80 [+46, +115]\n"}
+,{"stream_name":"stdout","time":21030.096490655,"data":"[match] [match] 138/200 positions: A 124W 90D 62L, score 0.612, Elo +79 [+46, +114]\n"}
+,{"stream_name":"stdout","time":21088.595887966,"data":"[puzzles] [compare] 6700 puzzles, 5.85h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.3%  500M_w03@2 76.4%\n"}
+,{"stream_name":"stdout","time":21152.705503863,"data":"[match] [match] 139/200 positions: A 124W 92D 62L, score 0.612, Elo +79 [+46, +113]\n"}
+,{"stream_name":"stdout","time":21317.599665797,"data":"[match] [match] 140/200 positions: A 125W 93D 62L, score 0.613, Elo +80 [+46, +114]\n"}
+,{"stream_name":"stdout","time":21396.649109439,"data":"[puzzles] [compare] 6800 puzzles, 5.94h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.2%  500M_w03@2 76.4%\n"}
+,{"stream_name":"stdout","time":21464.191934258,"data":"[match] [match] 141/200 positions: A 126W 94D 62L, score 0.613, Elo +80 [+47, +115]\n"}
+,{"stream_name":"stdout","time":21610.047244139,"data":"[match] [match] 142/200 positions: A 127W 94D 63L, score 0.613, Elo +80 [+47, +114]\n"}
+,{"stream_name":"stdout","time":21647.885664705,"data":"[puzzles] [compare] 6900 puzzles, 6.01h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.2%  500M_w03@2 76.3%\n"}
+,{"stream_name":"stdout","time":21721.846818292,"data":"[match] [match] 143/200 positions: A 128W 95D 63L, score 0.614, Elo +80 [+48, +115]\n"}
+,{"stream_name":"stdout","time":21930.730782498,"data":"[puzzles] [compare] 7000 puzzles, 6.08h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.2%  500M_w03@2 76.3%\n"}
+,{"stream_name":"stdout","time":21956.839677778,"data":"[match] [match] 144/200 positions: A 129W 96D 63L, score 0.615, Elo +81 [+48, +115]\n"}
+,{"stream_name":"stdout","time":22111.453370457,"data":"[match] [match] 145/200 positions: A 130W 96D 64L, score 0.614, Elo +80 [+48, +114]\n"}
+,{"stream_name":"stdout","time":22210.290744587,"data":"[puzzles] [compare] 7100 puzzles, 6.16h: 500M@1 64.6%  500M@2 67.2%  500M_w03@1 77.2%  500M_w03@2 76.2%\n"}
+,{"stream_name":"stdout","time":22301.491108022,"data":"[match] [match] 146/200 positions: A 132W 96D 64L, score 0.616, Elo +82 [+50, +116]\n"}
+,{"stream_name":"stdout","time":22424.908391949,"data":"[match] [match] 147/200 positions: A 134W 96D 64L, score 0.619, Elo +84 [+52, +118]\n"}
+,{"stream_name":"stdout","time":22526.249427295,"data":"[puzzles] [compare] 7200 puzzles, 6.25h: 500M@1 64.5%  500M@2 67.1%  500M_w03@1 77.2%  500M_w03@2 76.3%\n"}
+,{"stream_name":"stdout","time":22577.229675211,"data":"[match] [match] 148/200 positions: A 136W 96D 64L, score 0.622, Elo +86 [+54, +120]\n"}
+,{"stream_name":"stdout","time":22709.12672392,"data":"[match] [match] 149/200 positions: A 137W 96D 65L, score 0.621, Elo +86 [+53, +119]\n"}
+,{"stream_name":"stdout","time":22858.050838371,"data":"[puzzles] [compare] 7300 puzzles, 6.34h: 500M@1 64.6%  500M@2 67.2%  500M_w03@1 77.2%  500M_w03@2 76.3%\n"}
+,{"stream_name":"stdout","time":22875.654758303,"data":"[match] [match] 150/200 positions: A 138W 97D 65L, score 0.622, Elo +86 [+54, +120]\n"}
+,{"stream_name":"stdout","time":23041.999169137,"data":"[match] [match] 151/200 positions: A 138W 99D 65L, score 0.621, Elo +86 [+54, +119]\n"}
+,{"stream_name":"stdout","time":23203.173968512,"data":"[puzzles] [compare] 7400 puzzles, 6.44h: 500M@1 64.5%  500M@2 67.1%  500M_w03@1 77.2%  500M_w03@2 76.3%\n"}
+,{"stream_name":"stdout","time":23212.694995052,"data":"[match] [match] 152/200 positions: A 138W 101D 65L, score 0.620, Elo +85 [+53, +118]\n"}
+,{"stream_name":"stdout","time":23402.7960453,"data":"[match] [match] 153/200 positions: A 138W 103D 65L, score 0.619, Elo +85 [+53, +117]\n"}
+,{"stream_name":"stdout","time":23469.679739793,"data":"[match] [match] 154/200 positions: A 139W 104D 65L, score 0.620, Elo +85 [+54, +118]\n"}
+,{"stream_name":"stdout","time":23503.504044517,"data":"[puzzles] [compare] 7500 puzzles, 6.52h: 500M@1 64.6%  500M@2 67.1%  500M_w03@1 77.3%  500M_w03@2 76.3%\n"}
+,{"stream_name":"stdout","time":23557.373898413,"data":"[match] [match] 155/200 positions: A 140W 105D 65L, score 0.621, Elo +86 [+54, +118]\n"}
+,{"stream_name":"stdout","time":23557.374896156,"data":"[match] [match] deadline reached after 155 positions\n"}
+,{"stream_name":"stdout","time":23557.375854325,"data":"[match] {\n"}
+,{"stream_name":"stdout","time":23557.376740705,"data":"[match]  \"a\": \"/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03/checkpoints/chess_best.pt\",\n"}
+,{"stream_name":"stdout","time":23557.37759442,"data":"[match]  \"b\": \"/kaggle/input/datasets/nicolangileri/gpt-from-scratch-checkpoints/chess_225M.pt\",\n"}
+,{"stream_name":"stdout","time":23557.378466297,"data":"[match]  \"depth\": 2,\n"}
+,{"stream_name":"stdout","time":23557.379494397,"data":"[match]  \"seed\": 0,\n"}
+,{"stream_name":"stdout","time":23557.380435379,"data":"[match]  \"seconds\": 23511,\n"}
+,{"stream_name":"stdout","time":23557.381402396,"data":"[match]  \"games\": 310,\n"}
+,{"stream_name":"stdout","time":23557.382252076,"data":"[match]  \"wins\": 140,\n"}
+,{"stream_name":"stdout","time":23557.383246196,"data":"[match]  \"draws\": 105,\n"}
+,{"stream_name":"stdout","time":23557.384173973,"data":"[match]  \"losses\": 65,\n"}
+,{"stream_name":"stdout","time":23557.385176197,"data":"[match]  \"score\": 0.6209677419354839,\n"}
+,{"stream_name":"stdout","time":23557.386116432,"data":"[match]  \"elo\": 85.75714689470574,\n"}
+,{"stream_name":"stdout","time":23557.387119734,"data":"[match]  \"elo_low\": 54.4713435259886,\n"}
+,{"stream_name":"stdout","time":23557.388038378,"data":"[match]  \"elo_high\": 118.47243820685294\n"}
+,{"stream_name":"stdout","time":23557.388980683,"data":"[match] }\n"}
+,{"stream_name":"stdout","time":23803.956231479,"data":"[puzzles] [compare] 7600 puzzles, 6.60h: 500M@1 64.6%  500M@2 67.1%  500M_w03@1 77.4%  500M_w03@2 76.3%\n"}
+,{"stream_name":"stdout","time":23858.994918202,"data":"[puzzles] [compare] deadline reached after 7616 puzzles\n"}
+,{"stream_name":"stdout","time":23859.010925382,"data":"[puzzles] [compare] first_1000 (1000 puzzles): 500M@1 621/1000 = 62.1%  500M@2 649/1000 = 64.9%  500M_w03@1 770/1000 = 77.0%  500M_w03@2 749/1000 = 74.9%\n"}
+,{"stream_name":"stdout","time":23859.011901457,"data":"[puzzles] [compare] all (7616 puzzles): 500M@1 4923/7616 = 64.6%  500M@2 5113/7616 = 67.1%  500M_w03@1 5894/7616 = 77.4%  500M_w03@2 5813/7616 = 76.3%\n"}
+,{"stream_name":"stdout","time":23859.012534455,"data":"[puzzles] [compare] 500M: depth 2 - depth 1 = +2.49 points (se 0.24), 271 solved only at depth 2, 81 only at depth 1\n"}
+,{"stream_name":"stdout","time":23859.01321206,"data":"[puzzles] [compare] 500M_w03: depth 2 - depth 1 = -1.06 points (se 0.44), 520 solved only at depth 2, 601 only at depth 1\n"}
+,{"stream_name":"stdout","time":23859.546866351,"data":"[session] done at 6.63h: {'match': 0, 'puzzles': 0}\n"}
+,{"stream_name":"stderr","time":23862.043171433,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":23862.043204168,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":23862.217378948,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":23862.217407483,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":23862.957016345,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":23863.057569076,"data":"[NbConvertApp] Writing 187914 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":23865.435385403,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":23865.944365672,"data":"[NbConvertApp] Writing 471626 bytes to __results__.html\n"}
+]

@@ -222,6 +222,18 @@ with Stockfish 45.2% to 48.2%, mean absolute error 0.036 to 0.032) -- every leaf
 depth-2 tree is read through it. The 400 games took 8.0 hours on a T4, like the first
 depth-2 match.
 
+The 500M model's light puzzle fine-tune, at depth 2 against the 225M model, wins
+**140-65 with 105 draws over 310 games: +86 Elo, interval +54 to +118**
+([`results/29_match_500M_w0.3_vs_225M_depth2.json`](results/29_match_500M_w0.3_vs_225M_depth2.json)).
+The session's deadline stopped it after 155 of the 200 positions. On those same 155 the
+500M model before its fine-tune scored 0.707 against the 225M one (+153), so paired by
+position the fine-tune costs 0.086 a game, 3.1 standard errors: about 67 Elo, read
+through a common opponent rather than played head to head. Search does not erase this
+cost the way it nearly erased the 225M model's full fine-tune (+17, interval -9 to +44),
+though the two are measured differently, and the one-move-blunder reading above would
+have expected it to. The fine-tuned model still plays well above the
+225M one, and the bot stays on the 500M model without the fine-tune.
+
 **Calibrated from the start; what training buys is sharpness.** When the model predicts
 a win probability, Stockfish's own number agrees on average: the binned calibration
 error is at most 0.007 for every model, the 1M one included. What improves with data is
@@ -273,28 +285,40 @@ judgement that was right.
 
 Before the fine-tune it was the other way round: on the 225M checkpoint, same 1,000
 puzzles, **58.5% at depth 1 and 60.8% at depth 2** -- search helped. So the fine-tune
-is what flipped it, and the move-quality table says how: the fine-tune made the values
-of ordinary positions worse (blunders 3.1% to 5.0%), and depth-2 search is built out
-of exactly those values, read in the position after each candidate move. On their own,
-differences of 2-3 points on 1,000 puzzles are suggestive rather than conclusive; what
-makes the explanation credible is that it agrees with a measurement on 61,833 positions
-that was taken for a different reason. (An earlier depth-2 figure was measured with the
-puzzle-parity bug described below and was withdrawn.)
+is what flipped it. The first explanation came from the move-quality table: the
+fine-tune made the values of ordinary positions worse (blunders 3.1% to 5.0%), and
+depth-2 search is built out of exactly those values, read in the position after each
+candidate move. (An earlier depth-2 figure was measured with the puzzle-parity bug
+described below and was withdrawn.)
 
 The light fine-tune, with the ranking loss at 0.3, sits in between on both counts: 4.2%
 blunders, and on the same 1,000 puzzles **73.2% at depth 1 and 72.6% at depth 2**. In
 order -- no fine-tune, ranking loss at 0.3, ranking loss at 1.0 -- search changes the
 puzzle score by +2.3, -0.6 and -3.4 points while the blunder rate goes 3.1%, 4.2%,
 5.0%. Each of those changes carries a standard error of one to two points on 1,000
-puzzles, so this is a trend, not a proof, but it runs the way the explanation
-predicts.
+puzzles, so this was a trend, not a proof, and it ran the way the explanation predicted.
 
-A fourth point does not fit as neatly. The light fine-tune of the 500M model blunders
-less (3.3%) and still loses 2.1 points to search on the same 1,000 puzzles (77.0% to
-74.9%), more than the 225M one did at 4.2%. That is inside the same noise, and the 500M
-model's own depth-1-against-depth-2 figure before any fine-tune -- the baseline this
-point would need -- has not been measured; until it is, the explanation above stays a
-hypothesis that three points of four agree with.
+The 500M model's figures come from a larger, paired sample: one session put every puzzle
+to the 500M model and its light fine-tune, each at depth 1 and depth 2, before moving to
+the next (`compare_search` in [`src/puzzles_eval.py`](src/puzzles_eval.py),
+[`results/30_search_on_puzzles_500M.json`](results/30_search_on_puzzles_500M.json)),
+7,616 puzzles in all. The fine-tune's figures on the first 1,000, 77.0% and 74.9%, came
+out identical to the earlier session's. Before the fine-tune, search helps: **62.1% to
+64.9% on the first 1,000, and +2.5 points over all 7,616 (standard error 0.24)** -- 271
+puzzles solved only at depth 2, 81 only at depth 1. After the light fine-tune it hurts:
+**-1.1 points (standard error 0.44)**, 520 against 601. By difficulty the losses sit
+where they sat for the 225M full fine-tune, on easy puzzles: search costs the fine-tuned
+model 2.0 points at 500-999 and 4.2 at 1000-1499 and gives it 4.7 at 2000-2499, while
+the model before the fine-tune loses in no band.
+
+That breaks the blunder-rate explanation. The 500M fine-tune blunders 3.3% of the time,
+about as rarely as the 225M model before any fine-tune (3.1%), yet search costs one and
+helps the other: what sets the sign is whether the model was fine-tuned on puzzles, not
+how often it blunders. A reading that fits all five points, not yet tested: the ranking
+loss teaches the model to put the solving move first at the root, while the values of
+the positions after each move -- what depth-2 search reads -- get no such training, so
+search lets values that do not see the tactic overrule a root that does. Easy puzzles,
+where the root alone is enough, lose the most.
 
 [`src/lichess_bot.py`](src/lichess_bot.py) plays the same search online, at depth 2, as
 **`imbotterthanyou`**: rapid **1659** on 8 October 2026. Every game in the bot's log,
@@ -499,10 +523,7 @@ results/             the logs behind the numbers above
 
 ## Still open
 
-- Whether the 500M model's light fine-tune -- with the 225M model's blunder rate -- also
-  plays at the 225M model's level (a match would say)
-- Search on the 500M model's puzzles before any fine-tune (depth 1 against depth 2), the
-  baseline the fourth search point above is missing
+- A test of the root-ranking reading of why search hurts after a puzzle fine-tune
 - A fine-tune with the ranking loss switched off, to split what remains of the cost
   between the ranking loss and the fine-tune itself
 - KV-cache serving for the language-model path (CUDA graphs: worth at most ~7% here,
