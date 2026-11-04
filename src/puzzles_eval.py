@@ -52,7 +52,7 @@ def load_model(ckpt_path: str | Path, device: str):
 
 @torch.no_grad()
 def best_move(model, centres, board: chess.Board, device: str,
-              score_draws: bool = True) -> str:
+              score_draws: bool = True, shared: bool = False) -> str:
     """Highest expected win probability among the legal moves.
 
     The model predicts win probability, which saturates: in a won position every
@@ -70,12 +70,16 @@ def best_move(model, centres, board: chess.Board, device: str,
     moves = [m.uci() for m in board.legal_moves]
     if not moves:
         raise ValueError("no legal moves: the game is already over")
-    state = torch.from_numpy(tokenize_fen(board.fen()).astype(np.int64))
-    x = state.repeat(len(moves), 1)
-    actions = torch.tensor([MOVE_TO_ACTION[m] + ACTION_OFFSET for m in moves], dtype=torch.long)
-    x = torch.cat([x, actions[:, None]], dim=1).to(device)
-    logits, _ = model(x)
-    values = (logits.softmax(-1) * centres).sum(-1)
+    if shared:      # the position's prefix once, then one token per move: exact, faster
+        from .fast_eval import network_values
+        values = torch.from_numpy(network_values(model, centres, [board], [moves], device)[0])
+    else:
+        state = torch.from_numpy(tokenize_fen(board.fen()).astype(np.int64))
+        x = state.repeat(len(moves), 1)
+        actions = torch.tensor([MOVE_TO_ACTION[m] + ACTION_OFFSET for m in moves], dtype=torch.long)
+        x = torch.cat([x, actions[:, None]], dim=1).to(device)
+        logits, _ = model(x)
+        values = (logits.softmax(-1) * centres).sum(-1)
 
     if score_draws:
         for i, uci in enumerate(moves):
@@ -115,18 +119,27 @@ def solves_line(board: chess.Board, moves: list[str], pick) -> bool:
     return True
 
 
-def picker(model, centres, device: str, depth: int):
+def picker(model, centres, device: str, depth: int, shared: bool = False):
     """The move chooser for a depth: the network alone at 1, alpha-beta on top beyond."""
     if depth > 1:
         from .search import Searcher
-        return lambda board: Searcher(model, centres, device).best_move(board, depth)
-    return lambda board: best_move(model, centres, board, device)
+        return lambda board: Searcher(model, centres, device, shared).best_move(board, depth)
+    return lambda board: best_move(model, centres, board, device, shared=shared)
 
 
-def run(ckpt: str, puzzles_csv: str, num: int, device: str, depth: int = 1) -> dict:
-    """depth > 1 puts alpha-beta search on top of the network (src/search.py)."""
+def run(ckpt: str, puzzles_csv: str, num: int, device: str, depth: int = 1,
+        int8: bool = False, out: str | None = None, shared: bool = False) -> dict:
+    """depth > 1 puts alpha-beta search on top of the network (src/search.py).
+
+    `int8` quantizes the Linear layers (CPU only), `shared` computes each position's
+    prefix once (exact, src/fast_eval.py) and `out` keeps one 0/1 per puzzle, so two
+    runs can be paired puzzle by puzzle."""
     model, centres, ck = load_model(ckpt, device)
-    pick = picker(model, centres, device, depth)
+    if int8:
+        from .fast_eval import quantize_int8
+        model = quantize_int8(model)
+    pick = picker(model, centres, device, depth, shared=shared)
+    rows = []
     solved = attempted = 0
     by_rating: dict[str, list[int]] = {}
 
@@ -137,6 +150,7 @@ def run(ckpt: str, puzzles_csv: str, num: int, device: str, depth: int = 1) -> d
             ok = solves_line(chess.Board(row["FEN"]), row["Moves"].split(), pick)
             attempted += 1
             solved += ok
+            rows.append({"id": row.get("PuzzleId"), "rating": int(row["Rating"]), "solved": int(ok)})
             band = f"{int(row['Rating']) // 500 * 500}-{int(row['Rating']) // 500 * 500 + 499}"
             by_rating.setdefault(band, []).append(int(ok))
 
@@ -146,7 +160,11 @@ def run(ckpt: str, puzzles_csv: str, num: int, device: str, depth: int = 1) -> d
     for band in sorted(by_rating, key=lambda b: int(b.split('-')[0])):
         v = by_rating[band]
         print(f"  rating {band:>9}: {sum(v)/len(v)*100:5.1f}%  (n={len(v)})")
-    return {"accuracy": acc, "solved": solved, "attempted": attempted}
+    result = {"accuracy": acc, "solved": solved, "attempted": attempted}
+    if out:
+        Path(out).write_text(json.dumps({**result, "ckpt": str(ckpt), "depth": depth,
+                                         "int8": int8, "shared": shared, "rows": rows}) + "\n")
+    return result
 
 
 def summarise_compare(rows: list[dict], keys: list[str]) -> dict:
@@ -247,8 +265,10 @@ if __name__ == "__main__":
                     help="repeatable: every checkpoint at every --depths, paired by puzzle")
     ap.add_argument("--depths", type=int, nargs="+", default=[1, 2])
     ap.add_argument("--hours", type=float, default=None, help="--compare stops cleanly after this")
-    ap.add_argument("--out", default=None, help="--compare's JSON, rewritten every 100 puzzles")
+    ap.add_argument("--out", default=None, help="--compare's JSON, rewritten every 100 puzzles; run's per-puzzle rows")
     ap.add_argument("--threads", type=int, default=None)
+    ap.add_argument("--int8", action="store_true", help="int8 Linear layers, CPU only")
+    ap.add_argument("--shared", action="store_true", help="share the position prefix (exact, faster)")
     args = ap.parse_args()
     if args.threads:
         torch.set_num_threads(args.threads)
@@ -256,4 +276,4 @@ if __name__ == "__main__":
         compare_search(dict(c.split("=", 1) for c in args.compare), args.puzzles, args.num,
                        args.device, args.depths, args.hours, args.out)
     else:
-        run(args.ckpt, args.puzzles, args.num, args.device, args.depth)
+        run(args.ckpt, args.puzzles, args.num, args.device, args.depth, args.int8, args.out, args.shared)

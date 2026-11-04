@@ -1,0 +1,22 @@
+[cpu] 4 cores | quantized engines ['qnnpack', 'onednn', 'x86', 'fbgemm']
+[bench] 50 positions, 29.0 legal moves on average, 4 CPU threads
+  fp32, plain forward     559.12 ms per position  ( 1.0x)
+  fp32, shared prefix      69.68 ms per position  ( 8.0x)
+  int8, plain forward     436.48 ms per position  ( 1.3x)
+  int8, shared prefix      54.81 ms per position  (10.2x)
+[puzzles] depth 1: 6484/10000 solved = 64.8%  (checkpoint step 268000, val loss 1.9371)
+  rating     0-499: 100.0%  (n=74)
+  rating   500-999:  95.1%  (n=2161)
+  rating 1000-1499:  80.1%  (n=3367)
+  rating 1500-1999:  51.0%  (n=2543)
+  rating 2000-2499:  21.7%  (n=1571)
+  rating 2500-2999:   7.0%  (n=284)
+[cpu] fp32 puzzles in 1203s
+[puzzles] depth 1: 6375/10000 solved = 63.7%  (checkpoint step 268000, val loss 1.9371)
+  rating     0-499: 100.0%  (n=74)
+  rating   500-999:  94.5%  (n=2161)
+  rating 1000-1499:  79.1%  (n=3367)
+  rating 1500-1999:  49.4%  (n=2543)
+  rating 2000-2499:  20.1%  (n=1571)
+  rating 2500-2999:   8.1%  (n=284)
+[cpu] int8 puzzles in 1045s

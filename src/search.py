@@ -44,26 +44,43 @@ import numpy as np
 import torch
 
 from .chess_data import ACTION_OFFSET, MOVE_TO_ACTION, tokenize_fen
+from .fast_eval import network_values
 from .puzzles_eval import load_model
 
 
 class Searcher:
-    def __init__(self, model, centres, device: str) -> None:
+    def __init__(self, model, centres, device: str, shared: bool = False,
+                 leaf_model=None, leaf_centres=None) -> None:
+        """`shared` evaluates the moves of a node with the position's prefix computed
+        once (src/fast_eval.py): exact to float rounding and ~6x faster on CPU.
+
+        `leaf_model` scores every node below the root, `model` only the root: the
+        root's Q(s, a) and the backed-up values can come from different networks.
+        That is the test of whether a fine-tune changed its root ranking or its
+        values of the positions after a move. Without it both are `model`.
+        """
         self.model = model
         self.centres = centres
         self.device = device
+        self.shared = shared
+        self.leaf_model = model if leaf_model is None else leaf_model
+        self.leaf_centres = centres if leaf_centres is None else leaf_centres
         self.nodes = 0
         self.evals = 0
 
     @torch.no_grad()
-    def _q_values(self, board: chess.Board, moves: list[str]) -> np.ndarray:
+    def _q_values(self, board: chess.Board, moves: list[str], root: bool = False) -> np.ndarray:
         """Q(s,a) for every legal move, one batch, terminal states scored exactly."""
         self.evals += 1
-        state = torch.from_numpy(tokenize_fen(board.fen()).astype(np.int64))
-        actions = torch.tensor([MOVE_TO_ACTION[m] + ACTION_OFFSET for m in moves], dtype=torch.long)
-        x = torch.cat([state.repeat(len(moves), 1), actions[:, None]], dim=1).to(self.device)
-        logits, _ = self.model(x)
-        values = (logits.softmax(-1) * self.centres).sum(-1).cpu().numpy().astype(np.float64)
+        model, centres = (self.model, self.centres) if root else (self.leaf_model, self.leaf_centres)
+        if self.shared:
+            values = network_values(model, centres, [board], [moves], self.device)[0]
+        else:
+            state = torch.from_numpy(tokenize_fen(board.fen()).astype(np.int64))
+            actions = torch.tensor([MOVE_TO_ACTION[m] + ACTION_OFFSET for m in moves], dtype=torch.long)
+            x = torch.cat([state.repeat(len(moves), 1), actions[:, None]], dim=1).to(self.device)
+            logits, _ = model(x)
+            values = (logits.softmax(-1) * centres).sum(-1).cpu().numpy().astype(np.float64)
 
         for i, uci in enumerate(moves):
             board.push(chess.Move.from_uci(uci))
@@ -115,7 +132,7 @@ class Searcher:
 
     def best_move(self, board: chess.Board, depth: int = 2) -> str:
         moves = [m.uci() for m in board.legal_moves]
-        q = self._q_values(board, moves)
+        q = self._q_values(board, moves, root=True)
         if depth <= 1:
             return moves[int(q.argmax())]
 
@@ -135,10 +152,10 @@ class Searcher:
         return best_uci
 
 
-def make_player(model, centres, device: str, depth: int):
+def make_player(model, centres, device: str, depth: int, shared: bool = False):
     """A best_move(board) callable at a fixed depth, for play_eval and the bot."""
     def player(board: chess.Board) -> str:
-        return Searcher(model, centres, device).best_move(board, depth)
+        return Searcher(model, centres, device, shared).best_move(board, depth)
     return player
 
 
@@ -148,6 +165,7 @@ if __name__ == "__main__":
     ap.add_argument("--depth", type=int, default=2)
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--positions", type=int, default=20)
+    ap.add_argument("--shared", action="store_true", help="share the position prefix (exact, faster)")
     args = ap.parse_args()
 
     model, centres, _ = load_model(args.ckpt, args.device)
@@ -156,7 +174,7 @@ if __name__ == "__main__":
     for ply in range(args.positions):
         if board.is_game_over():
             break
-        searcher = Searcher(model, centres, args.device)
+        searcher = Searcher(model, centres, args.device, args.shared)
         t = time.time()
         uci = searcher.best_move(board, args.depth)
         dt = time.time() - t

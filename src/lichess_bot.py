@@ -144,9 +144,11 @@ class LichessBot:
         depth = self.depth
         if time_left_ms is not None and time_left_ms < 30_000:
             depth = 1
+        # shared: the position's prefix runs once per node (src/fast_eval.py), the same
+        # moves to float rounding at a sixth of the CPU time.
         if depth <= 1:
-            return best_move(self.model, self.centres, board, self.device)
-        return Searcher(self.model, self.centres, self.device).best_move(board, depth)
+            return best_move(self.model, self.centres, board, self.device, shared=True)
+        return Searcher(self.model, self.centres, self.device, shared=True).best_move(board, depth)
 
     # --- challenges ------------------------------------------------------
     def handle_challenge(self, challenge: dict) -> None:

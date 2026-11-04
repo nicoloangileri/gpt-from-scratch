@@ -15,6 +15,38 @@ two-stage backward follows Triton's `05-layer-norm` tutorial (MIT). The chess ta
 the action-value head, the data path, the search and the bot are this project's.
 Ideas reimplemented from DeepMind's ChessBench are listed in [`NOTICE`](NOTICE).
 
+## In two minutes
+
+A 15M-parameter Transformer, written from scratch, reads a chess position and a move
+and predicts how good the move is. It learned from Stockfish annotations on free
+Kaggle GPUs, and it plays without search: one forward pass per legal move.
+
+- **64.8%** of 10,000 Lichess test puzzles solved after 500M training examples.
+- **77.5%** after a 4-hour fine-tune on other Lichess puzzles.
+- **27.4%** for a ten-line rule that grabs the most valuable hanging piece. Every
+  model trained on fewer than 50M examples scores below it.
+- **1659** rapid on Lichess, as the bot [`imbotterthanyou`](https://lichess.org/@/imbotterthanyou)
+  (alpha-beta at depth 2 on top of the network).
+- **1.86x** training throughput from the second T4 of a Kaggle session, at no extra quota.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="results/curve_dark.svg">
+  <img alt="Puzzle accuracy against training examples seen: flat near 20% up to 20M examples and below the 27.4% heuristic, then 30.3% at 50M, 49.1% at 100M, 60.3% at 225M and 64.8% at 500M; puzzle fine-tunes take the 225M model to 74.6% and the 500M model to 77.5%" src="results/curve_light.svg">
+</picture>
+
+What turned out to be hard:
+
+- **Data buys less each time.** From 50M to 100M examples the score rose 18.8 points,
+  to 225M another 11.2, and to 500M another 4.5.
+- **Search helps until the puzzle fine-tune.** Depth 2 adds 2.5 points (standard
+  error 0.24) to the 500M model and takes 1.1 away (0.44) from its fine-tune, on the
+  same 7,616 puzzles. Why is being tested ([Still open](#still-open)).
+- **The metric was the bug.** For ten days every accuracy here measured the opponent's
+  moves, because the test compared a field with a restatement of itself. A baseline
+  run on the same puzzles is what showed most models were weaker than they looked.
+
+The details, logs and caveats follow.
+
 ## The result
 
 The model reads a chess position and a candidate move and predicts how good the move
@@ -77,12 +109,7 @@ is exactly the move the ten-line rule finds.
 ### The curve
 
 The point of the project is the curve, not the single number -- how much accuracy an
-hour of free GPU buys:
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="results/curve_dark.svg">
-  <img alt="Puzzle accuracy against training examples seen: flat near 20% up to 20M examples and below the 27.4% heuristic, then 30.3% at 50M, 49.1% at 100M, 60.3% at 225M and 64.8% at 500M; puzzle fine-tunes take the 225M model to 74.6% and the 500M model to 77.5%" src="results/curve_light.svg">
-</picture>
+hour of free GPU buys (the plot is at the top):
 
 | model | examples | T4 hours | puzzles solved | val loss |
 |---|---|---|---|---|
@@ -450,6 +477,43 @@ step costs the same whatever the batch; here each card's step fell from 0.537 s 
 gradient all-reduce together -- is at most 0.289 - 0.537/2 = 20 ms of 289, about 7%, and
 that is all CUDA graphs could win. The step is bound by the work itself.
 
+### One position, many moves
+
+Choosing a move means valuing every legal move of the position, about 27 in the
+middle of a game. Done as 27 separate inputs, that is 27 x 78 tokens through the
+network. Attention is causal and the move is the last token, so the 77 position tokens
+never see the move: their hidden states are the same for every move.
+[`src/fast_eval.py`](src/fast_eval.py) runs the position once, keeps each layer's keys
+and values, and then runs every move as a single token that attends to them, 77 + 27
+tokens in all. This is the KV-cache of text generation, used for breadth instead of
+length. It is exact: the logits match the plain forward to float rounding and the
+chosen moves are the same (`tests/test_fast_eval.py`). The bot and the search use it.
+
+Milliseconds per position for the 500M checkpoint on two CPUs, 4 threads each: an
+Apple-silicon Mac (20 positions from random play, 26.8 legal moves on average) and a
+Kaggle CPU session, x86 (50 positions, 29.0 moves;
+[`results/31_int8_cpu_session.log`](results/31_int8_cpu_session.log)):
+
+| | Mac, ARM | speed-up | Kaggle, x86 | speed-up |
+|---|---|---|---|---|
+| fp32, plain forward | 60.1 | 1.0x | 559.1 | 1.0x |
+| fp32, shared prefix | **9.6** | **6.3x** | **69.7** | **8.0x** |
+| int8 Linear layers, plain | 186.0 | 0.3x | 436.5 | 1.3x |
+| int8 Linear layers, shared prefix | 15.3 | 3.9x | 54.8 | 10.2x |
+
+The shared prefix gives the same answers: on Kaggle's CPU it solved the same 6,484 of
+the 10,000 puzzles as the plain forward on a GPU (results/24). int8 dynamic
+quantization is slower than fp32 on ARM, where PyTorch falls back to the qnnpack
+kernels, and 1.27x faster on x86 with fbgemm. It is not free:
+**63.75% of the puzzles against 64.84%**, 161 solved only by int8 and 270 only by
+fp32, -1.09 points with a standard error of 0.21
+([`results/31_puzzles_500M_int8_shared_cpu.json`](results/31_puzzles_500M_int8_shared_cpu.json),
+paired with the fp32 file next to it). End to end, with the board logic included, the
+10,000 puzzles took 1,045 s instead of 1,203 s. A point of accuracy for 13% of wall
+clock is a bad trade for the bot, so it stays in fp32 with the prefix shared. ONNX was
+not tried: the 6-8x comes from running fewer tokens, and a different runtime would
+not change that.
+
 ## What was learned the hard way
 
 Documented because the mistakes were more instructive than the successes:
@@ -511,6 +575,8 @@ src/puzzles_eval.py  Lichess puzzle accuracy
 src/puzzle_data.py   Lichess puzzle database -> a ranking task (held-out ids excluded)
 src/agreement_eval.py  per-move agreement with Stockfish
 src/search.py        alpha-beta on top of the network
+src/fast_eval.py     every move of a position at the cost of one (shared prefix), int8
+src/root_ranking.py  root/leaf swap and rank diagnostic for search after a fine-tune
 src/match.py         head-to-head matches between two checkpoints, Elo with an interval
 src/lichess_bot.py   plays online; token from the environment or an owner-only file
 src/kernels/         fused LayerNorm in Triton + its bench
@@ -523,8 +589,12 @@ results/             the logs behind the numbers above
 
 ## Still open
 
-- A test of the root-ranking reading of why search hurts after a puzzle fine-tune
-- A fine-tune with the ranking loss switched off, to split what remains of the cost
-  between the ranking loss and the fine-tune itself
+- **Running:** a test of the root-ranking reading of why search hurts after a puzzle
+  fine-tune ([`src/root_ranking.py`](src/root_ranking.py)). At depth 2 a move is worth
+  min(Q at the root, value backed up from the leaves), so the two can come from
+  different networks: the fine-tune's root with the base model's leaves, and the
+  reverse. The same pass records where the solving move ranks by each value.
+- **Running:** the same fine-tune with the ranking loss switched off, to split the
+  cost between the ranking loss and the fine-tune itself.
 - KV-cache serving for the language-model path (CUDA graphs: worth at most ~7% here,
   see Systems)

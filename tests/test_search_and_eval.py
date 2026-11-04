@@ -39,7 +39,7 @@ def material_q(board: chess.Board, moves: list[str]) -> np.ndarray:
 
 def searcher_with(q_fn) -> Searcher:
     s = Searcher(model=None, centres=None, device="cpu")
-    s._q_values = q_fn
+    s._q_values = lambda board, moves, root=False: q_fn(board, moves)
     return s
 
 
