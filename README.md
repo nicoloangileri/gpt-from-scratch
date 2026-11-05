@@ -649,6 +649,9 @@ results/             the logs behind the numbers above
   leaves), the best puzzle configuration: 400 starting positions at depth 2 against the
   500M model alone, which is what decides whether the bot should run it
   ([`kaggle_chess/build_distill_hybrid.py`](kaggle_chess/build_distill_hybrid.py)).
+- **Running:** what a ply is worth in games: the 500M model at depth 3 against itself at
+  depth 2, on the same 200 starting positions, with each side's seconds per move
+  ([`kaggle_chess/build_match_depth.py`](kaggle_chess/build_match_depth.py)).
 - **Running:** a fine-tune that keeps the leaves: the light fine-tune again with
   KL(500M || student) over the buckets added on every ordinary batch (`distill_from`
   in [`configs/chess.yaml`](configs/chess.yaml)), so the root learns the puzzles

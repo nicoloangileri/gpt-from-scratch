@@ -20,7 +20,13 @@ close ones. A direct match answers it in one evening, the way engine testers do:
 A side can search with two networks, one for the root and one for the leaves
 (`--a_leaf`, `--b_leaf`): the configuration src/root_ranking.py found best on puzzles.
 `--onepass` plays depth 1 and 2 with src/root_ranking.py's player, the same moves as
-src/search.py in two network calls per move.
+src/search.py in two network calls per move; deeper sides use src/search.py with the
+prefix shared.
+
+The two sides can search to different depths (`--a_depth`, `--b_depth`), which is what
+a depth is worth in games, and the seconds per move of each side are recorded, which
+is whether it fits a clock. `--slice i/n` plays every n-th position from the i-th, so
+n cards share one list of positions and a cut leaves each with an even sample of it.
 """
 from __future__ import annotations
 
@@ -54,6 +60,28 @@ def summarise(results: list[float]) -> dict:
     return {"games": n, "wins": int((x == 1).sum()), "draws": int((x == 0.5).sum()),
             "losses": int((x == 0).sum()), "score": s, "elo": elo_from_score(s),
             "elo_low": elo_from_score(lo), "elo_high": elo_from_score(hi)}
+
+
+def move_times(times: list[float], calls: list[int] | None = None) -> dict:
+    """Seconds per move of one side: the tail matters, a clock is lost on the worst."""
+    if not times:
+        return {"moves": 0}
+    t = np.asarray(times)
+    out = {"moves": len(t), "mean_s": float(t.mean()), "median_s": float(np.median(t)),
+           "p90_s": float(np.quantile(t, 0.9)), "p99_s": float(np.quantile(t, 0.99)),
+           "max_s": float(t.max())}
+    if calls:
+        out["network_calls_mean"] = float(np.mean(calls))
+    return out
+
+
+def timed(player, times: list[float]):
+    def inner(board: chess.Board) -> str:
+        t = time.perf_counter()
+        move = player(board)
+        times.append(time.perf_counter() - t)
+        return move
+    return inner
 
 
 def balanced_positions(bag: str, count: int, seed: int = 0,
@@ -140,8 +168,13 @@ def main() -> None:
     ap.add_argument("--a_leaf", default=None, help="leaves for A's search (default: A)")
     ap.add_argument("--b_leaf", default=None, help="leaves for B's search (default: B)")
     ap.add_argument("--onepass", action="store_true",
-                    help="depth 1-2 in two batched network calls per move (same moves)")
+                    help="depth 1-2 in two batched network calls per move (same moves), "
+                         "deeper with the prefix shared")
     ap.add_argument("--depth", type=int, default=1)
+    ap.add_argument("--a_depth", type=int, default=None, help="A's depth (default: --depth)")
+    ap.add_argument("--b_depth", type=int, default=None, help="B's depth (default: --depth)")
+    ap.add_argument("--slice", default="0/1", metavar="I/N",
+                    help="play positions[I::N]: the share of one of N parallel jobs")
     ap.add_argument("--positions", type=int, default=100, help="each is played twice")
     ap.add_argument("--bag", default="data/chessbench/action_value_test.bag")
     ap.add_argument("--threads", type=int, default=2, help="keep the laptop usable")
@@ -160,28 +193,37 @@ def main() -> None:
     from .root_ranking import make_onepass_player
     from .search import make_player
 
-    positions = balanced_positions(args.bag, args.positions, args.seed)
-    players = []
-    for ckpt, leaf_ckpt in ((args.a, args.a_leaf), (args.b, args.b_leaf)):
+    i, n = (int(v) for v in args.slice.split("/"))
+    positions = balanced_positions(args.bag, args.positions, args.seed)[i::n]
+    a_depth = args.depth if args.a_depth is None else args.a_depth
+    b_depth = args.depth if args.b_depth is None else args.b_depth
+    players, times, calls = [], ([], []), ([], [])
+    for k, (ckpt, leaf_ckpt, depth) in enumerate(((args.a, args.a_leaf, a_depth),
+                                                  (args.b, args.b_leaf, b_depth))):
         model, centres, _ = load_model(ckpt, args.device)
         leaf = load_model(leaf_ckpt, args.device)[:2] if leaf_ckpt else None
-        if args.onepass:
-            players.append(make_onepass_player((model, centres), leaf, args.device, args.depth))
+        if args.onepass and depth <= 2:
+            player = make_onepass_player((model, centres), leaf, args.device, depth)
         else:
-            players.append(make_player(model, centres, args.device, args.depth,
-                                       leaf_model=leaf[0] if leaf else None,
-                                       leaf_centres=leaf[1] if leaf else None))
+            player = make_player(model, centres, args.device, depth, shared=args.onepass,
+                                 leaf_model=leaf[0] if leaf else None,
+                                 leaf_centres=leaf[1] if leaf else None, nodes=calls[k])
+        players.append(timed(player, times[k]))
     print(f"[match] A = {args.a}" + (f" (leaves {args.a_leaf})" if args.a_leaf else "")
           + f"\n[match] B = {args.b}" + (f" (leaves {args.b_leaf})" if args.b_leaf else "")
-          + f"\n[match] depth {args.depth}{', one pass' if args.onepass else ''}, "
+          + f"\n[match] depth {a_depth} against {b_depth}"
+          + f"{', one pass' if args.onepass else ''}, slice {args.slice}, "
           f"{len(positions)} positions x 2 colours, {args.threads} threads", flush=True)
 
     t = time.time()
 
     def report(results):
         summary = {"a": args.a, "b": args.b, "a_leaf": args.a_leaf, "b_leaf": args.b_leaf,
-                   "onepass": args.onepass, "depth": args.depth, "seed": args.seed,
-                   "seconds": round(time.time() - t), **summarise(results)}
+                   "onepass": args.onepass, "depth": args.depth, "a_depth": a_depth,
+                   "b_depth": b_depth, "slice": args.slice, "seed": args.seed,
+                   "seconds": round(time.time() - t), **summarise(results),
+                   "a_time": move_times(times[0], calls[0]),
+                   "b_time": move_times(times[1], calls[1]), "results": results}
         if args.out:                  # rewritten after every position: a cut keeps them
             Path(args.out).write_text(json.dumps(summary, indent=1) + "\n")
         return summary

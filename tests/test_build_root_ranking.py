@@ -131,3 +131,22 @@ def test_the_distilled_fine_tune_is_w03_plus_the_teacher(dh_nb):
 def test_a_quota_too_short_for_the_distilled_fine_tune_is_refused(tmp_path):
     with pytest.raises(SystemExit):
         dh.build(6.0, tmp_path)
+
+
+# --- the depth match ---------------------------------------------------------------
+import build_match_depth as md  # noqa: E402
+
+
+def test_depth_match_notebook_parses_and_is_a_new_kernel(tmp_path):
+    md.build(9.0, tmp_path)
+    cells = _cells(tmp_path / "match_depth_kernel.ipynb")
+    for c in cells:
+        ast.parse(c)
+    meta = json.loads((tmp_path / "kernel-metadata.json").read_text())
+    assert meta["id"] == md.KERNEL_ID
+    assert meta["id"] not in EARLIER_KERNELS | {rr.KERNEL_ID, cpu.KERNEL_ID, dh.KERNEL_ID}
+    assert meta["enable_gpu"] and meta["kernel_sources"] == [md.BASE_KERNEL]
+    run = cells[-1]
+    for flag in ('"--a_depth", "3"', '"--b_depth", "2"', '"--onepass"', '"--seed", "0"',
+                 '"--positions", "200"', '"--slice", f"{card}/2"', 'str(card)'):
+        assert flag in run, flag

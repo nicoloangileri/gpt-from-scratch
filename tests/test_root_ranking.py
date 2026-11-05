@@ -164,3 +164,35 @@ def test_match_wires_the_leaves_and_the_onepass_player(monkeypatch, tmp_path):
     assert seen["black"][0] == plain_b and seen["white"][1] == plain_b
     summary = json.loads(out.read_text())
     assert summary["a_leaf"] == "b.pt" and summary["onepass"] and summary["games"] == 2
+
+
+def test_match_gives_each_side_its_depth_and_times_it(monkeypatch, tmp_path):
+    """The depth match: A at 3, B at 2, the same network. A's moves must be the
+    depth-3 search's, B's the depth-2 search's, and the slice must pick its share."""
+    import json
+    import sys
+
+    from src import match, puzzles_eval
+    monkeypatch.setattr(puzzles_eval, "load_model", lambda p, d: (A, CENTRES, {}))
+    monkeypatch.setattr(match, "balanced_positions", lambda bag, n, seed: POSITIONS[:n])
+    seen = []
+
+    def one_move_each(start, white, black, max_plies=300):
+        seen.append((start, white(chess.Board(start)), black(chess.Board(start))))
+        return 1.0
+    monkeypatch.setattr(match, "play", one_move_each)
+    out = tmp_path / "m.json"
+    monkeypatch.setattr(sys, "argv", ["match", "--a", "a.pt", "--b", "a.pt", "--a_depth", "3",
+                                      "--b_depth", "2", "--positions", "4", "--slice", "1/2",
+                                      "--onepass", "--threads", "1", "--out", str(out)])
+    match.main()
+    assert [s[0] for s in seen[::2]] == POSITIONS[1:4:2]        # the second and the fourth
+    d3 = lambda fen: Searcher(A, CENTRES, "cpu").best_move(chess.Board(fen), 3)
+    d2 = lambda fen: Searcher(A, CENTRES, "cpu").best_move(chess.Board(fen), 2)
+    assert seen[0][1] == d3(seen[0][0]) and seen[0][2] == d2(seen[0][0])  # A is white
+    assert seen[1][2] == d3(seen[1][0]) and seen[1][1] == d2(seen[1][0])  # A is black
+    summary = json.loads(out.read_text())
+    assert (summary["a_depth"], summary["b_depth"], summary["slice"]) == (3, 2, "1/2")
+    assert summary["a_time"]["moves"] == 4 and summary["b_time"]["moves"] == 4
+    assert summary["a_time"]["network_calls_mean"] > 2      # depth 2 here makes two calls
+    assert summary["results"] == [1.0, 0.0, 1.0, 0.0]       # A's side of white's wins

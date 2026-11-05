@@ -153,11 +153,15 @@ class Searcher:
 
 
 def make_player(model, centres, device: str, depth: int, shared: bool = False,
-                leaf_model=None, leaf_centres=None):
-    """A best_move(board) callable at a fixed depth, for play_eval and the bot."""
+                leaf_model=None, leaf_centres=None, nodes: list | None = None):
+    """A best_move(board) callable at a fixed depth, for play_eval and the bot.
+    `nodes`, if given, collects the network calls of every move."""
     def player(board: chess.Board) -> str:
-        return Searcher(model, centres, device, shared, leaf_model,
-                        leaf_centres).best_move(board, depth)
+        searcher = Searcher(model, centres, device, shared, leaf_model, leaf_centres)
+        move = searcher.best_move(board, depth)
+        if nodes is not None:
+            nodes.append(searcher.evals)
+        return move
     return player
 
 
