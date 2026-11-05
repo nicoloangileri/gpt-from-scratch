@@ -38,9 +38,11 @@ What turned out to be hard:
 
 - **Data buys less each time.** From 50M to 100M examples the score rose 18.8 points,
   to 225M another 11.2, and to 500M another 4.5.
-- **Search helps until the puzzle fine-tune.** Depth 2 adds 2.5 points (standard
-  error 0.24) to the 500M model and takes 1.1 away (0.44) from its fine-tune, on the
-  same 7,616 puzzles. Why is being tested ([Still open](#still-open)).
+- **Search helps until the puzzle fine-tune.** Depth 2 adds 2.3 points (standard
+  error 0.22) to the 500M model and takes 1.2 away (0.39) from its fine-tune, on the
+  same 10,000 puzzles. The fine-tune's leaves are the cause: under the fine-tune's root
+  the base model's leaves turn the loss into a 0.7-point gain (0.35), and 78.2% solved
+  ([Search](#search-and-the-lichess-bot)).
 - **The metric was the bug.** For ten days every accuracy here measured the opponent's
   moves, because the test compared a field with a restatement of itself. A baseline
   run on the same puzzles is what showed most models were weaker than they looked.
@@ -124,6 +126,7 @@ hour of free GPU buys (the plot is at the top):
 | 15M | **500M** | 23.8 on two T4s | **64.8%** | **1.9371** |
 | 15M | 225M + 12k puzzle steps | 4.2 | 74.6% | 2.0562 |
 | 15M | 500M + 12k puzzle steps, ranking at 0.3 | 4.1 | **77.5%** | 1.9395 |
+| 15M | 500M + the same 12k steps, no puzzles | 2.3 | 64.9% | 1.9287 |
 | 60M | 14.6M | 9.5 (whole run) | 21.4% | 2.986 |
 
 Every row is measured on all 10,000 puzzles, in one Kaggle session with one evaluator
@@ -173,6 +176,7 @@ position of ChessBench's test shard -- 61,833 positions, 1.84M scored moves
 | 225M + light puzzle fine-tune | 44.4% | 47.7% | 72.0% | 0.628 | 2.7 pts | 4.2% |
 | **500M** | **48.2%** | **51.7%** | **76.8%** | **0.660** | **1.9 pts** | **2.3%** |
 | 500M + light puzzle fine-tune | 47.0% | 50.4% | 74.7% | 0.653 | 2.2 pts | 3.3% |
+| 500M + the same steps, no puzzles | 48.5% | 51.9% | 76.9% | 0.662 | 1.9 pts | 2.2% |
 
 Action accuracy and Kendall's tau (tau-b, over all legal moves, averaged per position)
 are the two metrics the ChessBench paper uses in its ablations. Action accuracy is the
@@ -198,14 +202,24 @@ extra blunders: 4.2% instead of 5.0%, still 35% more than the 225M model's 3.1%
 training logs of both runs are next to it). The blunder differences are 6 to 10
 standard errors wide even without pairing the models position by position; the
 0.8-point action-accuracy drop is about 3. It is one training run per weight, and a
-fine-tune with no ranking loss at all has not been run, so how much of what remains is
-the cost of the ranking loss and how much the cost of fine-tuning at all is open.
+fine-tune with no ranking loss at all was not run on the 225M model; on the 500M one it
+was, below, and it says the cost is the ranking loss's.
 
 The same light fine-tune on the 500M model behaves the same way
 ([`results/26_puzzle_finetune_500M_w0.3.json`](results/26_puzzle_finetune_500M_w0.3.json)):
 12.7 points on puzzles (64.8% to 77.5%), for action accuracy down 1.2 and blunders up
 from 2.3% to 3.3% -- where the 225M model was before any fine-tune. Its validation loss
 took the same detour, up 0.10 in the first thousand steps and back by the end.
+
+The control is the same fine-tune with the puzzles taken out: same start, same three
+shards of ChessBench positions, same 12,000 steps, batch, learning rate and schedule, only
+no puzzle batch and so no ranking loss
+([`results/32_finetune_500M_w0.json`](results/32_finetune_500M_w0.json)). It solves
+**64.9%** of the puzzles, against 64.8% before: +0.05 points, standard error 0.28,
+paired, 407 puzzles gained and 402 lost. Move by move it is the 500M model again or a
+hair better (last row of the table). So all 12.7 points of the light fine-tune, and all
+of its cost in ordinary positions, belong to the ranking loss; the extra steps on fresh
+positions bought nothing measurable.
 
 And they cost games. In a head-to-head match without search
 ([`src/match.py`](src/match.py): balanced middlegame starts from the held-out test shard,
@@ -341,11 +355,53 @@ the model before the fine-tune loses in no band.
 That breaks the blunder-rate explanation. The 500M fine-tune blunders 3.3% of the time,
 about as rarely as the 225M model before any fine-tune (3.1%), yet search costs one and
 helps the other: what sets the sign is whether the model was fine-tuned on puzzles, not
-how often it blunders. A reading that fits all five points, not yet tested: the ranking
-loss teaches the model to put the solving move first at the root, while the values of
-the positions after each move -- what depth-2 search reads -- get no such training, so
+how often it blunders. The reading that fitted all five points: the ranking loss
+teaches the model to put the solving move first at the root, while the values of the
+positions after each move -- what depth-2 search reads -- get no such training, so
 search lets values that do not see the tactic overrule a root that does. Easy puzzles,
 where the root alone is enough, lose the most.
+
+**The test** ([`src/root_ranking.py`](src/root_ranking.py),
+[`results/32_root_ranking_500M_w03.json`](results/32_root_ranking_500M_w03.json)). At
+depth 2 a move is worth min(Q at the root, value backed up from the position after it),
+and nothing forces the two to come from the same network. Depth-1 children never prune,
+so the depth-2 choice can be read off one evaluation of every root move and every child
+for each network, and every pairing scored at once. That shortcut is checked against
+the search itself: the four same-network configurations reproduce results/30 on all
+7,616 of its puzzles, puzzle by puzzle, and the w0 checkpoint's depth 1 matches its own
+`puzzles_eval` run on all 10,000. On the 10,000 puzzles, paired:
+
+| root | leaves | solved | against the root alone |
+|---|---|---|---|
+| 500M | none (depth 1) | 64.8% | |
+| 500M | 500M | 67.2% | +2.3 (0.22) |
+| 500M | fine-tune | 66.7% | +1.8; -0.5 (0.24) against its own leaves |
+| fine-tune | none (depth 1) | 77.5% | |
+| fine-tune | fine-tune | 76.3% | -1.2 (0.39) |
+| fine-tune | 500M | **78.2%** | +0.7 (0.35); +1.9 (0.32) against its own leaves |
+
+The base model's leaves under the fine-tune's root recover 1.9 points, and they were
+trained on no more puzzles than the fine-tune's. So the leaves are not merely untrained:
+the fine-tune made them worse. The ranks say the same at each puzzle's first solver move.
+By Q at the root the fine-tune puts the solution first 86.9% of the time against the base
+model's 75.9%; by the backed-up value alone, 81.8% against 84.1%. All of its gain is at
+the root, and the value it backs up from the next position got worse -- which is where
+the move-by-move table had put the cost, in ordinary positions.
+
+The no-puzzle control settles the remaining question: fine-tuning by itself does not turn
+search against the network. Its depth 2 gains 2.5 points (0.21), like the base model's,
+its backed-up value ranks the solution first 84.8% of the time, and swapping its leaves
+with the base model's changes nothing (-0.05 and +0.12, standard errors 0.16)
+([`results/32_root_ranking_500M_w0.json`](results/32_root_ranking_500M_w0.json)).
+
+Two things the reading did not predict. Good leaves help a strong root less: +0.7 under
+the fine-tune's root against +2.3 under the base model's, and easy puzzles still lose a
+little (99.2% to 98.6% at 500-999, 93.9% to 91.3% at 1000-1499) while 2000-2499 gains
+6.4 points. And the blunder rate was the right kind of quantity compared across the wrong
+pair: the fine-tune's leaves blunder about as often as the 225M model's, but what decides
+the sign is how they compare with the root they can overrule. The hybrid, 78.2%, is the
+best puzzle score here, two standard errors over the fine-tune alone; it has not played
+a game yet.
 
 [`src/lichess_bot.py`](src/lichess_bot.py) plays the same search online, at depth 2, as
 **`imbotterthanyou`**: rapid **1659** on 8 October 2026. Every game in the bot's log,
@@ -589,12 +645,11 @@ results/             the logs behind the numbers above
 
 ## Still open
 
-- **Running:** a test of the root-ranking reading of why search hurts after a puzzle
-  fine-tune ([`src/root_ranking.py`](src/root_ranking.py)). At depth 2 a move is worth
-  min(Q at the root, value backed up from the leaves), so the two can come from
-  different networks: the fine-tune's root with the base model's leaves, and the
-  reverse. The same pass records where the solving move ranks by each value.
-- **Running:** the same fine-tune with the ranking loss switched off, to split the
-  cost between the ranking loss and the fine-tune itself.
+- Games for the hybrid search (the fine-tune's root, the 500M model's leaves): it is
+  the best puzzle configuration, and a match at depth 2 against the 500M model alone
+  is what would decide whether the bot should run it.
+- A fine-tune that keeps the leaves: the ranking loss with the 500M model's values as
+  a distillation target on ordinary positions, so the root learns the puzzles without
+  the backed-up values getting worse.
 - KV-cache serving for the language-model path (CUDA graphs: worth at most ~7% here,
   see Systems)

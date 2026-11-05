@@ -1,0 +1,381 @@
+/usr/local/lib/python3.13/dist-packages/nbformat/validator.py:434: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  _validate(nbdict, ref, version, version_minor, relax_add_props)
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/puzzle_data.py', 'src/search.py', 'src/agreement_eval.py', 'src/match.py', 'src/fast_eval.py', 'src/root_ranking.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'configs/chess.yaml']
+[session] 500M /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt | w0.3 /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03/checkpoints/chess_best.pt
+[session] card 1 started 0.00h in, jobs end at 5.92h
+[data] shard 1/3 downloaded in 8s
+[chess] 1,000,000 records
+[chess] 2,000,000 records
+[root] [root] 100 puzzles, 0.01h: 500M@1 69.0%  500M@2 71.0%  500M_w03@1 80.0%  500M_w03@2 83.0%  500M/500M_w03@2 73.0%  500M_w03/500M@2 82.0%
+[chess] 3,000,000 records
+[chess] 4,000,000 records
+[chess] 5,000,000 records
+[root] [root] 200 puzzles, 0.03h: 500M@1 62.5%  500M@2 67.0%  500M_w03@1 81.0%  500M_w03@2 79.5%  500M/500M_w03@2 67.5%  500M_w03/500M@2 82.0%
+[chess] 6,000,000 records
+[chess] 7,000,000 records
+[chess] 8,000,000 records
+[root] [root] 300 puzzles, 0.04h: 500M@1 61.7%  500M@2 66.0%  500M_w03@1 78.3%  500M_w03@2 75.7%  500M/500M_w03@2 64.3%  500M_w03/500M@2 80.0%
+[chess] 9,000,000 records
+[chess] 10,000,000 records
+[chess] 11,000,000 records
+[root] [root] 400 puzzles, 0.06h: 500M@1 62.0%  500M@2 65.8%  500M_w03@1 78.2%  500M_w03@2 75.0%  500M/500M_w03@2 64.5%  500M_w03/500M@2 79.5%
+[chess] 12,000,000 records
+[chess] 13,000,000 records
+[chess] 14,000,000 records
+[root] [root] 500 puzzles, 0.07h: 500M@1 62.6%  500M@2 65.2%  500M_w03@1 78.0%  500M_w03@2 74.8%  500M/500M_w03@2 64.8%  500M_w03/500M@2 79.8%
+[chess] 15,000,000 records
+[chess] 16,000,000 records
+[root] [root] 600 puzzles, 0.08h: 500M@1 62.2%  500M@2 64.7%  500M_w03@1 77.2%  500M_w03@2 74.2%  500M/500M_w03@2 64.0%  500M_w03/500M@2 79.8%
+[data] shard 2/3 downloaded in 12s
+[chess] 17,000,000 records
+[chess] 18,000,000 records
+[chess] 19,000,000 records
+[root] [root] 700 puzzles, 0.10h: 500M@1 62.7%  500M@2 65.3%  500M_w03@1 77.9%  500M_w03@2 74.9%  500M/500M_w03@2 64.6%  500M_w03/500M@2 80.6%
+[chess] 20,000,000 records
+[chess] 21,000,000 records
+[chess] 22,000,000 records
+[root] [root] 800 puzzles, 0.11h: 500M@1 62.6%  500M@2 65.2%  500M_w03@1 76.9%  500M_w03@2 75.0%  500M/500M_w03@2 64.8%  500M_w03/500M@2 79.6%
+[chess] 23,000,000 records
+[chess] 24,000,000 records
+[chess] 25,000,000 records
+[root] [root] 900 puzzles, 0.12h: 500M@1 62.1%  500M@2 64.9%  500M_w03@1 76.9%  500M_w03@2 74.9%  500M/500M_w03@2 64.4%  500M_w03/500M@2 79.0%
+[chess] 26,000,000 records
+[chess] 27,000,000 records
+[chess] 28,000,000 records
+[root] [root] 1000 puzzles, 0.14h: 500M@1 62.1%  500M@2 64.9%  500M_w03@1 77.0%  500M_w03@2 74.9%  500M/500M_w03@2 64.3%  500M_w03/500M@2 78.9%
+[chess] 29,000,000 records
+[chess] 30,000,000 records
+[chess] 31,000,000 records
+[root] [root] 1100 puzzles, 0.15h: 500M@1 62.0%  500M@2 64.8%  500M_w03@1 76.3%  500M_w03@2 74.9%  500M/500M_w03@2 64.2%  500M_w03/500M@2 78.7%
+[chess] 32,000,000 records
+[chess] 33,000,000 records
+[chess] 34,000,000 records
+[root] [root] 1200 puzzles, 0.16h: 500M@1 62.3%  500M@2 65.2%  500M_w03@1 76.7%  500M_w03@2 75.2%  500M/500M_w03@2 64.2%  500M_w03/500M@2 79.1%
+[chess] 35,000,000 records
+[chess] 36,000,000 records
+[chess] 37,000,000 records
+[root] [root] 1300 puzzles, 0.18h: 500M@1 62.1%  500M@2 65.1%  500M_w03@1 76.9%  500M_w03@2 75.1%  500M/500M_w03@2 64.0%  500M_w03/500M@2 79.2%
+[data] shard 3/3 downloaded in 6s
+[chess] 38,000,000 records
+[chess] 39,000,000 records
+[chess] 40,000,000 records
+[root] [root] 1400 puzzles, 0.19h: 500M@1 62.2%  500M@2 65.2%  500M_w03@1 77.0%  500M_w03@2 75.1%  500M/500M_w03@2 64.2%  500M_w03/500M@2 79.2%
+[chess] 41,000,000 records
+[chess] 42,000,000 records
+[chess] 43,000,000 records
+[root] [root] 1500 puzzles, 0.21h: 500M@1 62.1%  500M@2 65.0%  500M_w03@1 76.9%  500M_w03@2 75.1%  500M/500M_w03@2 64.3%  500M_w03/500M@2 79.1%
+[chess] 44,000,000 records
+[chess] 45,000,000 records
+[root] [root] 1600 puzzles, 0.22h: 500M@1 62.5%  500M@2 65.4%  500M_w03@1 77.0%  500M_w03@2 75.4%  500M/500M_w03@2 65.1%  500M_w03/500M@2 79.1%
+[chess] 46,000,000 records
+[chess] 47,000,000 records
+[chess] 48,000,000 records
+[chess] 49,000,000 records
+[root] [root] 1700 puzzles, 0.24h: 500M@1 62.3%  500M@2 65.4%  500M_w03@1 76.9%  500M_w03@2 75.3%  500M/500M_w03@2 65.2%  500M_w03/500M@2 79.0%
+[chess] 50,000,000 records
+[chess] {'train': 50121317, 'val': 200000, 'skipped': 0, 'num_buckets': 64, 'vocab': 1999}
+[data] packed in 878s
+[ram] 30.8 GB available, train states 3.9 GB -> in RAM
+[session] training budget 4.17h
+[amp] bf16 unsupported on Tesla T4 -> using fp16
+[data] train 50,121,317 | val 200,000 samples | in RAM: True
+[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': False, 'causal': True, 'num_classes': 64}
+[init] weights from /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt (its step 268000), fresh schedule
+W1104 18:14:15.802000 23 torch/_inductor/utils.py:1731] [0/0] Not enough SMs to use max_autotune_gemm mode
+W1104 18:14:15.802000 23 torch/_inductor/utils.py:1731] [0/0] Not enough SMs to use max_autotune_gemm mode
+step      0 | train 1.9375 | val 1.9346 | val acc 32.3% | 21s
+[root] [root] 1800 puzzles, 0.25h: 500M@1 62.6%  500M@2 65.8%  500M_w03@1 76.9%  500M_w03@2 75.6%  500M/500M_w03@2 65.6%  500M_w03/500M@2 79.1%
+[root] [root] 1900 puzzles, 0.27h: 500M@1 62.8%  500M@2 66.1%  500M_w03@1 77.1%  500M_w03@2 75.9%  500M/500M_w03@2 65.9%  500M_w03/500M@2 79.2%
+[root] [root] 2000 puzzles, 0.28h: 500M@1 62.7%  500M@2 65.8%  500M_w03@1 76.9%  500M_w03@2 75.8%  500M/500M_w03@2 65.7%  500M_w03/500M@2 79.0%
+  step 250 | loss 1.9573 | lr 1.00e-04 | 1,643 samples/s | MFU 18.3%
+[root] [root] 2100 puzzles, 0.29h: 500M@1 63.3%  500M@2 66.4%  500M_w03@1 77.1%  500M_w03@2 76.0%  500M/500M_w03@2 66.1%  500M_w03/500M@2 79.1%
+[root] [root] 2200 puzzles, 0.31h: 500M@1 63.3%  500M@2 66.3%  500M_w03@1 77.0%  500M_w03@2 75.9%  500M/500M_w03@2 66.1%  500M_w03/500M@2 79.0%
+[root] [root] 2300 puzzles, 0.32h: 500M@1 63.4%  500M@2 66.3%  500M_w03@1 77.1%  500M_w03@2 76.0%  500M/500M_w03@2 66.3%  500M_w03/500M@2 79.0%
+[root] [root] 2400 puzzles, 0.34h: 500M@1 63.2%  500M@2 66.1%  500M_w03@1 77.0%  500M_w03@2 75.9%  500M/500M_w03@2 65.9%  500M_w03/500M@2 78.8%
+  step 500 | loss 2.0064 | lr 9.99e-05 | 1,646 samples/s | MFU 18.3%
+[root] [root] 2500 puzzles, 0.35h: 500M@1 63.3%  500M@2 66.2%  500M_w03@1 76.8%  500M_w03@2 76.0%  500M/500M_w03@2 66.1%  500M_w03/500M@2 79.0%
+[root] [root] 2600 puzzles, 0.36h: 500M@1 63.2%  500M@2 66.0%  500M_w03@1 76.5%  500M_w03@2 75.8%  500M/500M_w03@2 65.8%  500M_w03/500M@2 78.7%
+[root] [root] 2700 puzzles, 0.38h: 500M@1 63.2%  500M@2 66.1%  500M_w03@1 76.3%  500M_w03@2 75.6%  500M/500M_w03@2 65.8%  500M_w03/500M@2 78.7%
+  step 750 | loss 2.0823 | lr 9.96e-05 | 1,595 samples/s | MFU 17.8%
+[root] [root] 2800 puzzles, 0.39h: 500M@1 63.5%  500M@2 66.3%  500M_w03@1 76.4%  500M_w03@2 75.6%  500M/500M_w03@2 65.9%  500M_w03/500M@2 78.7%
+[root] [root] 2900 puzzles, 0.40h: 500M@1 63.7%  500M@2 66.5%  500M_w03@1 76.3%  500M_w03@2 75.7%  500M/500M_w03@2 66.1%  500M_w03/500M@2 78.7%
+[root] [root] 3000 puzzles, 0.42h: 500M@1 63.8%  500M@2 66.6%  500M_w03@1 76.4%  500M_w03@2 75.7%  500M/500M_w03@2 66.0%  500M_w03/500M@2 78.7%
+step   1000 | train 2.0322 | val 2.0224 | val acc 30.2% | 665s
+  step 1000 | loss 1.9899 | lr 9.91e-05 | 1,631 samples/s | MFU 18.2%
+[root] [root] 3100 puzzles, 0.43h: 500M@1 63.6%  500M@2 66.5%  500M_w03@1 76.3%  500M_w03@2 75.7%  500M/500M_w03@2 65.9%  500M_w03/500M@2 78.5%
+[root] [root] 3200 puzzles, 0.44h: 500M@1 63.7%  500M@2 66.5%  500M_w03@1 76.3%  500M_w03@2 75.8%  500M/500M_w03@2 65.9%  500M_w03/500M@2 78.5%
+[root] [root] 3300 puzzles, 0.46h: 500M@1 63.5%  500M@2 66.4%  500M_w03@1 76.3%  500M_w03@2 75.8%  500M/500M_w03@2 65.7%  500M_w03/500M@2 78.6%
+[root] [root] 3400 puzzles, 0.47h: 500M@1 63.7%  500M@2 66.5%  500M_w03@1 76.6%  500M_w03@2 76.0%  500M/500M_w03@2 65.8%  500M_w03/500M@2 78.7%
+  step 1250 | loss 1.9774 | lr 9.84e-05 | 1,582 samples/s | MFU 17.6%
+[root] [root] 3500 puzzles, 0.49h: 500M@1 63.5%  500M@2 66.3%  500M_w03@1 76.5%  500M_w03@2 75.8%  500M/500M_w03@2 65.4%  500M_w03/500M@2 78.5%
+[root] [root] 3600 puzzles, 0.50h: 500M@1 63.5%  500M@2 66.3%  500M_w03@1 76.4%  500M_w03@2 75.8%  500M/500M_w03@2 65.3%  500M_w03/500M@2 78.5%
+[root] [root] 3700 puzzles, 0.51h: 500M@1 63.8%  500M@2 66.5%  500M_w03@1 76.5%  500M_w03@2 76.0%  500M/500M_w03@2 65.6%  500M_w03/500M@2 78.5%
+  step 1500 | loss 2.0738 | lr 9.75e-05 | 1,584 samples/s | MFU 17.6%
+[root] [root] 3800 puzzles, 0.53h: 500M@1 63.8%  500M@2 66.7%  500M_w03@1 76.6%  500M_w03@2 76.1%  500M/500M_w03@2 65.7%  500M_w03/500M@2 78.6%
+[root] [root] 3900 puzzles, 0.54h: 500M@1 63.9%  500M@2 66.6%  500M_w03@1 76.6%  500M_w03@2 76.2%  500M/500M_w03@2 65.7%  500M_w03/500M@2 78.6%
+[root] [root] 4000 puzzles, 0.56h: 500M@1 64.0%  500M@2 66.7%  500M_w03@1 76.6%  500M_w03@2 76.1%  500M/500M_w03@2 65.8%  500M_w03/500M@2 78.5%
+  step 1750 | loss 2.0498 | lr 9.64e-05 | 1,586 samples/s | MFU 17.7%
+[root] [root] 4100 puzzles, 0.57h: 500M@1 64.1%  500M@2 66.8%  500M_w03@1 76.7%  500M_w03@2 76.0%  500M/500M_w03@2 65.9%  500M_w03/500M@2 78.5%
+[root] [root] 4200 puzzles, 0.58h: 500M@1 64.1%  500M@2 66.7%  500M_w03@1 76.6%  500M_w03@2 76.0%  500M/500M_w03@2 65.8%  500M_w03/500M@2 78.5%
+[root] [root] 4300 puzzles, 0.60h: 500M@1 64.1%  500M@2 66.8%  500M_w03@1 76.6%  500M_w03@2 75.9%  500M/500M_w03@2 65.9%  500M_w03/500M@2 78.3%
+step   2000 | train 2.0329 | val 2.0153 | val acc 30.0% | 1323s
+  step 2000 | loss 2.0037 | lr 9.51e-05 | 1,640 samples/s | MFU 18.3%
+[root] [root] 4400 puzzles, 0.61h: 500M@1 64.0%  500M@2 66.7%  500M_w03@1 76.6%  500M_w03@2 76.0%  500M/500M_w03@2 65.8%  500M_w03/500M@2 78.3%
+[root] [root] 4500 puzzles, 0.63h: 500M@1 64.0%  500M@2 66.6%  500M_w03@1 76.6%  500M_w03@2 75.8%  500M/500M_w03@2 65.7%  500M_w03/500M@2 78.2%
+[root] [root] 4600 puzzles, 0.64h: 500M@1 64.2%  500M@2 66.8%  500M_w03@1 76.7%  500M_w03@2 75.8%  500M/500M_w03@2 65.9%  500M_w03/500M@2 78.3%
+[root] [root] 4700 puzzles, 0.65h: 500M@1 64.2%  500M@2 66.9%  500M_w03@1 76.7%  500M_w03@2 75.8%  500M/500M_w03@2 65.9%  500M_w03/500M@2 78.3%
+  step 2250 | loss 2.0434 | lr 9.37e-05 | 1,585 samples/s | MFU 17.7%
+[root] [root] 4800 puzzles, 0.67h: 500M@1 64.4%  500M@2 67.0%  500M_w03@1 76.8%  500M_w03@2 76.0%  500M/500M_w03@2 66.1%  500M_w03/500M@2 78.4%
+[root] [root] 4900 puzzles, 0.68h: 500M@1 64.2%  500M@2 66.9%  500M_w03@1 76.8%  500M_w03@2 75.8%  500M/500M_w03@2 66.0%  500M_w03/500M@2 78.3%
+[root] [root] 5000 puzzles, 0.69h: 500M@1 64.2%  500M@2 66.8%  500M_w03@1 76.9%  500M_w03@2 75.9%  500M/500M_w03@2 66.0%  500M_w03/500M@2 78.3%
+  step 2500 | loss 1.9948 | lr 9.20e-05 | 1,583 samples/s | MFU 17.6%
+[root] [root] 5100 puzzles, 0.71h: 500M@1 64.4%  500M@2 67.0%  500M_w03@1 77.0%  500M_w03@2 76.0%  500M/500M_w03@2 66.2%  500M_w03/500M@2 78.4%
+[root] [root] 5200 puzzles, 0.72h: 500M@1 64.3%  500M@2 66.9%  500M_w03@1 77.0%  500M_w03@2 76.1%  500M/500M_w03@2 66.2%  500M_w03/500M@2 78.4%
+[root] [root] 5300 puzzles, 0.74h: 500M@1 64.3%  500M@2 66.9%  500M_w03@1 77.0%  500M_w03@2 76.1%  500M/500M_w03@2 66.2%  500M_w03/500M@2 78.4%
+  step 2750 | loss 2.0448 | lr 9.03e-05 | 1,583 samples/s | MFU 17.6%
+[root] [root] 5400 puzzles, 0.75h: 500M@1 64.4%  500M@2 66.9%  500M_w03@1 77.0%  500M_w03@2 76.1%  500M/500M_w03@2 66.3%  500M_w03/500M@2 78.4%
+[root] [root] 5500 puzzles, 0.77h: 500M@1 64.5%  500M@2 67.0%  500M_w03@1 77.0%  500M_w03@2 76.2%  500M/500M_w03@2 66.3%  500M_w03/500M@2 78.4%
+[root] [root] 5600 puzzles, 0.78h: 500M@1 64.5%  500M@2 67.0%  500M_w03@1 77.1%  500M_w03@2 76.2%  500M/500M_w03@2 66.3%  500M_w03/500M@2 78.5%
+step   3000 | train 2.0176 | val 2.0293 | val acc 30.0% | 1981s
+  step 3000 | loss 1.9722 | lr 8.83e-05 | 1,549 samples/s | MFU 17.2%
+[root] [root] 5700 puzzles, 0.80h: 500M@1 64.5%  500M@2 67.0%  500M_w03@1 77.2%  500M_w03@2 76.3%  500M/500M_w03@2 66.3%  500M_w03/500M@2 78.5%
+[root] [root] 5800 puzzles, 0.81h: 500M@1 64.4%  500M@2 66.9%  500M_w03@1 77.1%  500M_w03@2 76.2%  500M/500M_w03@2 66.2%  500M_w03/500M@2 78.4%
+[root] [root] 5900 puzzles, 0.83h: 500M@1 64.5%  500M@2 67.0%  500M_w03@1 77.2%  500M_w03@2 76.3%  500M/500M_w03@2 66.3%  500M_w03/500M@2 78.4%
+  step 3250 | loss 1.9686 | lr 8.62e-05 | 1,580 samples/s | MFU 17.6%
+[root] [root] 6000 puzzles, 0.84h: 500M@1 64.4%  500M@2 67.0%  500M_w03@1 77.1%  500M_w03@2 76.2%  500M/500M_w03@2 66.3%  500M_w03/500M@2 78.4%
+[root] [root] 6100 puzzles, 0.85h: 500M@1 64.5%  500M@2 67.1%  500M_w03@1 77.3%  500M_w03@2 76.3%  500M/500M_w03@2 66.4%  500M_w03/500M@2 78.5%
+[root] [root] 6200 puzzles, 0.87h: 500M@1 64.5%  500M@2 67.2%  500M_w03@1 77.3%  500M_w03@2 76.3%  500M/500M_w03@2 66.5%  500M_w03/500M@2 78.5%
+[root] [root] 6300 puzzles, 0.88h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.3%  500M_w03@2 76.4%  500M/500M_w03@2 66.7%  500M_w03/500M@2 78.5%
+  step 3500 | loss 1.9224 | lr 8.40e-05 | 1,581 samples/s | MFU 17.6%
+[root] [root] 6400 puzzles, 0.90h: 500M@1 64.8%  500M@2 67.4%  500M_w03@1 77.3%  500M_w03@2 76.5%  500M/500M_w03@2 66.8%  500M_w03/500M@2 78.6%
+[root] [root] 6500 puzzles, 0.91h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.3%  500M_w03@2 76.5%  500M/500M_w03@2 66.7%  500M_w03/500M@2 78.6%
+[root] [root] 6600 puzzles, 0.92h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.3%  500M_w03@2 76.4%  500M/500M_w03@2 66.7%  500M_w03/500M@2 78.6%
+  step 3750 | loss 2.0123 | lr 8.16e-05 | 1,580 samples/s | MFU 17.6%
+[root] [root] 6700 puzzles, 0.94h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.3%  500M_w03@2 76.4%  500M/500M_w03@2 66.7%  500M_w03/500M@2 78.5%
+[root] [root] 6800 puzzles, 0.95h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.2%  500M_w03@2 76.4%  500M/500M_w03@2 66.7%  500M_w03/500M@2 78.5%
+[root] [root] 6900 puzzles, 0.96h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.2%  500M_w03@2 76.3%  500M/500M_w03@2 66.7%  500M_w03/500M@2 78.5%
+step   4000 | train 2.0032 | val 2.0158 | val acc 30.6% | 2640s
+[root] [root] 7000 puzzles, 0.98h: 500M@1 64.7%  500M@2 67.3%  500M_w03@1 77.2%  500M_w03@2 76.3%  500M/500M_w03@2 66.6%  500M_w03/500M@2 78.4%
+  step 4000 | loss 2.0142 | lr 7.91e-05 | 1,565 samples/s | MFU 17.4%
+[root] [root] 7100 puzzles, 0.99h: 500M@1 64.6%  500M@2 67.2%  500M_w03@1 77.2%  500M_w03@2 76.2%  500M/500M_w03@2 66.5%  500M_w03/500M@2 78.4%
+[root] [root] 7200 puzzles, 1.00h: 500M@1 64.5%  500M@2 67.1%  500M_w03@1 77.2%  500M_w03@2 76.3%  500M/500M_w03@2 66.5%  500M_w03/500M@2 78.4%
+[root] [root] 7300 puzzles, 1.02h: 500M@1 64.6%  500M@2 67.2%  500M_w03@1 77.2%  500M_w03@2 76.3%  500M/500M_w03@2 66.5%  500M_w03/500M@2 78.4%
+  step 4250 | loss 1.9408 | lr 7.66e-05 | 1,580 samples/s | MFU 17.6%
+[root] [root] 7400 puzzles, 1.04h: 500M@1 64.5%  500M@2 67.1%  500M_w03@1 77.2%  500M_w03@2 76.3%  500M/500M_w03@2 66.4%  500M_w03/500M@2 78.4%
+[root] [root] 7500 puzzles, 1.05h: 500M@1 64.6%  500M@2 67.1%  500M_w03@1 77.3%  500M_w03@2 76.3%  500M/500M_w03@2 66.4%  500M_w03/500M@2 78.3%
+[root] [root] 7600 puzzles, 1.06h: 500M@1 64.6%  500M@2 67.1%  500M_w03@1 77.4%  500M_w03@2 76.3%  500M/500M_w03@2 66.5%  500M_w03/500M@2 78.4%
+  step 4500 | loss 1.9633 | lr 7.39e-05 | 1,579 samples/s | MFU 17.6%
+[root] [root] 7700 puzzles, 1.08h: 500M@1 64.7%  500M@2 67.2%  500M_w03@1 77.3%  500M_w03@2 76.3%  500M/500M_w03@2 66.4%  500M_w03/500M@2 78.4%
+[root] [root] 7800 puzzles, 1.09h: 500M@1 64.6%  500M@2 67.0%  500M_w03@1 77.2%  500M_w03@2 76.2%  500M/500M_w03@2 66.4%  500M_w03/500M@2 78.3%
+[root] [root] 7900 puzzles, 1.11h: 500M@1 64.6%  500M@2 67.1%  500M_w03@1 77.2%  500M_w03@2 76.3%  500M/500M_w03@2 66.4%  500M_w03/500M@2 78.4%
+  step 4750 | loss 1.9912 | lr 7.11e-05 | 1,580 samples/s | MFU 17.6%
+[root] [root] 8000 puzzles, 1.12h: 500M@1 64.7%  500M@2 67.1%  500M_w03@1 77.3%  500M_w03@2 76.3%  500M/500M_w03@2 66.4%  500M_w03/500M@2 78.5%
+[root] [root] 8100 puzzles, 1.13h: 500M@1 64.8%  500M@2 67.1%  500M_w03@1 77.4%  500M_w03@2 76.4%  500M/500M_w03@2 66.5%  500M_w03/500M@2 78.5%
+[root] [root] 8200 puzzles, 1.15h: 500M@1 64.8%  500M@2 67.1%  500M_w03@1 77.4%  500M_w03@2 76.4%  500M/500M_w03@2 66.5%  500M_w03/500M@2 78.4%
+step   5000 | train 1.9964 | val 2.0072 | val acc 30.5% | 3299s
+  step 5000 | loss 1.9924 | lr 6.83e-05 | 1,609 samples/s | MFU 17.9%
+[root] [root] 8300 puzzles, 1.16h: 500M@1 64.8%  500M@2 67.2%  500M_w03@1 77.4%  500M_w03@2 76.4%  500M/500M_w03@2 66.5%  500M_w03/500M@2 78.4%
+[root] [root] 8400 puzzles, 1.18h: 500M@1 64.7%  500M@2 67.1%  500M_w03@1 77.3%  500M_w03@2 76.3%  500M/500M_w03@2 66.5%  500M_w03/500M@2 78.3%
+[root] [root] 8500 puzzles, 1.19h: 500M@1 64.8%  500M@2 67.1%  500M_w03@1 77.3%  500M_w03@2 76.3%  500M/500M_w03@2 66.5%  500M_w03/500M@2 78.3%
+[root] [root] 8600 puzzles, 1.20h: 500M@1 64.8%  500M@2 67.1%  500M_w03@1 77.4%  500M_w03@2 76.4%  500M/500M_w03@2 66.5%  500M_w03/500M@2 78.3%
+  step 5250 | loss 2.0557 | lr 6.54e-05 | 1,578 samples/s | MFU 17.6%
+[root] [root] 8700 puzzles, 1.22h: 500M@1 64.8%  500M@2 67.2%  500M_w03@1 77.4%  500M_w03@2 76.4%  500M/500M_w03@2 66.6%  500M_w03/500M@2 78.3%
+[root] [root] 8800 puzzles, 1.23h: 500M@1 64.9%  500M@2 67.2%  500M_w03@1 77.5%  500M_w03@2 76.5%  500M/500M_w03@2 66.7%  500M_w03/500M@2 78.4%
+[root] [root] 8900 puzzles, 1.25h: 500M@1 64.8%  500M@2 67.2%  500M_w03@1 77.5%  500M_w03@2 76.4%  500M/500M_w03@2 66.6%  500M_w03/500M@2 78.3%
+  step 5500 | loss 2.0444 | lr 6.24e-05 | 1,581 samples/s | MFU 17.6%
+[root] [root] 9000 puzzles, 1.26h: 500M@1 64.8%  500M@2 67.1%  500M_w03@1 77.5%  500M_w03@2 76.5%  500M/500M_w03@2 66.6%  500M_w03/500M@2 78.3%
+[root] [root] 9100 puzzles, 1.28h: 500M@1 64.8%  500M@2 67.1%  500M_w03@1 77.5%  500M_w03@2 76.4%  500M/500M_w03@2 66.6%  500M_w03/500M@2 78.2%
+[root] [root] 9200 puzzles, 1.29h: 500M@1 64.8%  500M@2 67.1%  500M_w03@1 77.4%  500M_w03@2 76.3%  500M/500M_w03@2 66.6%  500M_w03/500M@2 78.2%
+  step 5750 | loss 1.9745 | lr 5.94e-05 | 1,577 samples/s | MFU 17.6%
+[root] [root] 9300 puzzles, 1.31h: 500M@1 64.9%  500M@2 67.2%  500M_w03@1 77.5%  500M_w03@2 76.4%  500M/500M_w03@2 66.6%  500M_w03/500M@2 78.2%
+[root] [root] 9400 puzzles, 1.32h: 500M@1 64.9%  500M@2 67.2%  500M_w03@1 77.5%  500M_w03@2 76.4%  500M/500M_w03@2 66.6%  500M_w03/500M@2 78.2%
+[root] [root] 9500 puzzles, 1.33h: 500M@1 64.8%  500M@2 67.1%  500M_w03@1 77.4%  500M_w03@2 76.2%  500M/500M_w03@2 66.5%  500M_w03/500M@2 78.1%
+step   6000 | train 1.9820 | val 2.0008 | val acc 30.5% | 3959s
+  step 6000 | loss 1.9682 | lr 5.64e-05 | 1,630 samples/s | MFU 18.1%
+[root] [root] 9600 puzzles, 1.35h: 500M@1 64.8%  500M@2 67.1%  500M_w03@1 77.5%  500M_w03@2 76.2%  500M/500M_w03@2 66.6%  500M_w03/500M@2 78.2%
+[root] [root] 9700 puzzles, 1.36h: 500M@1 64.8%  500M@2 67.1%  500M_w03@1 77.4%  500M_w03@2 76.2%  500M/500M_w03@2 66.6%  500M_w03/500M@2 78.1%
+[root] [root] 9800 puzzles, 1.37h: 500M@1 64.8%  500M@2 67.1%  500M_w03@1 77.4%  500M_w03@2 76.3%  500M/500M_w03@2 66.6%  500M_w03/500M@2 78.2%
+[root] [root] 9900 puzzles, 1.39h: 500M@1 64.8%  500M@2 67.1%  500M_w03@1 77.5%  500M_w03@2 76.3%  500M/500M_w03@2 66.6%  500M_w03/500M@2 78.2%
+  step 6250 | loss 1.9004 | lr 5.34e-05 | 1,578 samples/s | MFU 17.6%
+[root] [root] 10000 puzzles, 1.40h: 500M@1 64.8%  500M@2 67.2%  500M_w03@1 77.5%  500M_w03@2 76.3%  500M/500M_w03@2 66.7%  500M_w03/500M@2 78.2%
+[root] [root] all (10000 puzzles): 500M@1 64.8%  500M@2 67.2%  500M_w03@1 77.5%  500M_w03@2 76.3%  500M/500M_w03@2 66.7%  500M_w03/500M@2 78.2%
+[root] [root] q_rank: 500M top-1 75.9% mean 2.45  500M_w03 top-1 86.9% mean 1.29
+[root] [root] bu_rank: 500M top-1 84.1% mean 1.67  500M_w03 top-1 81.8% mean 1.67
+[root] [root] d2_rank: 500M/500M top-1 77.3% mean 2.38  500M/500M_w03 top-1 76.8% mean 2.41  500M_w03/500M top-1 86.5% mean 1.49  500M_w03/500M_w03 top-1 85.0% mean 1.50
+  step 6500 | loss 2.0067 | lr 5.04e-05 | 1,498 samples/s | MFU 16.7%
+  step 6750 | loss 2.0470 | lr 4.75e-05 | 1,472 samples/s | MFU 16.4%
+step   7000 | train 1.9553 | val 1.9773 | val acc 31.3% | 4653s
+  step 7000 | loss 1.9503 | lr 4.45e-05 | 1,503 samples/s | MFU 16.7%
+  step 7250 | loss 2.0180 | lr 4.16e-05 | 1,469 samples/s | MFU 16.4%
+  step 7500 | loss 1.9384 | lr 3.88e-05 | 1,460 samples/s | MFU 16.3%
+  step 7750 | loss 1.9061 | lr 3.60e-05 | 1,461 samples/s | MFU 16.3%
+step   8000 | train 1.9486 | val 1.9557 | val acc 31.3% | 5366s
+  step 8000 | loss 1.9830 | lr 3.33e-05 | 1,502 samples/s | MFU 16.7%
+  step 8250 | loss 1.8681 | lr 3.08e-05 | 1,467 samples/s | MFU 16.3%
+  step 8500 | loss 1.9354 | lr 2.83e-05 | 1,462 samples/s | MFU 16.3%
+  step 8750 | loss 1.9571 | lr 2.59e-05 | 1,465 samples/s | MFU 16.3%
+step   9000 | train 1.9322 | val 1.9448 | val acc 31.5% | 6077s
+  step 9000 | loss 1.9130 | lr 2.37e-05 | 1,519 samples/s | MFU 16.9%
+  step 9250 | loss 1.9967 | lr 2.16e-05 | 1,471 samples/s | MFU 16.4%
+  step 9500 | loss 1.9213 | lr 1.97e-05 | 1,453 samples/s | MFU 16.2%
+  step 9750 | loss 1.9703 | lr 1.79e-05 | 1,463 samples/s | MFU 16.3%
+step  10000 | train 1.9315 | val 1.9351 | val acc 31.8% | 6790s
+  step 10000 | loss 1.9585 | lr 1.63e-05 | 1,507 samples/s | MFU 16.8%
+  step 10250 | loss 1.9616 | lr 1.48e-05 | 1,458 samples/s | MFU 16.2%
+  step 10500 | loss 1.8647 | lr 1.36e-05 | 1,463 samples/s | MFU 16.3%
+  step 10750 | loss 1.9008 | lr 1.25e-05 | 1,464 samples/s | MFU 16.3%
+step  11000 | train 1.9246 | val 1.9295 | val acc 32.0% | 7502s
+  step 11000 | loss 1.8665 | lr 1.16e-05 | 1,500 samples/s | MFU 16.7%
+  step 11250 | loss 1.9457 | lr 1.09e-05 | 1,462 samples/s | MFU 16.3%
+  step 11500 | loss 1.9449 | lr 1.04e-05 | 1,458 samples/s | MFU 16.2%
+  step 11750 | loss 1.9071 | lr 1.01e-05 | 1,462 samples/s | MFU 16.3%
+step  12000 | train 1.9255 | val 1.9287 | val acc 32.2% | 8215s
+  step 12000 | loss 1.9131 | lr 1.00e-05 | 1,507 samples/s | MFU 16.8%
+[done] best val loss 1.9287 -> checkpoints/chess_best.pt
+[puzzles] depth 1: 6489/10000 solved = 64.9%  (checkpoint step 12000, val loss 1.9287)
+  rating     0-499: 100.0%  (n=74)
+  rating   500-999:  95.2%  (n=2161)
+  rating 1000-1499:  80.0%  (n=3367)
+  rating 1500-1999:  50.7%  (n=2543)
+  rating 2000-2499:  22.4%  (n=1571)
+  rating 2500-2999:   7.4%  (n=284)
+[agreement] chess_500M_w0.pt (step 12000): 61,833 positions, 1,837,490 moves
+  action accuracy (paper: = argmax)  : 48.5%
+  picks a move of maximal value      : 51.9%
+  one of Stockfish's top 3           : 76.9%
+  Kendall's tau-b, mean over positions: 0.662 (863 positions undefined)
+  win probability given up           : mean 0.0188, median 0.0000
+  moves giving up > 0.15           : 2.2%
+  value calibration                  : MAE 0.0316, ECE 0.0013
+  truth inside central 50% / 90%     : 55.2% / 92.1%
+  reliability (predicted bin: n, mean predicted, mean Stockfish)
+    [0.0, 0.1) n=  367,072  0.058  0.057
+    [0.1, 0.2) n=  341,003  0.142  0.142
+    [0.2, 0.3) n=  167,535  0.248  0.246
+    [0.3, 0.4) n=  202,033  0.353  0.352
+    [0.4, 0.5) n=  276,252  0.451  0.451
+    [0.5, 0.6) n=  165,777  0.540  0.542
+    [0.6, 0.7) n=   70,000  0.646  0.651
+    [0.7, 0.8) n=   57,326  0.751  0.754
+    [0.8, 0.9) n=   85,271  0.855  0.857
+    [0.9, 1.0) n=  105,221  0.951  0.955
+[session] root/leaf pass for w0 from 3.18h
+[root] 100 puzzles, 0.01h: 500M_w0@1 68.0%  500M_w0@2 73.0%  500M@1 69.0%  500M@2 71.0%  500M_w0/500M@2 73.0%  500M/500M_w0@2 72.0%
+[root] 200 puzzles, 0.03h: 500M_w0@1 61.5%  500M_w0@2 65.5%  500M@1 62.5%  500M@2 67.0%  500M_w0/500M@2 66.0%  500M/500M_w0@2 66.5%
+[root] 300 puzzles, 0.04h: 500M_w0@1 60.0%  500M_w0@2 64.0%  500M@1 61.7%  500M@2 66.0%  500M_w0/500M@2 64.7%  500M/500M_w0@2 65.3%
+[root] 400 puzzles, 0.05h: 500M_w0@1 60.8%  500M_w0@2 65.0%  500M@1 62.0%  500M@2 65.8%  500M_w0/500M@2 65.5%  500M/500M_w0@2 65.2%
+[root] 500 puzzles, 0.06h: 500M_w0@1 61.6%  500M_w0@2 65.4%  500M@1 62.6%  500M@2 65.2%  500M_w0/500M@2 65.8%  500M/500M_w0@2 65.2%
+[root] 600 puzzles, 0.08h: 500M_w0@1 61.5%  500M_w0@2 65.5%  500M@1 62.2%  500M@2 64.7%  500M_w0/500M@2 65.7%  500M/500M_w0@2 64.5%
+[root] 700 puzzles, 0.09h: 500M_w0@1 61.7%  500M_w0@2 65.6%  500M@1 62.7%  500M@2 65.3%  500M_w0/500M@2 65.6%  500M/500M_w0@2 65.0%
+[root] 800 puzzles, 0.10h: 500M_w0@1 61.9%  500M_w0@2 65.8%  500M@1 62.6%  500M@2 65.2%  500M_w0/500M@2 65.8%  500M/500M_w0@2 64.9%
+[root] 900 puzzles, 0.12h: 500M_w0@1 61.8%  500M_w0@2 65.8%  500M@1 62.1%  500M@2 64.9%  500M_w0/500M@2 65.7%  500M/500M_w0@2 64.6%
+[root] 1000 puzzles, 0.13h: 500M_w0@1 61.8%  500M_w0@2 65.5%  500M@1 62.1%  500M@2 64.9%  500M_w0/500M@2 65.7%  500M/500M_w0@2 64.3%
+[root] 1100 puzzles, 0.14h: 500M_w0@1 62.2%  500M_w0@2 65.7%  500M@1 62.0%  500M@2 64.8%  500M_w0/500M@2 66.0%  500M/500M_w0@2 64.4%
+[root] 1200 puzzles, 0.15h: 500M_w0@1 62.7%  500M_w0@2 66.0%  500M@1 62.3%  500M@2 65.2%  500M_w0/500M@2 66.3%  500M/500M_w0@2 64.8%
+[root] 1300 puzzles, 0.17h: 500M_w0@1 62.8%  500M_w0@2 65.9%  500M@1 62.1%  500M@2 65.1%  500M_w0/500M@2 66.2%  500M/500M_w0@2 64.7%
+[root] 1400 puzzles, 0.18h: 500M_w0@1 62.9%  500M_w0@2 65.8%  500M@1 62.2%  500M@2 65.2%  500M_w0/500M@2 66.3%  500M/500M_w0@2 64.6%
+[root] 1500 puzzles, 0.19h: 500M_w0@1 62.7%  500M_w0@2 65.6%  500M@1 62.1%  500M@2 65.0%  500M_w0/500M@2 66.1%  500M/500M_w0@2 64.5%
+[root] 1600 puzzles, 0.21h: 500M_w0@1 63.0%  500M_w0@2 66.0%  500M@1 62.5%  500M@2 65.4%  500M_w0/500M@2 66.4%  500M/500M_w0@2 64.9%
+[root] 1700 puzzles, 0.22h: 500M_w0@1 63.1%  500M_w0@2 65.9%  500M@1 62.3%  500M@2 65.4%  500M_w0/500M@2 66.3%  500M/500M_w0@2 64.9%
+[root] 1800 puzzles, 0.23h: 500M_w0@1 63.3%  500M_w0@2 66.3%  500M@1 62.6%  500M@2 65.8%  500M_w0/500M@2 66.6%  500M/500M_w0@2 65.3%
+[root] 1900 puzzles, 0.25h: 500M_w0@1 63.6%  500M_w0@2 66.8%  500M@1 62.8%  500M@2 66.1%  500M_w0/500M@2 67.2%  500M/500M_w0@2 65.7%
+[root] 2000 puzzles, 0.26h: 500M_w0@1 63.4%  500M_w0@2 66.5%  500M@1 62.7%  500M@2 65.8%  500M_w0/500M@2 66.8%  500M/500M_w0@2 65.5%
+[root] 2100 puzzles, 0.27h: 500M_w0@1 63.8%  500M_w0@2 66.8%  500M@1 63.3%  500M@2 66.4%  500M_w0/500M@2 67.1%  500M/500M_w0@2 65.9%
+[root] 2200 puzzles, 0.29h: 500M_w0@1 63.7%  500M_w0@2 66.6%  500M@1 63.3%  500M@2 66.3%  500M_w0/500M@2 67.0%  500M/500M_w0@2 65.9%
+[root] 2300 puzzles, 0.30h: 500M_w0@1 63.6%  500M_w0@2 66.6%  500M@1 63.4%  500M@2 66.3%  500M_w0/500M@2 66.9%  500M/500M_w0@2 66.0%
+[root] 2400 puzzles, 0.32h: 500M_w0@1 63.6%  500M_w0@2 66.6%  500M@1 63.2%  500M@2 66.1%  500M_w0/500M@2 66.9%  500M/500M_w0@2 65.8%
+[root] 2500 puzzles, 0.33h: 500M_w0@1 63.9%  500M_w0@2 66.8%  500M@1 63.3%  500M@2 66.2%  500M_w0/500M@2 67.0%  500M/500M_w0@2 65.9%
+[root] 2600 puzzles, 0.34h: 500M_w0@1 63.7%  500M_w0@2 66.5%  500M@1 63.2%  500M@2 66.0%  500M_w0/500M@2 66.8%  500M/500M_w0@2 65.7%
+[root] 2700 puzzles, 0.35h: 500M_w0@1 63.6%  500M_w0@2 66.5%  500M@1 63.2%  500M@2 66.1%  500M_w0/500M@2 66.8%  500M/500M_w0@2 65.8%
+[root] 2800 puzzles, 0.37h: 500M_w0@1 63.5%  500M_w0@2 66.5%  500M@1 63.5%  500M@2 66.3%  500M_w0/500M@2 66.8%  500M/500M_w0@2 66.0%
+[root] 2900 puzzles, 0.38h: 500M_w0@1 63.6%  500M_w0@2 66.6%  500M@1 63.7%  500M@2 66.5%  500M_w0/500M@2 66.9%  500M/500M_w0@2 66.2%
+[root] 3000 puzzles, 0.39h: 500M_w0@1 63.9%  500M_w0@2 66.8%  500M@1 63.8%  500M@2 66.6%  500M_w0/500M@2 67.1%  500M/500M_w0@2 66.3%
+[root] 3100 puzzles, 0.40h: 500M_w0@1 63.7%  500M_w0@2 66.7%  500M@1 63.6%  500M@2 66.5%  500M_w0/500M@2 67.0%  500M/500M_w0@2 66.2%
+[root] 3200 puzzles, 0.42h: 500M_w0@1 63.7%  500M_w0@2 66.7%  500M@1 63.7%  500M@2 66.5%  500M_w0/500M@2 67.0%  500M/500M_w0@2 66.2%
+[root] 3300 puzzles, 0.43h: 500M_w0@1 63.6%  500M_w0@2 66.5%  500M@1 63.5%  500M@2 66.4%  500M_w0/500M@2 66.8%  500M/500M_w0@2 66.1%
+[root] 3400 puzzles, 0.44h: 500M_w0@1 63.9%  500M_w0@2 66.8%  500M@1 63.7%  500M@2 66.5%  500M_w0/500M@2 67.0%  500M/500M_w0@2 66.2%
+[root] 3500 puzzles, 0.46h: 500M_w0@1 63.7%  500M_w0@2 66.6%  500M@1 63.5%  500M@2 66.3%  500M_w0/500M@2 66.8%  500M/500M_w0@2 66.1%
+[root] 3600 puzzles, 0.47h: 500M_w0@1 63.7%  500M_w0@2 66.6%  500M@1 63.5%  500M@2 66.3%  500M_w0/500M@2 66.8%  500M/500M_w0@2 66.0%
+[root] 3700 puzzles, 0.48h: 500M_w0@1 63.9%  500M_w0@2 66.8%  500M@1 63.8%  500M@2 66.5%  500M_w0/500M@2 67.0%  500M/500M_w0@2 66.3%
+[root] 3800 puzzles, 0.49h: 500M_w0@1 64.2%  500M_w0@2 66.9%  500M@1 63.8%  500M@2 66.7%  500M_w0/500M@2 67.1%  500M/500M_w0@2 66.4%
+[root] 3900 puzzles, 0.51h: 500M_w0@1 64.1%  500M_w0@2 66.8%  500M@1 63.9%  500M@2 66.6%  500M_w0/500M@2 67.0%  500M/500M_w0@2 66.4%
+[root] 4000 puzzles, 0.52h: 500M_w0@1 64.3%  500M_w0@2 66.9%  500M@1 64.0%  500M@2 66.7%  500M_w0/500M@2 67.1%  500M/500M_w0@2 66.5%
+[root] 4100 puzzles, 0.54h: 500M_w0@1 64.4%  500M_w0@2 67.0%  500M@1 64.1%  500M@2 66.8%  500M_w0/500M@2 67.2%  500M/500M_w0@2 66.6%
+[root] 4200 puzzles, 0.55h: 500M_w0@1 64.3%  500M_w0@2 67.0%  500M@1 64.1%  500M@2 66.7%  500M_w0/500M@2 67.1%  500M/500M_w0@2 66.6%
+[root] 4300 puzzles, 0.56h: 500M_w0@1 64.4%  500M_w0@2 67.0%  500M@1 64.1%  500M@2 66.8%  500M_w0/500M@2 67.1%  500M/500M_w0@2 66.6%
+[root] 4400 puzzles, 0.58h: 500M_w0@1 64.3%  500M_w0@2 66.9%  500M@1 64.0%  500M@2 66.7%  500M_w0/500M@2 67.0%  500M/500M_w0@2 66.5%
+[root] 4500 puzzles, 0.59h: 500M_w0@1 64.4%  500M_w0@2 66.9%  500M@1 64.0%  500M@2 66.6%  500M_w0/500M@2 67.0%  500M/500M_w0@2 66.4%
+[root] 4600 puzzles, 0.60h: 500M_w0@1 64.5%  500M_w0@2 67.0%  500M@1 64.2%  500M@2 66.8%  500M_w0/500M@2 67.2%  500M/500M_w0@2 66.5%
+[root] 4700 puzzles, 0.62h: 500M_w0@1 64.5%  500M_w0@2 67.0%  500M@1 64.2%  500M@2 66.9%  500M_w0/500M@2 67.2%  500M/500M_w0@2 66.6%
+[root] 4800 puzzles, 0.63h: 500M_w0@1 64.8%  500M_w0@2 67.3%  500M@1 64.4%  500M@2 67.0%  500M_w0/500M@2 67.5%  500M/500M_w0@2 66.8%
+[root] 4900 puzzles, 0.64h: 500M_w0@1 64.6%  500M_w0@2 67.1%  500M@1 64.2%  500M@2 66.9%  500M_w0/500M@2 67.3%  500M/500M_w0@2 66.6%
+[root] 5000 puzzles, 0.65h: 500M_w0@1 64.5%  500M_w0@2 66.9%  500M@1 64.2%  500M@2 66.8%  500M_w0/500M@2 67.1%  500M/500M_w0@2 66.5%
+[root] 5100 puzzles, 0.67h: 500M_w0@1 64.6%  500M_w0@2 67.1%  500M@1 64.4%  500M@2 67.0%  500M_w0/500M@2 67.3%  500M/500M_w0@2 66.7%
+[root] 5200 puzzles, 0.68h: 500M_w0@1 64.6%  500M_w0@2 67.1%  500M@1 64.3%  500M@2 66.9%  500M_w0/500M@2 67.3%  500M/500M_w0@2 66.7%
+[root] 5300 puzzles, 0.70h: 500M_w0@1 64.5%  500M_w0@2 67.1%  500M@1 64.3%  500M@2 66.9%  500M_w0/500M@2 67.3%  500M/500M_w0@2 66.7%
+[root] 5400 puzzles, 0.71h: 500M_w0@1 64.6%  500M_w0@2 67.1%  500M@1 64.4%  500M@2 66.9%  500M_w0/500M@2 67.3%  500M/500M_w0@2 66.7%
+[root] 5500 puzzles, 0.72h: 500M_w0@1 64.6%  500M_w0@2 67.1%  500M@1 64.5%  500M@2 67.0%  500M_w0/500M@2 67.4%  500M/500M_w0@2 66.7%
+[root] 5600 puzzles, 0.74h: 500M_w0@1 64.6%  500M_w0@2 67.2%  500M@1 64.5%  500M@2 67.0%  500M_w0/500M@2 67.4%  500M/500M_w0@2 66.8%
+[root] 5700 puzzles, 0.75h: 500M_w0@1 64.6%  500M_w0@2 67.2%  500M@1 64.5%  500M@2 67.0%  500M_w0/500M@2 67.4%  500M/500M_w0@2 66.7%
+[root] 5800 puzzles, 0.76h: 500M_w0@1 64.5%  500M_w0@2 67.2%  500M@1 64.4%  500M@2 66.9%  500M_w0/500M@2 67.3%  500M/500M_w0@2 66.6%
+[root] 5900 puzzles, 0.78h: 500M_w0@1 64.6%  500M_w0@2 67.3%  500M@1 64.5%  500M@2 67.0%  500M_w0/500M@2 67.4%  500M/500M_w0@2 66.7%
+[root] 6000 puzzles, 0.79h: 500M_w0@1 64.5%  500M_w0@2 67.2%  500M@1 64.4%  500M@2 67.0%  500M_w0/500M@2 67.3%  500M/500M_w0@2 66.7%
+[root] 6100 puzzles, 0.80h: 500M_w0@1 64.7%  500M_w0@2 67.4%  500M@1 64.5%  500M@2 67.1%  500M_w0/500M@2 67.5%  500M/500M_w0@2 66.9%
+[root] 6200 puzzles, 0.82h: 500M_w0@1 64.6%  500M_w0@2 67.4%  500M@1 64.5%  500M@2 67.2%  500M_w0/500M@2 67.5%  500M/500M_w0@2 66.9%
+[root] 6300 puzzles, 0.83h: 500M_w0@1 64.8%  500M_w0@2 67.5%  500M@1 64.7%  500M@2 67.3%  500M_w0/500M@2 67.7%  500M/500M_w0@2 67.1%
+[root] 6400 puzzles, 0.85h: 500M_w0@1 64.9%  500M_w0@2 67.6%  500M@1 64.8%  500M@2 67.4%  500M_w0/500M@2 67.7%  500M/500M_w0@2 67.2%
+[root] 6500 puzzles, 0.86h: 500M_w0@1 64.8%  500M_w0@2 67.6%  500M@1 64.7%  500M@2 67.3%  500M_w0/500M@2 67.7%  500M/500M_w0@2 67.2%
+[root] 6600 puzzles, 0.87h: 500M_w0@1 64.9%  500M_w0@2 67.7%  500M@1 64.7%  500M@2 67.3%  500M_w0/500M@2 67.8%  500M/500M_w0@2 67.2%
+[root] 6700 puzzles, 0.88h: 500M_w0@1 64.9%  500M_w0@2 67.7%  500M@1 64.7%  500M@2 67.3%  500M_w0/500M@2 67.8%  500M/500M_w0@2 67.2%
+[root] 6800 puzzles, 0.90h: 500M_w0@1 64.9%  500M_w0@2 67.6%  500M@1 64.7%  500M@2 67.3%  500M_w0/500M@2 67.7%  500M/500M_w0@2 67.2%
+[root] 6900 puzzles, 0.91h: 500M_w0@1 64.8%  500M_w0@2 67.6%  500M@1 64.7%  500M@2 67.3%  500M_w0/500M@2 67.7%  500M/500M_w0@2 67.2%
+[root] 7000 puzzles, 0.92h: 500M_w0@1 64.9%  500M_w0@2 67.5%  500M@1 64.7%  500M@2 67.3%  500M_w0/500M@2 67.7%  500M/500M_w0@2 67.1%
+[root] 7100 puzzles, 0.93h: 500M_w0@1 64.8%  500M_w0@2 67.5%  500M@1 64.6%  500M@2 67.2%  500M_w0/500M@2 67.6%  500M/500M_w0@2 67.0%
+[root] 7200 puzzles, 0.95h: 500M_w0@1 64.7%  500M_w0@2 67.4%  500M@1 64.5%  500M@2 67.1%  500M_w0/500M@2 67.6%  500M/500M_w0@2 67.0%
+[root] 7300 puzzles, 0.96h: 500M_w0@1 64.8%  500M_w0@2 67.5%  500M@1 64.6%  500M@2 67.2%  500M_w0/500M@2 67.6%  500M/500M_w0@2 67.1%
+[root] 7400 puzzles, 0.97h: 500M_w0@1 64.8%  500M_w0@2 67.5%  500M@1 64.5%  500M@2 67.1%  500M_w0/500M@2 67.6%  500M/500M_w0@2 67.0%
+[root] 7500 puzzles, 0.99h: 500M_w0@1 64.7%  500M_w0@2 67.5%  500M@1 64.6%  500M@2 67.1%  500M_w0/500M@2 67.5%  500M/500M_w0@2 67.0%
+[root] 7600 puzzles, 1.00h: 500M_w0@1 64.8%  500M_w0@2 67.6%  500M@1 64.6%  500M@2 67.1%  500M_w0/500M@2 67.6%  500M/500M_w0@2 67.1%
+[root] 7700 puzzles, 1.01h: 500M_w0@1 64.9%  500M_w0@2 67.6%  500M@1 64.7%  500M@2 67.2%  500M_w0/500M@2 67.6%  500M/500M_w0@2 67.1%
+[root] 7800 puzzles, 1.03h: 500M_w0@1 64.8%  500M_w0@2 67.4%  500M@1 64.6%  500M@2 67.0%  500M_w0/500M@2 67.4%  500M/500M_w0@2 67.0%
+[root] 7900 puzzles, 1.04h: 500M_w0@1 64.8%  500M_w0@2 67.5%  500M@1 64.6%  500M@2 67.1%  500M_w0/500M@2 67.5%  500M/500M_w0@2 67.1%
+[root] 8000 puzzles, 1.05h: 500M_w0@1 64.9%  500M_w0@2 67.5%  500M@1 64.7%  500M@2 67.1%  500M_w0/500M@2 67.6%  500M/500M_w0@2 67.1%
+[root] 8100 puzzles, 1.06h: 500M_w0@1 65.0%  500M_w0@2 67.6%  500M@1 64.8%  500M@2 67.1%  500M_w0/500M@2 67.6%  500M/500M_w0@2 67.2%
+[root] 8200 puzzles, 1.08h: 500M_w0@1 65.0%  500M_w0@2 67.5%  500M@1 64.8%  500M@2 67.1%  500M_w0/500M@2 67.5%  500M/500M_w0@2 67.1%
+[root] 8300 puzzles, 1.09h: 500M_w0@1 65.0%  500M_w0@2 67.5%  500M@1 64.8%  500M@2 67.2%  500M_w0/500M@2 67.5%  500M/500M_w0@2 67.2%
+[root] 8400 puzzles, 1.10h: 500M_w0@1 64.9%  500M_w0@2 67.5%  500M@1 64.7%  500M@2 67.1%  500M_w0/500M@2 67.5%  500M/500M_w0@2 67.2%
+[root] 8500 puzzles, 1.12h: 500M_w0@1 64.9%  500M_w0@2 67.5%  500M@1 64.8%  500M@2 67.1%  500M_w0/500M@2 67.5%  500M/500M_w0@2 67.2%
+[root] 8600 puzzles, 1.13h: 500M_w0@1 64.9%  500M_w0@2 67.5%  500M@1 64.8%  500M@2 67.1%  500M_w0/500M@2 67.5%  500M/500M_w0@2 67.2%
+[root] 8700 puzzles, 1.15h: 500M_w0@1 65.0%  500M_w0@2 67.5%  500M@1 64.8%  500M@2 67.2%  500M_w0/500M@2 67.5%  500M/500M_w0@2 67.2%
+[root] 8800 puzzles, 1.16h: 500M_w0@1 65.0%  500M_w0@2 67.5%  500M@1 64.9%  500M@2 67.2%  500M_w0/500M@2 67.5%  500M/500M_w0@2 67.3%
+[root] 8900 puzzles, 1.17h: 500M_w0@1 65.0%  500M_w0@2 67.6%  500M@1 64.8%  500M@2 67.2%  500M_w0/500M@2 67.5%  500M/500M_w0@2 67.2%
+[root] 9000 puzzles, 1.19h: 500M_w0@1 64.9%  500M_w0@2 67.5%  500M@1 64.8%  500M@2 67.1%  500M_w0/500M@2 67.5%  500M/500M_w0@2 67.2%
+[root] 9100 puzzles, 1.20h: 500M_w0@1 65.0%  500M_w0@2 67.5%  500M@1 64.8%  500M@2 67.1%  500M_w0/500M@2 67.5%  500M/500M_w0@2 67.2%
+[root] 9200 puzzles, 1.21h: 500M_w0@1 64.9%  500M_w0@2 67.5%  500M@1 64.8%  500M@2 67.1%  500M_w0/500M@2 67.4%  500M/500M_w0@2 67.2%
+[root] 9300 puzzles, 1.23h: 500M_w0@1 64.9%  500M_w0@2 67.5%  500M@1 64.9%  500M@2 67.2%  500M_w0/500M@2 67.4%  500M/500M_w0@2 67.3%
+[root] 9400 puzzles, 1.24h: 500M_w0@1 64.9%  500M_w0@2 67.5%  500M@1 64.9%  500M@2 67.2%  500M_w0/500M@2 67.4%  500M/500M_w0@2 67.3%
+[root] 9500 puzzles, 1.25h: 500M_w0@1 64.8%  500M_w0@2 67.4%  500M@1 64.8%  500M@2 67.1%  500M_w0/500M@2 67.3%  500M/500M_w0@2 67.2%
+[root] 9600 puzzles, 1.27h: 500M_w0@1 64.9%  500M_w0@2 67.4%  500M@1 64.8%  500M@2 67.1%  500M_w0/500M@2 67.3%  500M/500M_w0@2 67.2%
+[root] 9700 puzzles, 1.28h: 500M_w0@1 64.8%  500M_w0@2 67.3%  500M@1 64.8%  500M@2 67.1%  500M_w0/500M@2 67.3%  500M/500M_w0@2 67.2%
+[root] 9800 puzzles, 1.29h: 500M_w0@1 64.9%  500M_w0@2 67.4%  500M@1 64.8%  500M@2 67.1%  500M_w0/500M@2 67.3%  500M/500M_w0@2 67.2%
+[root] 9900 puzzles, 1.31h: 500M_w0@1 64.9%  500M_w0@2 67.4%  500M@1 64.8%  500M@2 67.1%  500M_w0/500M@2 67.3%  500M/500M_w0@2 67.2%
+[root] 10000 puzzles, 1.32h: 500M_w0@1 64.9%  500M_w0@2 67.4%  500M@1 64.8%  500M@2 67.2%  500M_w0/500M@2 67.3%  500M/500M_w0@2 67.3%
+[root] all (10000 puzzles): 500M_w0@1 64.9%  500M_w0@2 67.4%  500M@1 64.8%  500M@2 67.2%  500M_w0/500M@2 67.3%  500M/500M_w0@2 67.3%
+[root] q_rank: 500M_w0 top-1 75.8% mean 2.41  500M top-1 75.9% mean 2.45
+[root] bu_rank: 500M_w0 top-1 84.8% mean 1.61  500M top-1 84.1% mean 1.67
+[root] d2_rank: 500M_w0/500M_w0 top-1 77.2% mean 2.35  500M_w0/500M top-1 77.3% mean 2.34  500M/500M_w0 top-1 77.3% mean 2.38  500M/500M top-1 77.3% mean 2.38
+[session] done at 4.50h: card 1 0
+  cells[i][c] = re.sub('\\\\\|', '|', cell)
+  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+[NbConvertApp] Writing 931961 bytes to __notebook__.ipynb
+[NbConvertApp] Converting notebook __notebook__.ipynb to html
+[NbConvertApp] Writing 1241768 bytes to __results__.html
