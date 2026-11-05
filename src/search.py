@@ -152,10 +152,12 @@ class Searcher:
         return best_uci
 
 
-def make_player(model, centres, device: str, depth: int, shared: bool = False):
+def make_player(model, centres, device: str, depth: int, shared: bool = False,
+                leaf_model=None, leaf_centres=None):
     """A best_move(board) callable at a fixed depth, for play_eval and the bot."""
     def player(board: chess.Board) -> str:
-        return Searcher(model, centres, device, shared).best_move(board, depth)
+        return Searcher(model, centres, device, shared, leaf_model,
+                        leaf_centres).best_move(board, depth)
     return player
 
 

@@ -179,6 +179,19 @@ def listwise_loss(values: torch.Tensor, mask: torch.Tensor, temp: float) -> torc
     return F.cross_entropy(logits, target)
 
 
+def distill_kl(student_logits: torch.Tensor, teacher_logits: torch.Tensor) -> torch.Tensor:
+    """KL(teacher || student) over the buckets, mean per sequence, in float32.
+
+    The action-value target is one bucket per sample; the teacher's 64-bucket
+    distribution says, for every training position, what the network thought before
+    the fine-tune. Holding the student to it is a much tighter anchor than the hard
+    label, which a fine-tuned model can satisfy while drifting elsewhere.
+    """
+    return F.kl_div(F.log_softmax(student_logits.float(), dim=-1),
+                    F.log_softmax(teacher_logits.float(), dim=-1),
+                    log_target=True, reduction="batchmean")
+
+
 def rank_step(model, centres, stream, cfg, ctx, device):
     """One puzzle batch -> (loss, top-1 accuracy over the candidate moves)."""
     x, mask = stream.batch(cfg["rank_batch"], device)
@@ -191,21 +204,26 @@ def rank_step(model, centres, stream, cfg, ctx, device):
 
 
 @torch.no_grad()
-def evaluate(model, streams, cfg, ctx, rank_streams=None, centres=None) -> dict:
+def evaluate(model, streams, cfg, ctx, rank_streams=None, centres=None, teacher=None) -> dict:
     out = {}
     model.eval()
     for split, stream in streams.items():
         losses = torch.zeros(cfg["eval_iters"])
+        kls = torch.zeros(cfg["eval_iters"])
         correct = total = 0
         for k in range(cfg["eval_iters"]):
             x, y = stream.batch(cfg["batch_size"], cfg["device"])
             with ctx:
                 logits, loss = model(x, y)
+                if teacher is not None:
+                    kls[k] = distill_kl(logits, teacher(x)[0]).item()
             losses[k] = loss.item()
             correct += (logits.argmax(-1) == y).sum().item()
             total += y.numel()
         out[split] = losses.mean().item()
         out[f"{split}_acc"] = correct / total
+        if teacher is not None:
+            out[f"{split}_kl"] = kls.mean().item()
     if rank_streams:
         # "Picks the puzzle move out of its legal alternatives" -- the quantity the
         # puzzle data is here to improve, measured on puzzles never trained on.
@@ -338,6 +356,17 @@ def main() -> None:
         say(f"[init] weights from {args.init_from} "
               f"(its step {init.get('step', init.get('next_step', '?'))}), fresh schedule",
               flush=True)
+    teacher = None
+    if cfg.get("distill_from"):
+        # A frozen copy, read only: never compiled, never stepped, never saved.
+        src = torch.load(cfg["distill_from"], map_location="cpu", weights_only=False)
+        if src["cfg"] != asdict(model_cfg):
+            sys.exit(f"model config differs from the teacher {cfg['distill_from']}")
+        teacher = GPT(model_cfg).to(device)
+        teacher.load_state_dict(src["model"])
+        teacher.eval().requires_grad_(False)
+        say(f"[distill] teacher {cfg['distill_from']} (its step {src.get('step', '?')}), "
+            f"weight {cfg['distill_weight']}", flush=True)
     if args.resume:
         if args.init_from:
             sys.exit("--init_from and --resume are mutually exclusive")
@@ -423,9 +452,11 @@ def main() -> None:
             g["lr"] = get_lr(step, cfg)
 
         if step % cfg["eval_interval"] == 0:
-            m = evaluate(model, streams, cfg, ctx, rank_streams, centres)
+            m = evaluate(model, streams, cfg, ctx, rank_streams, centres, teacher)
             note = (f" | puzzle move {m['rank_val_acc']*100:.1f}%"
                     if "rank_val_acc" in m else "")
+            if "val_kl" in m:
+                note += f" | val KL to teacher {m['val_kl']:.4f}"
             say(f"step {step:6d} | train {m['train']:.4f} | val {m['val']:.4f} "
                   f"| val acc {m['val_acc']*100:.1f}%{note} | {time.time()-t0:.0f}s",
                   flush=True)
@@ -438,11 +469,17 @@ def main() -> None:
             t_log, s_log = time.time(), step
 
         optimizer.zero_grad(set_to_none=True)
-        rank_loss = rank_acc = None
+        rank_loss = rank_acc = kl = None
         for _ in range(accum):
             x, y = streams["train"].batch(local_batch, device)
             with ctx:
-                _, loss = model(x, y)
+                logits, loss = model(x, y)
+                ce = loss.detach()            # the logged loss stays the action-value one
+                if teacher is not None:
+                    with torch.no_grad():
+                        teacher_logits, _ = teacher(x)
+                    kl = distill_kl(logits, teacher_logits)
+                    loss = loss + cfg["distill_weight"] * kl
                 loss = loss / accum
             scaler.scale(loss).backward()
         if rank_streams is not None and cfg["rank_weight"]:
@@ -477,7 +514,9 @@ def main() -> None:
             mfu = sps * flops_per_sample / peak_flops
             note = (f" | rank {rank_loss.item():.4f} ({rank_acc*100:.0f}%)"
                     if rank_loss is not None else "")
-            say(f"  step {step} | loss {loss.item()*accum:.4f}{note} "
+            if kl is not None:
+                note += f" | KL {kl.item():.4f}"
+            say(f"  step {step} | loss {ce.item():.4f}{note} "
                   f"| lr {get_lr(step, cfg):.2e} "
                   f"| {sps:,.0f} samples/s | MFU {mfu*100:.1f}%", flush=True)
             t_log, s_log = now, step + 1

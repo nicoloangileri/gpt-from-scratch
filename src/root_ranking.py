@@ -79,13 +79,19 @@ def _override(values: np.ndarray, exact: list[float | None]) -> np.ndarray:
     return values
 
 
-def evaluate_node(models: dict, board: chess.Board, device: str) -> dict:
+def evaluate_node(models: dict, board: chess.Board, device: str,
+                  q_from=None, bu_from=None) -> dict:
     """Root Q and backed-up child values of every legal move, for every network.
 
     q[name][i]  = Q(s, a_i), terminal moves exact (src/search.py _q_values)
     bu[name][i] = 1 - max_a' Q(s'_i, a'), the depth-1 value of the child backed up;
                   for a move that ends the game it is the exact value itself.
+
+    `q_from` and `bu_from` restrict which networks compute which half (default: all),
+    so a player that only needs one root and one set of leaves pays for those alone.
     """
+    q_from = set(models) if q_from is None else set(q_from)
+    bu_from = set(models) if bu_from is None else set(bu_from)
     moves = [m.uci() for m in board.legal_moves]
     exact = _exact_after(board, moves)
     children, child_moves, child_exact, open_idx = [], [], [], []
@@ -101,7 +107,11 @@ def evaluate_node(models: dict, board: chess.Board, device: str) -> dict:
         open_idx.append(i)
     q, bu = {}, {}
     for name, (model, centres) in models.items():
-        q[name] = _override(network_values(model, centres, [board], [moves], device)[0], exact)
+        if name in q_from:
+            q[name] = _override(network_values(model, centres, [board], [moves], device)[0],
+                                exact)
+        if name not in bu_from:
+            continue
         b = np.array([e if e is not None else np.nan for e in exact], dtype=np.float64)
         if children:
             for i, v, ex in zip(open_idx, network_values(model, centres, children, child_moves, device),
@@ -144,6 +154,28 @@ def choose(node: dict, root: str, leaf: str, depth: int) -> str:
     q = node["q"][root]
     i = int(q.argmax()) if depth == 1 else depth2_choice(q, node["bu"][leaf])
     return node["moves"][i]
+
+
+def make_onepass_player(root: tuple, leaf: tuple | None, device: str, depth: int = 2):
+    """A best_move(board) callable for src/match.py: `root` and `leaf` are (model,
+    centres), leaf None meaning the root's own network.
+
+    Depth 1 is the root's argmax. Depth 2 is Searcher(root, leaf_model=leaf).best_move,
+    move for move (tests/test_root_ranking.py), in two network calls per move instead
+    of one per child: the root's moves in one batch and every child's moves in
+    another, with the prefixes shared. On a GPU the per-child calls are what the
+    depth-2 matches spent their hours on.
+    """
+    if depth not in (1, 2):
+        raise ValueError(f"the one-pass player covers depth 1 and 2, not {depth}")
+    models = {"root": root} if leaf is None else {"root": root, "leaf": leaf}
+    leaf_name = "root" if leaf is None else "leaf"
+
+    def player(board: chess.Board) -> str:
+        node = evaluate_node(models, board, device, q_from=("root",),
+                             bu_from=(leaf_name,) if depth == 2 else ())
+        return choose(node, "root", leaf_name, depth)
+    return player
 
 
 def _rank(values: np.ndarray, i: int) -> int:

@@ -35,6 +35,13 @@ rank_weight: 1.0       # 0 disables the term without unpacking the data
 rank_batch: 64         # positions; each costs `num_candidates` sequences
 rank_temp: 0.05        # win-probability difference that counts as one logit
 
+# --- distillation (optional: empty distill_from turns it off) ---
+# A frozen copy of a checkpoint; on every action-value batch the student also pays
+# distill_weight x KL(teacher || student) over the 64 buckets. Meant for the puzzle
+# fine-tune: the ranking loss moves the root, this holds the values elsewhere.
+distill_from: ""
+distill_weight: 1.0
+
 # --- precision / speed ---
 amp: true
 dtype: bf16            # auto-falls back to fp16 on pre-Ampere GPUs (T4)

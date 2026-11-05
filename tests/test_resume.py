@@ -26,14 +26,14 @@ def _fake_packed_dataset(d: Path, n: int = 3000) -> None:
         rng.integers(0, 64, size, dtype=np.uint8).tofile(d / f"{split}_buckets.bin")
 
 
-def _train(data: Path, out: Path, *extra: str) -> None:
+def _train(data: Path, out: Path, *extra: str) -> subprocess.CompletedProcess:
     cmd = [sys.executable, "-m", "src.train_chess", "--config", "configs/chess.yaml",
            "--data_dir", str(data), "--device", "cpu", "--amp", "false", "--compile", "false",
            "--n_layer", "1", "--n_head", "2", "--n_embd", "32", "--batch_size", "16",
            "--max_steps", "24", "--warmup_steps", "3", "--eval_interval", "8",
            "--eval_iters", "2", "--log_interval", "8", "--save_every", "0",
            "--out_dir", str(out), *extra]
-    subprocess.run(cmd, cwd=ROOT, check=True, capture_output=True, text=True)
+    return subprocess.run(cmd, cwd=ROOT, check=True, capture_output=True, text=True)
 
 
 def _fake_puzzles(d: Path, n: int = 400, k: int = 16) -> None:
@@ -191,3 +191,28 @@ def test_the_puzzle_loss_reaches_the_weights(tmp_path):
                      for n in ("w1", "w1_again", "w2"))
     assert all(torch.equal(w1[n], again[n]) for n in w1)
     assert any(not torch.equal(w1[n], w2[n]) for n in w1)
+
+
+def test_distillation_starts_at_zero_and_reaches_the_weights(tmp_path):
+    """The teacher is the starting checkpoint, so before any update the student is the
+    teacher and the KL is exactly zero; after it, distill_weight 1 and 0 draw the same
+    batches and must end with different weights, and a repeat of the first run must
+    match it bit for bit, so the difference can only come from the KL term."""
+    data = tmp_path / "data"
+    data.mkdir()
+    _fake_packed_dataset(data)
+    _fake_puzzles(tmp_path / "puzzles")
+    _train(data, tmp_path / "first")
+    src = str(tmp_path / "first" / "last.pt")
+    common = ("--init_from", src, "--distill_from", src, "--puzzle_dir", str(tmp_path / "puzzles"),
+              "--rank_batch", "4", "--rank_weight", "0.3", "--max_steps", "6")
+    logs = {name: _train(data, tmp_path / name, *common, "--distill_weight", w).stdout
+            for name, w in (("d1", "1.0"), ("d1_again", "1.0"), ("d0", "0.0"))}
+    assert "[distill] teacher" in logs["d1"]
+    assert "val KL to teacher 0.0000" in logs["d1"].split("step      0")[1].splitlines()[0]
+    d1, again, d0 = (torch.load(tmp_path / n / "last.pt", weights_only=False)["model"]
+                     for n in ("d1", "d1_again", "d0"))
+    assert all(torch.equal(d1[n], again[n]) for n in d1)
+    assert any(not torch.equal(d1[n], d0[n]) for n in d1)
+    # the teacher file is read, never written
+    assert torch.load(src, weights_only=False)["next_step"] == 25

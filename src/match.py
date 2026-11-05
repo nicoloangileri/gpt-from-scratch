@@ -16,6 +16,11 @@ close ones. A direct match answers it in one evening, the way engine testers do:
 - Every position is played twice with colours swapped, so the side-to-move edge of
   a position cancels out instead of landing on whoever drew it.
 - The result is an Elo difference with a 95% interval, not just a score.
+
+A side can search with two networks, one for the root and one for the leaves
+(`--a_leaf`, `--b_leaf`): the configuration src/root_ranking.py found best on puzzles.
+`--onepass` plays depth 1 and 2 with src/root_ranking.py's player, the same moves as
+src/search.py in two network calls per move.
 """
 from __future__ import annotations
 
@@ -132,6 +137,10 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--a", required=True, help="checkpoint A (results are from its side)")
     ap.add_argument("--b", required=True, help="checkpoint B")
+    ap.add_argument("--a_leaf", default=None, help="leaves for A's search (default: A)")
+    ap.add_argument("--b_leaf", default=None, help="leaves for B's search (default: B)")
+    ap.add_argument("--onepass", action="store_true",
+                    help="depth 1-2 in two batched network calls per move (same moves)")
     ap.add_argument("--depth", type=int, default=1)
     ap.add_argument("--positions", type=int, default=100, help="each is played twice")
     ap.add_argument("--bag", default="data/chessbench/action_value_test.bag")
@@ -148,20 +157,30 @@ def main() -> None:
     import torch
     torch.set_num_threads(args.threads)
     from .puzzles_eval import load_model
+    from .root_ranking import make_onepass_player
     from .search import make_player
 
     positions = balanced_positions(args.bag, args.positions, args.seed)
     players = []
-    for ckpt in (args.a, args.b):
+    for ckpt, leaf_ckpt in ((args.a, args.a_leaf), (args.b, args.b_leaf)):
         model, centres, _ = load_model(ckpt, args.device)
-        players.append(make_player(model, centres, args.device, args.depth))
-    print(f"[match] A = {args.a}\n[match] B = {args.b}\n[match] depth {args.depth}, "
+        leaf = load_model(leaf_ckpt, args.device)[:2] if leaf_ckpt else None
+        if args.onepass:
+            players.append(make_onepass_player((model, centres), leaf, args.device, args.depth))
+        else:
+            players.append(make_player(model, centres, args.device, args.depth,
+                                       leaf_model=leaf[0] if leaf else None,
+                                       leaf_centres=leaf[1] if leaf else None))
+    print(f"[match] A = {args.a}" + (f" (leaves {args.a_leaf})" if args.a_leaf else "")
+          + f"\n[match] B = {args.b}" + (f" (leaves {args.b_leaf})" if args.b_leaf else "")
+          + f"\n[match] depth {args.depth}{', one pass' if args.onepass else ''}, "
           f"{len(positions)} positions x 2 colours, {args.threads} threads", flush=True)
 
     t = time.time()
 
     def report(results):
-        summary = {"a": args.a, "b": args.b, "depth": args.depth, "seed": args.seed,
+        summary = {"a": args.a, "b": args.b, "a_leaf": args.a_leaf, "b_leaf": args.b_leaf,
+                   "onepass": args.onepass, "depth": args.depth, "seed": args.seed,
                    "seconds": round(time.time() - t), **summarise(results)}
         if args.out:                  # rewritten after every position: a cut keeps them
             Path(args.out).write_text(json.dumps(summary, indent=1) + "\n")

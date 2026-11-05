@@ -114,3 +114,53 @@ def test_a_different_mate_also_solves(monkeypatch):
     monkeypatch.setattr(rr, "choose", lambda node, root, leaf, depth: picks[f"{root}@{depth}"])
     got, _ = rr.solve_all(MODELS, fen, line, "cpu", {"a@1": ("a", "a", 1), "a@2": ("a", "a", 2)})
     assert got == {"a@1": 1, "a@2": 0}
+
+
+@pytest.mark.parametrize("fen", POSITIONS)
+def test_the_onepass_player_is_the_searcher(fen):
+    """src/match.py --onepass plays these moves; they must be the search's, for the
+    hybrid (root a, leaves b) as for a single network, at depth 1 and 2."""
+    from src.root_ranking import make_onepass_player
+    for leaf in (None, MODELS["b"]):
+        player = make_onepass_player(MODELS["a"], leaf, "cpu", depth=2)
+        s = Searcher(A, CENTRES, "cpu", leaf_model=None if leaf is None else B)
+        assert player(chess.Board(fen)) == s.best_move(chess.Board(fen), 2)
+    d1 = make_onepass_player(MODELS["a"], None, "cpu", depth=1)
+    assert d1(chess.Board(fen)) == best_move(A, CENTRES, chess.Board(fen), "cpu")
+
+
+def test_the_onepass_player_refuses_depth_3():
+    from src.root_ranking import make_onepass_player
+    with pytest.raises(ValueError):
+        make_onepass_player(MODELS["a"], None, "cpu", depth=3)
+
+
+def test_match_wires_the_leaves_and_the_onepass_player(monkeypatch, tmp_path):
+    """The command line the Kaggle session runs: A searches with B's leaves. Each
+    player built by main() must make the move the matching Searcher makes."""
+    import json
+    import sys
+
+    from src import match, puzzles_eval
+    fen = POSITIONS[0]
+    nets = {"a.pt": A, "b.pt": B}
+    monkeypatch.setattr(puzzles_eval, "load_model", lambda p, d: (nets[p], CENTRES, {}))
+    monkeypatch.setattr(match, "balanced_positions", lambda bag, n, seed: [fen])
+    seen = {}
+
+    def one_move_each(start, white, black, max_plies=300):
+        seen.setdefault("white", []).append(white(chess.Board(start)))
+        seen.setdefault("black", []).append(black(chess.Board(start)))
+        return 0.5
+    monkeypatch.setattr(match, "play", one_move_each)
+    out = tmp_path / "m.json"
+    monkeypatch.setattr(sys, "argv", ["match", "--a", "a.pt", "--a_leaf", "b.pt", "--b", "b.pt",
+                                      "--depth", "2", "--positions", "1", "--onepass",
+                                      "--threads", "1", "--out", str(out)])
+    match.main()
+    hybrid = Searcher(A, CENTRES, "cpu", leaf_model=B).best_move(chess.Board(fen), 2)
+    plain_b = Searcher(B, CENTRES, "cpu").best_move(chess.Board(fen), 2)
+    assert seen["white"][0] == hybrid and seen["black"][1] == hybrid     # A, both colours
+    assert seen["black"][0] == plain_b and seen["white"][1] == plain_b
+    summary = json.loads(out.read_text())
+    assert summary["a_leaf"] == "b.pt" and summary["onepass"] and summary["games"] == 2

@@ -82,3 +82,52 @@ def test_int8_notebook_is_a_cpu_kernel(tmp_path):
     meta = json.loads((tmp_path / "kernel-metadata.json").read_text())
     assert meta["enable_gpu"] is False and "machine_shape" not in meta
     assert meta["id"] == cpu.KERNEL_ID and meta["id"] not in EARLIER_KERNELS | {rr.KERNEL_ID}
+
+
+# --- the distillation + hybrid-match session -------------------------------------
+import build_distill_hybrid as dh  # noqa: E402
+
+
+@pytest.fixture
+def dh_nb(tmp_path):
+    dh.build(10.5, tmp_path)
+    return tmp_path
+
+
+def test_distill_hybrid_notebook_parses_and_is_a_new_kernel(dh_nb):
+    for c in _cells(dh_nb / "distill_hybrid_kernel.ipynb"):
+        ast.parse(c)
+    meta = json.loads((dh_nb / "kernel-metadata.json").read_text())
+    assert meta["id"] == dh.KERNEL_ID
+    assert meta["id"] not in EARLIER_KERNELS | {rr.KERNEL_ID, cpu.KERNEL_ID}
+    assert meta["enable_gpu"] and set(meta["kernel_sources"]) == {dh.BASE_KERNEL, dh.W03_KERNEL}
+
+
+def test_the_match_bag_survives_the_packing(dh_nb):
+    """The packing cell deletes every .bag in DATA: the match's copy must live elsewhere."""
+    cells = _cells(dh_nb / "distill_hybrid_kernel.ipynb")
+    start = cells[1]
+    packing = [c for c in cells if "prepare_chessbench" in c and "_FILES" not in c][0]
+    assert 'glob.glob(DATA + "/*.bag")' in packing
+    assert 'MATCH_DIR = DATA + "_match"' in start and '"--bag", MATCH_DIR + "/test.bag"' in start
+    assert '"CUDA_VISIBLE_DEVICES": "1"' in start
+    for flag in ('"--a", W03', '"--a_leaf", BASE500', '"--b", BASE500', '"--onepass"',
+                 '"--depth", "2"', '"--seed", "0"'):
+        assert flag in start, flag
+
+
+def test_the_distilled_fine_tune_is_w03_plus_the_teacher(dh_nb):
+    """Against the notebook that produced results/26: the same command, two flags more."""
+    def train(nb):
+        return [c for c in _cells(nb) if 'sys.argv = ["train_chess"' in c][0]
+    new = train(dh_nb / "distill_hybrid_kernel.ipynb")
+    old = train(ROOT / "kaggle_chess_puzzle_500m_w03" / "puzzle_kernel.ipynb")
+    args = lambda cell: cell[cell.index("sys.argv"):cell.index("from src.train_chess")]
+    extra = '            "--distill_from", BASE500, "--distill_weight", "1.0",\n'
+    assert args(new).replace(extra, "") == args(old)
+    assert "INIT = BASE500" in new
+
+
+def test_a_quota_too_short_for_the_distilled_fine_tune_is_refused(tmp_path):
+    with pytest.raises(SystemExit):
+        dh.build(6.0, tmp_path)

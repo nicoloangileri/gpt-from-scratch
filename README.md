@@ -645,11 +645,13 @@ results/             the logs behind the numbers above
 
 ## Still open
 
-- Games for the hybrid search (the fine-tune's root, the 500M model's leaves): it is
-  the best puzzle configuration, and a match at depth 2 against the 500M model alone
-  is what would decide whether the bot should run it.
-- A fine-tune that keeps the leaves: the ranking loss with the 500M model's values as
-  a distillation target on ordinary positions, so the root learns the puzzles without
-  the backed-up values getting worse.
+- **Running:** games for the hybrid search (the fine-tune's root, the 500M model's
+  leaves), the best puzzle configuration: 400 starting positions at depth 2 against the
+  500M model alone, which is what decides whether the bot should run it
+  ([`kaggle_chess/build_distill_hybrid.py`](kaggle_chess/build_distill_hybrid.py)).
+- **Running:** a fine-tune that keeps the leaves: the light fine-tune again with
+  KL(500M || student) over the buckets added on every ordinary batch (`distill_from`
+  in [`configs/chess.yaml`](configs/chess.yaml)), so the root learns the puzzles
+  without the backed-up values getting worse; then the same evaluations as results/32.
 - KV-cache serving for the language-model path (CUDA graphs: worth at most ~7% here,
   see Systems)
