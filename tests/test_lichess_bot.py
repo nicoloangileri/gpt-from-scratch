@@ -409,3 +409,49 @@ def test_after_a_stop_the_bot_leaves_when_the_game_ends(monkeypatch):
     bot.handle_challenge = handled.append
     bot.run(seek=False)                                  # returns instead of looping
     assert played == ["g1"] and handled == []
+
+
+def _bot_with_two_networks(depth=2):
+    from tests.test_fast_eval import CENTRES, tiny_model
+    bot = _bare_bot()
+    bot.model, bot.centres = tiny_model(10), CENTRES
+    bot.leaf_model, bot.leaf_centres = tiny_model(11), CENTRES
+    bot.device, bot.depth = "cpu", depth
+    return bot
+
+
+def test_pick_gives_the_leaf_network_to_the_search(monkeypatch):
+    """--leaf_ckpt must reach the search: a bot that silently dropped it would play the
+    root network's own leaves, the configuration results/33 replaced."""
+    import chess
+    from src import lichess_bot
+    bot = _bot_with_two_networks()
+    seen = {}
+    real = lichess_bot.Searcher
+
+    class Spy(real):
+        def __init__(self, *a, **k):
+            seen.update(k)
+            super().__init__(*a, **k)
+
+    monkeypatch.setattr(lichess_bot, "Searcher", Spy)
+    move = bot.pick(chess.Board(), 300_000)
+    assert seen["leaf_model"] is bot.leaf_model and seen["leaf_centres"] is bot.leaf_centres
+    assert chess.Move.from_uci(move) in chess.Board().legal_moves
+    assert move == real(bot.model, bot.centres, "cpu", shared=True, leaf_model=bot.leaf_model,
+                        leaf_centres=bot.leaf_centres).best_move(chess.Board(), 2)
+
+
+def test_short_clock_plays_the_root_network_alone(monkeypatch):
+    """Below 30 seconds the bot plays the bare root network: no search to pay for."""
+    import chess
+    from src import lichess_bot
+    from src.puzzles_eval import best_move
+    bot = _bot_with_two_networks()
+
+    def no_search(*a, **k):
+        raise AssertionError("searched on a short clock")
+
+    monkeypatch.setattr(lichess_bot, "Searcher", no_search)
+    assert bot.pick(chess.Board(), 29_000) == best_move(
+        bot.model, bot.centres, chess.Board(), "cpu", shared=True)

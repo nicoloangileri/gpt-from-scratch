@@ -1,0 +1,734 @@
+/usr/local/lib/python3.13/dist-packages/nbformat/validator.py:434: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  _validate(nbdict, ref, version, version_minor, relax_add_props)
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/puzzle_data.py', 'src/search.py', 'src/agreement_eval.py', 'src/match.py', 'src/fast_eval.py', 'src/root_ranking.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'configs/chess.yaml']
+[session] 500M /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt | w0.3 /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03/checkpoints/chess_best.pt
+[session] match started 0.00h in, jobs end at 10.42h
+[data] shard 1/3 downloaded in 6s
+[chess] 1,000,000 records
+[match] [match] A = /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03/checkpoints/chess_best.pt (leaves /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt)
+[match] [match] B = /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt
+[match] [match] depth 2, one pass, 400 positions x 2 colours, 2 threads
+[chess] 2,000,000 records
+[chess] 3,000,000 records
+[chess] 4,000,000 records
+[match] [match] 1/400 positions: A 0W 2D 0L, score 0.500, Elo -0 [-0, -0]
+[chess] 5,000,000 records
+[chess] 6,000,000 records
+[match] [match] 2/400 positions: A 2W 2D 0L, score 0.750, Elo +191 [+3, +920]
+[chess] 7,000,000 records
+[match] [match] 3/400 positions: A 3W 2D 1L, score 0.667, Elo +120 [-94, +576]
+[chess] 8,000,000 records
+[chess] 9,000,000 records
+[match] [match] 4/400 positions: A 4W 3D 1L, score 0.688, Elo +137 [-37, +446]
+[chess] 10,000,000 records
+[match] [match] 5/400 positions: A 5W 4D 1L, score 0.700, Elo +147 [-4, +393]
+[chess] 11,000,000 records
+[chess] 12,000,000 records
+[match] [match] 6/400 positions: A 6W 4D 2L, score 0.667, Elo +120 [-31, +342]
+[chess] 13,000,000 records
+[match] [match] 7/400 positions: A 7W 5D 2L, score 0.679, Elo +130 [-7, +325]
+[chess] 14,000,000 records
+[chess] 15,000,000 records
+[match] [match] 8/400 positions: A 9W 5D 2L, score 0.719, Elo +163 [+32, +366]
+[match] [match] 9/400 positions: A 9W 7D 2L, score 0.694, Elo +143 [+26, +303]
+[chess] 16,000,000 records
+[match] [match] 10/400 positions: A 10W 7D 3L, score 0.675, Elo +127 [+11, +281]
+[data] shard 2/3 downloaded in 10s
+[chess] 17,000,000 records
+[chess] 18,000,000 records
+[match] [match] 11/400 positions: A 11W 8D 3L, score 0.682, Elo +132 [+23, +276]
+[chess] 19,000,000 records
+[match] [match] 12/400 positions: A 12W 9D 3L, score 0.688, Elo +137 [+34, +271]
+[chess] 20,000,000 records
+[match] [match] 13/400 positions: A 13W 9D 4L, score 0.673, Elo +125 [+23, +256]
+[chess] 21,000,000 records
+[chess] 22,000,000 records
+[match] [match] 14/400 positions: A 14W 9D 5L, score 0.661, Elo +116 [+14, +242]
+[chess] 23,000,000 records
+[match] [match] 15/400 positions: A 16W 9D 5L, score 0.683, Elo +134 [+34, +261]
+[chess] 24,000,000 records
+[match] [match] 16/400 positions: A 17W 10D 5L, score 0.688, Elo +137 [+41, +258]
+[chess] 25,000,000 records
+[chess] 26,000,000 records
+[match] [match] 17/400 positions: A 18W 11D 5L, score 0.691, Elo +140 [+48, +256]
+[chess] 27,000,000 records
+[chess] 28,000,000 records
+[match] [match] 18/400 positions: A 19W 11D 6L, score 0.681, Elo +131 [+40, +244]
+[chess] 29,000,000 records
+[match] [match] 19/400 positions: A 20W 11D 7L, score 0.671, Elo +124 [+34, +234]
+[chess] 30,000,000 records
+[chess] 31,000,000 records
+[match] [match] 20/400 positions: A 20W 12D 8L, score 0.650, Elo +108 [+20, +211]
+[chess] 32,000,000 records
+[chess] 33,000,000 records
+[match] [match] 21/400 positions: A 20W 14D 8L, score 0.643, Elo +102 [+19, +199]
+[chess] 34,000,000 records
+[match] [match] 22/400 positions: A 20W 15D 9L, score 0.625, Elo +89 [+8, +181]
+[chess] 35,000,000 records
+[match] [match] 23/400 positions: A 22W 15D 9L, score 0.641, Elo +101 [+21, +193]
+[chess] 36,000,000 records
+[match] [match] 24/400 positions: A 22W 16D 10L, score 0.625, Elo +89 [+10, +177]
+[chess] 37,000,000 records
+[match] [match] 25/400 positions: A 24W 16D 10L, score 0.640, Elo +100 [+23, +189]
+[match] [match] 26/400 positions: A 25W 16D 11L, score 0.635, Elo +96 [+19, +183]
+[data] shard 3/3 downloaded in 21s
+[chess] 38,000,000 records
+[match] [match] 27/400 positions: A 27W 16D 11L, score 0.648, Elo +106 [+30, +193]
+[chess] 39,000,000 records
+[chess] 40,000,000 records
+[match] [match] 28/400 positions: A 28W 16D 12L, score 0.643, Elo +102 [+27, +188]
+[chess] 41,000,000 records
+[match] [match] 29/400 positions: A 29W 17D 12L, score 0.647, Elo +105 [+31, +189]
+[chess] 42,000,000 records
+[chess] 43,000,000 records
+[match] [match] 30/400 positions: A 29W 18D 13L, score 0.633, Elo +95 [+23, +176]
+[chess] 44,000,000 records
+[match] [match] 31/400 positions: A 30W 18D 14L, score 0.629, Elo +92 [+20, +172]
+[chess] 45,000,000 records
+[match] [match] 32/400 positions: A 31W 19D 14L, score 0.633, Elo +95 [+25, +173]
+[chess] 46,000,000 records
+[chess] 47,000,000 records
+[match] [match] 33/400 positions: A 31W 20D 15L, score 0.621, Elo +86 [+17, +162]
+[chess] 48,000,000 records
+[match] [match] 34/400 positions: A 31W 20D 17L, score 0.603, Elo +73 [+4, +147]
+[chess] 49,000,000 records
+[match] [match] 35/400 positions: A 31W 20D 19L, score 0.586, Elo +60 [-8, +133]
+[chess] 50,000,000 records
+[chess] {'train': 50121317, 'val': 200000, 'skipped': 0, 'num_buckets': 64, 'vocab': 1999}
+[data] packed in 931s
+[ram] 30.8 GB available, train states 3.9 GB -> in RAM
+[match] [match] 36/400 positions: A 32W 21D 19L, score 0.590, Elo +63 [-3, +135]
+[match] [match] 37/400 positions: A 32W 22D 20L, score 0.581, Elo +57 [-9, +127]
+[match] [match] 38/400 positions: A 32W 23D 21L, score 0.572, Elo +51 [-14, +119]
+[match] [match] 39/400 positions: A 33W 23D 22L, score 0.571, Elo +49 [-15, +117]
+[match] [match] 40/400 positions: A 34W 23D 23L, score 0.569, Elo +48 [-16, +115]
+[puzzles] database downloaded in 102s (310 MB)
+[puzzles] excluding 10,000 held-out ids
+[match] [match] 41/400 positions: A 35W 23D 24L, score 0.567, Elo +47 [-16, +113]
+[match] [match] 42/400 positions: A 35W 24D 25L, score 0.560, Elo +42 [-21, +107]
+[match] [match] 43/400 positions: A 36W 25D 25L, score 0.564, Elo +45 [-17, +109]
+[match] [match] 44/400 positions: A 36W 26D 26L, score 0.557, Elo +40 [-21, +103]
+[match] [match] 45/400 positions: A 36W 27D 27L, score 0.550, Elo +35 [-25, +97]
+[match] [match] 46/400 positions: A 37W 28D 27L, score 0.554, Elo +38 [-21, +99]
+[puzzles] 200,000 puzzles -> 439,946 train + 20,000 val positions
+[match] [match] 47/400 positions: A 38W 28D 28L, score 0.553, Elo +37 [-21, +98]
+[match] [match] 48/400 positions: A 39W 28D 29L, score 0.552, Elo +36 [-22, +97]
+[match] [match] 49/400 positions: A 40W 28D 30L, score 0.551, Elo +36 [-22, +95]
+[match] [match] 50/400 positions: A 40W 28D 32L, score 0.540, Elo +28 [-30, +87]
+[match] [match] 51/400 positions: A 40W 28D 34L, score 0.529, Elo +20 [-37, +79]
+[match] [match] 52/400 positions: A 41W 28D 35L, score 0.529, Elo +20 [-37, +78]
+[puzzles] 400,000 puzzles -> 900,165 train + 20,000 val positions
+[match] [match] 53/400 positions: A 42W 29D 35L, score 0.533, Elo +23 [-33, +81]
+[match] [match] 54/400 positions: A 44W 29D 35L, score 0.542, Elo +29 [-27, +86]
+[match] [match] 55/400 positions: A 45W 30D 35L, score 0.545, Elo +32 [-24, +89]
+[match] [match] 56/400 positions: A 46W 30D 36L, score 0.545, Elo +31 [-24, +88]
+[match] [match] 57/400 positions: A 47W 30D 37L, score 0.544, Elo +31 [-24, +87]
+[puzzles] 600,000 puzzles -> 1,359,989 train + 20,000 val positions
+[match] [match] 58/400 positions: A 47W 32D 37L, score 0.543, Elo +30 [-24, +85]
+[match] [match] 59/400 positions: A 48W 32D 38L, score 0.542, Elo +30 [-24, +84]
+[match] [match] 60/400 positions: A 49W 33D 38L, score 0.546, Elo +32 [-21, +86]
+[match] [match] 61/400 positions: A 50W 34D 38L, score 0.549, Elo +34 [-18, +88]
+[match] [match] 62/400 positions: A 51W 35D 38L, score 0.552, Elo +37 [-15, +90]
+[puzzles] 800,000 puzzles -> 1,820,113 train + 20,000 val positions
+[match] [match] 63/400 positions: A 52W 36D 38L, score 0.556, Elo +39 [-12, +91]
+[match] [match] 64/400 positions: A 53W 36D 39L, score 0.555, Elo +38 [-13, +91]
+[match] [match] 65/400 positions: A 54W 36D 40L, score 0.554, Elo +38 [-13, +90]
+[match] [match] 66/400 positions: A 56W 36D 40L, score 0.561, Elo +42 [-8, +94]
+[match] [match] 67/400 positions: A 56W 38D 40L, score 0.560, Elo +42 [-8, +93]
+[puzzles] 1,000,000 puzzles -> 2,280,845 train + 20,000 val positions
+[match] [match] 68/400 positions: A 57W 38D 41L, score 0.559, Elo +41 [-8, +92]
+[match] [match] 69/400 positions: A 57W 38D 43L, score 0.551, Elo +35 [-14, +86]
+[match] [match] 70/400 positions: A 58W 38D 44L, score 0.550, Elo +35 [-14, +85]
+[match] [match] 71/400 positions: A 58W 39D 45L, score 0.546, Elo +32 [-17, +82]
+[match] [match] 72/400 positions: A 59W 40D 45L, score 0.549, Elo +34 [-14, +83]
+[match] [match] 73/400 positions: A 59W 41D 46L, score 0.545, Elo +31 [-17, +80]
+[puzzles] 1,200,000 puzzles -> 2,740,722 train + 20,000 val positions
+[match] [match] 74/400 positions: A 60W 42D 46L, score 0.547, Elo +33 [-14, +81]
+[match] [match] 75/400 positions: A 61W 43D 46L, score 0.550, Elo +35 [-12, +83]
+[match] [match] 76/400 positions: A 61W 44D 47L, score 0.546, Elo +32 [-14, +80]
+[match] [match] 77/400 positions: A 63W 44D 47L, score 0.552, Elo +36 [-10, +84]
+[match] [match] 78/400 positions: A 63W 45D 48L, score 0.548, Elo +34 [-12, +81]
+[match] [match] 79/400 positions: A 63W 46D 49L, score 0.544, Elo +31 [-15, +77]
+[puzzles] 1,400,000 puzzles -> 3,200,905 train + 20,000 val positions
+[match] [match] 80/400 positions: A 65W 46D 49L, score 0.550, Elo +35 [-10, +81]
+[match] [match] 81/400 positions: A 66W 47D 49L, score 0.552, Elo +37 [-8, +83]
+[match] [match] 82/400 positions: A 67W 48D 49L, score 0.555, Elo +38 [-6, +84]
+[match] [match] 83/400 positions: A 69W 48D 49L, score 0.560, Elo +42 [-2, +88]
+[match] [match] 84/400 positions: A 71W 48D 49L, score 0.565, Elo +46 [+2, +91]
+[puzzles] 1,600,000 puzzles -> 3,661,184 train + 20,000 val positions
+[match] [match] 85/400 positions: A 72W 48D 50L, score 0.565, Elo +45 [+1, +91]
+[match] [match] 86/400 positions: A 72W 50D 50L, score 0.564, Elo +45 [+1, +90]
+[match] [match] 87/400 positions: A 74W 50D 50L, score 0.569, Elo +48 [+5, +93]
+[match] [match] 88/400 positions: A 75W 50D 51L, score 0.568, Elo +48 [+5, +92]
+[match] [match] 89/400 positions: A 75W 51D 52L, score 0.565, Elo +45 [+2, +89]
+[match] [match] 90/400 positions: A 76W 51D 53L, score 0.564, Elo +45 [+2, +89]
+[match] [match] 91/400 positions: A 77W 51D 54L, score 0.563, Elo +44 [+2, +88]
+[puzzles] 1,800,000 puzzles -> 4,120,896 train + 20,000 val positions
+[match] [match] 92/400 positions: A 78W 52D 54L, score 0.565, Elo +46 [+3, +89]
+[match] [match] 93/400 positions: A 79W 53D 54L, score 0.567, Elo +47 [+5, +90]
+[match] [match] 94/400 positions: A 81W 53D 54L, score 0.572, Elo +50 [+8, +94]
+[match] [match] 95/400 positions: A 81W 55D 54L, score 0.571, Elo +50 [+8, +93]
+[match] [match] 96/400 positions: A 82W 56D 54L, score 0.573, Elo +51 [+10, +94]
+[puzzles] 2,000,000 puzzles -> 4,581,128 train + 20,000 val positions
+[match] [match] 97/400 positions: A 83W 56D 55L, score 0.572, Elo +50 [+10, +93]
+[match] [match] 98/400 positions: A 84W 57D 55L, score 0.574, Elo +52 [+11, +94]
+[match] [match] 99/400 positions: A 84W 57D 57L, score 0.568, Elo +48 [+7, +90]
+[match] [match] 100/400 positions: A 85W 58D 57L, score 0.570, Elo +49 [+9, +91]
+[match] [match] 101/400 positions: A 85W 58D 59L, score 0.564, Elo +45 [+5, +86]
+[match] [match] 102/400 positions: A 85W 59D 60L, score 0.561, Elo +43 [+3, +84]
+[match] [match] 103/400 positions: A 85W 61D 60L, score 0.561, Elo +42 [+3, +83]
+[puzzles] 2,200,000 puzzles -> 5,041,417 train + 20,000 val positions
+[match] [match] 104/400 positions: A 87W 61D 60L, score 0.565, Elo +45 [+6, +86]
+[match] [match] 105/400 positions: A 88W 62D 60L, score 0.567, Elo +47 [+7, +87]
+[match] [match] 106/400 positions: A 89W 63D 60L, score 0.568, Elo +48 [+9, +88]
+[match] [match] 107/400 positions: A 90W 63D 61L, score 0.568, Elo +47 [+8, +87]
+[puzzles] 2,400,000 puzzles -> 5,501,386 train + 20,000 val positions
+[match] [match] 108/400 positions: A 90W 65D 61L, score 0.567, Elo +47 [+8, +87]
+[match] [match] 109/400 positions: A 90W 67D 61L, score 0.567, Elo +46 [+8, +86]
+[match] [match] 110/400 positions: A 91W 67D 62L, score 0.566, Elo +46 [+8, +85]
+[match] [match] 111/400 positions: A 93W 67D 62L, score 0.570, Elo +49 [+11, +88]
+[match] [match] 112/400 positions: A 94W 68D 62L, score 0.571, Elo +50 [+12, +89]
+[puzzles] 2,600,000 puzzles -> 5,961,534 train + 20,000 val positions
+[match] [match] 113/400 positions: A 94W 70D 62L, score 0.571, Elo +50 [+12, +88]
+[match] [match] 114/400 positions: A 95W 71D 62L, score 0.572, Elo +51 [+13, +89]
+[match] [match] 115/400 positions: A 95W 71D 64L, score 0.567, Elo +47 [+10, +85]
+[match] [match] 116/400 positions: A 96W 71D 65L, score 0.567, Elo +47 [+10, +85]
+[match] [match] 117/400 positions: A 98W 71D 65L, score 0.571, Elo +49 [+12, +87]
+[match] [match] 118/400 positions: A 99W 72D 65L, score 0.572, Elo +50 [+14, +88]
+[match] [match] 119/400 positions: A 100W 72D 66L, score 0.571, Elo +50 [+13, +88]
+[puzzles] 2,800,000 puzzles -> 6,422,500 train + 20,000 val positions
+[match] [match] 120/400 positions: A 101W 72D 67L, score 0.571, Elo +50 [+13, +87]
+[match] [match] 121/400 positions: A 102W 73D 67L, score 0.572, Elo +51 [+14, +88]
+[match] [match] 122/400 positions: A 103W 73D 68L, score 0.572, Elo +50 [+14, +88]
+[match] [match] 123/400 positions: A 104W 73D 69L, score 0.571, Elo +50 [+14, +87]
+[match] [match] 124/400 positions: A 105W 73D 70L, score 0.571, Elo +49 [+13, +87]
+[match] [match] 125/400 positions: A 105W 74D 71L, score 0.568, Elo +48 [+12, +85]
+[puzzles] 3,000,000 puzzles -> 6,882,584 train + 20,000 val positions
+[match] [match] 126/400 positions: A 105W 75D 72L, score 0.565, Elo +46 [+10, +83]
+[match] [match] 127/400 positions: A 106W 75D 73L, score 0.565, Elo +45 [+10, +82]
+[match] [match] 128/400 positions: A 106W 77D 73L, score 0.564, Elo +45 [+10, +81]
+[match] [match] 129/400 positions: A 108W 77D 73L, score 0.568, Elo +47 [+12, +84]
+[match] [match] 130/400 positions: A 108W 77D 75L, score 0.563, Elo +44 [+9, +81]
+[puzzles] 3,200,000 puzzles -> 7,344,463 train + 20,000 val positions
+[match] [match] 131/400 positions: A 108W 79D 75L, score 0.563, Elo +44 [+9, +80]
+[match] [match] 132/400 positions: A 110W 79D 75L, score 0.566, Elo +46 [+11, +82]
+[match] [match] 133/400 positions: A 110W 81D 75L, score 0.566, Elo +46 [+11, +82]
+[match] [match] 134/400 positions: A 110W 82D 76L, score 0.563, Elo +44 [+10, +80]
+[match] [match] 135/400 positions: A 112W 82D 76L, score 0.567, Elo +47 [+12, +82]
+[match] [match] 136/400 positions: A 114W 82D 76L, score 0.570, Elo +49 [+15, +84]
+[puzzles] 3,400,000 puzzles -> 7,806,505 train + 20,000 val positions
+[match] [match] 137/400 positions: A 115W 82D 77L, score 0.569, Elo +48 [+14, +84]
+[match] [match] 138/400 positions: A 116W 83D 77L, score 0.571, Elo +49 [+15, +85]
+[match] [match] 139/400 positions: A 116W 84D 78L, score 0.568, Elo +48 [+14, +83]
+[match] [match] 140/400 positions: A 117W 85D 78L, score 0.570, Elo +49 [+15, +83]
+[match] [match] 141/400 positions: A 117W 86D 79L, score 0.567, Elo +47 [+13, +82]
+[match] [match] 142/400 positions: A 118W 87D 79L, score 0.569, Elo +48 [+15, +82]
+[puzzles] 3,600,000 puzzles -> 8,268,962 train + 20,000 val positions
+[match] [match] 143/400 positions: A 118W 88D 80L, score 0.566, Elo +46 [+13, +81]
+[match] [match] 144/400 positions: A 120W 88D 80L, score 0.569, Elo +49 [+15, +83]
+[match] [match] 145/400 positions: A 120W 90D 80L, score 0.569, Elo +48 [+15, +82]
+[match] [match] 146/400 positions: A 121W 91D 80L, score 0.570, Elo +49 [+16, +83]
+[match] [match] 147/400 positions: A 121W 91D 82L, score 0.566, Elo +46 [+14, +80]
+[match] [match] 148/400 positions: A 123W 91D 82L, score 0.569, Elo +48 [+16, +82]
+[puzzles] 3,800,000 puzzles -> 8,730,126 train + 20,000 val positions
+[match] [match] 149/400 positions: A 123W 92D 83L, score 0.567, Elo +47 [+14, +80]
+[match] [match] 150/400 positions: A 123W 94D 83L, score 0.567, Elo +47 [+14, +80]
+[match] [match] 151/400 positions: A 124W 95D 83L, score 0.568, Elo +47 [+15, +81]
+[match] [match] 152/400 positions: A 124W 96D 84L, score 0.566, Elo +46 [+14, +79]
+[match] [match] 153/400 positions: A 124W 98D 84L, score 0.565, Elo +46 [+14, +78]
+[match] [match] 154/400 positions: A 125W 98D 85L, score 0.565, Elo +45 [+13, +78]
+[match] [match] 155/400 positions: A 126W 99D 85L, score 0.566, Elo +46 [+14, +79]
+[puzzles] 4,000,000 puzzles -> 9,191,204 train + 20,000 val positions
+[match] [match] 156/400 positions: A 127W 99D 86L, score 0.566, Elo +46 [+14, +78]
+[match] [match] 157/400 positions: A 128W 100D 86L, score 0.567, Elo +47 [+15, +79]
+[match] [match] 158/400 positions: A 128W 101D 87L, score 0.565, Elo +45 [+14, +78]
+[match] [match] 159/400 positions: A 129W 101D 88L, score 0.564, Elo +45 [+14, +77]
+[match] [match] 160/400 positions: A 129W 102D 89L, score 0.562, Elo +44 [+12, +76]
+[puzzles] 4,200,000 puzzles -> 9,653,148 train + 20,000 val positions
+[match] [match] 161/400 positions: A 130W 103D 89L, score 0.564, Elo +44 [+13, +76]
+[match] [match] 162/400 positions: A 130W 104D 90L, score 0.562, Elo +43 [+12, +75]
+[match] [match] 163/400 positions: A 130W 105D 91L, score 0.560, Elo +42 [+11, +73]
+[match] [match] 164/400 positions: A 130W 107D 91L, score 0.559, Elo +42 [+11, +73]
+[match] [match] 165/400 positions: A 130W 109D 91L, score 0.559, Elo +41 [+11, +72]
+[match] [match] 166/400 positions: A 130W 110D 92L, score 0.557, Elo +40 [+10, +71]
+[match] [match] 167/400 positions: A 132W 110D 92L, score 0.560, Elo +42 [+11, +73]
+[puzzles] 4,400,000 puzzles -> 10,114,863 train + 20,000 val positions
+[match] [match] 168/400 positions: A 133W 110D 93L, score 0.560, Elo +42 [+11, +73]
+[match] [match] 169/400 positions: A 134W 111D 93L, score 0.561, Elo +42 [+12, +73]
+[match] [match] 170/400 positions: A 135W 111D 94L, score 0.560, Elo +42 [+12, +73]
+[match] [match] 171/400 positions: A 137W 111D 94L, score 0.563, Elo +44 [+14, +75]
+[match] [match] 172/400 positions: A 138W 112D 94L, score 0.564, Elo +45 [+15, +75]
+[match] [match] 173/400 positions: A 139W 113D 94L, score 0.565, Elo +45 [+16, +76]
+[puzzles] 4,600,000 puzzles -> 10,576,137 train + 20,000 val positions
+[match] [match] 174/400 positions: A 141W 113D 94L, score 0.568, Elo +47 [+17, +78]
+[match] [match] 175/400 positions: A 141W 114D 95L, score 0.566, Elo +46 [+16, +76]
+[match] [match] 176/400 positions: A 142W 114D 96L, score 0.565, Elo +46 [+16, +76]
+[match] [match] 177/400 positions: A 143W 115D 96L, score 0.566, Elo +46 [+17, +77]
+[match] [match] 178/400 positions: A 144W 115D 97L, score 0.566, Elo +46 [+17, +76]
+[match] [match] 179/400 positions: A 144W 115D 99L, score 0.563, Elo +44 [+14, +74]
+[match] [match] 180/400 positions: A 145W 115D 100L, score 0.562, Elo +44 [+14, +74]
+[puzzles] 4,800,000 puzzles -> 11,037,776 train + 20,000 val positions
+[match] [match] 181/400 positions: A 146W 115D 101L, score 0.562, Elo +43 [+14, +73]
+[match] [match] 182/400 positions: A 147W 116D 101L, score 0.563, Elo +44 [+15, +74]
+[match] [match] 183/400 positions: A 147W 117D 102L, score 0.561, Elo +43 [+14, +73]
+[match] [match] 184/400 positions: A 148W 118D 102L, score 0.562, Elo +44 [+15, +73]
+[match] [match] 185/400 positions: A 149W 119D 102L, score 0.564, Elo +44 [+15, +74]
+[puzzles] 5,000,000 puzzles -> 11,499,997 train + 20,000 val positions
+[match] [match] 186/400 positions: A 150W 120D 102L, score 0.565, Elo +45 [+16, +75]
+[match] [match] 187/400 positions: A 152W 120D 102L, score 0.567, Elo +47 [+18, +76]
+[match] [match] 188/400 positions: A 152W 121D 103L, score 0.565, Elo +46 [+17, +75]
+[match] [match] 189/400 positions: A 153W 121D 104L, score 0.565, Elo +45 [+17, +75]
+[match] [match] 190/400 positions: A 153W 122D 105L, score 0.563, Elo +44 [+15, +73]
+[puzzles] 5,200,000 puzzles -> 11,962,336 train + 20,000 val positions
+[match] [match] 191/400 positions: A 153W 122D 107L, score 0.560, Elo +42 [+13, +71]
+[match] [match] 192/400 positions: A 154W 122D 108L, score 0.560, Elo +42 [+13, +71]
+[match] [match] 193/400 positions: A 154W 124D 108L, score 0.560, Elo +42 [+13, +71]
+[match] [match] 194/400 positions: A 154W 125D 109L, score 0.558, Elo +40 [+12, +69]
+[match] [match] 195/400 positions: A 154W 126D 110L, score 0.556, Elo +39 [+11, +68]
+[match] [match] 196/400 positions: A 154W 127D 111L, score 0.555, Elo +38 [+10, +67]
+[puzzles] 5,400,000 puzzles -> 12,423,911 train + 20,000 val positions
+[match] [match] 197/400 positions: A 154W 128D 112L, score 0.553, Elo +37 [+9, +66]
+[match] [match] 198/400 positions: A 156W 128D 112L, score 0.556, Elo +39 [+11, +67]
+[match] [match] 199/400 positions: A 158W 128D 112L, score 0.558, Elo +40 [+12, +69]
+[match] [match] 200/400 positions: A 160W 128D 112L, score 0.560, Elo +42 [+14, +70]
+[match] [match] 201/400 positions: A 161W 128D 113L, score 0.560, Elo +42 [+14, +70]
+[match] [match] 202/400 positions: A 162W 129D 113L, score 0.561, Elo +42 [+14, +71]
+[puzzles] 5,600,000 puzzles -> 12,885,315 train + 20,000 val positions
+[match] [match] 203/400 positions: A 162W 129D 115L, score 0.558, Elo +40 [+13, +69]
+[match] [match] 204/400 positions: A 162W 130D 116L, score 0.556, Elo +39 [+12, +68]
+[match] [match] 205/400 positions: A 162W 132D 116L, score 0.556, Elo +39 [+12, +67]
+[match] [match] 206/400 positions: A 163W 132D 117L, score 0.556, Elo +39 [+11, +67]
+[match] [match] 207/400 positions: A 164W 133D 117L, score 0.557, Elo +40 [+12, +68]
+[puzzles] 5,800,000 puzzles -> 13,346,635 train + 20,000 val positions
+[match] [match] 208/400 positions: A 165W 134D 117L, score 0.558, Elo +40 [+13, +68]
+[match] [match] 209/400 positions: A 166W 134D 118L, score 0.557, Elo +40 [+13, +68]
+[match] [match] 210/400 positions: A 166W 135D 119L, score 0.556, Elo +39 [+12, +67]
+[match] [match] 211/400 positions: A 167W 135D 120L, score 0.556, Elo +39 [+12, +67]
+[match] [match] 212/400 positions: A 167W 136D 121L, score 0.554, Elo +38 [+11, +65]
+[puzzles] 6,000,000 puzzles -> 13,808,247 train + 20,000 val positions
+[match] [match] 213/400 positions: A 167W 137D 122L, score 0.553, Elo +37 [+10, +64]
+[match] [match] 214/400 positions: A 168W 137D 123L, score 0.553, Elo +37 [+10, +64]
+[match] [match] 215/400 positions: A 168W 138D 124L, score 0.551, Elo +36 [+9, +63]
+[match] [match] 216/400 positions: A 169W 138D 125L, score 0.551, Elo +36 [+9, +63]
+[match] [match] 217/400 positions: A 169W 139D 126L, score 0.550, Elo +35 [+8, +62]
+[puzzles] done: {'puzzles_read': 6193530, 'excluded': 9995, 'unusable_positions': 42332, 'val': 20000, 'train': 14254614, 'num_candidates': 16}
+[puzzles] packed in 4459s
+[session] training budget 6.69h
+[amp] bf16 unsupported on Tesla T4 -> using fp16
+[data] train 50,121,317 | val 200,000 samples | in RAM: True
+[puzzles] train 14,254,614 | val 20,000 positions | 16 candidate moves each | weight 0.3 | in RAM: True
+[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': False, 'causal': True, 'num_classes': 64}
+[match] [match] 218/400 positions: A 170W 139D 127L, score 0.549, Elo +34 [+8, +62]
+[init] weights from /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt (its step 268000), fresh schedule
+[distill] teacher /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt (its step 268000), weight 1.0
+W1105 20:48:50.681000 23 torch/_inductor/utils.py:1731] [0/0] Not enough SMs to use max_autotune_gemm mode
+W1105 20:48:50.681000 23 torch/_inductor/utils.py:1731] [0/0] Not enough SMs to use max_autotune_gemm mode
+[match] [match] 219/400 positions: A 171W 139D 128L, score 0.549, Elo +34 [+7, +61]
+step      0 | train 1.9476 | val 1.9422 | val acc 31.6% | puzzle move 84.3% | val KL to teacher 0.0000 | 49s
+[match] [match] 220/400 positions: A 172W 140D 128L, score 0.550, Elo +35 [+8, +62]
+[match] [match] 221/400 positions: A 172W 142D 128L, score 0.550, Elo +35 [+8, +62]
+[match] [match] 222/400 positions: A 172W 142D 130L, score 0.547, Elo +33 [+6, +60]
+[match] [match] 223/400 positions: A 173W 142D 131L, score 0.547, Elo +33 [+6, +60]
+[match] [match] 224/400 positions: A 174W 143D 131L, score 0.548, Elo +33 [+7, +60]
+[match] [match] 225/400 positions: A 175W 143D 132L, score 0.548, Elo +33 [+7, +60]
+[match] [match] 226/400 positions: A 176W 143D 133L, score 0.548, Elo +33 [+7, +60]
+[match] [match] 227/400 positions: A 177W 143D 134L, score 0.547, Elo +33 [+7, +60]
+[match] [match] 228/400 positions: A 177W 143D 136L, score 0.545, Elo +31 [+5, +58]
+[match] [match] 229/400 positions: A 177W 144D 137L, score 0.544, Elo +30 [+4, +57]
+[match] [match] 230/400 positions: A 179W 144D 137L, score 0.546, Elo +32 [+6, +58]
+[match] [match] 231/400 positions: A 180W 144D 138L, score 0.545, Elo +32 [+5, +58]
+[match] [match] 232/400 positions: A 182W 144D 138L, score 0.547, Elo +33 [+7, +60]
+[match] [match] 233/400 positions: A 182W 146D 138L, score 0.547, Elo +33 [+7, +59]
+[match] [match] 234/400 positions: A 182W 147D 139L, score 0.546, Elo +32 [+6, +58]
+[match] [match] 235/400 positions: A 182W 148D 140L, score 0.545, Elo +31 [+5, +57]
+  step 250 | loss 1.9531 | rank 0.5917 (81%) | KL 0.0665 | lr 1.00e-04 | 1,235 samples/s | MFU 13.8%
+[match] [match] 236/400 positions: A 183W 148D 141L, score 0.544, Elo +31 [+5, +57]
+[match] [match] 237/400 positions: A 185W 148D 141L, score 0.546, Elo +32 [+6, +59]
+[match] [match] 238/400 positions: A 186W 148D 142L, score 0.546, Elo +32 [+6, +58]
+[match] [match] 239/400 positions: A 186W 149D 143L, score 0.545, Elo +31 [+6, +57]
+[match] [match] 240/400 positions: A 187W 150D 143L, score 0.546, Elo +32 [+6, +58]
+[match] [match] 241/400 positions: A 188W 150D 144L, score 0.546, Elo +32 [+6, +58]
+[match] [match] 242/400 positions: A 188W 150D 146L, score 0.543, Elo +30 [+5, +56]
+[match] [match] 243/400 positions: A 189W 151D 146L, score 0.544, Elo +31 [+5, +57]
+[match] [match] 244/400 positions: A 190W 152D 146L, score 0.545, Elo +31 [+6, +57]
+[match] [match] 245/400 positions: A 192W 152D 146L, score 0.547, Elo +33 [+7, +59]
+[match] [match] 246/400 positions: A 193W 152D 147L, score 0.547, Elo +33 [+7, +58]
+[match] [match] 247/400 positions: A 194W 152D 148L, score 0.547, Elo +32 [+7, +58]
+  step 500 | loss 1.9805 | rank 0.3521 (88%) | KL 0.0780 | lr 9.99e-05 | 1,324 samples/s | MFU 14.7%
+[match] [match] 248/400 positions: A 195W 152D 149L, score 0.546, Elo +32 [+7, +58]
+[match] [match] 249/400 positions: A 196W 153D 149L, score 0.547, Elo +33 [+8, +59]
+[match] [match] 250/400 positions: A 196W 153D 151L, score 0.545, Elo +31 [+6, +57]
+[match] [match] 251/400 positions: A 197W 154D 151L, score 0.546, Elo +32 [+7, +58]
+[match] [match] 252/400 positions: A 198W 154D 152L, score 0.546, Elo +32 [+7, +57]
+[match] [match] 253/400 positions: A 198W 156D 152L, score 0.545, Elo +32 [+7, +57]
+[match] [match] 254/400 positions: A 199W 156D 153L, score 0.545, Elo +32 [+6, +57]
+[match] [match] 255/400 positions: A 200W 156D 154L, score 0.545, Elo +31 [+6, +57]
+[match] [match] 256/400 positions: A 200W 158D 154L, score 0.545, Elo +31 [+6, +57]
+[match] [match] 257/400 positions: A 200W 159D 155L, score 0.544, Elo +30 [+6, +56]
+[match] [match] 258/400 positions: A 201W 160D 155L, score 0.545, Elo +31 [+6, +56]
+[match] [match] 259/400 positions: A 202W 160D 156L, score 0.544, Elo +31 [+6, +56]
+[match] [match] 260/400 positions: A 202W 160D 158L, score 0.542, Elo +29 [+5, +55]
+  step 750 | loss 1.9826 | rank 0.6408 (83%) | KL 0.0773 | lr 9.96e-05 | 1,332 samples/s | MFU 14.8%
+[match] [match] 261/400 positions: A 202W 161D 159L, score 0.541, Elo +29 [+4, +54]
+[match] [match] 262/400 positions: A 202W 163D 159L, score 0.541, Elo +29 [+4, +54]
+[match] [match] 263/400 positions: A 202W 164D 160L, score 0.540, Elo +28 [+3, +53]
+[match] [match] 264/400 positions: A 202W 165D 161L, score 0.539, Elo +27 [+3, +52]
+[match] [match] 265/400 positions: A 203W 165D 162L, score 0.539, Elo +27 [+2, +52]
+[match] [match] 266/400 positions: A 204W 165D 163L, score 0.539, Elo +27 [+2, +52]
+[match] [match] 267/400 positions: A 205W 166D 163L, score 0.539, Elo +27 [+3, +52]
+[match] [match] 268/400 positions: A 205W 166D 165L, score 0.537, Elo +26 [+2, +51]
+[match] [match] 269/400 positions: A 206W 167D 165L, score 0.538, Elo +27 [+2, +51]
+[match] [match] 270/400 positions: A 208W 167D 165L, score 0.540, Elo +28 [+3, +52]
+[match] [match] 271/400 positions: A 209W 167D 166L, score 0.540, Elo +28 [+3, +52]
+[match] [match] 272/400 positions: A 210W 168D 166L, score 0.540, Elo +28 [+4, +53]
+[match] [match] 273/400 positions: A 210W 169D 167L, score 0.539, Elo +27 [+3, +52]
+[match] [match] 274/400 positions: A 211W 169D 168L, score 0.539, Elo +27 [+3, +52]
+[match] [match] 275/400 positions: A 212W 169D 169L, score 0.539, Elo +27 [+3, +52]
+[match] [match] 276/400 positions: A 212W 169D 171L, score 0.537, Elo +26 [+2, +50]
+step   1000 | train 2.0011 | val 2.0108 | val acc 30.5% | puzzle move 88.6% | val KL to teacher 0.0864 | 1656s
+  step 1000 | loss 2.0276 | rank 0.2294 (92%) | KL 0.0844 | lr 9.91e-05 | 1,338 samples/s | MFU 14.9%
+[match] [match] 277/400 positions: A 212W 170D 172L, score 0.536, Elo +25 [+1, +49]
+[match] [match] 278/400 positions: A 213W 170D 173L, score 0.536, Elo +25 [+1, +49]
+[match] [match] 279/400 positions: A 214W 171D 173L, score 0.537, Elo +26 [+2, +50]
+[match] [match] 280/400 positions: A 215W 171D 174L, score 0.537, Elo +25 [+2, +50]
+[match] [match] 281/400 positions: A 215W 171D 176L, score 0.535, Elo +24 [+0, +48]
+[match] [match] 282/400 positions: A 215W 171D 178L, score 0.533, Elo +23 [-1, +47]
+[match] [match] 283/400 positions: A 216W 172D 178L, score 0.534, Elo +23 [-0, +47]
+[match] [match] 284/400 positions: A 217W 172D 179L, score 0.533, Elo +23 [-1, +47]
+[match] [match] 285/400 positions: A 219W 172D 179L, score 0.535, Elo +24 [+1, +48]
+[match] [match] 286/400 positions: A 219W 172D 181L, score 0.533, Elo +23 [-1, +47]
+[match] [match] 287/400 positions: A 220W 173D 181L, score 0.534, Elo +24 [-0, +48]
+[match] [match] 288/400 positions: A 220W 175D 181L, score 0.534, Elo +24 [-0, +47]
+[match] [match] 289/400 positions: A 221W 175D 182L, score 0.534, Elo +23 [-0, +47]
+[match] [match] 290/400 positions: A 222W 175D 183L, score 0.534, Elo +23 [-0, +47]
+[match] [match] 291/400 positions: A 222W 175D 185L, score 0.532, Elo +22 [-1, +46]
+  step 1250 | loss 1.9818 | rank 0.4688 (92%) | KL 0.0794 | lr 9.84e-05 | 1,328 samples/s | MFU 14.8%
+[match] [match] 292/400 positions: A 223W 175D 186L, score 0.532, Elo +22 [-2, +46]
+[match] [match] 293/400 positions: A 223W 177D 186L, score 0.532, Elo +22 [-1, +46]
+[match] [match] 294/400 positions: A 223W 179D 186L, score 0.531, Elo +22 [-1, +45]
+[match] [match] 295/400 positions: A 223W 181D 186L, score 0.531, Elo +22 [-1, +45]
+[match] [match] 296/400 positions: A 224W 182D 186L, score 0.532, Elo +22 [-1, +46]
+[match] [match] 297/400 positions: A 225W 183D 186L, score 0.533, Elo +23 [-0, +46]
+[match] [match] 298/400 positions: A 225W 184D 187L, score 0.532, Elo +22 [-1, +46]
+[match] [match] 299/400 positions: A 226W 184D 188L, score 0.532, Elo +22 [-1, +45]
+[match] [match] 300/400 positions: A 227W 185D 188L, score 0.532, Elo +23 [-0, +46]
+[match] [match] 301/400 positions: A 228W 185D 189L, score 0.532, Elo +23 [-1, +46]
+[match] [match] 302/400 positions: A 228W 186D 190L, score 0.531, Elo +22 [-1, +45]
+[match] [match] 303/400 positions: A 229W 187D 190L, score 0.532, Elo +22 [-1, +46]
+[match] [match] 304/400 positions: A 230W 187D 191L, score 0.532, Elo +22 [-1, +45]
+  step 1500 | loss 1.9509 | rank 0.2968 (89%) | KL 0.0838 | lr 9.75e-05 | 1,328 samples/s | MFU 14.8%
+[match] [match] 305/400 positions: A 232W 187D 191L, score 0.534, Elo +23 [+0, +47]
+[match] [match] 306/400 positions: A 232W 187D 193L, score 0.532, Elo +22 [-1, +45]
+[match] [match] 307/400 positions: A 232W 188D 194L, score 0.531, Elo +22 [-1, +45]
+[match] [match] 308/400 positions: A 232W 189D 195L, score 0.530, Elo +21 [-2, +44]
+[match] [match] 309/400 positions: A 234W 189D 195L, score 0.532, Elo +22 [-1, +45]
+[match] [match] 310/400 positions: A 234W 190D 196L, score 0.531, Elo +21 [-1, +44]
+[match] [match] 311/400 positions: A 236W 190D 196L, score 0.532, Elo +22 [-0, +45]
+[match] [match] 312/400 positions: A 237W 190D 197L, score 0.532, Elo +22 [-0, +45]
+[match] [match] 313/400 positions: A 237W 190D 199L, score 0.530, Elo +21 [-2, +44]
+[match] [match] 314/400 positions: A 239W 190D 199L, score 0.532, Elo +22 [-0, +45]
+[match] [match] 315/400 positions: A 240W 191D 199L, score 0.533, Elo +23 [+0, +45]
+[match] [match] 316/400 positions: A 240W 191D 201L, score 0.531, Elo +21 [-1, +44]
+[match] [match] 317/400 positions: A 240W 193D 201L, score 0.531, Elo +21 [-1, +44]
+[match] [match] 318/400 positions: A 240W 193D 203L, score 0.529, Elo +20 [-2, +43]
+  step 1750 | loss 1.9966 | rank 0.2056 (95%) | KL 0.0844 | lr 9.64e-05 | 1,329 samples/s | MFU 14.8%
+[match] [match] 319/400 positions: A 240W 194D 204L, score 0.528, Elo +20 [-3, +42]
+[match] [match] 320/400 positions: A 240W 195D 205L, score 0.527, Elo +19 [-3, +42]
+[match] [match] 321/400 positions: A 241W 196D 205L, score 0.528, Elo +20 [-3, +42]
+[match] [match] 322/400 positions: A 242W 197D 205L, score 0.529, Elo +20 [-2, +42]
+[match] [match] 323/400 positions: A 243W 198D 205L, score 0.529, Elo +20 [-2, +43]
+[match] [match] 324/400 positions: A 243W 200D 205L, score 0.529, Elo +20 [-2, +43]
+[match] [match] 325/400 positions: A 244W 201D 205L, score 0.530, Elo +21 [-1, +43]
+[match] [match] 326/400 positions: A 246W 201D 205L, score 0.531, Elo +22 [-0, +44]
+[match] [match] 327/400 positions: A 246W 202D 206L, score 0.531, Elo +21 [-1, +44]
+[match] [match] 328/400 positions: A 246W 203D 207L, score 0.530, Elo +21 [-1, +43]
+[match] [match] 329/400 positions: A 246W 205D 207L, score 0.530, Elo +21 [-1, +43]
+[match] [match] 330/400 positions: A 248W 205D 207L, score 0.531, Elo +22 [-0, +44]
+[match] [match] 331/400 positions: A 248W 207D 207L, score 0.531, Elo +22 [-0, +44]
+[match] [match] 332/400 positions: A 249W 207D 208L, score 0.531, Elo +21 [-0, +44]
+[match] [match] 333/400 positions: A 249W 208D 209L, score 0.530, Elo +21 [-1, +43]
+[match] [match] 334/400 positions: A 250W 209D 209L, score 0.531, Elo +21 [-0, +43]
+[match] [match] 335/400 positions: A 251W 209D 210L, score 0.531, Elo +21 [-1, +43]
+[match] [match] 336/400 positions: A 251W 210D 211L, score 0.530, Elo +21 [-1, +43]
+[match] [match] 337/400 positions: A 251W 211D 212L, score 0.529, Elo +20 [-2, +42]
+step   2000 | train 2.0012 | val 1.9866 | val acc 31.0% | puzzle move 89.4% | val KL to teacher 0.0834 | 3234s
+  step 2000 | loss 1.9659 | rank 0.4022 (88%) | KL 0.0825 | lr 9.51e-05 | 1,333 samples/s | MFU 14.8%
+[match] [match] 338/400 positions: A 252W 212D 212L, score 0.530, Elo +21 [-1, +42]
+[match] [match] 339/400 positions: A 253W 212D 213L, score 0.529, Elo +21 [-1, +42]
+[match] [match] 340/400 positions: A 254W 213D 213L, score 0.530, Elo +21 [-1, +43]
+[match] [match] 341/400 positions: A 255W 214D 213L, score 0.531, Elo +21 [-0, +43]
+[match] [match] 342/400 positions: A 257W 214D 213L, score 0.532, Elo +22 [+1, +44]
+[match] [match] 343/400 positions: A 257W 216D 213L, score 0.532, Elo +22 [+1, +44]
+[match] [match] 344/400 positions: A 258W 216D 214L, score 0.532, Elo +22 [+1, +44]
+[match] [match] 345/400 positions: A 258W 217D 215L, score 0.531, Elo +22 [+0, +43]
+[match] [match] 346/400 positions: A 259W 218D 215L, score 0.532, Elo +22 [+1, +44]
+[match] [match] 347/400 positions: A 260W 218D 216L, score 0.532, Elo +22 [+1, +44]
+[match] [match] 348/400 positions: A 262W 218D 216L, score 0.533, Elo +23 [+2, +45]
+[match] [match] 349/400 positions: A 262W 219D 217L, score 0.532, Elo +22 [+1, +44]
+[match] [match] 350/400 positions: A 263W 219D 218L, score 0.532, Elo +22 [+1, +44]
+[match] [match] 351/400 positions: A 265W 219D 218L, score 0.533, Elo +23 [+2, +45]
+[match] [match] 352/400 positions: A 266W 220D 218L, score 0.534, Elo +24 [+2, +45]
+  step 2250 | loss 1.9946 | rank 0.2821 (92%) | KL 0.0810 | lr 9.37e-05 | 1,330 samples/s | MFU 14.8%
+[match] [match] 353/400 positions: A 267W 221D 218L, score 0.535, Elo +24 [+3, +46]
+[match] [match] 354/400 positions: A 268W 222D 218L, score 0.535, Elo +25 [+3, +46]
+[match] [match] 355/400 positions: A 268W 223D 219L, score 0.535, Elo +24 [+3, +45]
+[match] [match] 356/400 positions: A 269W 223D 220L, score 0.534, Elo +24 [+3, +45]
+[match] [match] 357/400 positions: A 270W 224D 220L, score 0.535, Elo +24 [+3, +46]
+[match] [match] 358/400 positions: A 271W 224D 221L, score 0.535, Elo +24 [+3, +46]
+[match] [match] 359/400 positions: A 271W 225D 222L, score 0.534, Elo +24 [+3, +45]
+[match] [match] 360/400 positions: A 272W 226D 222L, score 0.535, Elo +24 [+3, +45]
+[match] [match] 361/400 positions: A 274W 226D 222L, score 0.536, Elo +25 [+4, +46]
+[match] [match] 362/400 positions: A 275W 227D 222L, score 0.537, Elo +25 [+5, +47]
+[match] [match] 363/400 positions: A 277W 227D 222L, score 0.538, Elo +26 [+5, +47]
+[match] [match] 364/400 positions: A 278W 228D 222L, score 0.538, Elo +27 [+6, +48]
+[match] [match] 365/400 positions: A 279W 229D 222L, score 0.539, Elo +27 [+6, +48]
+[match] [match] 366/400 positions: A 280W 229D 223L, score 0.539, Elo +27 [+6, +48]
+  step 2500 | loss 1.9039 | rank 0.2868 (91%) | KL 0.0763 | lr 9.20e-05 | 1,328 samples/s | MFU 14.8%
+[match] [match] 367/400 positions: A 280W 230D 224L, score 0.538, Elo +27 [+6, +48]
+[match] [match] 368/400 positions: A 281W 230D 225L, score 0.538, Elo +26 [+6, +47]
+[match] [match] 369/400 positions: A 281W 230D 227L, score 0.537, Elo +25 [+5, +46]
+[match] [match] 370/400 positions: A 283W 230D 227L, score 0.538, Elo +26 [+6, +47]
+[match] [match] 371/400 positions: A 285W 230D 227L, score 0.539, Elo +27 [+6, +48]
+[match] [match] 372/400 positions: A 285W 231D 228L, score 0.538, Elo +27 [+6, +48]
+[match] [match] 373/400 positions: A 285W 232D 229L, score 0.538, Elo +26 [+5, +47]
+[match] [match] 374/400 positions: A 286W 232D 230L, score 0.537, Elo +26 [+5, +47]
+[match] [match] 375/400 positions: A 288W 232D 230L, score 0.539, Elo +27 [+6, +48]
+[match] [match] 376/400 positions: A 288W 232D 232L, score 0.537, Elo +26 [+5, +47]
+[match] [match] 377/400 positions: A 288W 233D 233L, score 0.536, Elo +25 [+5, +46]
+[match] [match] 378/400 positions: A 289W 233D 234L, score 0.536, Elo +25 [+5, +46]
+[match] [match] 379/400 positions: A 290W 234D 234L, score 0.537, Elo +26 [+5, +46]
+[match] [match] 380/400 positions: A 290W 236D 234L, score 0.537, Elo +26 [+5, +46]
+  step 2750 | loss 1.9716 | rank 0.2570 (94%) | KL 0.0831 | lr 9.03e-05 | 1,324 samples/s | MFU 14.7%
+[match] [match] 381/400 positions: A 291W 236D 235L, score 0.537, Elo +26 [+5, +46]
+[match] [match] 382/400 positions: A 291W 237D 236L, score 0.536, Elo +25 [+5, +46]
+[match] [match] 383/400 positions: A 291W 238D 237L, score 0.535, Elo +25 [+4, +45]
+[match] [match] 384/400 positions: A 292W 238D 238L, score 0.535, Elo +24 [+4, +45]
+[match] [match] 385/400 positions: A 293W 239D 238L, score 0.536, Elo +25 [+5, +45]
+[match] [match] 386/400 positions: A 294W 240D 238L, score 0.536, Elo +25 [+5, +46]
+[match] [match] 387/400 positions: A 296W 240D 238L, score 0.537, Elo +26 [+6, +47]
+[match] [match] 388/400 positions: A 298W 240D 238L, score 0.539, Elo +27 [+7, +47]
+[match] [match] 389/400 positions: A 299W 240D 239L, score 0.539, Elo +27 [+7, +47]
+[match] [match] 390/400 positions: A 300W 240D 240L, score 0.538, Elo +27 [+7, +47]
+[match] [match] 391/400 positions: A 301W 241D 240L, score 0.539, Elo +27 [+7, +48]
+[match] [match] 392/400 positions: A 303W 241D 240L, score 0.540, Elo +28 [+8, +48]
+[match] [match] 393/400 positions: A 303W 243D 240L, score 0.540, Elo +28 [+8, +48]
+[match] [match] 394/400 positions: A 304W 244D 240L, score 0.541, Elo +28 [+8, +49]
+[match] [match] 395/400 positions: A 305W 244D 241L, score 0.541, Elo +28 [+8, +49]
+[match] [match] 396/400 positions: A 305W 244D 243L, score 0.539, Elo +27 [+7, +48]
+[match] [match] 397/400 positions: A 305W 245D 244L, score 0.538, Elo +27 [+7, +47]
+step   3000 | train 1.9906 | val 1.9982 | val acc 31.0% | puzzle move 90.3% | val KL to teacher 0.0840 | 4813s
+  step 3000 | loss 1.9361 | rank 0.3140 (88%) | KL 0.0871 | lr 8.83e-05 | 1,309 samples/s | MFU 14.6%
+[match] [match] 398/400 positions: A 305W 245D 246L, score 0.537, Elo +26 [+6, +46]
+[match] [match] 399/400 positions: A 306W 245D 247L, score 0.537, Elo +26 [+6, +46]
+[match] [match] 400/400 positions: A 307W 245D 248L, score 0.537, Elo +26 [+6, +46]
+[match] {
+[match]  "a": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03/checkpoints/chess_best.pt",
+[match]  "b": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt",
+[match]  "a_leaf": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt",
+[match]  "b_leaf": null,
+[match]  "onepass": true,
+[match]  "depth": 2,
+[match]  "seed": 0,
+[match]  "seconds": 10377,
+[match]  "games": 800,
+[match]  "wins": 307,
+[match]  "draws": 245,
+[match]  "losses": 248,
+[match]  "score": 0.536875,
+[match]  "elo": 25.66998234076565,
+[match]  "elo_low": 5.649289705423634,
+[match]  "elo_high": 45.86249427323719
+[match] }
+  step 3250 | loss 1.9578 | rank 0.3130 (91%) | KL 0.0823 | lr 8.62e-05 | 1,321 samples/s | MFU 14.7%
+  step 3500 | loss 1.9164 | rank 0.5901 (84%) | KL 0.0798 | lr 8.40e-05 | 1,321 samples/s | MFU 14.7%
+  step 3750 | loss 1.9808 | rank 0.2756 (94%) | KL 0.0779 | lr 8.16e-05 | 1,324 samples/s | MFU 14.7%
+step   4000 | train 1.9895 | val 1.9799 | val acc 31.2% | puzzle move 90.2% | val KL to teacher 0.0789 | 6397s
+  step 4000 | loss 1.9697 | rank 0.1958 (94%) | KL 0.0774 | lr 7.91e-05 | 1,337 samples/s | MFU 14.9%
+  step 4250 | loss 2.0162 | rank 0.3604 (89%) | KL 0.0739 | lr 7.66e-05 | 1,327 samples/s | MFU 14.8%
+  step 4500 | loss 1.9799 | rank 0.2578 (91%) | KL 0.0652 | lr 7.39e-05 | 1,325 samples/s | MFU 14.8%
+  step 4750 | loss 2.0045 | rank 0.2057 (94%) | KL 0.0703 | lr 7.11e-05 | 1,333 samples/s | MFU 14.8%
+step   5000 | train 1.9804 | val 1.9943 | val acc 30.7% | puzzle move 89.9% | val KL to teacher 0.0704 | 7973s
+  step 5000 | loss 1.9920 | rank 0.2414 (94%) | KL 0.0685 | lr 6.83e-05 | 1,313 samples/s | MFU 14.6%
+  step 5250 | loss 1.9969 | rank 0.2705 (89%) | KL 0.0631 | lr 6.54e-05 | 1,334 samples/s | MFU 14.9%
+  step 5500 | loss 1.9792 | rank 0.2972 (88%) | KL 0.0665 | lr 6.24e-05 | 1,334 samples/s | MFU 14.9%
+  step 5750 | loss 1.9227 | rank 0.2642 (95%) | KL 0.0586 | lr 5.94e-05 | 1,334 samples/s | MFU 14.8%
+step   6000 | train 1.9643 | val 1.9850 | val acc 30.5% | puzzle move 89.6% | val KL to teacher 0.0635 | 9545s
+  step 6000 | loss 1.9454 | rank 0.3858 (88%) | KL 0.0627 | lr 5.64e-05 | 1,308 samples/s | MFU 14.6%
+  step 6250 | loss 1.9637 | rank 0.3776 (91%) | KL 0.0587 | lr 5.34e-05 | 1,335 samples/s | MFU 14.9%
+  step 6500 | loss 2.0038 | rank 0.3641 (88%) | KL 0.0642 | lr 5.04e-05 | 1,332 samples/s | MFU 14.8%
+  step 6750 | loss 1.9433 | rank 0.3237 (91%) | KL 0.0586 | lr 4.75e-05 | 1,329 samples/s | MFU 14.8%
+step   7000 | train 1.9601 | val 1.9597 | val acc 31.2% | puzzle move 89.1% | val KL to teacher 0.0574 | 11119s
+  step 7000 | loss 2.0200 | rank 0.4215 (92%) | KL 0.0571 | lr 4.45e-05 | 1,334 samples/s | MFU 14.9%
+  step 7250 | loss 1.9729 | rank 0.2937 (91%) | KL 0.0619 | lr 4.16e-05 | 1,324 samples/s | MFU 14.7%
+  step 7500 | loss 1.9428 | rank 0.2734 (89%) | KL 0.0566 | lr 3.88e-05 | 1,323 samples/s | MFU 14.7%
+  step 7750 | loss 1.9224 | rank 0.2395 (92%) | KL 0.0546 | lr 3.60e-05 | 1,327 samples/s | MFU 14.8%
+step   8000 | train 1.9410 | val 1.9496 | val acc 32.2% | puzzle move 91.0% | val KL to teacher 0.0512 | 12700s
+  step 8000 | loss 1.9869 | rank 0.1942 (92%) | KL 0.0492 | lr 3.33e-05 | 1,333 samples/s | MFU 14.8%
+  step 8250 | loss 1.9693 | rank 0.2408 (91%) | KL 0.0462 | lr 3.08e-05 | 1,330 samples/s | MFU 14.8%
+  step 8500 | loss 1.9723 | rank 0.2990 (91%) | KL 0.0448 | lr 2.83e-05 | 1,332 samples/s | MFU 14.8%
+  step 8750 | loss 1.9209 | rank 0.3682 (92%) | KL 0.0470 | lr 2.59e-05 | 1,327 samples/s | MFU 14.8%
+step   9000 | train 1.9522 | val 1.9520 | val acc 31.3% | puzzle move 91.1% | val KL to teacher 0.0426 | 14278s
+  step 9000 | loss 1.9278 | rank 0.2475 (92%) | KL 0.0427 | lr 2.37e-05 | 1,319 samples/s | MFU 14.7%
+  step 9250 | loss 1.9385 | rank 0.2146 (91%) | KL 0.0475 | lr 2.16e-05 | 1,327 samples/s | MFU 14.8%
+  step 9500 | loss 1.9198 | rank 0.2611 (95%) | KL 0.0377 | lr 1.97e-05 | 1,328 samples/s | MFU 14.8%
+  step 9750 | loss 1.9196 | rank 0.1875 (95%) | KL 0.0399 | lr 1.79e-05 | 1,327 samples/s | MFU 14.8%
+step  10000 | train 1.9349 | val 1.9356 | val acc 31.6% | puzzle move 91.1% | val KL to teacher 0.0388 | 15856s
+  step 10000 | loss 1.9420 | rank 0.1205 (97%) | KL 0.0379 | lr 1.63e-05 | 1,333 samples/s | MFU 14.8%
+  step 10250 | loss 1.9393 | rank 0.1431 (94%) | KL 0.0392 | lr 1.48e-05 | 1,327 samples/s | MFU 14.8%
+  step 10500 | loss 1.8935 | rank 0.2390 (94%) | KL 0.0356 | lr 1.36e-05 | 1,327 samples/s | MFU 14.8%
+  step 10750 | loss 1.9449 | rank 0.1652 (95%) | KL 0.0414 | lr 1.25e-05 | 1,324 samples/s | MFU 14.7%
+step  11000 | train 1.9192 | val 1.9381 | val acc 32.3% | puzzle move 91.8% | val KL to teacher 0.0369 | 17438s
+  step 11000 | loss 1.9339 | rank 0.2920 (91%) | KL 0.0387 | lr 1.16e-05 | 1,311 samples/s | MFU 14.6%
+  step 11250 | loss 1.9039 | rank 0.3519 (89%) | KL 0.0305 | lr 1.09e-05 | 1,324 samples/s | MFU 14.7%
+  step 11500 | loss 1.9106 | rank 0.1603 (94%) | KL 0.0341 | lr 1.04e-05 | 1,324 samples/s | MFU 14.7%
+  step 11750 | loss 1.9468 | rank 0.2697 (91%) | KL 0.0388 | lr 1.01e-05 | 1,324 samples/s | MFU 14.7%
+step  12000 | train 1.9307 | val 1.9349 | val acc 32.3% | puzzle move 91.6% | val KL to teacher 0.0341 | 19021s
+  step 12000 | loss 1.8579 | rank 0.3073 (88%) | KL 0.0351 | lr 1.00e-05 | 1,333 samples/s | MFU 14.8%
+[done] best val loss 1.9349 -> checkpoints/chess_best.pt
+[puzzles] depth 1: 7808/10000 solved = 78.1%  (checkpoint step 12000, val loss 1.9349)
+  rating     0-499: 100.0%  (n=74)
+  rating   500-999:  99.4%  (n=2161)
+  rating 1000-1499:  94.7%  (n=3367)
+  rating 1500-1999:  72.6%  (n=2543)
+  rating 2000-2499:  33.6%  (n=1571)
+  rating 2500-2999:   8.8%  (n=284)
+[agreement] chess_500M_w03_distill.pt (step 12000): 61,833 positions, 1,837,490 moves
+  action accuracy (paper: = argmax)  : 47.7%
+  picks a move of maximal value      : 51.1%
+  one of Stockfish's top 3           : 75.8%
+  Kendall's tau-b, mean over positions: 0.658 (863 positions undefined)
+  win probability given up           : mean 0.0209, median 0.0000
+  moves giving up > 0.15           : 2.8%
+  value calibration                  : MAE 0.0323, ECE 0.0020
+  truth inside central 50% / 90%     : 56.6% / 93.0%
+  reliability (predicted bin: n, mean predicted, mean Stockfish)
+    [0.0, 0.1) n=  360,403  0.058  0.056
+    [0.1, 0.2) n=  342,294  0.143  0.141
+    [0.2, 0.3) n=  169,738  0.248  0.244
+    [0.3, 0.4) n=  203,874  0.353  0.351
+    [0.4, 0.5) n=  271,964  0.451  0.450
+    [0.5, 0.6) n=  168,956  0.541  0.539
+    [0.6, 0.7) n=   71,364  0.646  0.646
+    [0.7, 0.8) n=   57,571  0.751  0.753
+    [0.8, 0.9) n=   86,264  0.855  0.856
+    [0.9, 1.0) n=  105,062  0.952  0.955
+[session] root/leaf pass from 7.45h
+[root] 100 puzzles, 0.01h: 500M_w03d@1 79.0%  500M_w03d@2 84.0%  500M@1 69.0%  500M@2 71.0%  500M_w03d/500M@2 82.0%  500M/500M_w03d@2 71.0%
+[root] 200 puzzles, 0.03h: 500M_w03d@1 79.0%  500M_w03d@2 78.5%  500M@1 62.5%  500M@2 67.0%  500M_w03d/500M@2 81.5%  500M/500M_w03d@2 66.0%
+[root] 300 puzzles, 0.04h: 500M_w03d@1 76.0%  500M_w03d@2 75.7%  500M@1 61.7%  500M@2 66.0%  500M_w03d/500M@2 78.7%  500M/500M_w03d@2 64.7%
+[root] 400 puzzles, 0.06h: 500M_w03d@1 77.2%  500M_w03d@2 76.5%  500M@1 62.0%  500M@2 65.8%  500M_w03d/500M@2 79.0%  500M/500M_w03d@2 65.2%
+[root] 500 puzzles, 0.07h: 500M_w03d@1 78.0%  500M_w03d@2 77.6%  500M@1 62.6%  500M@2 65.2%  500M_w03d/500M@2 79.4%  500M/500M_w03d@2 65.6%
+[root] 600 puzzles, 0.08h: 500M_w03d@1 76.8%  500M_w03d@2 76.2%  500M@1 62.2%  500M@2 64.7%  500M_w03d/500M@2 79.7%  500M/500M_w03d@2 64.8%
+[root] 700 puzzles, 0.10h: 500M_w03d@1 77.3%  500M_w03d@2 76.4%  500M@1 62.7%  500M@2 65.3%  500M_w03d/500M@2 80.0%  500M/500M_w03d@2 65.3%
+[root] 800 puzzles, 0.11h: 500M_w03d@1 77.0%  500M_w03d@2 76.2%  500M@1 62.6%  500M@2 65.2%  500M_w03d/500M@2 79.2%  500M/500M_w03d@2 65.2%
+[root] 900 puzzles, 0.13h: 500M_w03d@1 77.0%  500M_w03d@2 76.2%  500M@1 62.1%  500M@2 64.9%  500M_w03d/500M@2 78.6%  500M/500M_w03d@2 65.0%
+[root] 1000 puzzles, 0.14h: 500M_w03d@1 77.4%  500M_w03d@2 76.2%  500M@1 62.1%  500M@2 64.9%  500M_w03d/500M@2 78.5%  500M/500M_w03d@2 64.8%
+[root] 1100 puzzles, 0.16h: 500M_w03d@1 77.0%  500M_w03d@2 76.2%  500M@1 62.0%  500M@2 64.8%  500M_w03d/500M@2 78.7%  500M/500M_w03d@2 64.7%
+[root] 1200 puzzles, 0.17h: 500M_w03d@1 77.6%  500M_w03d@2 76.2%  500M@1 62.3%  500M@2 65.2%  500M_w03d/500M@2 79.2%  500M/500M_w03d@2 64.8%
+[root] 1300 puzzles, 0.18h: 500M_w03d@1 77.8%  500M_w03d@2 76.4%  500M@1 62.1%  500M@2 65.1%  500M_w03d/500M@2 79.3%  500M/500M_w03d@2 64.7%
+[root] 1400 puzzles, 0.20h: 500M_w03d@1 77.6%  500M_w03d@2 76.2%  500M@1 62.2%  500M@2 65.2%  500M_w03d/500M@2 79.2%  500M/500M_w03d@2 64.8%
+[root] 1500 puzzles, 0.21h: 500M_w03d@1 77.6%  500M_w03d@2 76.3%  500M@1 62.1%  500M@2 65.0%  500M_w03d/500M@2 79.3%  500M/500M_w03d@2 64.6%
+[root] 1600 puzzles, 0.22h: 500M_w03d@1 77.6%  500M_w03d@2 76.6%  500M@1 62.5%  500M@2 65.4%  500M_w03d/500M@2 79.3%  500M/500M_w03d@2 65.3%
+[root] 1700 puzzles, 0.24h: 500M_w03d@1 77.5%  500M_w03d@2 76.6%  500M@1 62.3%  500M@2 65.4%  500M_w03d/500M@2 79.1%  500M/500M_w03d@2 65.5%
+[root] 1800 puzzles, 0.25h: 500M_w03d@1 77.5%  500M_w03d@2 76.8%  500M@1 62.6%  500M@2 65.8%  500M_w03d/500M@2 79.3%  500M/500M_w03d@2 65.9%
+[root] 1900 puzzles, 0.27h: 500M_w03d@1 77.5%  500M_w03d@2 77.2%  500M@1 62.8%  500M@2 66.1%  500M_w03d/500M@2 79.5%  500M/500M_w03d@2 66.3%
+[root] 2000 puzzles, 0.29h: 500M_w03d@1 77.5%  500M_w03d@2 77.1%  500M@1 62.7%  500M@2 65.8%  500M_w03d/500M@2 79.3%  500M/500M_w03d@2 66.1%
+[root] 2100 puzzles, 0.30h: 500M_w03d@1 77.5%  500M_w03d@2 77.2%  500M@1 63.3%  500M@2 66.4%  500M_w03d/500M@2 79.4%  500M/500M_w03d@2 66.7%
+[root] 2200 puzzles, 0.31h: 500M_w03d@1 77.5%  500M_w03d@2 77.1%  500M@1 63.3%  500M@2 66.3%  500M_w03d/500M@2 79.2%  500M/500M_w03d@2 66.5%
+[root] 2300 puzzles, 0.33h: 500M_w03d@1 77.8%  500M_w03d@2 77.4%  500M@1 63.4%  500M@2 66.3%  500M_w03d/500M@2 79.1%  500M/500M_w03d@2 66.7%
+[root] 2400 puzzles, 0.34h: 500M_w03d@1 77.8%  500M_w03d@2 77.4%  500M@1 63.2%  500M@2 66.1%  500M_w03d/500M@2 79.0%  500M/500M_w03d@2 66.5%
+[root] 2500 puzzles, 0.36h: 500M_w03d@1 77.6%  500M_w03d@2 77.6%  500M@1 63.3%  500M@2 66.2%  500M_w03d/500M@2 79.2%  500M/500M_w03d@2 66.6%
+[root] 2600 puzzles, 0.37h: 500M_w03d@1 77.2%  500M_w03d@2 77.3%  500M@1 63.2%  500M@2 66.0%  500M_w03d/500M@2 78.8%  500M/500M_w03d@2 66.3%
+[root] 2700 puzzles, 0.38h: 500M_w03d@1 77.2%  500M_w03d@2 77.2%  500M@1 63.2%  500M@2 66.1%  500M_w03d/500M@2 78.7%  500M/500M_w03d@2 66.3%
+[root] 2800 puzzles, 0.40h: 500M_w03d@1 77.2%  500M_w03d@2 77.1%  500M@1 63.5%  500M@2 66.3%  500M_w03d/500M@2 78.5%  500M/500M_w03d@2 66.5%
+[root] 2900 puzzles, 0.41h: 500M_w03d@1 77.0%  500M_w03d@2 77.1%  500M@1 63.7%  500M@2 66.5%  500M_w03d/500M@2 78.5%  500M/500M_w03d@2 66.6%
+[root] 3000 puzzles, 0.42h: 500M_w03d@1 77.3%  500M_w03d@2 77.2%  500M@1 63.8%  500M@2 66.6%  500M_w03d/500M@2 78.6%  500M/500M_w03d@2 66.7%
+[root] 3100 puzzles, 0.44h: 500M_w03d@1 77.2%  500M_w03d@2 77.0%  500M@1 63.6%  500M@2 66.5%  500M_w03d/500M@2 78.5%  500M/500M_w03d@2 66.5%
+[root] 3200 puzzles, 0.45h: 500M_w03d@1 77.2%  500M_w03d@2 77.0%  500M@1 63.7%  500M@2 66.5%  500M_w03d/500M@2 78.5%  500M/500M_w03d@2 66.7%
+[root] 3300 puzzles, 0.47h: 500M_w03d@1 77.2%  500M_w03d@2 76.9%  500M@1 63.5%  500M@2 66.4%  500M_w03d/500M@2 78.5%  500M/500M_w03d@2 66.5%
+[root] 3400 puzzles, 0.48h: 500M_w03d@1 77.5%  500M_w03d@2 77.2%  500M@1 63.7%  500M@2 66.5%  500M_w03d/500M@2 78.5%  500M/500M_w03d@2 66.7%
+[root] 3500 puzzles, 0.49h: 500M_w03d@1 77.4%  500M_w03d@2 76.9%  500M@1 63.5%  500M@2 66.3%  500M_w03d/500M@2 78.3%  500M/500M_w03d@2 66.4%
+[root] 3600 puzzles, 0.51h: 500M_w03d@1 77.3%  500M_w03d@2 76.8%  500M@1 63.5%  500M@2 66.3%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 66.3%
+[root] 3700 puzzles, 0.52h: 500M_w03d@1 77.5%  500M_w03d@2 76.9%  500M@1 63.8%  500M@2 66.5%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 66.6%
+[root] 3800 puzzles, 0.53h: 500M_w03d@1 77.4%  500M_w03d@2 76.9%  500M@1 63.8%  500M@2 66.7%  500M_w03d/500M@2 78.3%  500M/500M_w03d@2 66.7%
+[root] 3900 puzzles, 0.55h: 500M_w03d@1 77.5%  500M_w03d@2 76.8%  500M@1 63.9%  500M@2 66.6%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 66.6%
+[root] 4000 puzzles, 0.56h: 500M_w03d@1 77.5%  500M_w03d@2 76.8%  500M@1 64.0%  500M@2 66.7%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 66.8%
+[root] 4100 puzzles, 0.58h: 500M_w03d@1 77.5%  500M_w03d@2 76.9%  500M@1 64.1%  500M@2 66.8%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 66.9%
+[root] 4200 puzzles, 0.59h: 500M_w03d@1 77.3%  500M_w03d@2 76.7%  500M@1 64.1%  500M@2 66.7%  500M_w03d/500M@2 78.0%  500M/500M_w03d@2 66.7%
+[root] 4300 puzzles, 0.61h: 500M_w03d@1 77.3%  500M_w03d@2 76.7%  500M@1 64.1%  500M@2 66.8%  500M_w03d/500M@2 77.9%  500M/500M_w03d@2 66.8%
+[root] 4400 puzzles, 0.62h: 500M_w03d@1 77.2%  500M_w03d@2 76.8%  500M@1 64.0%  500M@2 66.7%  500M_w03d/500M@2 78.0%  500M/500M_w03d@2 66.7%
+[root] 4500 puzzles, 0.64h: 500M_w03d@1 77.2%  500M_w03d@2 76.8%  500M@1 64.0%  500M@2 66.6%  500M_w03d/500M@2 77.8%  500M/500M_w03d@2 66.7%
+[root] 4600 puzzles, 0.65h: 500M_w03d@1 77.3%  500M_w03d@2 76.8%  500M@1 64.2%  500M@2 66.8%  500M_w03d/500M@2 77.9%  500M/500M_w03d@2 66.8%
+[root] 4700 puzzles, 0.66h: 500M_w03d@1 77.4%  500M_w03d@2 76.8%  500M@1 64.2%  500M@2 66.9%  500M_w03d/500M@2 77.9%  500M/500M_w03d@2 66.8%
+[root] 4800 puzzles, 0.68h: 500M_w03d@1 77.6%  500M_w03d@2 77.0%  500M@1 64.4%  500M@2 67.0%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.0%
+[root] 4900 puzzles, 0.69h: 500M_w03d@1 77.5%  500M_w03d@2 76.8%  500M@1 64.2%  500M@2 66.9%  500M_w03d/500M@2 77.9%  500M/500M_w03d@2 66.9%
+[root] 5000 puzzles, 0.70h: 500M_w03d@1 77.6%  500M_w03d@2 76.8%  500M@1 64.2%  500M@2 66.8%  500M_w03d/500M@2 77.9%  500M/500M_w03d@2 66.8%
+[root] 5100 puzzles, 0.72h: 500M_w03d@1 77.6%  500M_w03d@2 76.9%  500M@1 64.4%  500M@2 67.0%  500M_w03d/500M@2 78.0%  500M/500M_w03d@2 67.0%
+[root] 5200 puzzles, 0.73h: 500M_w03d@1 77.7%  500M_w03d@2 77.0%  500M@1 64.3%  500M@2 66.9%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.0%
+[root] 5300 puzzles, 0.75h: 500M_w03d@1 77.7%  500M_w03d@2 77.0%  500M@1 64.3%  500M@2 66.9%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.0%
+[root] 5400 puzzles, 0.76h: 500M_w03d@1 77.7%  500M_w03d@2 77.1%  500M@1 64.4%  500M@2 66.9%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.1%
+[root] 5500 puzzles, 0.78h: 500M_w03d@1 77.7%  500M_w03d@2 77.1%  500M@1 64.5%  500M@2 67.0%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.1%
+[root] 5600 puzzles, 0.79h: 500M_w03d@1 77.8%  500M_w03d@2 77.1%  500M@1 64.5%  500M@2 67.0%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.1%
+[root] 5700 puzzles, 0.81h: 500M_w03d@1 77.9%  500M_w03d@2 77.2%  500M@1 64.5%  500M@2 67.0%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.1%
+[root] 5800 puzzles, 0.82h: 500M_w03d@1 77.9%  500M_w03d@2 77.2%  500M@1 64.4%  500M@2 66.9%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.0%
+[root] 5900 puzzles, 0.84h: 500M_w03d@1 77.9%  500M_w03d@2 77.2%  500M@1 64.5%  500M@2 67.0%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.1%
+[root] 6000 puzzles, 0.85h: 500M_w03d@1 77.8%  500M_w03d@2 77.2%  500M@1 64.4%  500M@2 67.0%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.0%
+[root] 6100 puzzles, 0.87h: 500M_w03d@1 77.9%  500M_w03d@2 77.2%  500M@1 64.5%  500M@2 67.1%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.1%
+[root] 6200 puzzles, 0.88h: 500M_w03d@1 77.9%  500M_w03d@2 77.2%  500M@1 64.5%  500M@2 67.2%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.2%
+[root] 6300 puzzles, 0.89h: 500M_w03d@1 77.9%  500M_w03d@2 77.2%  500M@1 64.7%  500M@2 67.3%  500M_w03d/500M@2 78.3%  500M/500M_w03d@2 67.3%
+[root] 6400 puzzles, 0.91h: 500M_w03d@1 77.9%  500M_w03d@2 77.2%  500M@1 64.8%  500M@2 67.4%  500M_w03d/500M@2 78.4%  500M/500M_w03d@2 67.4%
+[root] 6500 puzzles, 0.92h: 500M_w03d@1 77.9%  500M_w03d@2 77.3%  500M@1 64.7%  500M@2 67.3%  500M_w03d/500M@2 78.4%  500M/500M_w03d@2 67.4%
+[root] 6600 puzzles, 0.94h: 500M_w03d@1 77.9%  500M_w03d@2 77.3%  500M@1 64.7%  500M@2 67.3%  500M_w03d/500M@2 78.4%  500M/500M_w03d@2 67.4%
+[root] 6700 puzzles, 0.95h: 500M_w03d@1 77.9%  500M_w03d@2 77.2%  500M@1 64.7%  500M@2 67.3%  500M_w03d/500M@2 78.3%  500M/500M_w03d@2 67.4%
+[root] 6800 puzzles, 0.97h: 500M_w03d@1 77.9%  500M_w03d@2 77.2%  500M@1 64.7%  500M@2 67.3%  500M_w03d/500M@2 78.3%  500M/500M_w03d@2 67.3%
+[root] 6900 puzzles, 0.98h: 500M_w03d@1 77.9%  500M_w03d@2 77.2%  500M@1 64.7%  500M@2 67.3%  500M_w03d/500M@2 78.3%  500M/500M_w03d@2 67.3%
+[root] 7000 puzzles, 0.99h: 500M_w03d@1 77.9%  500M_w03d@2 77.1%  500M@1 64.7%  500M@2 67.3%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.3%
+[root] 7100 puzzles, 1.00h: 500M_w03d@1 77.8%  500M_w03d@2 77.0%  500M@1 64.6%  500M@2 67.2%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.2%
+[root] 7200 puzzles, 1.02h: 500M_w03d@1 77.9%  500M_w03d@2 77.1%  500M@1 64.5%  500M@2 67.1%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.2%
+[root] 7300 puzzles, 1.03h: 500M_w03d@1 77.9%  500M_w03d@2 77.1%  500M@1 64.6%  500M@2 67.2%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.2%
+[root] 7400 puzzles, 1.05h: 500M_w03d@1 78.0%  500M_w03d@2 77.1%  500M@1 64.5%  500M@2 67.1%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.1%
+[root] 7500 puzzles, 1.06h: 500M_w03d@1 77.9%  500M_w03d@2 77.0%  500M@1 64.6%  500M@2 67.1%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.1%
+[root] 7600 puzzles, 1.08h: 500M_w03d@1 78.0%  500M_w03d@2 77.1%  500M@1 64.6%  500M@2 67.1%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.1%
+[root] 7700 puzzles, 1.09h: 500M_w03d@1 78.0%  500M_w03d@2 77.0%  500M@1 64.7%  500M@2 67.2%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.1%
+[root] 7800 puzzles, 1.11h: 500M_w03d@1 77.9%  500M_w03d@2 76.9%  500M@1 64.6%  500M@2 67.0%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.0%
+[root] 7900 puzzles, 1.12h: 500M_w03d@1 77.9%  500M_w03d@2 77.0%  500M@1 64.6%  500M@2 67.1%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.1%
+[root] 8000 puzzles, 1.13h: 500M_w03d@1 78.0%  500M_w03d@2 77.0%  500M@1 64.7%  500M@2 67.1%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.1%
+[root] 8100 puzzles, 1.15h: 500M_w03d@1 78.0%  500M_w03d@2 77.0%  500M@1 64.8%  500M@2 67.1%  500M_w03d/500M@2 78.3%  500M/500M_w03d@2 67.1%
+[root] 8200 puzzles, 1.16h: 500M_w03d@1 78.0%  500M_w03d@2 77.0%  500M@1 64.8%  500M@2 67.1%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.1%
+[root] 8300 puzzles, 1.18h: 500M_w03d@1 78.1%  500M_w03d@2 77.0%  500M@1 64.8%  500M@2 67.2%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.1%
+[root] 8400 puzzles, 1.19h: 500M_w03d@1 78.0%  500M_w03d@2 77.0%  500M@1 64.7%  500M@2 67.1%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.1%
+[root] 8500 puzzles, 1.20h: 500M_w03d@1 78.0%  500M_w03d@2 76.9%  500M@1 64.8%  500M@2 67.1%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.1%
+[root] 8600 puzzles, 1.22h: 500M_w03d@1 78.1%  500M_w03d@2 77.0%  500M@1 64.8%  500M@2 67.1%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.1%
+[root] 8700 puzzles, 1.23h: 500M_w03d@1 78.1%  500M_w03d@2 77.0%  500M@1 64.8%  500M@2 67.2%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.2%
+[root] 8800 puzzles, 1.25h: 500M_w03d@1 78.1%  500M_w03d@2 77.1%  500M@1 64.9%  500M@2 67.2%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.2%
+[root] 8900 puzzles, 1.26h: 500M_w03d@1 78.1%  500M_w03d@2 77.1%  500M@1 64.8%  500M@2 67.2%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.2%
+[root] 9000 puzzles, 1.28h: 500M_w03d@1 78.1%  500M_w03d@2 77.1%  500M@1 64.8%  500M@2 67.1%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.2%
+[root] 9100 puzzles, 1.29h: 500M_w03d@1 78.1%  500M_w03d@2 77.1%  500M@1 64.8%  500M@2 67.1%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.2%
+[root] 9200 puzzles, 1.31h: 500M_w03d@1 78.0%  500M_w03d@2 77.1%  500M@1 64.8%  500M@2 67.1%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.2%
+[root] 9300 puzzles, 1.32h: 500M_w03d@1 78.1%  500M_w03d@2 77.1%  500M@1 64.9%  500M@2 67.2%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.2%
+[root] 9400 puzzles, 1.34h: 500M_w03d@1 78.1%  500M_w03d@2 77.1%  500M@1 64.9%  500M@2 67.2%  500M_w03d/500M@2 78.2%  500M/500M_w03d@2 67.2%
+[root] 9500 puzzles, 1.35h: 500M_w03d@1 78.0%  500M_w03d@2 77.0%  500M@1 64.8%  500M@2 67.1%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.1%
+[root] 9600 puzzles, 1.36h: 500M_w03d@1 78.0%  500M_w03d@2 77.0%  500M@1 64.8%  500M@2 67.1%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.1%
+[root] 9700 puzzles, 1.38h: 500M_w03d@1 78.0%  500M_w03d@2 76.9%  500M@1 64.8%  500M@2 67.1%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.1%
+[root] 9800 puzzles, 1.39h: 500M_w03d@1 78.1%  500M_w03d@2 77.0%  500M@1 64.8%  500M@2 67.1%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.1%
+[root] 9900 puzzles, 1.40h: 500M_w03d@1 78.0%  500M_w03d@2 77.0%  500M@1 64.8%  500M@2 67.1%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.1%
+[root] 10000 puzzles, 1.42h: 500M_w03d@1 78.1%  500M_w03d@2 77.0%  500M@1 64.8%  500M@2 67.2%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.2%
+[root] all (10000 puzzles): 500M_w03d@1 78.1%  500M_w03d@2 77.0%  500M@1 64.8%  500M@2 67.2%  500M_w03d/500M@2 78.1%  500M/500M_w03d@2 67.2%
+[root] q_rank: 500M_w03d top-1 87.2% mean 1.31  500M top-1 75.9% mean 2.45
+[root] bu_rank: 500M_w03d top-1 82.8% mean 1.64  500M top-1 84.1% mean 1.67
+[root] d2_rank: 500M_w03d/500M_w03d top-1 85.7% mean 1.49  500M_w03d/500M top-1 86.4% mean 1.50  500M/500M_w03d top-1 77.3% mean 2.39  500M/500M top-1 77.3% mean 2.38
+[session] done at 8.87h: match 0
+  cells[i][c] = re.sub('\\\\\|', '|', cell)
+  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+[NbConvertApp] Writing 994745 bytes to __notebook__.ipynb
+[NbConvertApp] Converting notebook __notebook__.ipynb to html
+[NbConvertApp] Writing 1306130 bytes to __results__.html

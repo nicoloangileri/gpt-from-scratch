@@ -3,6 +3,7 @@
     export LICHESS_TOKEN="..."          # or put it in ~/.config/lichess/token, chmod 600
     python -m src.lichess_bot --check   # verify the token and the account
     python -m src.lichess_bot --ckpt checkpoints/chess_best.pt --depth 2
+    python -m src.lichess_bot --ckpt ROOT.pt --leaf_ckpt LEAVES.pt   # two networks
 
 Listens on the event stream, accepts challenges that fit the time control, and
 plays each game with alpha-beta on top of the network. The token comes from the
@@ -116,10 +117,14 @@ def _token() -> str:
 
 
 class LichessBot:
-    def __init__(self, ckpt: str, device: str = "cpu", depth: int = 2) -> None:
+    def __init__(self, ckpt: str, device: str = "cpu", depth: int = 2,
+                 leaf_ckpt: str | None = None) -> None:
         self.session = requests.Session()
         self.session.headers["Authorization"] = f"Bearer {_token()}"
         self.model, self.centres, _ = load_model(ckpt, device)
+        self.leaf_model, self.leaf_centres = None, None     # None: `ckpt` scores the leaves too
+        if leaf_ckpt:
+            self.leaf_model, self.leaf_centres, _ = load_model(leaf_ckpt, device)
         self.device, self.depth = device, depth
         self.busy = threading.Event()          # set while a game is being played
         self.ratings: dict[str, tuple[int, bool]] = {}      # perf -> (rating, provisional)
@@ -148,7 +153,9 @@ class LichessBot:
         # moves to float rounding at a sixth of the CPU time.
         if depth <= 1:
             return best_move(self.model, self.centres, board, self.device, shared=True)
-        return Searcher(self.model, self.centres, self.device, shared=True).best_move(board, depth)
+        return Searcher(self.model, self.centres, self.device, shared=True,
+                        leaf_model=self.leaf_model,
+                        leaf_centres=self.leaf_centres).best_move(board, depth)
 
     # --- challenges ------------------------------------------------------
     def handle_challenge(self, challenge: dict) -> None:
@@ -456,6 +463,8 @@ def main() -> None:
     ap.add_argument("--ckpt", default="checkpoints/chess_best.pt")
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--depth", type=int, default=2)
+    ap.add_argument("--leaf_ckpt", default=None,
+                    help="score the nodes below the root with this network; --ckpt keeps the root")
     ap.add_argument("--seek", action="store_true",
                     help="also challenge online bots, instead of only waiting")
     ap.add_argument("--check", action="store_true",
@@ -476,7 +485,7 @@ def main() -> None:
         print(f"scopes   : {scopes}")
         return
 
-    bot = LichessBot(args.ckpt, args.device, args.depth)
+    bot = LichessBot(args.ckpt, args.device, args.depth, args.leaf_ckpt)
     signal.signal(signal.SIGTERM, bot.request_stop)     # what `pkill` sends
     signal.signal(signal.SIGINT, bot.request_stop)      # Ctrl+C
     bot.run(seek=args.seek)

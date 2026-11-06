@@ -22,7 +22,8 @@ and predicts how good the move is. It learned from Stockfish annotations on free
 Kaggle GPUs, and it plays without search: one forward pass per legal move.
 
 - **64.8%** of 10,000 Lichess test puzzles solved after 500M training examples.
-- **77.5%** after a 4-hour fine-tune on other Lichess puzzles.
+- **77.5%** after a 4-hour fine-tune on other Lichess puzzles, **78.1%** when the
+  fine-tune also has to stay close to the model it started from.
 - **27.4%** for a ten-line rule that grabs the most valuable hanging piece. Every
   model trained on fewer than 50M examples scores below it.
 - **1659** rapid on Lichess, as the bot [`imbotterthanyou`](https://lichess.org/@/imbotterthanyou)
@@ -41,8 +42,9 @@ What turned out to be hard:
 - **Search helps until the puzzle fine-tune.** Depth 2 adds 2.3 points (standard
   error 0.22) to the 500M model and takes 1.2 away (0.39) from its fine-tune, on the
   same 10,000 puzzles. The fine-tune's leaves are the cause: under the fine-tune's root
-  the base model's leaves turn the loss into a 0.7-point gain (0.35), and 78.2% solved
-  ([Search](#search-and-the-lichess-bot)).
+  the base model's leaves turn the loss into a 0.7-point gain (0.35), and 78.2% solved.
+  In games that pairing beats the base model by 26 Elo (95% interval 7 to 45), and a
+  third ply is worth 15 (-8 to 37) ([Search](#search-and-the-lichess-bot)).
 - **The metric was the bug.** For ten days every accuracy here measured the opponent's
   moves, because the test compared a field with a restatement of itself. A baseline
   run on the same puzzles is what showed most models were weaker than they looked.
@@ -127,6 +129,7 @@ hour of free GPU buys (the plot is at the top):
 | 15M | 225M + 12k puzzle steps | 4.2 | 74.6% | 2.0562 |
 | 15M | 500M + 12k puzzle steps, ranking at 0.3 | 4.1 | **77.5%** | 1.9395 |
 | 15M | 500M + the same 12k steps, no puzzles | 2.3 | 64.9% | 1.9287 |
+| 15M | 500M + 12k puzzle steps, ranking at 0.3, distilled from the 500M | 5.3 | 78.1% | 1.9349 |
 | 60M | 14.6M | 9.5 (whole run) | 21.4% | 2.986 |
 
 Every row is measured on all 10,000 puzzles, in one Kaggle session with one evaluator
@@ -177,6 +180,7 @@ position of ChessBench's test shard -- 61,833 positions, 1.84M scored moves
 | **500M** | **48.2%** | **51.7%** | **76.8%** | **0.660** | **1.9 pts** | **2.3%** |
 | 500M + light puzzle fine-tune | 47.0% | 50.4% | 74.7% | 0.653 | 2.2 pts | 3.3% |
 | 500M + the same steps, no puzzles | 48.5% | 51.9% | 76.9% | 0.662 | 1.9 pts | 2.2% |
+| 500M + light fine-tune, distilled | 47.7% | 51.1% | 75.8% | 0.658 | 2.1 pts | 2.8% |
 
 Action accuracy and Kendall's tau (tau-b, over all legal moves, averaged per position)
 are the two metrics the ChessBench paper uses in its ablations. Action accuracy is the
@@ -400,8 +404,55 @@ little (99.2% to 98.6% at 500-999, 93.9% to 91.3% at 1000-1499) while 2000-2499 
 6.4 points. And the blunder rate was the right kind of quantity compared across the wrong
 pair: the fine-tune's leaves blunder about as often as the 225M model's, but what decides
 the sign is how they compare with the root they can overrule. The hybrid, 78.2%, is the
-best puzzle score here, two standard errors over the fine-tune alone; it has not played
-a game yet.
+best puzzle score here, two standard errors over the fine-tune alone.
+
+**The hybrid in games** ([`results/33_match_hybrid_vs_500M_d2.json`](results/33_match_hybrid_vs_500M_d2.json)).
+The fine-tune's root over the 500M model's leaves against the 500M model alone, both at
+depth 2, 400 starting positions played twice with colours swapped: 307 won, 245 drawn,
+248 lost, a score of 0.537 and **+26 Elo (95% interval 7 to 45, clustering the two games
+of each position)**. It is a small gain, and the two halves of the list disagree on its
+size: +42 on the first 200 positions, +10 on the second, with intervals that overlap.
+What makes it interesting is the root it uses. Against the 225M model, from the same list
+of positions, the fine-tune with its own leaves scored about 85 Elo lower than the 500M model
+([`results/29_match_500M_w0.3_vs_225M_depth2.json`](results/29_match_500M_w0.3_vs_225M_depth2.json),
+[`results/27_match_500M_vs_225M_depth2.json`](results/27_match_500M_vs_225M_depth2.json));
+with the 500M model's leaves it finishes ahead of that same model. The leaves were the
+cost in games as well as on puzzles.
+
+**Keeping the leaves** ([`results/33_root_ranking_500M_w03_distill.json`](results/33_root_ranking_500M_w03_distill.json)).
+If the ranking loss damages the leaves, a fine-tune that is not allowed to damage them
+should get search back. The light fine-tune again, same start, data, steps and schedule,
+with one change: every ordinary batch also pays KL(500M || student) over the 64 buckets,
+with the 500M model frozen as the teacher. On the same 10,000 puzzles, paired:
+
+| root | leaves | solved | against |
+|---|---|---|---|
+| distilled | none (depth 1) | 78.1% | +0.56 (0.28) against the fine-tune's depth 1 |
+| distilled | distilled | 77.0% | -1.09 (0.36) against its own root |
+| distilled | 500M | 78.1% | +0.07 (0.34) against its own root; -0.09 (0.20) against the hybrid |
+| 500M | distilled | 67.2% | +0.03 (0.21) against the 500M model at depth 2 |
+
+Distillation did more for the root than for what it was built to protect. The puzzle score
+went up rather than down, and blunders fell from 3.3% to 2.8%, about half of the way back
+to the base model's 2.3%. Its backed-up value ranks the solution first 82.8% of the time,
+between the fine-tune's 81.8% and the base model's 84.1%. But the prediction failed:
+search still costs 1.1 points. Even the base model's leaves give this root nothing
+measurable (+0.07), where they gave the plain fine-tune's root 0.7. The likely reading is
+that a root this strong leaves the leaves little to correct, so keeping them is not enough
+to bring search back. The distilled model has played no games: at depth 1 it is the best
+single network on puzzles here, but only the hybrid has a game result.
+
+**What a ply is worth** ([`results/34_match_500M_d3_vs_d2_part0.json`](results/34_match_500M_d3_vs_d2_part0.json)
+and `part1`). The 500M model at depth 3 against itself at depth 2, on the same 200
+positions played twice: 132 won, 153 drawn, 115 lost, a score of 0.521 and **+15 Elo (95%
+interval -8 to 37)**. Not distinguishable from zero, and self-play tends to overstate what
+a ply gives against other opponents. The clock is not what stops it: on a T4 sharing its
+CPU cores with another job, depth 3 takes a median of 1.1 s per move, 3.1 s
+at the 90th percentile and 12.7 s at worst, against 0.07, 0.23 and 2.0 s for depth 2, at
+about 152 network calls per move against 2. It fits a blitz clock on a GPU and buys
+little. The paper's 2054, blitz against bots with no search at all and about 600 times
+this budget, stands 395 points above the bot's rapid rating, in a different pool; gains of
+this size from search will not close that.
 
 [`src/lichess_bot.py`](src/lichess_bot.py) plays the same search online, at depth 2, as
 **`imbotterthanyou`**: rapid **1659** on 8 October 2026. Every game in the bot's log,
@@ -413,7 +464,8 @@ one 24 -- 11 won, 3 drawn, 10 lost -- to 1659. As a performance rating against t
 opponents' pre-game ratings, the 500M model's 1701 beats the 225M one's 1678 by 23, with
 a bootstrap interval of -150 to +187. A few hours online agree with the depth-2 match
 and could not have measured it: the opponents change from game to game, and 24 games
-leave an interval 300 Elo wide. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
+leave an interval 300 Elo wide. `--leaf_ckpt` gives the bot the hybrid; the rating above
+predates it. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
 against bots -- a different pool at a different time control. Search depth
 adapts to the clock -- the bot declines time controls it cannot play at depth 2 and
 drops to the bare network when short on time. The API token comes from `LICHESS_TOKEN`
@@ -645,16 +697,8 @@ results/             the logs behind the numbers above
 
 ## Still open
 
-- **Running:** games for the hybrid search (the fine-tune's root, the 500M model's
-  leaves), the best puzzle configuration: 400 starting positions at depth 2 against the
-  500M model alone, which is what decides whether the bot should run it
-  ([`kaggle_chess/build_distill_hybrid.py`](kaggle_chess/build_distill_hybrid.py)).
-- **Running:** what a ply is worth in games: the 500M model at depth 3 against itself at
-  depth 2, on the same 200 starting positions, with each side's seconds per move
-  ([`kaggle_chess/build_match_depth.py`](kaggle_chess/build_match_depth.py)).
-- **Running:** a fine-tune that keeps the leaves: the light fine-tune again with
-  KL(500M || student) over the buckets added on every ordinary batch (`distill_from`
-  in [`configs/chess.yaml`](configs/chess.yaml)), so the root learns the puzzles
-  without the backed-up values getting worse; then the same evaluations as results/32.
+- The hybrid on Lichess: +26 Elo in a match against the base model, no online games yet.
+  A few dozen games would not measure it (see the 300-Elo interval above).
+- Games for the distilled model, at depth 1 the best single network on puzzles.
 - KV-cache serving for the language-model path (CUDA graphs: worth at most ~7% here,
   see Systems)
