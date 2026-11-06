@@ -150,3 +150,26 @@ def test_depth_match_notebook_parses_and_is_a_new_kernel(tmp_path):
     for flag in ('"--a_depth", "3"', '"--b_depth", "2"', '"--onepass"', '"--seed", "0"',
                  '"--positions", "200"', '"--slice", f"{card}/2"', 'str(card)'):
         assert flag in run, flag
+
+
+# --- distilled root against the plain one, over the same leaves --------------------
+import build_match_distill as mdh  # noqa: E402
+
+
+def test_distill_match_differs_only_in_the_root(tmp_path):
+    mdh.build(4.5, tmp_path)
+    cells = _cells(tmp_path / "match_distill_kernel.ipynb")
+    for c in cells:
+        ast.parse(c)
+    meta = json.loads((tmp_path / "kernel-metadata.json").read_text())
+    assert meta["id"] == mdh.KERNEL_ID
+    assert meta["id"] not in EARLIER_KERNELS | {rr.KERNEL_ID, cpu.KERNEL_ID, dh.KERNEL_ID,
+                                                md.KERNEL_ID}
+    assert meta["enable_gpu"]
+    assert set(meta["kernel_sources"]) == {mdh.BASE_KERNEL, mdh.W03_KERNEL, dh.KERNEL_ID}
+    run = cells[-1]
+    for flag in ('"--a", DISTILLED', '"--a_leaf", BASE500', '"--b", W03', '"--b_leaf", BASE500',
+                 '"--depth", "2"', '"--onepass"', '"--seed", "0"', '"--positions", "800"',
+                 '"--slice", f"{card}/2"', 'str(card)'):
+        assert flag in run, flag
+    assert "chess_500M_w03_distill.pt" in cells[1]

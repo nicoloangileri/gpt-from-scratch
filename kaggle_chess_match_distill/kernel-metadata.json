@@ -1,0 +1,19 @@
+{
+  "id": "nicolangileri/gpt-from-scratch-chess-match-distill-vs-hybrid",
+  "title": "gpt-from-scratch-chess-match-distill-vs-hybrid",
+  "code_file": "match_distill_kernel.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [],
+  "kernel_sources": [
+    "nicolangileri/gpt-from-scratch-chess-500m-s3",
+    "nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03",
+    "nicolangileri/gpt-from-scratch-chess-distill-hybrid"
+  ],
+  "competition_sources": []
+}
