@@ -26,3 +26,6 @@ kaggle_ckpt_dataset/
 kaggle_queue.log
 kaggle_500m.log
 kaggle_500m_state.json
+kaggle_1b.log
+kaggle_1b_state.json
+kaggle_1b_out/
