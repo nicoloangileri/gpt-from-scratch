@@ -1,0 +1,2504 @@
+/usr/local/lib/python3.13/dist-packages/nbformat/validator.py:434: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  _validate(nbdict, ref, version, version_minor, relax_add_props)
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/puzzle_data.py', 'src/search.py', 'src/agreement_eval.py', 'src/match.py', 'src/fast_eval.py', 'src/root_ranking.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'configs/chess.yaml']
+[session] 500M /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt | w0.3 /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03/checkpoints/chess_best.pt | distilled /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-distill-hybrid/chess_500M_w03_distill.pt
+[session] 0.00h in, jobs end at 4.42h
+[card0] [match] A = /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-distill-hybrid/chess_500M_w03_distill.pt (leaves /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt)
+[card0] [match] B = /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03/checkpoints/chess_best.pt (leaves /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt)
+[card1] [match] A = /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-distill-hybrid/chess_500M_w03_distill.pt (leaves /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt)
+[card1] [match] B = /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03/checkpoints/chess_best.pt (leaves /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt)
+[card0] [match] depth 2 against 2, one pass, slice 0/2, 400 positions x 2 colours, 2 threads
+[card1] [match] depth 2 against 2, one pass, slice 1/2, 400 positions x 2 colours, 2 threads
+[card0] [match] 1/400 positions: A 0W 2D 0L, score 0.500, Elo -0 [-0, -0]
+[card1] [match] 1/400 positions: A 1W 0D 1L, score 0.500, Elo -0 [-1200, +1200]
+[card0] [match] 2/400 positions: A 0W 3D 1L, score 0.375, Elo -89 [-284, +61]
+[card0] [match] 3/400 positions: A 1W 3D 2L, score 0.417, Elo -58 [-313, +140]
+[card1] [match] 2/400 positions: A 2W 0D 2L, score 0.500, Elo -0 [-798, +798]
+[card0] [match] 4/400 positions: A 1W 4D 3L, score 0.375, Elo -89 [-307, +73]
+[card0] [match] 5/400 positions: A 3W 4D 3L, score 0.500, Elo -0 [-182, +182]
+[card1] [match] 3/400 positions: A 4W 0D 2L, score 0.667, Elo +120 [-156, +1200]
+[card0] [match] 6/400 positions: A 4W 4D 4L, score 0.500, Elo -0 [-174, +174]
+[card1] [match] 4/400 positions: A 5W 0D 3L, score 0.625, Elo +89 [-156, +554]
+[card0] [match] 7/400 positions: A 5W 5D 4L, score 0.536, Elo +25 [-126, +186]
+[card1] [match] 5/400 positions: A 5W 1D 4L, score 0.550, Elo +35 [-184, +291]
+[card0] [match] 8/400 positions: A 7W 5D 4L, score 0.594, Elo +66 [-73, +232]
+[card1] [match] 6/400 positions: A 6W 2D 4L, score 0.583, Elo +58 [-123, +285]
+[card0] [match] 9/400 positions: A 9W 5D 4L, score 0.639, Elo +99 [-32, +269]
+[card1] [match] 7/400 positions: A 8W 2D 4L, score 0.643, Elo +102 [-62, +336]
+[card0] [match] 10/400 positions: A 9W 6D 5L, score 0.600, Elo +70 [-55, +218]
+[card1] [match] 8/400 positions: A 9W 3D 4L, score 0.656, Elo +112 [-35, +320]
+[card0] [match] 11/400 positions: A 11W 6D 5L, score 0.636, Elo +97 [-23, +247]
+[card0] [match] 12/400 positions: A 11W 7D 6L, score 0.604, Elo +73 [-41, +207]
+[card1] [match] 9/400 positions: A 11W 3D 4L, score 0.694, Elo +143 [+3, +355]
+[card0] [match] 13/400 positions: A 12W 7D 7L, score 0.596, Elo +68 [-45, +197]
+[card1] [match] 10/400 positions: A 11W 3D 6L, score 0.625, Elo +89 [-49, +263]
+[card0] [match] 14/400 positions: A 12W 8D 8L, score 0.571, Elo +50 [-58, +169]
+[card1] [match] 11/400 positions: A 11W 3D 8L, score 0.568, Elo +48 [-88, +200]
+[card0] [match] 15/400 positions: A 13W 8D 9L, score 0.567, Elo +47 [-59, +162]
+[card1] [match] 12/400 positions: A 11W 3D 10L, score 0.521, Elo +14 [-120, +154]
+[card0] [match] 16/400 positions: A 14W 9D 9L, score 0.578, Elo +55 [-46, +166]
+[card1] [match] 13/400 positions: A 11W 3D 12L, score 0.481, Elo -13 [-147, +116]
+[card0] [match] 17/400 positions: A 14W 9D 11L, score 0.544, Elo +31 [-70, +137]
+[card1] [match] 14/400 positions: A 12W 3D 13L, score 0.482, Elo -12 [-141, +113]
+[card0] [match] 18/400 positions: A 15W 9D 12L, score 0.542, Elo +29 [-70, +133]
+[card1] [match] 15/400 positions: A 13W 3D 14L, score 0.483, Elo -12 [-136, +110]
+[card0] [match] 19/400 positions: A 16W 9D 13L, score 0.539, Elo +27 [-70, +129]
+[card1] [match] 16/400 positions: A 13W 5D 14L, score 0.484, Elo -11 [-127, +103]
+[card1] [match] 17/400 positions: A 13W 5D 16L, score 0.456, Elo -31 [-146, +78]
+[card0] [match] 20/400 positions: A 16W 10D 14L, score 0.525, Elo +17 [-77, +114]
+[card0] [match] 21/400 positions: A 16W 11D 15L, score 0.512, Elo +8 [-84, +101]
+[card1] [match] 18/400 positions: A 13W 6D 17L, score 0.444, Elo -39 [-150, +65]
+[card0] [match] 22/400 positions: A 18W 11D 15L, score 0.534, Elo +24 [-66, +116]
+[card1] [match] 19/400 positions: A 13W 7D 18L, score 0.434, Elo -46 [-154, +53]
+[card0] [match] 23/400 positions: A 19W 11D 16L, score 0.533, Elo +23 [-65, +114]
+[card1] [match] 20/400 positions: A 13W 7D 20L, score 0.412, Elo -61 [-169, +35]
+[card0] [match] 24/400 positions: A 20W 11D 17L, score 0.531, Elo +22 [-65, +111]
+[card0] [match] 25/400 positions: A 21W 11D 18L, score 0.530, Elo +21 [-65, +109]
+[card1] [match] 21/400 positions: A 14W 8D 20L, score 0.429, Elo -50 [-152, +44]
+[card0] [match] 26/400 positions: A 22W 12D 18L, score 0.538, Elo +27 [-56, +113]
+[card1] [match] 22/400 positions: A 15W 8D 21L, score 0.432, Elo -48 [-147, +45]
+[card0] [match] 27/400 positions: A 22W 12D 20L, score 0.519, Elo +13 [-70, +97]
+[card1] [match] 23/400 positions: A 15W 8D 23L, score 0.413, Elo -61 [-161, +29]
+[card0] [match] 28/400 positions: A 24W 12D 20L, score 0.536, Elo +25 [-56, +109]
+[card1] [match] 24/400 positions: A 16W 9D 23L, score 0.427, Elo -51 [-146, +37]
+[card0] [match] 29/400 positions: A 24W 12D 22L, score 0.517, Elo +12 [-68, +94]
+[card1] [match] 25/400 positions: A 17W 9D 24L, score 0.430, Elo -49 [-142, +38]
+[card1] [match] 26/400 positions: A 18W 9D 25L, score 0.433, Elo -47 [-139, +38]
+[card0] [match] 30/400 positions: A 26W 12D 22L, score 0.533, Elo +23 [-56, +105]
+[card0] [match] 31/400 positions: A 27W 12D 23L, score 0.532, Elo +22 [-56, +103]
+[card1] [match] 27/400 positions: A 19W 10D 25L, score 0.444, Elo -39 [-127, +45]
+[card0] [match] 32/400 positions: A 27W 12D 25L, score 0.516, Elo +11 [-67, +89]
+[card1] [match] 28/400 positions: A 19W 10D 27L, score 0.429, Elo -50 [-138, +32]
+[card0] [match] 33/400 positions: A 28W 13D 25L, score 0.523, Elo +16 [-60, +93]
+[card1] [match] 29/400 positions: A 20W 11D 27L, score 0.440, Elo -42 [-127, +38]
+[card0] [match] 34/400 positions: A 29W 13D 26L, score 0.522, Elo +15 [-59, +92]
+[card0] [match] 35/400 positions: A 29W 14D 27L, score 0.514, Elo +10 [-64, +84]
+[card1] [match] 30/400 positions: A 21W 12D 27L, score 0.450, Elo -35 [-117, +44]
+[card1] [match] 31/400 positions: A 22W 13D 27L, score 0.460, Elo -28 [-108, +49]
+[card0] [match] 36/400 positions: A 29W 15D 28L, score 0.507, Elo +5 [-67, +77]
+[card1] [match] 32/400 positions: A 23W 14D 27L, score 0.469, Elo -22 [-99, +54]
+[card0] [match] 37/400 positions: A 30W 16D 28L, score 0.514, Elo +9 [-61, +81]
+[card1] [match] 33/400 positions: A 23W 16D 27L, score 0.470, Elo -21 [-96, +52]
+[card0] [match] 38/400 positions: A 31W 16D 29L, score 0.513, Elo +9 [-61, +80]
+[card1] [match] 34/400 positions: A 23W 18D 27L, score 0.471, Elo -20 [-93, +51]
+[card0] [match] 39/400 positions: A 32W 17D 29L, score 0.519, Elo +13 [-55, +83]
+[card1] [match] 35/400 positions: A 24W 18D 28L, score 0.471, Elo -20 [-92, +50]
+[card0] [match] 40/400 positions: A 34W 17D 29L, score 0.531, Elo +22 [-46, +91]
+[card1] [match] 36/400 positions: A 24W 19D 29L, score 0.465, Elo -24 [-95, +45]
+[card1] [match] 37/400 positions: A 25W 20D 29L, score 0.473, Elo -19 [-88, +49]
+[card0] [match] 41/400 positions: A 36W 17D 29L, score 0.543, Elo +30 [-37, +99]
+[card0] [match] 42/400 positions: A 38W 17D 29L, score 0.554, Elo +37 [-29, +106]
+[card1] [match] 38/400 positions: A 25W 21D 30L, score 0.467, Elo -23 [-91, +44]
+[card0] [match] 43/400 positions: A 39W 17D 30L, score 0.552, Elo +36 [-29, +105]
+[card1] [match] 39/400 positions: A 25W 22D 31L, score 0.462, Elo -27 [-94, +38]
+[card0] [match] 44/400 positions: A 40W 17D 31L, score 0.551, Elo +36 [-29, +103]
+[card1] [match] 40/400 positions: A 26W 23D 31L, score 0.469, Elo -22 [-88, +43]
+[card1] [match] 41/400 positions: A 27W 23D 32L, score 0.470, Elo -21 [-87, +43]
+[card0] [match] 45/400 positions: A 41W 18D 31L, score 0.556, Elo +39 [-25, +105]
+[card1] [match] 42/400 positions: A 28W 24D 32L, score 0.476, Elo -17 [-81, +46]
+[card0] [match] 46/400 positions: A 41W 19D 32L, score 0.549, Elo +34 [-29, +99]
+[card1] [match] 43/400 positions: A 29W 25D 32L, score 0.483, Elo -12 [-75, +50]
+[card0] [match] 47/400 positions: A 42W 20D 32L, score 0.553, Elo +37 [-25, +102]
+[card1] [match] 44/400 positions: A 30W 26D 32L, score 0.489, Elo -8 [-70, +53]
+[card0] [match] 48/400 positions: A 43W 20D 33L, score 0.552, Elo +36 [-25, +100]
+[card1] [match] 45/400 positions: A 31W 26D 33L, score 0.489, Elo -8 [-69, +53]
+[card0] [match] 49/400 positions: A 44W 21D 33L, score 0.556, Elo +39 [-22, +102]
+[card1] [match] 46/400 positions: A 31W 28D 33L, score 0.489, Elo -8 [-68, +52]
+[card0] [match] 50/400 positions: A 44W 23D 33L, score 0.555, Elo +38 [-21, +100]
+[card1] [match] 47/400 positions: A 32W 28D 34L, score 0.489, Elo -7 [-67, +52]
+[card0] [match] 51/400 positions: A 46W 23D 33L, score 0.564, Elo +45 [-14, +106]
+[card1] [match] 48/400 positions: A 33W 29D 34L, score 0.495, Elo -4 [-62, +55]
+[card0] [match] 52/400 positions: A 47W 23D 34L, score 0.562, Elo +44 [-15, +105]
+[card1] [match] 49/400 positions: A 34W 30D 34L, score 0.500, Elo -0 [-58, +58]
+[card0] [match] 53/400 positions: A 49W 23D 34L, score 0.571, Elo +49 [-9, +111]
+[card1] [match] 50/400 positions: A 36W 30D 34L, score 0.510, Elo +7 [-50, +65]
+[card0] [match] 54/400 positions: A 49W 24D 35L, score 0.565, Elo +45 [-12, +105]
+[card1] [match] 51/400 positions: A 37W 31D 34L, score 0.515, Elo +10 [-46, +67]
+[card0] [match] 55/400 positions: A 50W 24D 36L, score 0.564, Elo +44 [-13, +104]
+[card1] [match] 52/400 positions: A 37W 31D 36L, score 0.505, Elo +3 [-53, +60]
+[card0] [match] 56/400 positions: A 50W 26D 36L, score 0.562, Elo +44 [-12, +102]
+[card0] [match] 57/400 positions: A 50W 27D 37L, score 0.557, Elo +40 [-16, +97]
+[card0] [match] 58/400 positions: A 50W 29D 37L, score 0.556, Elo +39 [-15, +96]
+[card1] [match] 53/400 positions: A 37W 32D 37L, score 0.500, Elo -0 [-56, +56]
+[card0] [match] 59/400 positions: A 51W 29D 38L, score 0.555, Elo +38 [-16, +95]
+[card1] [match] 54/400 positions: A 37W 33D 38L, score 0.495, Elo -3 [-58, +52]
+[card0] [match] 60/400 positions: A 51W 31D 38L, score 0.554, Elo +38 [-15, +93]
+[card1] [match] 55/400 positions: A 38W 33D 39L, score 0.495, Elo -3 [-58, +52]
+[card1] [match] 56/400 positions: A 39W 33D 40L, score 0.496, Elo -3 [-58, +51]
+[card0] [match] 61/400 positions: A 52W 32D 38L, score 0.557, Elo +40 [-13, +95]
+[card0] [match] 62/400 positions: A 53W 32D 39L, score 0.556, Elo +39 [-13, +94]
+[card1] [match] 57/400 positions: A 39W 34D 41L, score 0.491, Elo -6 [-60, +48]
+[card0] [match] 63/400 positions: A 54W 33D 39L, score 0.560, Elo +42 [-10, +95]
+[card1] [match] 58/400 positions: A 40W 35D 41L, score 0.496, Elo -3 [-56, +50]
+[card0] [match] 64/400 positions: A 54W 33D 41L, score 0.551, Elo +35 [-16, +89]
+[card1] [match] 59/400 positions: A 41W 35D 42L, score 0.496, Elo -3 [-56, +50]
+[card1] [match] 60/400 positions: A 42W 35D 43L, score 0.496, Elo -3 [-56, +50]
+[card0] [match] 65/400 positions: A 55W 33D 42L, score 0.550, Elo +35 [-17, +88]
+[card1] [match] 61/400 positions: A 44W 35D 43L, score 0.504, Elo +3 [-50, +55]
+[card0] [match] 66/400 positions: A 55W 34D 43L, score 0.545, Elo +32 [-19, +84]
+[card1] [match] 62/400 positions: A 45W 35D 44L, score 0.504, Elo +3 [-49, +55]
+[card0] [match] 67/400 positions: A 55W 34D 45L, score 0.537, Elo +26 [-25, +78]
+[card0] [match] 68/400 positions: A 55W 35D 46L, score 0.533, Elo +23 [-27, +74]
+[card1] [match] 63/400 positions: A 46W 36D 44L, score 0.508, Elo +6 [-46, +57]
+[card0] [match] 69/400 positions: A 56W 35D 47L, score 0.533, Elo +23 [-27, +74]
+[card1] [match] 64/400 positions: A 47W 36D 45L, score 0.508, Elo +5 [-46, +57]
+[card0] [match] 70/400 positions: A 57W 36D 47L, score 0.536, Elo +25 [-25, +75]
+[card1] [match] 65/400 positions: A 47W 37D 46L, score 0.504, Elo +3 [-48, +54]
+[card0] [match] 71/400 positions: A 59W 36D 47L, score 0.542, Elo +29 [-20, +80]
+[card1] [match] 66/400 positions: A 48W 38D 46L, score 0.508, Elo +5 [-45, +56]
+[card0] [match] 72/400 positions: A 60W 37D 47L, score 0.545, Elo +31 [-17, +81]
+[card1] [match] 67/400 positions: A 49W 39D 46L, score 0.511, Elo +8 [-42, +58]
+[card0] [match] 73/400 positions: A 61W 38D 47L, score 0.548, Elo +33 [-15, +83]
+[card1] [match] 68/400 positions: A 49W 39D 48L, score 0.504, Elo +3 [-47, +52]
+[card0] [match] 74/400 positions: A 62W 39D 47L, score 0.551, Elo +35 [-12, +85]
+[card0] [match] 75/400 positions: A 62W 40D 48L, score 0.547, Elo +33 [-15, +81]
+[card1] [match] 69/400 positions: A 49W 39D 50L, score 0.496, Elo -3 [-52, +47]
+[card0] [match] 76/400 positions: A 63W 40D 49L, score 0.546, Elo +32 [-15, +81]
+[card1] [match] 70/400 positions: A 49W 41D 50L, score 0.496, Elo -2 [-51, +46]
+[card0] [match] 77/400 positions: A 64W 41D 49L, score 0.549, Elo +34 [-13, +82]
+[card1] [match] 71/400 positions: A 50W 41D 51L, score 0.496, Elo -2 [-51, +46]
+[card0] [match] 78/400 positions: A 65W 42D 49L, score 0.551, Elo +36 [-11, +83]
+[card0] [match] 79/400 positions: A 65W 43D 50L, score 0.547, Elo +33 [-13, +80]
+[card1] [match] 72/400 positions: A 50W 42D 52L, score 0.493, Elo -5 [-53, +43]
+[card0] [match] 80/400 positions: A 66W 43D 51L, score 0.547, Elo +33 [-13, +80]
+[card1] [match] 73/400 positions: A 50W 43D 53L, score 0.490, Elo -7 [-55, +40]
+[card0] [match] 81/400 positions: A 67W 43D 52L, score 0.546, Elo +32 [-13, +79]
+[card0] [match] 82/400 positions: A 68W 43D 53L, score 0.546, Elo +32 [-14, +79]
+[card1] [match] 74/400 positions: A 51W 43D 54L, score 0.490, Elo -7 [-55, +40]
+[card0] [match] 83/400 positions: A 68W 43D 55L, score 0.539, Elo +27 [-18, +74]
+[card1] [match] 75/400 positions: A 51W 43D 56L, score 0.483, Elo -12 [-59, +35]
+[card0] [match] 84/400 positions: A 68W 44D 56L, score 0.536, Elo +25 [-20, +71]
+[card0] [match] 85/400 positions: A 68W 44D 58L, score 0.529, Elo +20 [-24, +66]
+[card1] [match] 76/400 positions: A 52W 44D 56L, score 0.487, Elo -9 [-56, +38]
+[card0] [match] 86/400 positions: A 68W 45D 59L, score 0.526, Elo +18 [-26, +63]
+[card1] [match] 77/400 positions: A 53W 45D 56L, score 0.490, Elo -7 [-53, +40]
+[card1] [match] 78/400 positions: A 53W 45D 58L, score 0.484, Elo -11 [-58, +35]
+[card0] [match] 87/400 positions: A 69W 46D 59L, score 0.529, Elo +20 [-24, +65]
+[card1] [match] 79/400 positions: A 53W 46D 59L, score 0.481, Elo -13 [-59, +32]
+[card1] [match] 80/400 positions: A 54W 46D 60L, score 0.481, Elo -13 [-59, +32]
+[card0] [match] 88/400 positions: A 70W 47D 59L, score 0.531, Elo +22 [-22, +66]
+[card0] [match] 89/400 positions: A 71W 47D 60L, score 0.531, Elo +21 [-22, +66]
+[card0] [match] 90/400 positions: A 72W 47D 61L, score 0.531, Elo +21 [-22, +66]
+[card1] [match] 81/400 positions: A 54W 47D 61L, score 0.478, Elo -15 [-61, +30]
+[card1] [match] 82/400 positions: A 54W 49D 61L, score 0.479, Elo -15 [-60, +30]
+[card1] [match] 83/400 positions: A 55W 49D 62L, score 0.479, Elo -15 [-60, +30]
+[card0] [match] 91/400 positions: A 73W 48D 61L, score 0.533, Elo +23 [-20, +67]
+[card1] [match] 84/400 positions: A 56W 49D 63L, score 0.479, Elo -14 [-59, +30]
+[card0] [match] 92/400 positions: A 74W 49D 61L, score 0.535, Elo +25 [-18, +68]
+[card1] [match] 85/400 positions: A 57W 50D 63L, score 0.482, Elo -12 [-57, +32]
+[card1] [match] 86/400 positions: A 58W 50D 64L, score 0.483, Elo -12 [-56, +32]
+[card0] [match] 93/400 positions: A 74W 49D 63L, score 0.530, Elo +21 [-22, +64]
+[card0] [match] 94/400 positions: A 75W 49D 64L, score 0.529, Elo +20 [-22, +64]
+[card1] [match] 87/400 positions: A 59W 50D 65L, score 0.483, Elo -12 [-56, +32]
+[card0] [match] 95/400 positions: A 76W 49D 65L, score 0.529, Elo +20 [-22, +63]
+[card1] [match] 88/400 positions: A 60W 50D 66L, score 0.483, Elo -12 [-56, +32]
+[card0] [match] 96/400 positions: A 77W 50D 65L, score 0.531, Elo +22 [-20, +65]
+[card1] [match] 89/400 positions: A 62W 50D 66L, score 0.489, Elo -8 [-51, +36]
+[card1] [match] 90/400 positions: A 62W 51D 67L, score 0.486, Elo -10 [-53, +33]
+[card1] [match] 91/400 positions: A 62W 52D 68L, score 0.484, Elo -11 [-55, +31]
+[card0] [match] 97/400 positions: A 77W 51D 66L, score 0.528, Elo +20 [-22, +62]
+[card0] [match] 98/400 positions: A 78W 52D 66L, score 0.531, Elo +21 [-20, +64]
+[card1] [match] 92/400 positions: A 62W 53D 69L, score 0.481, Elo -13 [-56, +29]
+[card0] [match] 99/400 positions: A 78W 53D 67L, score 0.528, Elo +19 [-22, +61]
+[card0] [match] 100/400 positions: A 78W 54D 68L, score 0.525, Elo +17 [-24, +59]
+[card1] [match] 93/400 positions: A 63W 54D 69L, score 0.484, Elo -11 [-54, +31]
+[card0] [match] 101/400 positions: A 79W 55D 68L, score 0.527, Elo +19 [-22, +60]
+[card1] [match] 94/400 positions: A 64W 55D 69L, score 0.487, Elo -9 [-51, +33]
+[card0] [match] 102/400 positions: A 80W 56D 68L, score 0.529, Elo +20 [-20, +62]
+[card1] [match] 95/400 positions: A 65W 56D 69L, score 0.489, Elo -7 [-49, +34]
+[card0] [match] 103/400 positions: A 80W 56D 70L, score 0.524, Elo +17 [-24, +58]
+[card0] [match] 104/400 positions: A 81W 57D 70L, score 0.526, Elo +18 [-22, +59]
+[card1] [match] 96/400 positions: A 65W 58D 69L, score 0.490, Elo -7 [-49, +34]
+[card0] [match] 105/400 positions: A 82W 58D 70L, score 0.529, Elo +20 [-20, +60]
+[card1] [match] 97/400 positions: A 65W 59D 70L, score 0.487, Elo -9 [-50, +32]
+[card0] [match] 106/400 positions: A 83W 59D 70L, score 0.531, Elo +21 [-18, +62]
+[card0] [match] 107/400 positions: A 84W 60D 70L, score 0.533, Elo +23 [-17, +63]
+[card1] [match] 98/400 positions: A 66W 59D 71L, score 0.487, Elo -9 [-50, +32]
+[card1] [match] 99/400 positions: A 66W 60D 72L, score 0.485, Elo -11 [-51, +30]
+[card0] [match] 108/400 positions: A 85W 60D 71L, score 0.532, Elo +23 [-17, +62]
+[card0] [match] 109/400 positions: A 85W 61D 72L, score 0.530, Elo +21 [-18, +60]
+[card1] [match] 100/400 positions: A 67W 60D 73L, score 0.485, Elo -10 [-51, +30]
+[card0] [match] 110/400 positions: A 87W 61D 72L, score 0.534, Elo +24 [-15, +63]
+[card1] [match] 101/400 positions: A 69W 60D 73L, score 0.490, Elo -7 [-47, +33]
+[card0] [match] 111/400 positions: A 88W 62D 72L, score 0.536, Elo +25 [-14, +64]
+[card1] [match] 102/400 positions: A 70W 61D 73L, score 0.493, Elo -5 [-45, +35]
+[card0] [match] 112/400 positions: A 88W 64D 72L, score 0.536, Elo +25 [-14, +64]
+[card1] [match] 103/400 positions: A 72W 61D 73L, score 0.498, Elo -2 [-42, +38]
+[card0] [match] 113/400 positions: A 88W 64D 74L, score 0.531, Elo +22 [-17, +60]
+[card1] [match] 104/400 positions: A 72W 61D 75L, score 0.493, Elo -5 [-45, +35]
+[card0] [match] 114/400 positions: A 88W 64D 76L, score 0.526, Elo +18 [-20, +57]
+[card0] [match] 115/400 positions: A 90W 64D 76L, score 0.530, Elo +21 [-17, +60]
+[card1] [match] 105/400 positions: A 73W 61D 76L, score 0.493, Elo -5 [-45, +35]
+[card0] [match] 116/400 positions: A 90W 64D 78L, score 0.526, Elo +18 [-20, +56]
+[card1] [match] 106/400 positions: A 73W 61D 78L, score 0.488, Elo -8 [-48, +31]
+[card1] [match] 107/400 positions: A 73W 62D 79L, score 0.486, Elo -10 [-49, +30]
+[card1] [match] 108/400 positions: A 73W 63D 80L, score 0.484, Elo -11 [-51, +28]
+[card0] [match] 117/400 positions: A 90W 66D 78L, score 0.526, Elo +18 [-20, +56]
+[card1] [match] 109/400 positions: A 74W 64D 80L, score 0.486, Elo -10 [-49, +29]
+[card0] [match] 118/400 positions: A 91W 66D 79L, score 0.525, Elo +18 [-20, +56]
+[card0] [match] 119/400 positions: A 92W 67D 79L, score 0.527, Elo +19 [-18, +57]
+[card1] [match] 110/400 positions: A 74W 65D 81L, score 0.484, Elo -11 [-50, +28]
+[card0] [match] 120/400 positions: A 93W 67D 80L, score 0.527, Elo +19 [-18, +57]
+[card1] [match] 111/400 positions: A 75W 65D 82L, score 0.484, Elo -11 [-50, +28]
+[card0] [match] 121/400 positions: A 94W 68D 80L, score 0.529, Elo +20 [-17, +58]
+[card1] [match] 112/400 positions: A 75W 67D 82L, score 0.484, Elo -11 [-49, +27]
+[card1] [match] 113/400 positions: A 75W 68D 83L, score 0.482, Elo -12 [-50, +26]
+[card0] [match] 122/400 positions: A 94W 68D 82L, score 0.525, Elo +17 [-20, +54]
+[card1] [match] 114/400 positions: A 76W 68D 84L, score 0.482, Elo -12 [-50, +26]
+[card1] [match] 115/400 positions: A 76W 69D 85L, score 0.480, Elo -14 [-51, +24]
+[card0] [match] 123/400 positions: A 94W 69D 83L, score 0.522, Elo +16 [-21, +53]
+[card1] [match] 116/400 positions: A 78W 69D 85L, score 0.485, Elo -10 [-48, +27]
+[card0] [match] 124/400 positions: A 95W 69D 84L, score 0.522, Elo +15 [-21, +52]
+[card1] [match] 117/400 positions: A 78W 69D 87L, score 0.481, Elo -13 [-51, +24]
+[card0] [match] 125/400 positions: A 97W 69D 84L, score 0.526, Elo +18 [-19, +55]
+[card1] [match] 118/400 positions: A 79W 70D 87L, score 0.483, Elo -12 [-49, +25]
+[card1] [match] 119/400 positions: A 80W 70D 88L, score 0.483, Elo -12 [-49, +25]
+[card0] [match] 126/400 positions: A 98W 70D 84L, score 0.528, Elo +19 [-17, +56]
+[card0] [match] 127/400 positions: A 99W 71D 84L, score 0.530, Elo +21 [-16, +57]
+[card0] [match] 128/400 positions: A 100W 72D 84L, score 0.531, Elo +22 [-14, +58]
+[card0] [match] 129/400 positions: A 101W 72D 85L, score 0.531, Elo +22 [-14, +58]
+[card1] [match] 120/400 positions: A 80W 72D 88L, score 0.483, Elo -12 [-49, +25]
+[card0] [match] 130/400 positions: A 102W 73D 85L, score 0.533, Elo +23 [-13, +59]
+[card1] [match] 121/400 positions: A 80W 72D 90L, score 0.479, Elo -14 [-51, +22]
+[card0] [match] 131/400 positions: A 102W 74D 86L, score 0.531, Elo +21 [-14, +57]
+[card1] [match] 122/400 positions: A 80W 73D 91L, score 0.477, Elo -16 [-53, +21]
+[card0] [match] 132/400 positions: A 102W 75D 87L, score 0.528, Elo +20 [-16, +56]
+[card0] [match] 133/400 positions: A 102W 76D 88L, score 0.526, Elo +18 [-17, +54]
+[card1] [match] 123/400 positions: A 82W 73D 91L, score 0.482, Elo -13 [-49, +24]
+[card0] [match] 134/400 positions: A 103W 76D 89L, score 0.526, Elo +18 [-17, +54]
+[card1] [match] 124/400 positions: A 83W 74D 91L, score 0.484, Elo -11 [-48, +25]
+[card0] [match] 135/400 positions: A 103W 77D 90L, score 0.524, Elo +17 [-18, +52]
+[card0] [match] 136/400 positions: A 104W 77D 91L, score 0.524, Elo +17 [-18, +52]
+[card1] [match] 125/400 positions: A 83W 75D 92L, score 0.482, Elo -13 [-49, +24]
+[card1] [match] 126/400 positions: A 83W 75D 94L, score 0.478, Elo -15 [-51, +21]
+[card0] [match] 137/400 positions: A 105W 77D 92L, score 0.524, Elo +16 [-18, +52]
+[card1] [match] 127/400 positions: A 85W 75D 94L, score 0.482, Elo -12 [-48, +24]
+[card1] [match] 128/400 positions: A 86W 75D 95L, score 0.482, Elo -12 [-48, +24]
+[card0] [match] 138/400 positions: A 105W 78D 93L, score 0.522, Elo +15 [-20, +50]
+[card1] [match] 129/400 positions: A 88W 75D 95L, score 0.486, Elo -9 [-45, +26]
+[card0] [match] 139/400 positions: A 106W 78D 94L, score 0.522, Elo +15 [-20, +50]
+[card0] [match] 140/400 positions: A 106W 80D 94L, score 0.521, Elo +15 [-19, +50]
+[card1] [match] 130/400 positions: A 90W 75D 95L, score 0.490, Elo -7 [-43, +29]
+[card1] [match] 131/400 positions: A 91W 76D 95L, score 0.492, Elo -5 [-41, +30]
+[card0] [match] 141/400 positions: A 107W 80D 95L, score 0.521, Elo +15 [-20, +49]
+[card0] [match] 142/400 positions: A 108W 81D 95L, score 0.523, Elo +16 [-18, +50]
+[card1] [match] 132/400 positions: A 92W 76D 96L, score 0.492, Elo -5 [-41, +30]
+[card0] [match] 143/400 positions: A 108W 81D 97L, score 0.519, Elo +13 [-21, +48]
+[card0] [match] 144/400 positions: A 110W 81D 97L, score 0.523, Elo +16 [-18, +50]
+[card1] [match] 133/400 positions: A 92W 76D 98L, score 0.489, Elo -8 [-43, +27]
+[card0] [match] 145/400 positions: A 111W 81D 98L, score 0.522, Elo +16 [-18, +50]
+[card1] [match] 134/400 positions: A 94W 76D 98L, score 0.493, Elo -5 [-41, +30]
+[card0] [match] 146/400 positions: A 111W 81D 100L, score 0.519, Elo +13 [-21, +47]
+[card1] [match] 135/400 positions: A 94W 77D 99L, score 0.491, Elo -6 [-42, +29]
+[card0] [match] 147/400 positions: A 111W 83D 100L, score 0.519, Elo +13 [-21, +47]
+[card1] [match] 136/400 positions: A 94W 78D 100L, score 0.489, Elo -8 [-43, +27]
+[card0] [match] 148/400 positions: A 112W 84D 100L, score 0.520, Elo +14 [-19, +48]
+[card1] [match] 137/400 positions: A 96W 78D 100L, score 0.493, Elo -5 [-40, +30]
+[card0] [match] 149/400 positions: A 112W 85D 101L, score 0.518, Elo +13 [-21, +46]
+[card1] [match] 138/400 positions: A 97W 78D 101L, score 0.493, Elo -5 [-40, +30]
+[card0] [match] 150/400 positions: A 114W 85D 101L, score 0.522, Elo +15 [-18, +49]
+[card1] [match] 139/400 positions: A 97W 80D 101L, score 0.493, Elo -5 [-40, +30]
+[card0] [match] 151/400 positions: A 114W 85D 103L, score 0.518, Elo +13 [-21, +46]
+[card0] [match] 152/400 positions: A 114W 86D 104L, score 0.516, Elo +11 [-22, +45]
+[card1] [match] 140/400 positions: A 98W 80D 102L, score 0.493, Elo -5 [-40, +29]
+[card1] [match] 141/400 positions: A 100W 80D 102L, score 0.496, Elo -2 [-37, +32]
+[card0] [match] 153/400 positions: A 114W 88D 104L, score 0.516, Elo +11 [-22, +44]
+[card1] [match] 142/400 positions: A 102W 80D 102L, score 0.500, Elo -0 [-34, +34]
+[card1] [match] 143/400 positions: A 102W 81D 103L, score 0.498, Elo -1 [-35, +33]
+[card1] [match] 144/400 positions: A 102W 82D 104L, score 0.497, Elo -2 [-36, +32]
+[card0] [match] 154/400 positions: A 114W 90D 104L, score 0.516, Elo +11 [-21, +44]
+[card1] [match] 145/400 positions: A 103W 83D 104L, score 0.498, Elo -1 [-35, +33]
+[card0] [match] 155/400 positions: A 115W 91D 104L, score 0.518, Elo +12 [-20, +45]
+[card0] [match] 156/400 positions: A 115W 91D 106L, score 0.514, Elo +10 [-22, +43]
+[card1] [match] 146/400 positions: A 103W 84D 105L, score 0.497, Elo -2 [-36, +31]
+[card1] [match] 147/400 positions: A 104W 85D 105L, score 0.498, Elo -1 [-35, +32]
+[card0] [match] 157/400 positions: A 116W 91D 107L, score 0.514, Elo +10 [-22, +43]
+[card0] [match] 158/400 positions: A 117W 92D 107L, score 0.516, Elo +11 [-21, +43]
+[card1] [match] 148/400 positions: A 105W 85D 106L, score 0.498, Elo -1 [-35, +32]
+[card0] [match] 159/400 positions: A 118W 93D 107L, score 0.517, Elo +12 [-20, +44]
+[card0] [match] 160/400 positions: A 119W 93D 108L, score 0.517, Elo +12 [-20, +44]
+[card1] [match] 149/400 positions: A 105W 87D 106L, score 0.498, Elo -1 [-34, +32]
+[card0] [match] 161/400 positions: A 119W 93D 110L, score 0.514, Elo +10 [-22, +42]
+[card1] [match] 150/400 positions: A 106W 87D 107L, score 0.498, Elo -1 [-34, +32]
+[card0] [match] 162/400 positions: A 119W 94D 111L, score 0.512, Elo +9 [-23, +41]
+[card0] [match] 163/400 positions: A 119W 95D 112L, score 0.511, Elo +7 [-24, +39]
+[card1] [match] 151/400 positions: A 107W 88D 107L, score 0.500, Elo -0 [-33, +33]
+[card0] [match] 164/400 positions: A 121W 95D 112L, score 0.514, Elo +10 [-22, +41]
+[card0] [match] 165/400 positions: A 121W 95D 114L, score 0.511, Elo +7 [-24, +39]
+[card1] [match] 152/400 positions: A 108W 89D 107L, score 0.502, Elo +1 [-32, +34]
+[card0] [match] 166/400 positions: A 121W 96D 115L, score 0.509, Elo +6 [-25, +38]
+[card1] [match] 153/400 positions: A 108W 90D 108L, score 0.500, Elo -0 [-33, +33]
+[card0] [match] 167/400 positions: A 123W 96D 115L, score 0.512, Elo +8 [-23, +40]
+[card0] [match] 168/400 positions: A 125W 96D 115L, score 0.515, Elo +10 [-21, +42]
+[card1] [match] 154/400 positions: A 108W 91D 109L, score 0.498, Elo -1 [-34, +32]
+[card0] [match] 169/400 positions: A 127W 96D 115L, score 0.518, Elo +12 [-19, +44]
+[card1] [match] 155/400 positions: A 109W 91D 110L, score 0.498, Elo -1 [-34, +31]
+[card0] [match] 170/400 positions: A 128W 97D 115L, score 0.519, Elo +13 [-18, +45]
+[card0] [match] 171/400 positions: A 128W 97D 117L, score 0.516, Elo +11 [-20, +43]
+[card1] [match] 156/400 positions: A 111W 91D 110L, score 0.502, Elo +1 [-31, +34]
+[card0] [match] 172/400 positions: A 128W 97D 119L, score 0.513, Elo +9 [-22, +40]
+[card1] [match] 157/400 positions: A 111W 92D 111L, score 0.500, Elo -0 [-32, +32]
+[card0] [match] 173/400 positions: A 129W 98D 119L, score 0.514, Elo +10 [-21, +41]
+[card1] [match] 158/400 positions: A 113W 92D 111L, score 0.503, Elo +2 [-30, +35]
+[card1] [match] 159/400 positions: A 115W 92D 111L, score 0.506, Elo +4 [-28, +37]
+[card0] [match] 174/400 positions: A 129W 100D 119L, score 0.514, Elo +10 [-21, +41]
+[card0] [match] 175/400 positions: A 130W 101D 119L, score 0.516, Elo +11 [-20, +42]
+[card1] [match] 160/400 positions: A 115W 94D 111L, score 0.506, Elo +4 [-28, +36]
+[card0] [match] 176/400 positions: A 130W 103D 119L, score 0.516, Elo +11 [-20, +42]
+[card1] [match] 161/400 positions: A 116W 94D 112L, score 0.506, Elo +4 [-28, +36]
+[card1] [match] 162/400 positions: A 117W 94D 113L, score 0.506, Elo +4 [-28, +36]
+[card0] [match] 177/400 positions: A 130W 104D 120L, score 0.514, Elo +10 [-21, +40]
+[card1] [match] 163/400 positions: A 118W 95D 113L, score 0.508, Elo +5 [-26, +37]
+[card0] [match] 178/400 positions: A 130W 104D 122L, score 0.511, Elo +8 [-23, +38]
+[card1] [match] 164/400 positions: A 119W 95D 114L, score 0.508, Elo +5 [-26, +37]
+[card0] [match] 179/400 positions: A 131W 105D 122L, score 0.513, Elo +9 [-22, +39]
+[card1] [match] 165/400 positions: A 121W 95D 114L, score 0.511, Elo +7 [-24, +39]
+[card1] [match] 166/400 positions: A 122W 95D 115L, score 0.511, Elo +7 [-24, +39]
+[card0] [match] 180/400 positions: A 132W 106D 122L, score 0.514, Elo +10 [-21, +40]
+[card0] [match] 181/400 positions: A 132W 107D 123L, score 0.512, Elo +9 [-21, +39]
+[card1] [match] 167/400 positions: A 122W 96D 116L, score 0.509, Elo +6 [-25, +38]
+[card0] [match] 182/400 positions: A 133W 108D 123L, score 0.514, Elo +10 [-20, +40]
+[card1] [match] 168/400 positions: A 123W 97D 116L, score 0.510, Elo +7 [-24, +39]
+[card1] [match] 169/400 positions: A 124W 97D 117L, score 0.510, Elo +7 [-24, +39]
+[card0] [match] 183/400 positions: A 133W 109D 124L, score 0.512, Elo +9 [-21, +39]
+[card0] [match] 184/400 positions: A 133W 109D 126L, score 0.510, Elo +7 [-23, +37]
+[card1] [match] 170/400 positions: A 125W 98D 117L, score 0.512, Elo +8 [-23, +39]
+[card0] [match] 185/400 positions: A 134W 109D 127L, score 0.509, Elo +7 [-23, +36]
+[card1] [match] 171/400 positions: A 125W 99D 118L, score 0.510, Elo +7 [-24, +38]
+[card1] [match] 172/400 positions: A 125W 100D 119L, score 0.509, Elo +6 [-25, +37]
+[card0] [match] 186/400 positions: A 135W 109D 128L, score 0.509, Elo +7 [-23, +36]
+[card1] [match] 173/400 positions: A 125W 101D 120L, score 0.507, Elo +5 [-26, +36]
+[card0] [match] 187/400 positions: A 136W 110D 128L, score 0.511, Elo +7 [-22, +37]
+[card1] [match] 174/400 positions: A 126W 101D 121L, score 0.507, Elo +5 [-26, +36]
+[card0] [match] 188/400 positions: A 138W 110D 128L, score 0.513, Elo +9 [-20, +39]
+[card1] [match] 175/400 positions: A 127W 101D 122L, score 0.507, Elo +5 [-26, +36]
+[card1] [match] 176/400 positions: A 129W 101D 122L, score 0.510, Elo +7 [-24, +38]
+[card0] [match] 189/400 positions: A 138W 111D 129L, score 0.512, Elo +8 [-21, +38]
+[card0] [match] 190/400 positions: A 138W 112D 130L, score 0.511, Elo +7 [-22, +37]
+[card1] [match] 177/400 positions: A 129W 101D 124L, score 0.507, Elo +5 [-26, +36]
+[card0] [match] 191/400 positions: A 138W 112D 132L, score 0.508, Elo +5 [-24, +35]
+[card1] [match] 178/400 positions: A 130W 101D 125L, score 0.507, Elo +5 [-26, +36]
+[card0] [match] 192/400 positions: A 139W 113D 132L, score 0.509, Elo +6 [-23, +36]
+[card1] [match] 179/400 positions: A 131W 101D 126L, score 0.507, Elo +5 [-26, +35]
+[card0] [match] 193/400 positions: A 140W 114D 132L, score 0.510, Elo +7 [-22, +36]
+[card1] [match] 180/400 positions: A 132W 102D 126L, score 0.508, Elo +6 [-25, +36]
+[card0] [match] 194/400 positions: A 142W 114D 132L, score 0.513, Elo +9 [-20, +38]
+[card1] [match] 181/400 positions: A 133W 103D 126L, score 0.510, Elo +7 [-24, +37]
+[card1] [match] 182/400 positions: A 133W 103D 128L, score 0.507, Elo +5 [-25, +35]
+[card0] [match] 195/400 positions: A 142W 115D 133L, score 0.512, Elo +8 [-21, +37]
+[card1] [match] 183/400 positions: A 133W 103D 130L, score 0.504, Elo +3 [-27, +33]
+[card0] [match] 196/400 positions: A 143W 116D 133L, score 0.513, Elo +9 [-20, +38]
+[card1] [match] 184/400 positions: A 134W 103D 131L, score 0.504, Elo +3 [-27, +33]
+[card0] [match] 197/400 positions: A 143W 118D 133L, score 0.513, Elo +9 [-20, +38]
+[card1] [match] 185/400 positions: A 135W 103D 132L, score 0.504, Elo +3 [-27, +33]
+[card0] [match] 198/400 positions: A 144W 118D 134L, score 0.513, Elo +9 [-20, +38]
+[card1] [match] 186/400 positions: A 136W 103D 133L, score 0.504, Elo +3 [-27, +33]
+[card0] [match] 199/400 positions: A 145W 119D 134L, score 0.514, Elo +10 [-19, +38]
+[card1] [match] 187/400 positions: A 136W 105D 133L, score 0.504, Elo +3 [-27, +33]
+[card0] [match] 200/400 positions: A 145W 119D 136L, score 0.511, Elo +8 [-21, +36]
+[card1] [match] 188/400 positions: A 138W 105D 133L, score 0.507, Elo +5 [-25, +35]
+[card1] [match] 189/400 positions: A 140W 105D 133L, score 0.509, Elo +6 [-23, +36]
+[card0] [match] 201/400 positions: A 145W 120D 137L, score 0.510, Elo +7 [-22, +35]
+[card1] [match] 190/400 positions: A 140W 106D 134L, score 0.508, Elo +5 [-24, +35]
+[card0] [match] 202/400 positions: A 147W 120D 137L, score 0.512, Elo +9 [-20, +37]
+[card1] [match] 191/400 positions: A 142W 106D 134L, score 0.510, Elo +7 [-22, +37]
+[card0] [match] 203/400 positions: A 149W 120D 137L, score 0.515, Elo +10 [-18, +39]
+[card1] [match] 192/400 positions: A 143W 106D 135L, score 0.510, Elo +7 [-22, +37]
+[card0] [match] 204/400 positions: A 149W 121D 138L, score 0.513, Elo +9 [-19, +38]
+[card1] [match] 193/400 positions: A 143W 107D 136L, score 0.509, Elo +6 [-23, +36]
+[card0] [match] 205/400 positions: A 151W 121D 138L, score 0.516, Elo +11 [-17, +39]
+[card1] [match] 194/400 positions: A 144W 107D 137L, score 0.509, Elo +6 [-23, +36]
+[card0] [match] 206/400 positions: A 151W 122D 139L, score 0.515, Elo +10 [-18, +38]
+[card0] [match] 207/400 positions: A 153W 122D 139L, score 0.517, Elo +12 [-16, +40]
+[card1] [match] 195/400 positions: A 144W 107D 139L, score 0.506, Elo +4 [-25, +34]
+[card1] [match] 196/400 positions: A 144W 107D 141L, score 0.504, Elo +3 [-27, +32]
+[card0] [match] 208/400 positions: A 154W 123D 139L, score 0.518, Elo +13 [-15, +41]
+[card0] [match] 209/400 positions: A 155W 123D 140L, score 0.518, Elo +12 [-15, +41]
+[card1] [match] 197/400 positions: A 145W 107D 142L, score 0.504, Elo +3 [-27, +32]
+[card0] [match] 210/400 positions: A 155W 124D 141L, score 0.517, Elo +12 [-16, +40]
+[card0] [match] 211/400 positions: A 157W 124D 141L, score 0.519, Elo +13 [-15, +41]
+[card1] [match] 198/400 positions: A 147W 107D 142L, score 0.506, Elo +4 [-25, +34]
+[card1] [match] 199/400 positions: A 148W 108D 142L, score 0.508, Elo +5 [-24, +34]
+[card0] [match] 212/400 positions: A 158W 124D 142L, score 0.519, Elo +13 [-15, +41]
+[card0] [match] 213/400 positions: A 159W 125D 142L, score 0.520, Elo +14 [-14, +42]
+[card1] [match] 200/400 positions: A 149W 108D 143L, score 0.507, Elo +5 [-24, +34]
+[card1] [match] 201/400 positions: A 149W 109D 144L, score 0.506, Elo +4 [-25, +33]
+[card0] [match] 214/400 positions: A 159W 125D 144L, score 0.518, Elo +12 [-16, +40]
+[card1] [match] 202/400 positions: A 151W 109D 144L, score 0.509, Elo +6 [-23, +35]
+[card0] [match] 215/400 positions: A 159W 125D 146L, score 0.515, Elo +11 [-17, +38]
+[card1] [match] 203/400 positions: A 152W 110D 144L, score 0.510, Elo +7 [-22, +36]
+[card0] [match] 216/400 positions: A 161W 125D 146L, score 0.517, Elo +12 [-16, +40]
+[card1] [match] 204/400 positions: A 153W 110D 145L, score 0.510, Elo +7 [-22, +36]
+[card1] [match] 205/400 positions: A 154W 110D 146L, score 0.510, Elo +7 [-22, +36]
+[card0] [match] 217/400 positions: A 162W 126D 146L, score 0.518, Elo +13 [-15, +41]
+[card0] [match] 218/400 positions: A 163W 127D 146L, score 0.519, Elo +14 [-14, +41]
+[card1] [match] 206/400 positions: A 155W 111D 146L, score 0.511, Elo +8 [-21, +36]
+[card1] [match] 207/400 positions: A 156W 111D 147L, score 0.511, Elo +8 [-21, +36]
+[card0] [match] 219/400 positions: A 164W 127D 147L, score 0.519, Elo +13 [-14, +41]
+[card1] [match] 208/400 positions: A 156W 112D 148L, score 0.510, Elo +7 [-22, +35]
+[card0] [match] 220/400 positions: A 165W 127D 148L, score 0.519, Elo +13 [-14, +41]
+[card1] [match] 209/400 positions: A 156W 112D 150L, score 0.507, Elo +5 [-24, +34]
+[card0] [match] 221/400 positions: A 165W 128D 149L, score 0.518, Elo +13 [-15, +40]
+[card1] [match] 210/400 positions: A 157W 112D 151L, score 0.507, Elo +5 [-24, +34]
+[card0] [match] 222/400 positions: A 166W 128D 150L, score 0.518, Elo +13 [-15, +40]
+[card0] [match] 223/400 positions: A 167W 129D 150L, score 0.519, Elo +13 [-14, +41]
+[card1] [match] 211/400 positions: A 157W 113D 152L, score 0.506, Elo +4 [-24, +33]
+[card0] [match] 224/400 positions: A 167W 130D 151L, score 0.518, Elo +12 [-15, +40]
+[card0] [match] 225/400 positions: A 167W 130D 153L, score 0.516, Elo +11 [-16, +38]
+[card1] [match] 212/400 positions: A 158W 113D 153L, score 0.506, Elo +4 [-24, +33]
+[card0] [match] 226/400 positions: A 168W 130D 154L, score 0.515, Elo +11 [-16, +38]
+[card1] [match] 213/400 positions: A 158W 114D 154L, score 0.505, Elo +3 [-25, +32]
+[card0] [match] 227/400 positions: A 168W 131D 155L, score 0.514, Elo +10 [-17, +37]
+[card1] [match] 214/400 positions: A 160W 114D 154L, score 0.507, Elo +5 [-23, +33]
+[card0] [match] 228/400 positions: A 168W 133D 155L, score 0.514, Elo +10 [-17, +37]
+[card1] [match] 215/400 positions: A 161W 114D 155L, score 0.507, Elo +5 [-23, +33]
+[card1] [match] 216/400 positions: A 161W 116D 155L, score 0.507, Elo +5 [-23, +33]
+[card0] [match] 229/400 positions: A 168W 134D 156L, score 0.513, Elo +9 [-18, +36]
+[card1] [match] 217/400 positions: A 162W 116D 156L, score 0.507, Elo +5 [-23, +33]
+[card0] [match] 230/400 positions: A 168W 136D 156L, score 0.513, Elo +9 [-18, +36]
+[card0] [match] 231/400 positions: A 169W 136D 157L, score 0.513, Elo +9 [-18, +36]
+[card0] [match] 232/400 positions: A 170W 136D 158L, score 0.513, Elo +9 [-18, +36]
+[card1] [match] 218/400 positions: A 162W 117D 157L, score 0.506, Elo +4 [-24, +32]
+[card0] [match] 233/400 positions: A 170W 137D 159L, score 0.512, Elo +8 [-18, +35]
+[card1] [match] 219/400 positions: A 162W 118D 158L, score 0.505, Elo +3 [-25, +31]
+[card1] [match] 220/400 positions: A 163W 119D 158L, score 0.506, Elo +4 [-24, +32]
+[card0] [match] 234/400 positions: A 170W 139D 159L, score 0.512, Elo +8 [-18, +35]
+[card1] [match] 221/400 positions: A 164W 119D 159L, score 0.506, Elo +4 [-24, +32]
+[card0] [match] 235/400 positions: A 170W 141D 159L, score 0.512, Elo +8 [-18, +35]
+[card1] [match] 222/400 positions: A 165W 120D 159L, score 0.507, Elo +5 [-23, +32]
+[card0] [match] 236/400 positions: A 171W 141D 160L, score 0.512, Elo +8 [-18, +34]
+[card0] [match] 237/400 positions: A 172W 141D 161L, score 0.512, Elo +8 [-18, +34]
+[card1] [match] 223/400 positions: A 166W 121D 159L, score 0.508, Elo +5 [-22, +33]
+[card0] [match] 238/400 positions: A 173W 142D 161L, score 0.513, Elo +9 [-17, +35]
+[card1] [match] 224/400 positions: A 166W 122D 160L, score 0.507, Elo +5 [-23, +32]
+[card0] [match] 239/400 positions: A 174W 143D 161L, score 0.514, Elo +9 [-17, +36]
+[card1] [match] 225/400 positions: A 168W 122D 160L, score 0.509, Elo +6 [-21, +34]
+[card0] [match] 240/400 positions: A 175W 144D 161L, score 0.515, Elo +10 [-16, +36]
+[card1] [match] 226/400 positions: A 169W 122D 161L, score 0.509, Elo +6 [-21, +34]
+[card0] [match] 241/400 positions: A 175W 145D 162L, score 0.513, Elo +9 [-17, +35]
+[card1] [match] 227/400 positions: A 170W 122D 162L, score 0.509, Elo +6 [-21, +34]
+[card1] [match] 228/400 positions: A 172W 122D 162L, score 0.511, Elo +8 [-20, +35]
+[card0] [match] 242/400 positions: A 175W 146D 163L, score 0.512, Elo +9 [-17, +35]
+[card0] [match] 243/400 positions: A 175W 148D 163L, score 0.512, Elo +9 [-17, +34]
+[card1] [match] 229/400 positions: A 172W 122D 164L, score 0.509, Elo +6 [-21, +33]
+[card1] [match] 230/400 positions: A 174W 122D 164L, score 0.511, Elo +8 [-20, +35]
+[card0] [match] 244/400 positions: A 177W 148D 163L, score 0.514, Elo +10 [-16, +36]
+[card1] [match] 231/400 positions: A 176W 122D 164L, score 0.513, Elo +9 [-18, +36]
+[card1] [match] 232/400 positions: A 177W 122D 165L, score 0.513, Elo +9 [-18, +36]
+[card0] [match] 245/400 positions: A 179W 148D 163L, score 0.516, Elo +11 [-14, +37]
+[card1] [match] 233/400 positions: A 177W 123D 166L, score 0.512, Elo +8 [-19, +35]
+[card1] [match] 234/400 positions: A 178W 124D 166L, score 0.513, Elo +9 [-18, +36]
+[card0] [match] 246/400 positions: A 180W 148D 164L, score 0.516, Elo +11 [-14, +37]
+[card0] [match] 247/400 positions: A 181W 148D 165L, score 0.516, Elo +11 [-14, +37]
+[card1] [match] 235/400 positions: A 179W 125D 166L, score 0.514, Elo +10 [-17, +37]
+[card0] [match] 248/400 positions: A 181W 148D 167L, score 0.514, Elo +10 [-16, +36]
+[card1] [match] 236/400 positions: A 180W 125D 167L, score 0.514, Elo +10 [-17, +37]
+[card0] [match] 249/400 positions: A 183W 148D 167L, score 0.516, Elo +11 [-14, +37]
+[card0] [match] 250/400 positions: A 185W 148D 167L, score 0.518, Elo +13 [-13, +38]
+[card1] [match] 237/400 positions: A 180W 126D 168L, score 0.513, Elo +9 [-18, +36]
+[card0] [match] 251/400 positions: A 185W 149D 168L, score 0.517, Elo +12 [-14, +37]
+[card1] [match] 238/400 positions: A 180W 127D 169L, score 0.512, Elo +8 [-19, +35]
+[card0] [match] 252/400 positions: A 185W 150D 169L, score 0.516, Elo +11 [-14, +37]
+[card1] [match] 239/400 positions: A 181W 127D 170L, score 0.512, Elo +8 [-19, +35]
+[card0] [match] 253/400 positions: A 185W 151D 170L, score 0.515, Elo +10 [-15, +36]
+[card1] [match] 240/400 positions: A 182W 128D 170L, score 0.512, Elo +9 [-18, +35]
+[card0] [match] 254/400 positions: A 186W 152D 170L, score 0.516, Elo +11 [-14, +36]
+[card1] [match] 241/400 positions: A 183W 129D 170L, score 0.513, Elo +9 [-17, +36]
+[card0] [match] 255/400 positions: A 187W 153D 170L, score 0.517, Elo +12 [-14, +37]
+[card1] [match] 242/400 positions: A 185W 129D 170L, score 0.515, Elo +11 [-16, +37]
+[card0] [match] 256/400 positions: A 188W 154D 170L, score 0.518, Elo +12 [-13, +38]
+[card1] [match] 243/400 positions: A 186W 129D 171L, score 0.515, Elo +11 [-16, +37]
+[card0] [match] 257/400 positions: A 188W 155D 171L, score 0.517, Elo +11 [-14, +37]
+[card1] [match] 244/400 positions: A 187W 129D 172L, score 0.515, Elo +11 [-16, +37]
+[card0] [match] 258/400 positions: A 188W 156D 172L, score 0.516, Elo +11 [-14, +36]
+[card1] [match] 245/400 positions: A 187W 129D 174L, score 0.513, Elo +9 [-17, +36]
+[card1] [match] 246/400 positions: A 187W 129D 176L, score 0.511, Elo +8 [-19, +34]
+[card0] [match] 259/400 positions: A 189W 157D 172L, score 0.516, Elo +11 [-14, +36]
+[card1] [match] 247/400 positions: A 188W 130D 176L, score 0.512, Elo +8 [-18, +35]
+[card0] [match] 260/400 positions: A 189W 158D 173L, score 0.515, Elo +11 [-14, +36]
+[card1] [match] 248/400 positions: A 188W 131D 177L, score 0.511, Elo +8 [-19, +34]
+[card0] [match] 261/400 positions: A 189W 159D 174L, score 0.514, Elo +10 [-15, +35]
+[card1] [match] 249/400 positions: A 189W 132D 177L, score 0.512, Elo +8 [-18, +35]
+[card0] [match] 262/400 positions: A 191W 159D 174L, score 0.516, Elo +11 [-14, +36]
+[card1] [match] 250/400 positions: A 191W 132D 177L, score 0.514, Elo +10 [-16, +36]
+[card0] [match] 263/400 positions: A 191W 159D 176L, score 0.514, Elo +10 [-15, +35]
+[card1] [match] 251/400 positions: A 192W 132D 178L, score 0.514, Elo +10 [-16, +36]
+[card0] [match] 264/400 positions: A 192W 159D 177L, score 0.514, Elo +10 [-15, +35]
+[card1] [match] 252/400 positions: A 192W 133D 179L, score 0.513, Elo +9 [-17, +35]
+[card0] [match] 265/400 positions: A 193W 160D 177L, score 0.515, Elo +10 [-14, +35]
+[card1] [match] 253/400 positions: A 192W 134D 180L, score 0.512, Elo +8 [-18, +34]
+[card0] [match] 266/400 positions: A 195W 160D 177L, score 0.517, Elo +12 [-13, +37]
+[card0] [match] 267/400 positions: A 195W 160D 179L, score 0.515, Elo +10 [-14, +35]
+[card0] [match] 268/400 positions: A 196W 161D 179L, score 0.516, Elo +11 [-14, +36]
+[card1] [match] 254/400 positions: A 193W 135D 180L, score 0.513, Elo +9 [-17, +35]
+[card1] [match] 255/400 positions: A 194W 135D 181L, score 0.513, Elo +9 [-17, +35]
+[card0] [match] 269/400 positions: A 196W 163D 179L, score 0.516, Elo +11 [-14, +36]
+[card1] [match] 256/400 positions: A 195W 136D 181L, score 0.514, Elo +10 [-16, +35]
+[card0] [match] 270/400 positions: A 196W 163D 181L, score 0.514, Elo +10 [-15, +34]
+[card1] [match] 257/400 positions: A 196W 136D 182L, score 0.514, Elo +9 [-16, +35]
+[card1] [match] 258/400 positions: A 197W 136D 183L, score 0.514, Elo +9 [-16, +35]
+[card0] [match] 271/400 positions: A 196W 164D 182L, score 0.513, Elo +9 [-15, +33]
+[card1] [match] 259/400 positions: A 197W 137D 184L, score 0.513, Elo +9 [-17, +34]
+[card0] [match] 272/400 positions: A 197W 165D 182L, score 0.514, Elo +10 [-15, +34]
+[card1] [match] 260/400 positions: A 199W 137D 184L, score 0.514, Elo +10 [-16, +36]
+[card0] [match] 273/400 positions: A 198W 165D 183L, score 0.514, Elo +10 [-15, +34]
+[card1] [match] 261/400 positions: A 200W 137D 185L, score 0.514, Elo +10 [-16, +36]
+[card0] [match] 274/400 positions: A 199W 166D 183L, score 0.515, Elo +10 [-14, +35]
+[card1] [match] 262/400 positions: A 200W 138D 186L, score 0.513, Elo +9 [-16, +35]
+[card0] [match] 275/400 positions: A 199W 167D 184L, score 0.514, Elo +9 [-15, +34]
+[card1] [match] 263/400 positions: A 200W 138D 188L, score 0.511, Elo +8 [-18, +34]
+[card0] [match] 276/400 positions: A 201W 167D 184L, score 0.515, Elo +11 [-13, +35]
+[card1] [match] 264/400 positions: A 200W 139D 189L, score 0.510, Elo +7 [-18, +33]
+[card0] [match] 277/400 positions: A 201W 169D 184L, score 0.515, Elo +11 [-13, +35]
+[card1] [match] 265/400 positions: A 201W 139D 190L, score 0.510, Elo +7 [-18, +33]
+[card0] [match] 278/400 positions: A 203W 169D 184L, score 0.517, Elo +12 [-12, +36]
+[card1] [match] 266/400 positions: A 203W 139D 190L, score 0.512, Elo +8 [-17, +34]
+[card0] [match] 279/400 positions: A 204W 169D 185L, score 0.517, Elo +12 [-12, +36]
+[card0] [match] 280/400 positions: A 204W 170D 186L, score 0.516, Elo +11 [-13, +35]
+[card1] [match] 267/400 positions: A 204W 140D 190L, score 0.513, Elo +9 [-16, +35]
+[card0] [match] 281/400 positions: A 204W 170D 188L, score 0.514, Elo +10 [-14, +34]
+[card1] [match] 268/400 positions: A 204W 141D 191L, score 0.512, Elo +8 [-17, +34]
+[card0] [match] 282/400 positions: A 204W 172D 188L, score 0.514, Elo +10 [-14, +34]
+[card0] [match] 283/400 positions: A 204W 173D 189L, score 0.513, Elo +9 [-15, +33]
+[card1] [match] 269/400 positions: A 205W 141D 192L, score 0.512, Elo +8 [-17, +34]
+[card1] [match] 270/400 positions: A 205W 143D 192L, score 0.512, Elo +8 [-17, +34]
+[card0] [match] 284/400 positions: A 205W 173D 190L, score 0.513, Elo +9 [-15, +33]
+[card0] [match] 285/400 positions: A 206W 173D 191L, score 0.513, Elo +9 [-15, +33]
+[card1] [match] 271/400 positions: A 207W 143D 192L, score 0.514, Elo +10 [-15, +35]
+[card0] [match] 286/400 positions: A 206W 174D 192L, score 0.512, Elo +9 [-15, +32]
+[card1] [match] 272/400 positions: A 208W 144D 192L, score 0.515, Elo +10 [-15, +35]
+[card0] [match] 287/400 positions: A 208W 174D 192L, score 0.514, Elo +10 [-14, +34]
+[card1] [match] 273/400 positions: A 210W 144D 192L, score 0.516, Elo +11 [-14, +37]
+[card0] [match] 288/400 positions: A 208W 176D 192L, score 0.514, Elo +10 [-14, +33]
+[card1] [match] 274/400 positions: A 211W 145D 192L, score 0.517, Elo +12 [-13, +37]
+[card0] [match] 289/400 positions: A 209W 176D 193L, score 0.514, Elo +10 [-14, +33]
+[card1] [match] 275/400 positions: A 212W 145D 193L, score 0.517, Elo +12 [-13, +37]
+[card0] [match] 290/400 positions: A 211W 176D 193L, score 0.516, Elo +11 [-13, +34]
+[card1] [match] 276/400 positions: A 212W 146D 194L, score 0.516, Elo +11 [-14, +36]
+[card0] [match] 291/400 positions: A 211W 176D 195L, score 0.514, Elo +10 [-14, +33]
+[card1] [match] 277/400 positions: A 213W 147D 194L, score 0.517, Elo +12 [-13, +37]
+[card1] [match] 278/400 positions: A 214W 147D 195L, score 0.517, Elo +12 [-13, +37]
+[card0] [match] 292/400 positions: A 212W 177D 195L, score 0.515, Elo +10 [-13, +34]
+[card1] [match] 279/400 positions: A 215W 148D 195L, score 0.518, Elo +12 [-12, +37]
+[card0] [match] 293/400 positions: A 213W 177D 196L, score 0.515, Elo +10 [-13, +34]
+[card1] [match] 280/400 positions: A 216W 149D 195L, score 0.519, Elo +13 [-12, +38]
+[card0] [match] 294/400 positions: A 214W 177D 197L, score 0.514, Elo +10 [-13, +34]
+[card1] [match] 281/400 positions: A 217W 149D 196L, score 0.519, Elo +13 [-12, +38]
+[card0] [match] 295/400 positions: A 215W 178D 197L, score 0.515, Elo +11 [-13, +34]
+[card1] [match] 282/400 positions: A 218W 150D 196L, score 0.520, Elo +14 [-11, +38]
+[card0] [match] 296/400 positions: A 215W 179D 198L, score 0.514, Elo +10 [-13, +33]
+[card1] [match] 283/400 positions: A 219W 151D 196L, score 0.520, Elo +14 [-10, +39]
+[card1] [match] 284/400 positions: A 220W 151D 197L, score 0.520, Elo +14 [-10, +39]
+[card0] [match] 297/400 positions: A 216W 179D 199L, score 0.514, Elo +10 [-13, +33]
+[card1] [match] 285/400 positions: A 222W 151D 197L, score 0.522, Elo +15 [-9, +40]
+[card0] [match] 298/400 positions: A 216W 180D 200L, score 0.513, Elo +9 [-14, +33]
+[card1] [match] 286/400 positions: A 222W 152D 198L, score 0.521, Elo +15 [-10, +39]
+[card0] [match] 299/400 positions: A 216W 181D 201L, score 0.513, Elo +9 [-15, +32]
+[card0] [match] 300/400 positions: A 216W 182D 202L, score 0.512, Elo +8 [-15, +31]
+[card1] [match] 287/400 positions: A 222W 152D 200L, score 0.519, Elo +13 [-11, +38]
+[card1] [match] 288/400 positions: A 223W 153D 200L, score 0.520, Elo +14 [-10, +38]
+[card0] [match] 301/400 positions: A 218W 182D 202L, score 0.513, Elo +9 [-14, +32]
+[card1] [match] 289/400 positions: A 223W 153D 202L, score 0.518, Elo +13 [-12, +37]
+[card0] [match] 302/400 positions: A 219W 182D 203L, score 0.513, Elo +9 [-14, +32]
+[card1] [match] 290/400 positions: A 223W 153D 204L, score 0.516, Elo +11 [-13, +36]
+[card1] [match] 291/400 positions: A 224W 153D 205L, score 0.516, Elo +11 [-13, +36]
+[card0] [match] 303/400 positions: A 221W 182D 203L, score 0.515, Elo +10 [-13, +34]
+[card1] [match] 292/400 positions: A 224W 153D 207L, score 0.515, Elo +10 [-14, +34]
+[card0] [match] 304/400 positions: A 221W 183D 204L, score 0.514, Elo +10 [-13, +33]
+[card0] [match] 305/400 positions: A 221W 183D 206L, score 0.512, Elo +9 [-15, +32]
+[card1] [match] 293/400 positions: A 224W 153D 209L, score 0.513, Elo +9 [-15, +33]
+[card0] [match] 306/400 positions: A 221W 184D 207L, score 0.511, Elo +8 [-15, +31]
+[card1] [match] 294/400 positions: A 226W 153D 209L, score 0.514, Elo +10 [-14, +34]
+[card1] [match] 295/400 positions: A 227W 154D 209L, score 0.515, Elo +11 [-13, +35]
+[card0] [match] 307/400 positions: A 222W 184D 208L, score 0.511, Elo +8 [-15, +31]
+[card0] [match] 308/400 positions: A 223W 185D 208L, score 0.512, Elo +8 [-14, +31]
+[card1] [match] 296/400 positions: A 229W 154D 209L, score 0.517, Elo +12 [-12, +36]
+[card0] [match] 309/400 positions: A 223W 186D 209L, score 0.511, Elo +8 [-15, +31]
+[card1] [match] 297/400 positions: A 229W 154D 211L, score 0.515, Elo +11 [-14, +35]
+[card0] [match] 310/400 positions: A 224W 187D 209L, score 0.512, Elo +8 [-14, +31]
+[card1] [match] 298/400 positions: A 229W 155D 212L, score 0.514, Elo +10 [-14, +34]
+[card0] [match] 311/400 positions: A 225W 187D 210L, score 0.512, Elo +8 [-14, +31]
+[card1] [match] 299/400 positions: A 229W 156D 213L, score 0.513, Elo +9 [-15, +33]
+[card0] [match] 312/400 positions: A 225W 189D 210L, score 0.512, Elo +8 [-14, +31]
+[card1] [match] 300/400 positions: A 229W 156D 215L, score 0.512, Elo +8 [-16, +32]
+[card0] [match] 313/400 positions: A 226W 189D 211L, score 0.512, Elo +8 [-14, +31]
+[card1] [match] 301/400 positions: A 230W 157D 215L, score 0.512, Elo +9 [-15, +33]
+[card0] [match] 314/400 positions: A 227W 189D 212L, score 0.512, Elo +8 [-14, +31]
+[card1] [match] 302/400 positions: A 231W 157D 216L, score 0.512, Elo +9 [-15, +33]
+[card0] [match] 315/400 positions: A 227W 191D 212L, score 0.512, Elo +8 [-14, +31]
+[card1] [match] 303/400 positions: A 232W 157D 217L, score 0.512, Elo +9 [-15, +32]
+[card0] [match] 316/400 positions: A 229W 191D 212L, score 0.513, Elo +9 [-13, +32]
+[card1] [match] 304/400 positions: A 233W 158D 217L, score 0.513, Elo +9 [-15, +33]
+[card0] [match] 317/400 positions: A 229W 191D 214L, score 0.512, Elo +8 [-14, +31]
+[card1] [match] 305/400 positions: A 233W 159D 218L, score 0.512, Elo +9 [-15, +32]
+[card0] [match] 318/400 positions: A 229W 192D 215L, score 0.511, Elo +8 [-15, +30]
+[card1] [match] 306/400 positions: A 234W 160D 218L, score 0.513, Elo +9 [-15, +33]
+[card0] [match] 319/400 positions: A 231W 192D 215L, score 0.513, Elo +9 [-14, +31]
+[card1] [match] 307/400 positions: A 235W 160D 219L, score 0.513, Elo +9 [-15, +33]
+[card0] [match] 320/400 positions: A 231W 193D 216L, score 0.512, Elo +8 [-14, +31]
+[card1] [match] 308/400 positions: A 236W 160D 220L, score 0.513, Elo +9 [-15, +33]
+[card0] [match] 321/400 positions: A 232W 193D 217L, score 0.512, Elo +8 [-14, +31]
+[card1] [match] 309/400 positions: A 238W 160D 220L, score 0.515, Elo +10 [-13, +34]
+[card0] [match] 322/400 positions: A 233W 193D 218L, score 0.512, Elo +8 [-14, +31]
+[card1] [match] 310/400 positions: A 239W 161D 220L, score 0.515, Elo +11 [-13, +34]
+[card0] [match] 323/400 positions: A 233W 195D 218L, score 0.512, Elo +8 [-14, +31]
+[card1] [match] 311/400 positions: A 239W 163D 220L, score 0.515, Elo +11 [-13, +34]
+[card0] [match] 324/400 positions: A 234W 195D 219L, score 0.512, Elo +8 [-14, +30]
+[card1] [match] 312/400 positions: A 240W 164D 220L, score 0.516, Elo +11 [-12, +35]
+[card0] [match] 325/400 positions: A 235W 196D 219L, score 0.512, Elo +9 [-14, +31]
+[card1] [match] 313/400 positions: A 240W 166D 220L, score 0.516, Elo +11 [-12, +35]
+[card0] [match] 326/400 positions: A 235W 197D 220L, score 0.512, Elo +8 [-14, +30]
+[card1] [match] 314/400 positions: A 241W 167D 220L, score 0.517, Elo +12 [-12, +35]
+[card0] [match] 327/400 positions: A 235W 198D 221L, score 0.511, Elo +7 [-15, +30]
+[card1] [match] 315/400 positions: A 242W 167D 221L, score 0.517, Elo +12 [-12, +35]
+[card1] [match] 316/400 positions: A 243W 167D 222L, score 0.517, Elo +12 [-12, +35]
+[card0] [match] 328/400 positions: A 236W 198D 222L, score 0.511, Elo +7 [-15, +30]
+[card1] [match] 317/400 positions: A 243W 168D 223L, score 0.516, Elo +11 [-12, +34]
+[card0] [match] 329/400 positions: A 237W 199D 222L, score 0.511, Elo +8 [-14, +30]
+[card0] [match] 330/400 positions: A 238W 199D 223L, score 0.511, Elo +8 [-14, +30]
+[card1] [match] 318/400 positions: A 244W 169D 223L, score 0.517, Elo +11 [-12, +35]
+[card1] [match] 319/400 positions: A 245W 170D 223L, score 0.517, Elo +12 [-11, +35]
+[card0] [match] 331/400 positions: A 238W 199D 225L, score 0.510, Elo +7 [-15, +29]
+[card1] [match] 320/400 positions: A 246W 171D 223L, score 0.518, Elo +12 [-11, +36]
+[card0] [match] 332/400 positions: A 238W 200D 226L, score 0.509, Elo +6 [-16, +28]
+[card1] [match] 321/400 positions: A 247W 171D 224L, score 0.518, Elo +12 [-11, +36]
+[card0] [match] 333/400 positions: A 239W 200D 227L, score 0.509, Elo +6 [-16, +28]
+[card1] [match] 322/400 positions: A 248W 172D 224L, score 0.519, Elo +13 [-10, +36]
+[card0] [match] 334/400 positions: A 240W 201D 227L, score 0.510, Elo +7 [-15, +29]
+[card1] [match] 323/400 positions: A 249W 173D 224L, score 0.519, Elo +13 [-9, +36]
+[card1] [match] 324/400 positions: A 249W 175D 224L, score 0.519, Elo +13 [-9, +36]
+[card0] [match] 335/400 positions: A 241W 201D 228L, score 0.510, Elo +7 [-15, +29]
+[card1] [match] 325/400 positions: A 250W 175D 225L, score 0.519, Elo +13 [-9, +36]
+[card0] [match] 336/400 positions: A 241W 202D 229L, score 0.509, Elo +6 [-16, +28]
+[card1] [match] 326/400 positions: A 250W 176D 226L, score 0.518, Elo +13 [-10, +36]
+[card0] [match] 337/400 positions: A 242W 202D 230L, score 0.509, Elo +6 [-16, +28]
+[card1] [match] 327/400 positions: A 251W 176D 227L, score 0.518, Elo +13 [-10, +36]
+[card1] [match] 328/400 positions: A 251W 177D 228L, score 0.518, Elo +12 [-11, +35]
+[card0] [match] 338/400 positions: A 243W 203D 230L, score 0.510, Elo +7 [-15, +29]
+[card1] [match] 329/400 positions: A 252W 177D 229L, score 0.517, Elo +12 [-11, +35]
+[card0] [match] 339/400 positions: A 244W 203D 231L, score 0.510, Elo +7 [-15, +29]
+[card1] [match] 330/400 positions: A 253W 178D 229L, score 0.518, Elo +13 [-10, +35]
+[card0] [match] 340/400 positions: A 245W 203D 232L, score 0.510, Elo +7 [-15, +29]
+[card0] [match] 341/400 positions: A 245W 203D 234L, score 0.508, Elo +6 [-16, +28]
+[card1] [match] 331/400 positions: A 254W 178D 230L, score 0.518, Elo +13 [-10, +35]
+[card1] [match] 332/400 positions: A 255W 179D 230L, score 0.519, Elo +13 [-9, +36]
+[card0] [match] 342/400 positions: A 245W 204D 235L, score 0.507, Elo +5 [-17, +27]
+[card1] [match] 333/400 positions: A 255W 181D 230L, score 0.519, Elo +13 [-9, +36]
+[card1] [match] 334/400 positions: A 255W 183D 230L, score 0.519, Elo +13 [-9, +36]
+[card1] [match] 335/400 positions: A 256W 183D 231L, score 0.519, Elo +13 [-9, +35]
+[card0] [match] 343/400 positions: A 246W 205D 235L, score 0.508, Elo +6 [-16, +27]
+[card1] [match] 336/400 positions: A 256W 184D 232L, score 0.518, Elo +12 [-10, +35]
+[card0] [match] 344/400 positions: A 246W 207D 235L, score 0.508, Elo +6 [-16, +27]
+[card1] [match] 337/400 positions: A 257W 184D 233L, score 0.518, Elo +12 [-10, +35]
+[card0] [match] 345/400 positions: A 246W 209D 235L, score 0.508, Elo +6 [-16, +27]
+[card1] [match] 338/400 positions: A 258W 185D 233L, score 0.518, Elo +13 [-9, +35]
+[card0] [match] 346/400 positions: A 246W 210D 236L, score 0.507, Elo +5 [-17, +27]
+[card1] [match] 339/400 positions: A 258W 185D 235L, score 0.517, Elo +12 [-11, +34]
+[card0] [match] 347/400 positions: A 248W 210D 236L, score 0.509, Elo +6 [-16, +28]
+[card0] [match] 348/400 positions: A 249W 210D 237L, score 0.509, Elo +6 [-16, +28]
+[card1] [match] 340/400 positions: A 259W 186D 235L, score 0.518, Elo +12 [-10, +35]
+[card0] [match] 349/400 positions: A 250W 210D 238L, score 0.509, Elo +6 [-16, +28]
+[card1] [match] 341/400 positions: A 260W 186D 236L, score 0.518, Elo +12 [-10, +35]
+[card1] [match] 342/400 positions: A 261W 186D 237L, score 0.518, Elo +12 [-10, +35]
+[card0] [match] 350/400 positions: A 250W 211D 239L, score 0.508, Elo +5 [-16, +27]
+[card1] [match] 343/400 positions: A 262W 186D 238L, score 0.517, Elo +12 [-10, +34]
+[card0] [match] 351/400 positions: A 252W 211D 239L, score 0.509, Elo +6 [-15, +28]
+[card1] [match] 344/400 positions: A 262W 186D 240L, score 0.516, Elo +11 [-11, +33]
+[card0] [match] 352/400 positions: A 253W 212D 239L, score 0.510, Elo +7 [-15, +28]
+[card1] [match] 345/400 positions: A 262W 187D 241L, score 0.515, Elo +11 [-12, +33]
+[card0] [match] 353/400 positions: A 253W 213D 240L, score 0.509, Elo +6 [-15, +28]
+[card1] [match] 346/400 positions: A 263W 188D 241L, score 0.516, Elo +11 [-11, +33]
+[card0] [match] 354/400 positions: A 253W 215D 240L, score 0.509, Elo +6 [-15, +28]
+[card1] [match] 347/400 positions: A 264W 189D 241L, score 0.517, Elo +12 [-11, +34]
+[card1] [match] 348/400 positions: A 264W 191D 241L, score 0.517, Elo +11 [-10, +34]
+[card0] [match] 355/400 positions: A 253W 217D 240L, score 0.509, Elo +6 [-15, +28]
+[card1] [match] 349/400 positions: A 265W 191D 242L, score 0.516, Elo +11 [-11, +34]
+[card0] [match] 356/400 positions: A 255W 217D 240L, score 0.511, Elo +7 [-14, +29]
+[card1] [match] 350/400 positions: A 266W 191D 243L, score 0.516, Elo +11 [-11, +33]
+[card1] [match] 351/400 positions: A 266W 191D 245L, score 0.515, Elo +10 [-12, +32]
+[card0] [match] 357/400 positions: A 256W 217D 241L, score 0.511, Elo +7 [-14, +29]
+[card1] [match] 352/400 positions: A 268W 191D 245L, score 0.516, Elo +11 [-11, +33]
+[card0] [match] 358/400 positions: A 256W 217D 243L, score 0.509, Elo +6 [-15, +28]
+[card1] [match] 353/400 positions: A 270W 191D 245L, score 0.518, Elo +12 [-10, +34]
+[card1] [match] 354/400 positions: A 270W 192D 246L, score 0.517, Elo +12 [-10, +34]
+[card0] [match] 359/400 positions: A 258W 217D 243L, score 0.510, Elo +7 [-14, +29]
+[card0] [match] 360/400 positions: A 259W 217D 244L, score 0.510, Elo +7 [-14, +29]
+[card1] [match] 355/400 positions: A 271W 192D 247L, score 0.517, Elo +12 [-10, +34]
+[card0] [match] 361/400 positions: A 259W 218D 245L, score 0.510, Elo +7 [-14, +28]
+[card1] [match] 356/400 positions: A 272W 192D 248L, score 0.517, Elo +12 [-10, +34]
+[card0] [match] 362/400 positions: A 260W 218D 246L, score 0.510, Elo +7 [-14, +28]
+[card1] [match] 357/400 positions: A 273W 192D 249L, score 0.517, Elo +12 [-10, +34]
+[card1] [match] 358/400 positions: A 275W 192D 249L, score 0.518, Elo +13 [-9, +34]
+[card0] [match] 363/400 positions: A 261W 218D 247L, score 0.510, Elo +7 [-14, +28]
+[card0] [match] 364/400 positions: A 261W 220D 247L, score 0.510, Elo +7 [-14, +28]
+[card1] [match] 359/400 positions: A 275W 193D 250L, score 0.517, Elo +12 [-10, +34]
+[card0] [match] 365/400 positions: A 261W 221D 248L, score 0.509, Elo +6 [-15, +27]
+[card1] [match] 360/400 positions: A 276W 194D 250L, score 0.518, Elo +13 [-9, +34]
+[card0] [match] 366/400 positions: A 261W 222D 249L, score 0.508, Elo +6 [-15, +27]
+[card1] [match] 361/400 positions: A 276W 196D 250L, score 0.518, Elo +13 [-9, +34]
+[card0] [match] 367/400 positions: A 262W 223D 249L, score 0.509, Elo +6 [-15, +27]
+[card1] [match] 362/400 positions: A 277W 197D 250L, score 0.519, Elo +13 [-9, +35]
+[card0] [match] 368/400 positions: A 262W 224D 250L, score 0.508, Elo +6 [-15, +27]
+[card1] [match] 363/400 positions: A 277W 198D 251L, score 0.518, Elo +12 [-9, +34]
+[card0] [match] 369/400 positions: A 262W 226D 250L, score 0.508, Elo +6 [-15, +27]
+[card1] [match] 364/400 positions: A 277W 198D 253L, score 0.516, Elo +11 [-10, +33]
+[card0] [match] 370/400 positions: A 262W 227D 251L, score 0.507, Elo +5 [-16, +26]
+[card1] [match] 365/400 positions: A 279W 198D 253L, score 0.518, Elo +12 [-9, +34]
+[card0] [match] 371/400 positions: A 263W 228D 251L, score 0.508, Elo +6 [-15, +26]
+[card1] [match] 366/400 positions: A 281W 198D 253L, score 0.519, Elo +13 [-8, +35]
+[card1] [match] 367/400 positions: A 281W 200D 253L, score 0.519, Elo +13 [-8, +35]
+[card0] [match] 372/400 positions: A 264W 229D 251L, score 0.509, Elo +6 [-15, +27]
+[card1] [match] 368/400 positions: A 281W 200D 255L, score 0.518, Elo +12 [-9, +34]
+[card0] [match] 373/400 positions: A 264W 229D 253L, score 0.507, Elo +5 [-16, +26]
+[card1] [match] 369/400 positions: A 282W 200D 256L, score 0.518, Elo +12 [-9, +34]
+[card0] [match] 374/400 positions: A 264W 230D 254L, score 0.507, Elo +5 [-16, +25]
+[card1] [match] 370/400 positions: A 283W 200D 257L, score 0.518, Elo +12 [-9, +34]
+[card1] [match] 371/400 positions: A 283W 201D 258L, score 0.517, Elo +12 [-10, +33]
+[card0] [match] 375/400 positions: A 264W 231D 255L, score 0.506, Elo +4 [-17, +25]
+[card0] [match] 376/400 positions: A 265W 232D 255L, score 0.507, Elo +5 [-16, +25]
+[card1] [match] 372/400 positions: A 283W 202D 259L, score 0.516, Elo +11 [-10, +33]
+[card0] [match] 377/400 positions: A 265W 232D 257L, score 0.505, Elo +4 [-17, +24]
+[card1] [match] 373/400 positions: A 284W 202D 260L, score 0.516, Elo +11 [-10, +33]
+[card0] [match] 378/400 positions: A 266W 232D 258L, score 0.505, Elo +4 [-17, +24]
+[card0] [match] 379/400 positions: A 267W 233D 258L, score 0.506, Elo +4 [-16, +25]
+[card1] [match] 374/400 positions: A 286W 202D 260L, score 0.517, Elo +12 [-9, +33]
+[card0] [match] 380/400 positions: A 267W 234D 259L, score 0.505, Elo +4 [-17, +24]
+[card0] [match] 381/400 positions: A 268W 235D 259L, score 0.506, Elo +4 [-16, +25]
+[card1] [match] 375/400 positions: A 286W 203D 261L, score 0.517, Elo +12 [-10, +33]
+[card0] [match] 382/400 positions: A 268W 236D 260L, score 0.505, Elo +4 [-17, +24]
+[card1] [match] 376/400 positions: A 287W 203D 262L, score 0.517, Elo +12 [-10, +33]
+[card0] [match] 383/400 positions: A 269W 237D 260L, score 0.506, Elo +4 [-16, +25]
+[card0] [match] 384/400 positions: A 269W 237D 262L, score 0.505, Elo +3 [-17, +24]
+[card1] [match] 377/400 positions: A 288W 204D 262L, score 0.517, Elo +12 [-9, +33]
+[card0] [match] 385/400 positions: A 270W 237D 263L, score 0.505, Elo +3 [-17, +24]
+[card1] [match] 378/400 positions: A 290W 204D 262L, score 0.519, Elo +13 [-8, +34]
+[card1] [match] 379/400 positions: A 291W 205D 262L, score 0.519, Elo +13 [-8, +35]
+[card0] [match] 386/400 positions: A 271W 237D 264L, score 0.505, Elo +3 [-17, +24]
+[card1] [match] 380/400 positions: A 293W 205D 262L, score 0.520, Elo +14 [-7, +35]
+[card1] [match] 381/400 positions: A 294W 205D 263L, score 0.520, Elo +14 [-7, +35]
+[card0] [match] 387/400 positions: A 271W 237D 266L, score 0.503, Elo +2 [-18, +23]
+[card0] [match] 388/400 positions: A 272W 238D 266L, score 0.504, Elo +3 [-18, +23]
+[card1] [match] 382/400 positions: A 295W 205D 264L, score 0.520, Elo +14 [-7, +35]
+[card0] [match] 389/400 positions: A 273W 239D 266L, score 0.504, Elo +3 [-17, +23]
+[card1] [match] 383/400 positions: A 295W 206D 265L, score 0.520, Elo +14 [-7, +35]
+[card0] [match] 390/400 positions: A 273W 239D 268L, score 0.503, Elo +2 [-18, +23]
+[card1] [match] 384/400 positions: A 295W 208D 265L, score 0.520, Elo +14 [-7, +35]
+[card0] [match] 391/400 positions: A 273W 239D 270L, score 0.502, Elo +1 [-19, +22]
+[card1] [match] 385/400 positions: A 296W 208D 266L, score 0.519, Elo +14 [-7, +35]
+[card0] [match] 392/400 positions: A 275W 239D 270L, score 0.503, Elo +2 [-18, +23]
+[card1] [match] 386/400 positions: A 298W 208D 266L, score 0.521, Elo +14 [-7, +35]
+[card0] [match] 393/400 positions: A 276W 239D 271L, score 0.503, Elo +2 [-18, +23]
+[card1] [match] 387/400 positions: A 299W 209D 266L, score 0.521, Elo +15 [-6, +36]
+[card0] [match] 394/400 positions: A 277W 239D 272L, score 0.503, Elo +2 [-18, +22]
+[card0] [match] 395/400 positions: A 279W 239D 272L, score 0.504, Elo +3 [-17, +23]
+[card1] [match] 388/400 positions: A 299W 211D 266L, score 0.521, Elo +15 [-6, +36]
+[card0] [match] 396/400 positions: A 281W 239D 272L, score 0.506, Elo +4 [-16, +24]
+[card1] [match] 389/400 positions: A 300W 212D 266L, score 0.522, Elo +15 [-6, +36]
+[card0] [match] 397/400 positions: A 281W 240D 273L, score 0.505, Elo +4 [-17, +24]
+[card1] [match] 390/400 positions: A 302W 212D 266L, score 0.523, Elo +16 [-5, +37]
+[card1] [match] 391/400 positions: A 303W 212D 267L, score 0.523, Elo +16 [-5, +37]
+[card0] [match] 398/400 positions: A 281W 241D 274L, score 0.504, Elo +3 [-17, +23]
+[card1] [match] 392/400 positions: A 304W 212D 268L, score 0.523, Elo +16 [-5, +37]
+[card0] [match] 399/400 positions: A 281W 243D 274L, score 0.504, Elo +3 [-17, +23]
+[card1] [match] 393/400 positions: A 304W 212D 270L, score 0.522, Elo +15 [-6, +36]
+[card1] [match] 394/400 positions: A 305W 212D 271L, score 0.522, Elo +15 [-6, +36]
+[card0] [match] 400/400 positions: A 282W 243D 275L, score 0.504, Elo +3 [-17, +23]
+[card0] {
+[card0]  "a": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-distill-hybrid/chess_500M_w03_distill.pt",
+[card0]  "b": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03/checkpoints/chess_best.pt",
+[card0]  "a_leaf": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt",
+[card0]  "b_leaf": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt",
+[card0]  "onepass": true,
+[card0]  "depth": 2,
+[card0]  "a_depth": 2,
+[card0]  "b_depth": 2,
+[card0]  "slice": "0/2",
+[card0]  "seed": 0,
+[card0]  "seconds": 9212,
+[card0]  "games": 800,
+[card0]  "wins": 282,
+[card0]  "draws": 243,
+[card0]  "losses": 275,
+[card0]  "score": 0.504375,
+[card0]  "elo": 3.0401389617866683,
+[card0]  "elo_low": -17.061983454637048,
+[card0]  "elo_high": 23.162658696831322,
+[card0]  "a_time": {
+[card0]   "moves": 51274,
+[card0]   "mean_s": 0.08909724264077179,
+[card0]   "median_s": 0.06092865399978109,
+[card0]   "p90_s": 0.2016903286006255,
+[card0]   "p99_s": 0.2790889111098839,
+[card0]   "max_s": 0.47234497499994177
+[card0]  },
+[card0]  "b_time": {
+[card0]   "moves": 51270,
+[card0]   "mean_s": 0.08958589565369451,
+[card0]   "median_s": 0.06152119150010549,
+[card0]   "p90_s": 0.20109548229947904,
+[card0]   "p99_s": 0.27799655984975286,
+[card0]   "max_s": 1.6545030620000034
+[card0]  },
+[card0]  "results": [
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   1.0,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.0,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   0.5,
+[card0]   1.0,
+[card0]   0.0
+[card0]  ]
+[card0] }
+[card1] [match] 395/400 positions: A 307W 212D 271L, score 0.523, Elo +16 [-5, +37]
+[card1] [match] 396/400 positions: A 307W 214D 271L, score 0.523, Elo +16 [-5, +37]
+[card1] [match] 397/400 positions: A 309W 214D 271L, score 0.524, Elo +17 [-4, +37]
+[card1] [match] 398/400 positions: A 309W 216D 271L, score 0.524, Elo +17 [-4, +37]
+[card1] [match] 399/400 positions: A 311W 216D 271L, score 0.525, Elo +17 [-3, +38]
+[card1] [match] 400/400 positions: A 311W 217D 272L, score 0.524, Elo +17 [-4, +38]
+[card1] {
+[card1]  "a": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-distill-hybrid/chess_500M_w03_distill.pt",
+[card1]  "b": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-puzzle-500m-w03/checkpoints/chess_best.pt",
+[card1]  "a_leaf": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt",
+[card1]  "b_leaf": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-500m-s3/checkpoints/chess_best.pt",
+[card1]  "onepass": true,
+[card1]  "depth": 2,
+[card1]  "a_depth": 2,
+[card1]  "b_depth": 2,
+[card1]  "slice": "1/2",
+[card1]  "seed": 0,
+[card1]  "seconds": 9331,
+[card1]  "games": 800,
+[card1]  "wins": 311,
+[card1]  "draws": 217,
+[card1]  "losses": 272,
+[card1]  "score": 0.524375,
+[card1]  "elo": 16.95092162325101,
+[card1]  "elo_low": -3.582074991188238,
+[card1]  "elo_high": 37.60305783338208,
+[card1]  "a_time": {
+[card1]   "moves": 50498,
+[card1]   "mean_s": 0.09206874335544123,
+[card1]   "median_s": 0.06584016450005947,
+[card1]   "p90_s": 0.2021043741003382,
+[card1]   "p99_s": 0.2727187110100373,
+[card1]   "max_s": 1.6554072729999803
+[card1]  },
+[card1]  "b_time": {
+[card1]   "moves": 50479,
+[card1]   "mean_s": 0.09175311831149877,
+[card1]   "median_s": 0.0645861100001639,
+[card1]   "p90_s": 0.20227893900005256,
+[card1]   "p99_s": 0.2741794640198896,
+[card1]   "max_s": 0.3876775720000296
+[card1]  },
+[card1]  "results": [
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   0.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.5,
+[card1]   1.0,
+[card1]   1.0,
+[card1]   0.5,
+[card1]   0.0
+[card1]  ]
+[card1] }
+[session] done at 2.61h: {'card0': 0, 'card1': 0}
+  cells[i][c] = re.sub('\\\\\|', '|', cell)
+  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+[NbConvertApp] Writing 323532 bytes to __notebook__.ipynb
+[NbConvertApp] Converting notebook __notebook__.ipynb to html
+[NbConvertApp] Writing 582175 bytes to __results__.html

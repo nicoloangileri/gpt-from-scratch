@@ -439,8 +439,16 @@ between the fine-tune's 81.8% and the base model's 84.1%. But the prediction fai
 search still costs 1.1 points. Even the base model's leaves give this root nothing
 measurable (+0.07), where they gave the plain fine-tune's root 0.7. The likely reading is
 that a root this strong leaves the leaves little to correct, so keeping them is not enough
-to bring search back. The distilled model has played no games: at depth 1 it is the best
-single network on puzzles here, but only the hybrid has a game result.
+to bring search back. At depth 1 it is the best single network on puzzles here.
+
+Does its root beat the fine-tune's in games? Both over the 500M model's leaves at depth 2,
+so that only the root differs, 800 positions played twice
+([`results/35_match_distilled_vs_hybrid_part0.json`](results/35_match_distilled_vs_hybrid_part0.json)
+and `part1`): 593 won, 460 drawn, 547 lost, a score of 0.514 and **+10 Elo for the distilled
+root (95% interval -4 to 24)**. The rule was fixed in
+[`kaggle_chess/build_match_distill.py`](kaggle_chess/build_match_distill.py) before the
+games: the bot changes root only if the interval excludes zero. It does not, so the
+fine-tune's root stays. The games agree with the puzzles, where the two were level.
 
 **What a ply is worth** ([`results/34_match_500M_d3_vs_d2_part0.json`](results/34_match_500M_d3_vs_d2_part0.json)
 and `part1`). The 500M model at depth 3 against itself at depth 2, on the same 200
@@ -699,6 +707,5 @@ results/             the logs behind the numbers above
 
 - The hybrid on Lichess: +26 Elo in a match against the base model, no online games yet.
   A few dozen games would not measure it (see the 300-Elo interval above).
-- Games for the distilled model, at depth 1 the best single network on puzzles.
 - KV-cache serving for the language-model path (CUDA graphs: worth at most ~7% here,
   see Systems)
