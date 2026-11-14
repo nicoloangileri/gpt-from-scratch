@@ -60,7 +60,9 @@ def kaggle(*args: str, timeout_s: int = 1800) -> str:
                            timeout=timeout_s)
     except subprocess.TimeoutExpired:
         return f"timed out after {timeout_s}s"
-    return (r.stdout + r.stderr).strip()
+    # The CLI prints an upgrade notice on some calls; status() reads the last line.
+    return "\n".join(line for line in (r.stdout + r.stderr).splitlines()
+                     if "outdated `kaggle` version" not in line).strip()
 
 
 def quota() -> tuple[float, dt.datetime]:
