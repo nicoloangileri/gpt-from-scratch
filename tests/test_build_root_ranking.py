@@ -173,3 +173,55 @@ def test_distill_match_differs_only_in_the_root(tmp_path):
                  '"--slice", f"{card}/2"', 'str(card)'):
         assert flag in run, flag
     assert "chess_500M_w03_distill.pt" in cells[1]
+
+
+# --- the 1B model's puzzle fine-tune and its matches against the bot -----------------
+import build_1b_puzzle_match as pm  # noqa: E402
+
+
+@pytest.fixture
+def pm_nb(tmp_path):
+    pm.build(11.0, tmp_path)
+    return tmp_path
+
+
+def test_1b_puzzle_match_notebook_parses_and_is_a_new_kernel(pm_nb):
+    for c in _cells(pm_nb / "puzzle_match_kernel.ipynb"):
+        ast.parse(c)
+    meta = json.loads((pm_nb / "kernel-metadata.json").read_text())
+    assert meta["id"] == pm.KERNEL_ID
+    assert meta["id"] not in EARLIER_KERNELS | {rr.KERNEL_ID, cpu.KERNEL_ID, dh.KERNEL_ID,
+                                                md.KERNEL_ID, mdh.KERNEL_ID}
+    assert meta["enable_gpu"]
+    assert set(meta["kernel_sources"]) == {pm.BASE_KERNEL, pm.W03_KERNEL, pm.ONE_B_KERNEL}
+
+
+def test_the_1b_fine_tune_is_w03_from_the_1b_model(pm_nb):
+    """Against the notebook that produced results/26: the same command, a new start."""
+    def train(nb):
+        return [c for c in _cells(nb) if 'sys.argv = ["train_chess"' in c][0]
+    new = train(pm_nb / "puzzle_match_kernel.ipynb")
+    old = train(ROOT / "kaggle_chess_puzzle_500m_w03" / "puzzle_kernel.ipynb")
+    args = lambda cell: cell[cell.index("sys.argv"):cell.index("from src.train_chess")]
+    assert args(new) == args(old)
+    assert "INIT = ONE_B" in new
+
+
+def test_both_matches_play_the_bot_and_survive_the_packing(pm_nb):
+    cells = _cells(pm_nb / "puzzle_match_kernel.ipynb")
+    start, last = cells[1], cells[-1]
+    packing = [c for c in cells if "prepare_chessbench" in c and "_FILES" not in c][0]
+    assert 'glob.glob(DATA + "/*.bag")' in packing
+    assert 'MATCH_DIR = DATA + "_match"' in start and '"--bag", MATCH_DIR + "/test.bag"' in start
+    for flag in ('"--b", W03', '"--b_leaf", BASE500', '"--depth", "2"', '"--onepass"',
+                 '"--seed", "0"', '"--positions", "800"'):
+        assert flag in start, flag
+    assert 'match(ONE_B, ONE_B, 1,' in start                      # card 1 from the start
+    assert 'match(W1B, ONE_B, 0,' in last and 'match(W1B, ONE_B, 1,' in last
+    assert last.index("finish(*PLAIN)") < last.index('match(W1B, ONE_B, 1,')
+    assert '"0/2"' in last and '"1/2"' in last
+
+
+def test_a_quota_too_short_for_the_1b_session_is_refused(tmp_path):
+    with pytest.raises(SystemExit):
+        pm.build(7.0, tmp_path)
