@@ -1,0 +1,197 @@
+[{"stream_name":"stderr","time":7.181552924,"data":"/usr/local/lib/python3.13/dist-packages/nbformat/validator.py:434: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":7.18159254,"data":"  _validate(nbdict, ref, version, version_minor, relax_add_props)\n"}
+,{"stream_name":"stderr","time":8.170263564,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.170297162,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.170301071,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.17030385,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.780638879,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.780681811000001,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.780687535,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.780691346,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":17.3985064,"data":"wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/puzzle_data.py', 'src/search.py', 'src/agreement_eval.py', 'src/match.py', 'src/fast_eval.py', 'src/root_ranking.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'configs/chess.yaml']\n"}
+,{"stream_name":"stdout","time":19.350884979,"data":"[data] pack d: 129,615,405 records from shards 60-70\n"}
+,{"stream_name":"stdout","time":20.913387953,"data":"[resume] from /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s1/checkpoints/last.pt\n"}
+,{"stream_name":"stdout","time":28.249794996,"data":"name, memory.total [MiB]\n"}
+,{"stream_name":"stdout","time":28.249830739,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":28.249834296,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":28.249836728,"data":"\n"}
+,{"stream_name":"stdout","time":28.278014255,"data":"[session] 2 GPU(s), 31.2 GB RAM available, 12.5 GB per rank\n"}
+,{"stream_name":"stdout","time":28.305266969,"data":"[session] training budget 11.24h\n"}
+,{"stream_name":"stdout","time":30.048531448,"data":"\n"}
+,{"stream_name":"stdout","time":30.049479499,"data":"*****************************************\n"}
+,{"stream_name":"stdout","time":30.050263712,"data":"Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. \n"}
+,{"stream_name":"stdout","time":30.051072487,"data":"*****************************************\n"}
+,{"stream_name":"stdout","time":32.749045261,"data":"[amp] bf16 unsupported on Tesla T4 -\u003e using fp16\n"}
+,{"stream_name":"stdout","time":70.70193207,"data":"[data] train 64,807,699 | val 200,000 samples | in RAM: True | 2 ranks, each with its own slice of train\n"}
+,{"stream_name":"stdout","time":71.081740933,"data":"[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': False, 'causal': True, 'num_classes': 64}\n"}
+,{"stream_name":"stdout","time":84.173915103,"data":"[resume] from /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s1/checkpoints/last.pt: step 136850, best val 2.0081\n"}
+,{"stream_name":"stdout","time":88.680429586,"data":"[rank0]:W1108 12:07:28.481000 102 torch/_logging/_internal.py:1279] [0/0] Profiler record function \u003cclass 'torch.autograd.profiler.record_function'\u003e will be ignored\n"}
+,{"stream_name":"stdout","time":88.6818964,"data":"[rank1]:W1108 12:07:28.481000 103 torch/_logging/_internal.py:1279] [0/0] Profiler record function \u003cclass 'torch.autograd.profiler.record_function'\u003e will be ignored\n"}
+,{"stream_name":"stdout","time":98.521699194,"data":"[rank1]:W1108 12:07:38.323000 103 torch/_inductor/utils.py:1731] [4/0] Not enough SMs to use max_autotune_gemm mode\n"}
+,{"stream_name":"stdout","time":98.524201557,"data":"[rank0]:W1108 12:07:38.323000 102 torch/_inductor/utils.py:1731] [4/0] Not enough SMs to use max_autotune_gemm mode\n"}
+,{"stream_name":"stdout","time":164.187488994,"data":"  step 137000 | loss 2.1024 | lr 2.57e-04 | 2,044 samples/s | MFU 11.4%\n"}
+,{"stream_name":"stdout","time":488.392923709,"data":"  step 138000 | loss 2.0890 | lr 2.56e-04 | 3,158 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":812.34321781,"data":"  step 139000 | loss 2.0945 | lr 2.55e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":1171.418550335,"data":"step 140000 | train 2.1216 | val 2.1103 | val acc 28.5% | 1083s\n"}
+,{"stream_name":"stdout","time":1171.772446355,"data":"  step 140000 | loss 2.0719 | lr 2.55e-04 | 2,855 samples/s | MFU 15.9%\n"}
+,{"stream_name":"stdout","time":1496.290823096,"data":"  step 141000 | loss 2.1567 | lr 2.54e-04 | 3,156 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":1820.400317804,"data":"  step 142000 | loss 2.0340 | lr 2.53e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":2144.290899815,"data":"  step 143000 | loss 2.0512 | lr 2.53e-04 | 3,162 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":2490.365043463,"data":"step 144000 | train 2.1040 | val 2.1031 | val acc 28.9% | 2402s\n"}
+,{"stream_name":"stdout","time":2490.698533224,"data":"  step 144000 | loss 2.1314 | lr 2.52e-04 | 3,023 samples/s | MFU 16.8%\n"}
+,{"stream_name":"stdout","time":2814.545492816,"data":"  step 145000 | loss 2.1213 | lr 2.51e-04 | 3,162 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":3136.873119288,"data":"  step 146000 | loss 2.0843 | lr 2.51e-04 | 3,177 samples/s | MFU 17.7%\n"}
+,{"stream_name":"stdout","time":3459.729254467,"data":"  step 147000 | loss 2.0889 | lr 2.50e-04 | 3,172 samples/s | MFU 17.7%\n"}
+,{"stream_name":"stdout","time":3805.612321003,"data":"step 148000 | train 2.0972 | val 2.0979 | val acc 28.5% | 3717s\n"}
+,{"stream_name":"stdout","time":3805.93834261,"data":"  step 148000 | loss 2.0895 | lr 2.49e-04 | 3,087 samples/s | MFU 17.2%\n"}
+,{"stream_name":"stdout","time":4129.893285372,"data":"  step 149000 | loss 2.0862 | lr 2.49e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":4453.926871924,"data":"  step 150000 | loss 2.0749 | lr 2.48e-04 | 3,160 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":4777.862865595,"data":"  step 151000 | loss 2.0554 | lr 2.47e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":5123.99234021,"data":"step 152000 | train 2.1227 | val 2.1304 | val acc 27.6% | 5035s\n"}
+,{"stream_name":"stdout","time":5124.318491211,"data":"  step 152000 | loss 2.1416 | lr 2.47e-04 | 3,082 samples/s | MFU 17.2%\n"}
+,{"stream_name":"stdout","time":5448.285611328,"data":"  step 153000 | loss 2.0137 | lr 2.46e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":5772.391976185,"data":"  step 154000 | loss 2.1412 | lr 2.45e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":6096.346964976,"data":"  step 155000 | loss 2.0702 | lr 2.44e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":6442.436060687,"data":"step 156000 | train 2.0811 | val 2.1129 | val acc 28.5% | 6354s\n"}
+,{"stream_name":"stdout","time":6442.764141575,"data":"  step 156000 | loss 2.1522 | lr 2.44e-04 | 3,068 samples/s | MFU 17.1%\n"}
+,{"stream_name":"stdout","time":6765.599303391,"data":"  step 157000 | loss 2.1207 | lr 2.43e-04 | 3,172 samples/s | MFU 17.7%\n"}
+,{"stream_name":"stdout","time":7089.006443127,"data":"  step 158000 | loss 2.1080 | lr 2.42e-04 | 3,166 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":7412.706386195,"data":"  step 159000 | loss 2.1390 | lr 2.41e-04 | 3,163 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":7758.431333868,"data":"step 160000 | train 2.0844 | val 2.0887 | val acc 28.6% | 7670s\n"}
+,{"stream_name":"stdout","time":7758.761673314,"data":"  step 160000 | loss 2.0384 | lr 2.41e-04 | 3,041 samples/s | MFU 16.9%\n"}
+,{"stream_name":"stdout","time":8081.283200379,"data":"  step 161000 | loss 2.0446 | lr 2.40e-04 | 3,175 samples/s | MFU 17.7%\n"}
+,{"stream_name":"stdout","time":8405.458385658,"data":"  step 162000 | loss 2.0389 | lr 2.39e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":8729.385704694,"data":"  step 163000 | loss 2.1304 | lr 2.38e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":9075.438489,"data":"step 164000 | train 2.1117 | val 2.1173 | val acc 28.2% | 8987s\n"}
+,{"stream_name":"stdout","time":9075.762405905,"data":"  step 164000 | loss 2.0107 | lr 2.38e-04 | 3,095 samples/s | MFU 17.2%\n"}
+,{"stream_name":"stdout","time":9399.692952625,"data":"  step 165000 | loss 2.1096 | lr 2.37e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":9723.894726957,"data":"  step 166000 | loss 2.1565 | lr 2.36e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":10047.832190605,"data":"  step 167000 | loss 2.0356 | lr 2.35e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":10393.662842026,"data":"step 168000 | train 2.0916 | val 2.1015 | val acc 28.6% | 10305s\n"}
+,{"stream_name":"stdout","time":10393.988865669,"data":"  step 168000 | loss 2.0443 | lr 2.35e-04 | 3,072 samples/s | MFU 17.1%\n"}
+,{"stream_name":"stdout","time":10717.662341761,"data":"  step 169000 | loss 2.0454 | lr 2.34e-04 | 3,164 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":11041.798650822,"data":"  step 170000 | loss 2.1954 | lr 2.33e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":11365.710384506,"data":"  step 171000 | loss 2.1595 | lr 2.32e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":11711.769439132,"data":"step 172000 | train 2.0819 | val 2.1060 | val acc 28.2% | 11623s\n"}
+,{"stream_name":"stdout","time":11712.099520753,"data":"  step 172000 | loss 2.0157 | lr 2.32e-04 | 3,034 samples/s | MFU 16.9%\n"}
+,{"stream_name":"stdout","time":12036.0549642,"data":"  step 173000 | loss 2.1193 | lr 2.31e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":12360.141344049,"data":"  step 174000 | loss 2.1451 | lr 2.30e-04 | 3,160 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":12683.947662059,"data":"  step 175000 | loss 2.1977 | lr 2.29e-04 | 3,162 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":13029.991624077,"data":"step 176000 | train 2.0849 | val 2.1007 | val acc 28.8% | 12941s\n"}
+,{"stream_name":"stdout","time":13030.314669214,"data":"  step 176000 | loss 2.1411 | lr 2.29e-04 | 3,086 samples/s | MFU 17.2%\n"}
+,{"stream_name":"stdout","time":13354.244697803,"data":"  step 177000 | loss 2.1328 | lr 2.28e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":13678.347911647,"data":"  step 178000 | loss 2.0102 | lr 2.27e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":14002.365257656,"data":"  step 179000 | loss 2.1810 | lr 2.26e-04 | 3,160 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":14348.651812803,"data":"step 180000 | train 2.0849 | val 2.0976 | val acc 28.7% | 14260s\n"}
+,{"stream_name":"stdout","time":14348.977356926,"data":"  step 180000 | loss 2.0377 | lr 2.25e-04 | 3,075 samples/s | MFU 17.1%\n"}
+,{"stream_name":"stdout","time":14672.826085185,"data":"  step 181000 | loss 2.0433 | lr 2.25e-04 | 3,162 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":14996.987456038,"data":"  step 182000 | loss 2.2316 | lr 2.24e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":15320.947523669,"data":"  step 183000 | loss 2.0981 | lr 2.23e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":15667.057545455,"data":"step 184000 | train 2.0828 | val 2.0949 | val acc 28.9% | 15578s\n"}
+,{"stream_name":"stdout","time":15667.382427658,"data":"  step 184000 | loss 2.0750 | lr 2.22e-04 | 3,076 samples/s | MFU 17.1%\n"}
+,{"stream_name":"stdout","time":15991.342239316,"data":"  step 185000 | loss 2.0957 | lr 2.21e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":16315.590957207,"data":"  step 186000 | loss 2.0652 | lr 2.21e-04 | 3,158 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":16639.518942563,"data":"  step 187000 | loss 2.1391 | lr 2.20e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":16985.56994519,"data":"step 188000 | train 2.0910 | val 2.0937 | val acc 28.5% | 16897s\n"}
+,{"stream_name":"stdout","time":16985.900899185,"data":"  step 188000 | loss 2.1285 | lr 2.19e-04 | 3,019 samples/s | MFU 16.8%\n"}
+,{"stream_name":"stdout","time":17309.810108182,"data":"  step 189000 | loss 2.2064 | lr 2.18e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":17632.550759472,"data":"  step 190000 | loss 2.0443 | lr 2.17e-04 | 3,173 samples/s | MFU 17.7%\n"}
+,{"stream_name":"stdout","time":17956.096242533,"data":"  step 191000 | loss 2.0396 | lr 2.16e-04 | 3,165 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":18302.097070783,"data":"step 192000 | train 2.0754 | val 2.0761 | val acc 29.3% | 18214s\n"}
+,{"stream_name":"stdout","time":18302.420818914,"data":"  step 192000 | loss 2.0394 | lr 2.16e-04 | 3,080 samples/s | MFU 17.1%\n"}
+,{"stream_name":"stdout","time":18626.334341551,"data":"  step 193000 | loss 2.0734 | lr 2.15e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":18950.537229164,"data":"  step 194000 | loss 2.1891 | lr 2.14e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":19274.468388365,"data":"  step 195000 | loss 2.1841 | lr 2.13e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":19620.555346236,"data":"step 196000 | train 2.0799 | val 2.0860 | val acc 28.9% | 19532s\n"}
+,{"stream_name":"stdout","time":19620.885386194,"data":"  step 196000 | loss 2.0842 | lr 2.12e-04 | 3,025 samples/s | MFU 16.8%\n"}
+,{"stream_name":"stdout","time":19944.788415799,"data":"  step 197000 | loss 2.0902 | lr 2.11e-04 | 3,162 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":20268.988577816,"data":"  step 198000 | loss 2.0479 | lr 2.11e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":20592.928339721,"data":"  step 199000 | loss 1.9838 | lr 2.10e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":20939.057317205,"data":"step 200000 | train 2.0605 | val 2.0721 | val acc 29.2% | 20850s\n"}
+,{"stream_name":"stdout","time":20939.381084017,"data":"  step 200000 | loss 2.0127 | lr 2.09e-04 | 3,079 samples/s | MFU 17.1%\n"}
+,{"stream_name":"stdout","time":21262.886586756,"data":"  step 201000 | loss 2.0795 | lr 2.08e-04 | 3,165 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":21587.079329326,"data":"  step 202000 | loss 2.0598 | lr 2.07e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":21910.847343428,"data":"  step 203000 | loss 2.1187 | lr 2.06e-04 | 3,163 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":22256.9950888,"data":"step 204000 | train 2.0715 | val 2.0882 | val acc 28.7% | 22168s\n"}
+,{"stream_name":"stdout","time":22257.322781315,"data":"  step 204000 | loss 2.0770 | lr 2.06e-04 | 3,038 samples/s | MFU 16.9%\n"}
+,{"stream_name":"stdout","time":22581.275888581,"data":"  step 205000 | loss 2.0344 | lr 2.05e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":22905.447726479,"data":"  step 206000 | loss 2.0709 | lr 2.04e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":23228.757302593,"data":"  step 207000 | loss 2.0616 | lr 2.03e-04 | 3,167 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":23574.638456683,"data":"step 208000 | train 2.0802 | val 2.0715 | val acc 28.7% | 23486s\n"}
+,{"stream_name":"stdout","time":23574.957146266,"data":"  step 208000 | loss 1.9996 | lr 2.02e-04 | 3,100 samples/s | MFU 17.3%\n"}
+,{"stream_name":"stdout","time":23898.825021604,"data":"  step 209000 | loss 2.1161 | lr 2.01e-04 | 3,162 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":24223.004962114,"data":"  step 210000 | loss 2.0679 | lr 2.00e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":24546.545647755,"data":"  step 211000 | loss 1.9844 | lr 2.00e-04 | 3,165 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":24892.450896852,"data":"step 212000 | train 2.0649 | val 2.0798 | val acc 29.2% | 24804s\n"}
+,{"stream_name":"stdout","time":24892.779845911,"data":"  step 212000 | loss 2.0468 | lr 1.99e-04 | 3,022 samples/s | MFU 16.8%\n"}
+,{"stream_name":"stdout","time":25216.634269625,"data":"  step 213000 | loss 2.0183 | lr 1.98e-04 | 3,162 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":25540.813212457,"data":"  step 214000 | loss 2.1093 | lr 1.97e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":25864.756879771,"data":"  step 215000 | loss 2.0038 | lr 1.96e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":26210.915988226,"data":"step 216000 | train 2.0772 | val 2.0757 | val acc 29.3% | 26122s\n"}
+,{"stream_name":"stdout","time":26211.244154403,"data":"  step 216000 | loss 2.1371 | lr 1.95e-04 | 3,016 samples/s | MFU 16.8%\n"}
+,{"stream_name":"stdout","time":26535.219834793,"data":"  step 217000 | loss 2.0880 | lr 1.94e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":26859.403678084,"data":"  step 218000 | loss 2.0813 | lr 1.94e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":27183.371925723,"data":"  step 219000 | loss 1.9677 | lr 1.93e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":27529.488205592,"data":"step 220000 | train 2.0658 | val 2.0625 | val acc 29.2% | 27441s\n"}
+,{"stream_name":"stdout","time":27529.812575076,"data":"  step 220000 | loss 2.0688 | lr 1.92e-04 | 3,061 samples/s | MFU 17.0%\n"}
+,{"stream_name":"stdout","time":27853.700320962,"data":"  step 221000 | loss 2.0057 | lr 1.91e-04 | 3,162 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":28178.40603177,"data":"  step 222000 | loss 2.1787 | lr 1.90e-04 | 3,154 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":28502.784816701,"data":"  step 223000 | loss 2.0817 | lr 1.89e-04 | 3,157 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":28849.018652421,"data":"step 224000 | train 2.0621 | val 2.0671 | val acc 29.1% | 28760s\n"}
+,{"stream_name":"stdout","time":28849.340488353,"data":"  step 224000 | loss 2.0467 | lr 1.88e-04 | 3,075 samples/s | MFU 17.1%\n"}
+,{"stream_name":"stdout","time":29173.298892649,"data":"  step 225000 | loss 2.0935 | lr 1.87e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":29497.501615169,"data":"  step 226000 | loss 2.0292 | lr 1.87e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":29821.468946382,"data":"  step 227000 | loss 2.0347 | lr 1.86e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":30167.569816041,"data":"step 228000 | train 2.0539 | val 2.0647 | val acc 29.6% | 30079s\n"}
+,{"stream_name":"stdout","time":30167.894603032,"data":"  step 228000 | loss 2.0444 | lr 1.85e-04 | 3,069 samples/s | MFU 17.1%\n"}
+,{"stream_name":"stdout","time":30491.862996499,"data":"  step 229000 | loss 2.1103 | lr 1.84e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":30816.048048273,"data":"  step 230000 | loss 2.0414 | lr 1.83e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":31140.00959291,"data":"  step 231000 | loss 2.1046 | lr 1.82e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":31486.157275146,"data":"step 232000 | train 2.0514 | val 2.0624 | val acc 29.5% | 31398s\n"}
+,{"stream_name":"stdout","time":31486.477517846,"data":"  step 232000 | loss 2.0697 | lr 1.81e-04 | 3,090 samples/s | MFU 17.2%\n"}
+,{"stream_name":"stdout","time":31810.022110466,"data":"  step 233000 | loss 2.0156 | lr 1.80e-04 | 3,165 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":32134.261924672,"data":"  step 234000 | loss 2.0062 | lr 1.79e-04 | 3,158 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":32458.248206154,"data":"  step 235000 | loss 1.9842 | lr 1.79e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":32804.376642357,"data":"step 236000 | train 2.0557 | val 2.0694 | val acc 29.4% | 32716s\n"}
+,{"stream_name":"stdout","time":32804.695936613,"data":"  step 236000 | loss 2.0450 | lr 1.78e-04 | 3,095 samples/s | MFU 17.2%\n"}
+,{"stream_name":"stdout","time":33128.690758126,"data":"  step 237000 | loss 2.1514 | lr 1.77e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":33452.814987988,"data":"  step 238000 | loss 2.0473 | lr 1.76e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":33776.790881342,"data":"  step 239000 | loss 2.0343 | lr 1.75e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":34122.902743743,"data":"step 240000 | train 2.0560 | val 2.0601 | val acc 29.5% | 34034s\n"}
+,{"stream_name":"stdout","time":34123.226041445,"data":"  step 240000 | loss 2.1467 | lr 1.74e-04 | 3,074 samples/s | MFU 17.1%\n"}
+,{"stream_name":"stdout","time":34447.137276888,"data":"  step 241000 | loss 2.0824 | lr 1.73e-04 | 3,162 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":34771.307464946,"data":"  step 242000 | loss 1.9974 | lr 1.72e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":35095.278113719,"data":"  step 243000 | loss 1.9985 | lr 1.71e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":35441.120932933,"data":"step 244000 | train 2.0364 | val 2.0522 | val acc 29.7% | 35353s\n"}
+,{"stream_name":"stdout","time":35441.441851374,"data":"  step 244000 | loss 2.0515 | lr 1.71e-04 | 3,068 samples/s | MFU 17.1%\n"}
+,{"stream_name":"stdout","time":35765.240366898,"data":"  step 245000 | loss 1.9700 | lr 1.70e-04 | 3,163 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":36089.375707708,"data":"  step 246000 | loss 2.0423 | lr 1.69e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":36413.247977127,"data":"  step 247000 | loss 2.0699 | lr 1.68e-04 | 3,162 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":36759.390321326,"data":"step 248000 | train 2.0342 | val 2.0547 | val acc 29.4% | 36671s\n"}
+,{"stream_name":"stdout","time":36759.714967329,"data":"  step 248000 | loss 2.0799 | lr 1.67e-04 | 3,038 samples/s | MFU 16.9%\n"}
+,{"stream_name":"stdout","time":37084.26543034,"data":"  step 249000 | loss 2.0235 | lr 1.66e-04 | 3,155 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":37408.3775826,"data":"  step 250000 | loss 2.0712 | lr 1.65e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":37732.335533092,"data":"  step 251000 | loss 2.0415 | lr 1.64e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":38078.446903819,"data":"step 252000 | train 2.0609 | val 2.0626 | val acc 29.1% | 37990s\n"}
+,{"stream_name":"stdout","time":38078.7677983,"data":"  step 252000 | loss 2.0845 | lr 1.63e-04 | 3,065 samples/s | MFU 17.1%\n"}
+,{"stream_name":"stdout","time":38402.771508742,"data":"  step 253000 | loss 2.0076 | lr 1.63e-04 | 3,161 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":38726.913104808,"data":"  step 254000 | loss 1.9920 | lr 1.62e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":39050.79715008,"data":"  step 255000 | loss 2.1017 | lr 1.61e-04 | 3,162 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":39397.353103387,"data":"step 256000 | train 2.0290 | val 2.0512 | val acc 29.6% | 39309s\n"}
+,{"stream_name":"stdout","time":39397.678362155,"data":"  step 256000 | loss 2.0511 | lr 1.60e-04 | 3,030 samples/s | MFU 16.9%\n"}
+,{"stream_name":"stdout","time":39721.802630738,"data":"  step 257000 | loss 1.9760 | lr 1.59e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":40045.951782125,"data":"  step 258000 | loss 2.0532 | lr 1.58e-04 | 3,159 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":40369.961427649,"data":"  step 259000 | loss 2.0468 | lr 1.57e-04 | 3,160 samples/s | MFU 17.6%\n"}
+,{"stream_name":"stdout","time":40515.74599334,"data":"[stopped] before step 259450 (deadline); resume with --resume checkpoints/last.pt\n"}
+,{"stream_name":"stdout","time":40515.764065814,"data":"/usr/local/lib/python3.13/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.\n"}
+,{"stream_name":"stdout","time":40515.7648391,"data":"  return func(*args, **kwargs)\n"}
+,{"stream_name":"stdout","time":40522.418700449,"data":"[session] next step 259,450 of 488,281, best val 2.0081\n"}
+,{"stream_name":"stderr","time":40526.145193139,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":40526.145216214,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":40526.361451167,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":40526.361479641,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":40527.40275164,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":40527.498337996,"data":"[NbConvertApp] Writing 221329 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":40530.017290766,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":40530.58717725,"data":"[NbConvertApp] Writing 513679 bytes to __results__.html\n"}
+]

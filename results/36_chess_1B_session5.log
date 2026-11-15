@@ -1,0 +1,84 @@
+[{"stream_name":"stderr","time":7.849687171,"data":"/usr/local/lib/python3.13/dist-packages/nbformat/validator.py:434: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":7.849734668,"data":"  _validate(nbdict, ref, version, version_minor, relax_add_props)\n"}
+,{"stream_name":"stderr","time":8.888012374,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.888044816,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.888048451,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.888051062,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.519087958,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.519120795,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.519125438,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.519135057,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":18.233988305,"data":"wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/puzzle_data.py', 'src/search.py', 'src/agreement_eval.py', 'src/match.py', 'src/fast_eval.py', 'src/root_ranking.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'configs/chess.yaml']\n"}
+,{"stream_name":"stdout","time":21.217467439,"data":"[data] pack e: 138,086,069 records from shards 71-106\n"}
+,{"stream_name":"stdout","time":23.730085656,"data":"[resume] from /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s4/checkpoints/last.pt\n"}
+,{"stream_name":"stdout","time":31.229314085,"data":"name, memory.total [MiB]\n"}
+,{"stream_name":"stdout","time":31.229349496,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":31.229354308,"data":"Tesla T4, 15360 MiB\n"}
+,{"stream_name":"stdout","time":31.229357724,"data":"\n"}
+,{"stream_name":"stdout","time":31.2603097,"data":"[session] 2 GPU(s), 31.3 GB RAM available, 12.5 GB per rank\n"}
+,{"stream_name":"stdout","time":31.303225557,"data":"[session] training budget 11.24h\n"}
+,{"stream_name":"stdout","time":33.137172935,"data":"\n"}
+,{"stream_name":"stdout","time":33.137978797,"data":"*****************************************\n"}
+,{"stream_name":"stdout","time":33.138828631,"data":"Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. \n"}
+,{"stream_name":"stdout","time":33.139615802,"data":"*****************************************\n"}
+,{"stream_name":"stdout","time":35.711779031,"data":"[amp] bf16 unsupported on Tesla T4 -\u003e using fp16\n"}
+,{"stream_name":"stdout","time":103.652602962,"data":"[data] train 69,043,026 | val 200,000 samples | in RAM: True | 2 ranks, each with its own slice of train\n"}
+,{"stream_name":"stdout","time":104.006531806,"data":"[model] 14.19M non-embedding (14.98M total) | {'vocab_size': 1999, 'block_size': 78, 'n_layer': 8, 'n_head': 8, 'n_embd': 384, 'dropout': 0.0, 'bias': False, 'triton_ln': False, 'causal': True, 'num_classes': 64}\n"}
+,{"stream_name":"stdout","time":113.484134306,"data":"[resume] from /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s4/checkpoints/last.pt: step 479050, best val 1.9092\n"}
+,{"stream_name":"stdout","time":117.967004368,"data":"[rank0]:W1115 11:54:00.966000 101 torch/_logging/_internal.py:1279] [0/0] Profiler record function \u003cclass 'torch.autograd.profiler.record_function'\u003e will be ignored\n"}
+,{"stream_name":"stdout","time":117.968175586,"data":"[rank1]:W1115 11:54:00.966000 102 torch/_logging/_internal.py:1279] [0/0] Profiler record function \u003cclass 'torch.autograd.profiler.record_function'\u003e will be ignored\n"}
+,{"stream_name":"stdout","time":127.869539254,"data":"[rank0]:W1115 11:54:10.868000 101 torch/_inductor/utils.py:1731] [4/0] Not enough SMs to use max_autotune_gemm mode\n"}
+,{"stream_name":"stdout","time":127.872491921,"data":"[rank1]:W1115 11:54:10.871000 102 torch/_inductor/utils.py:1731] [4/0] Not enough SMs to use max_autotune_gemm mode\n"}
+,{"stream_name":"stdout","time":480.006955974,"data":"step 480000 | train 1.9056 | val 1.9198 | val acc 32.5% | 362s\n"}
+,{"stream_name":"stdout","time":480.337050942,"data":"  step 480000 | loss 1.8226 | lr 3.02e-05 | 3,056 samples/s | MFU 17.0%\n"}
+,{"stream_name":"stdout","time":796.208207144,"data":"  step 481000 | loss 1.9476 | lr 3.02e-05 | 3,242 samples/s | MFU 18.0%\n"}
+,{"stream_name":"stdout","time":1111.437625407,"data":"  step 482000 | loss 1.9335 | lr 3.01e-05 | 3,248 samples/s | MFU 18.1%\n"}
+,{"stream_name":"stdout","time":1426.214643617,"data":"  step 483000 | loss 1.9019 | lr 3.01e-05 | 3,253 samples/s | MFU 18.1%\n"}
+,{"stream_name":"stdout","time":1761.877602905,"data":"step 484000 | train 1.8952 | val 1.9107 | val acc 32.3% | 1644s\n"}
+,{"stream_name":"stdout","time":1762.196606186,"data":"  step 484000 | loss 1.9453 | lr 3.01e-05 | 3,151 samples/s | MFU 17.5%\n"}
+,{"stream_name":"stdout","time":2076.802833591,"data":"  step 485000 | loss 1.8447 | lr 3.00e-05 | 3,255 samples/s | MFU 18.1%\n"}
+,{"stream_name":"stdout","time":2392.012318447,"data":"  step 486000 | loss 1.8990 | lr 3.00e-05 | 3,249 samples/s | MFU 18.1%\n"}
+,{"stream_name":"stdout","time":2706.505309694,"data":"  step 487000 | loss 1.8691 | lr 3.00e-05 | 3,256 samples/s | MFU 18.1%\n"}
+,{"stream_name":"stdout","time":3041.926537005,"data":"step 488000 | train 1.9047 | val 1.9015 | val acc 32.7% | 2924s\n"}
+,{"stream_name":"stdout","time":3042.293066346,"data":"  step 488000 | loss 1.9373 | lr 3.00e-05 | 3,397 samples/s | MFU 18.9%\n"}
+,{"stream_name":"stdout","time":3130.908283191,"data":"[done] best val loss 1.9015 -\u003e checkpoints/chess_best.pt\n"}
+,{"stream_name":"stdout","time":3130.909130963,"data":"/usr/local/lib/python3.13/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.\n"}
+,{"stream_name":"stdout","time":3130.909907958,"data":"  return func(*args, **kwargs)\n"}
+,{"stream_name":"stdout","time":3137.484160514,"data":"[session] next step 488,282 of 488,281, best val 1.9015\n"}
+,{"stream_name":"stdout","time":3609.299636044,"data":"[puzzles] depth 1: 6801/10000 solved = 68.0%  (checkpoint step 488000, val loss 1.9015)\n"}
+,{"stream_name":"stdout","time":3609.299677931,"data":"  rating     0-499:  98.6%  (n=74)\n"}
+,{"stream_name":"stdout","time":3609.299685627,"data":"  rating   500-999:  97.1%  (n=2161)\n"}
+,{"stream_name":"stdout","time":3609.299695763,"data":"  rating 1000-1499:  83.3%  (n=3367)\n"}
+,{"stream_name":"stdout","time":3609.299699575,"data":"  rating 1500-1999:  55.9%  (n=2543)\n"}
+,{"stream_name":"stdout","time":3609.299703283,"data":"  rating 2000-2499:  24.6%  (n=1571)\n"}
+,{"stream_name":"stdout","time":3609.299714752,"data":"  rating 2500-2999:   6.3%  (n=284)\n"}
+,{"stream_name":"stdout","time":5271.245328288,"data":"[agreement] checkpoints/chess_best.pt (step 488000): 61,833 positions, 1,837,490 moves\n"}
+,{"stream_name":"stdout","time":5271.245373451,"data":"  action accuracy (paper: = argmax)  : 49.5%\n"}
+,{"stream_name":"stdout","time":5271.245379985,"data":"  picks a move of maximal value      : 53.0%\n"}
+,{"stream_name":"stdout","time":5271.245396406,"data":"  one of Stockfish's top 3           : 77.9%\n"}
+,{"stream_name":"stdout","time":5271.245400297,"data":"  Kendall's tau-b, mean over positions: 0.671 (863 positions undefined)\n"}
+,{"stream_name":"stdout","time":5271.245404336,"data":"  win probability given up           : mean 0.0177, median 0.0000\n"}
+,{"stream_name":"stdout","time":5271.245408194,"data":"  moves giving up \u003e 0.15           : 2.1%\n"}
+,{"stream_name":"stdout","time":5271.245412278,"data":"  value calibration                  : MAE 0.0305, ECE 0.0014\n"}
+,{"stream_name":"stdout","time":5271.245416245,"data":"  truth inside central 50% / 90%     : 55.6% / 92.3%\n"}
+,{"stream_name":"stdout","time":5271.245420264,"data":"  reliability (predicted bin: n, mean predicted, mean Stockfish)\n"}
+,{"stream_name":"stdout","time":5271.245424629,"data":"    [0.0, 0.1) n=  367,218  0.058  0.056\n"}
+,{"stream_name":"stdout","time":5271.245429159,"data":"    [0.1, 0.2) n=  347,953  0.142  0.143\n"}
+,{"stream_name":"stdout","time":5271.245433582,"data":"    [0.2, 0.3) n=  167,242  0.249  0.250\n"}
+,{"stream_name":"stdout","time":5271.245438148,"data":"    [0.3, 0.4) n=  198,177  0.353  0.354\n"}
+,{"stream_name":"stdout","time":5271.245442853,"data":"    [0.4, 0.5) n=  271,928  0.451  0.452\n"}
+,{"stream_name":"stdout","time":5271.245447749,"data":"    [0.5, 0.6) n=  160,921  0.540  0.539\n"}
+,{"stream_name":"stdout","time":5271.245452722,"data":"    [0.6, 0.7) n=   70,166  0.647  0.643\n"}
+,{"stream_name":"stdout","time":5271.245456761,"data":"    [0.7, 0.8) n=   58,739  0.750  0.748\n"}
+,{"stream_name":"stdout","time":5271.245460706,"data":"    [0.8, 0.9) n=   89,650  0.855  0.854\n"}
+,{"stream_name":"stdout","time":5271.245464609,"data":"    [0.9, 1.0) n=  105,496  0.951  0.955\n"}
+,{"stream_name":"stdout","time":5271.245468918,"data":"[eval] results.json written\n"}
+,{"stream_name":"stderr","time":5274.814620414,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":5274.814651734,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":5275.036612367,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":5275.036639415,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":5275.843862341,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":5275.927424557,"data":"[NbConvertApp] Writing 211432 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":5278.39564446,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":5278.945300014,"data":"[NbConvertApp] Writing 505036 bytes to __results__.html\n"}
+]

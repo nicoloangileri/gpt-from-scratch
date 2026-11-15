@@ -1,0 +1,25 @@
+{
+ "checkpoint": "checkpoints/chess_best.pt",
+ "puzzles": {
+  "accuracy": 0.6801,
+  "solved": 6801,
+  "attempted": 10000
+ },
+ "agreement": {
+  "checkpoint_step": 488000,
+  "positions": 61833,
+  "moves_scored": 1837490,
+  "action_acc": 49.53988970290945,
+  "any_best_acc": 52.9846522083677,
+  "top3": 77.87103973606327,
+  "kendall_tau": 0.6706800126288835,
+  "tau_undefined": 863,
+  "mean_given_up": 0.017719398267463774,
+  "median_given_up": 0.0,
+  "blunder_pct": 2.079795578412822,
+  "mae": 0.0304533566954988,
+  "ece": 0.001394476280088577,
+  "cover50": 0.5559850665853964,
+  "cover90": 0.9227223005295266
+ }
+}

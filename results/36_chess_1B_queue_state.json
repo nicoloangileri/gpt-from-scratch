@@ -1,0 +1,60 @@
+{
+ "sessions": [
+  {
+   "k": 1,
+   "pack": "c",
+   "hours": 11.25,
+   "session": 1,
+   "next_step": 136850,
+   "max_steps": 488281,
+   "best_val": 2.0080509185791016,
+   "done": false
+  },
+  {
+   "k": 2,
+   "pack": "d",
+   "hours": 11.25,
+   "session": 2,
+   "next_step": 259450,
+   "max_steps": 488281,
+   "best_val": 2.0080509185791016,
+   "done": false
+  },
+  {
+   "k": 3,
+   "pack": "e",
+   "hours": 7.08,
+   "session": 3,
+   "next_step": 336900,
+   "max_steps": 488281,
+   "best_val": 1.9909977912902832,
+   "done": false
+  },
+  {
+   "k": 4,
+   "pack": "f",
+   "hours": 11.25,
+   "session": 4,
+   "next_step": 479050,
+   "max_steps": 488281,
+   "best_val": 1.9092037677764893,
+   "done": false
+  },
+  {
+   "k": 5,
+   "pack": "e",
+   "hours": 11.25,
+   "session": 5,
+   "next_step": 488282,
+   "max_steps": 488281,
+   "best_val": 1.9014569520950317,
+   "done": true
+  }
+ ],
+ "consumed": {
+  "c": 140134400,
+  "d": 125542400,
+  "e": 88762368,
+  "f": 145561600
+ }
+}
