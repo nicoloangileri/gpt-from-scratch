@@ -28,15 +28,17 @@ CURVE_15M = [
     (98.3e6, 49.1, "17_eval_on_kaggle.json, chess_100M.pt"),
     (225e6, 60.3, "17_eval_on_kaggle.json, chess_225M.pt"),
     (500e6, 64.8, "24_chess_500M_eval.json, chess_500M.pt"),
+    (1e9, 68.0, "36_chess_1B_eval.json, chess_1B.pt"),
 ]
 # each puzzle fine-tune is drawn up from the model it started from: (examples, %, base %)
 FINE_TUNES = [
     (225e6, 74.6, 60.3, "17_eval_on_kaggle.json, chess_225M_puzzles.pt"),
     (500e6, 77.5, 64.8, "26_puzzle_finetune_500M_w0.3.json, chess_500M_puzzles_w0.3.pt"),
+    (1e9, 78.9, 68.0, "37_results_1B_w03.json, chess_1B_w03.pt"),
 ]
 MODEL_60M = (14.6e6, 21.4, "17_eval_on_kaggle.json, chess_60M_params.pt")
 REFERENCES = [
-    (88.9, "DeepMind's 9M model, ~600x the data"),
+    (88.9, "DeepMind's 9M model, ~300x the data"),
     (27.4, "ten-line heuristic: take the biggest piece, or mate"),
     (0.6, "random legal move"),
 ]
@@ -113,7 +115,7 @@ def draw(theme: str) -> str:
                f"stroke-linejoin='round' stroke-linecap='round'/>")
     for e, p, _ in CURVE_15M:
         out.append(dot(x(e), y(p), c["s1"], c["surface"]))
-    for e, p, _ in CURVE_15M[-3:]:                     # label only the points that move
+    for e, p, _ in CURVE_15M[-4:]:                     # label only the points that move
         out.append(text(x(e) - 10, y(p) - 2, f"{p}%", c["ink"], 12, "end", "600"))
 
     # the fine-tune: same model, one more step, drawn as a jump from its starting point

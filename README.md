@@ -21,9 +21,11 @@ A 15M-parameter Transformer, written from scratch, reads a chess position and a 
 and predicts how good the move is. It learned from Stockfish annotations on free
 Kaggle GPUs, and it plays without search: one forward pass per legal move.
 
-- **64.8%** of 10,000 Lichess test puzzles solved after 500M training examples.
-- **77.5%** after a 4-hour fine-tune on other Lichess puzzles, **78.1%** when the
-  fine-tune also has to stay close to the model it started from.
+- **68.0%** of 10,000 Lichess test puzzles solved after 1B training examples (64.8%
+  at 500M).
+- **78.9%** after a 4-hour fine-tune of the 1B model on other Lichess puzzles. The
+  same fine-tune gives the 500M model 77.5%, or 78.1% when it also has to stay close
+  to the model it started from.
 - **27.4%** for a ten-line rule that grabs the most valuable hanging piece. Every
   model trained on fewer than 50M examples scores below it.
 - **1659** rapid on Lichess, as the bot [`imbotterthanyou`](https://lichess.org/@/imbotterthanyou)
@@ -32,18 +34,19 @@ Kaggle GPUs, and it plays without search: one forward pass per legal move.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="results/curve_dark.svg">
-  <img alt="Puzzle accuracy against training examples seen: flat near 20% up to 20M examples and below the 27.4% heuristic, then 30.3% at 50M, 49.1% at 100M, 60.3% at 225M and 64.8% at 500M; puzzle fine-tunes take the 225M model to 74.6% and the 500M model to 77.5%" src="results/curve_light.svg">
+  <img alt="Puzzle accuracy against training examples seen: flat near 20% up to 20M examples and below the 27.4% heuristic, then 30.3% at 50M, 49.1% at 100M, 60.3% at 225M, 64.8% at 500M and 68.0% at 1B; puzzle fine-tunes take the 225M model to 74.6%, the 500M model to 77.5% and the 1B model to 78.9%" src="results/curve_light.svg">
 </picture>
 
 What turned out to be hard:
 
 - **Data buys less each time.** From 50M to 100M examples the score rose 18.8 points,
-  to 225M another 11.2, and to 500M another 4.5.
+  to 225M another 11.2, to 500M another 4.5, and to 1B another 3.2.
 - **Search helps until the puzzle fine-tune.** Depth 2 adds 2.3 points (standard
   error 0.22) to the 500M model and takes 1.2 away (0.39) from its fine-tune, on the
   same 10,000 puzzles. The fine-tune's leaves are the cause: under the fine-tune's root
   the base model's leaves turn the loss into a 0.7-point gain (0.35), and 78.2% solved.
-  In games that pairing beats the base model by 26 Elo (95% interval 7 to 45), and a
+  In games that pairing beats the base model by 26 Elo (95% interval 7 to 45). The same
+  pairing built on the 1B model beats it by 51 (37 to 65) and is now the bot's. A
   third ply is worth 15 (-8 to 37) ([Search](#search-and-the-lichess-bot)).
 - **The metric was the bug.** For ten days every accuracy here measured the opponent's
   moves, because the test compared a field with a restatement of itself. A baseline
@@ -60,22 +63,25 @@ rollouts -- one forward pass per legal move, best expected value wins. 15M param
 plus 1,968 UCI moves), 78 tokens per sample (77 for the position, 1 for the move), and
 a 64-way classification head over buckets of the Stockfish win probability.
 
-**64.8% of Lichess puzzles solved** -- 6,484 of the 10,000 ChessBench test puzzles --
-after 500M training examples of Stockfish annotations on free Kaggle GPUs
-([`results/24_chess_500M_eval.json`](results/24_chess_500M_eval.json)); 60.3% at 225M.
+**68.0% of Lichess puzzles solved** -- 6,801 of the 10,000 ChessBench test puzzles --
+after 1B training examples of Stockfish annotations on free Kaggle GPUs
+([`results/36_chess_1B_eval.json`](results/36_chess_1B_eval.json)); 64.8% at 500M
+([`results/24_chess_500M_eval.json`](results/24_chess_500M_eval.json)), 60.3% at 225M.
 
-**77.5%** (7,752 of 10,000) after a 4-hour fine-tune of the 500M checkpoint on *other*
-Lichess puzzles ([`results/26_puzzle_finetune_500M_w0.3.json`](results/26_puzzle_finetune_500M_w0.3.json)),
+**78.9%** (7,889 of 10,000) after a 4-hour fine-tune of the 1B checkpoint on *other*
+Lichess puzzles ([`results/37_results_1B_w03.json`](results/37_results_1B_w03.json)),
 with a ranking loss over the legal moves added on top of the original one at 0.3 of its
-weight; at full weight the same fine-tune took the 225M checkpoint to 74.6%. The 10,000
+weight. The same fine-tune took the 500M checkpoint to 77.5%
+([`results/26_puzzle_finetune_500M_w0.3.json`](results/26_puzzle_finetune_500M_w0.3.json)),
+and at full weight the 225M one to 74.6%. The 10,000
 test puzzles were excluded by id before packing (9,995 of them are in the Lichess
 database; the packer asserts that the exclusion removed something), and the checkpoint
 was chosen by the action-value validation loss, never by puzzle accuracy. All of these
 numbers come from one evaluator, which reproduced earlier measurements exactly when it
 was rerun (results/17).
 
-Those numbers answer different questions. 64.8% is what Stockfish's annotations alone
-teach, which is the setting of DeepMind's paper. 77.5% is what the model does once it
+Those numbers answer different questions. 68.0% is what Stockfish's annotations alone
+teach, which is the setting of DeepMind's paper. 78.9% is what the model does once it
 has also been told which move solves a puzzle -- more useful, and no longer comparable
 to the paper, which never trains on puzzles.
 
@@ -86,20 +92,21 @@ ten-line rule that grabs the most valuable hanging piece, or mates when it can, 
 
 ### By difficulty
 
-| puzzle rating | puzzles | grab-the-piece | 100M examples | 225M examples | 500M examples | **500M + light puzzle fine-tune** |
-|---|---|---|---|---|---|---|
-| 0-499 | 74 | 74.3% | 93.2% | 100.0% | 100.0% | **100.0%** |
-| 500-999 | 2,161 | 58.3% | 84.4% | 93.6% | 95.1% | **99.2%** |
-| 1000-1499 | 3,367 | 32.0% | 61.6% | 76.3% | 80.1% | **93.9%** |
-| 1500-1999 | 2,543 | 12.0% | 30.3% | 42.3% | 51.0% | **72.1%** |
-| 2000-2499 | 1,571 | 2.8% | 10.8% | 17.4% | 21.7% | **33.4%** |
-| 2500-2999 | 284 | 1.1% | 3.2% | 6.0% | 7.0% | **5.3%** |
-| **all** | **10,000** | **27.4%** | **49.1%** | **60.3%** | **64.8%** | **77.5%** |
+| puzzle rating | puzzles | grab-the-piece | 100M examples | 225M examples | 500M examples | 1B examples | 500M + light puzzle fine-tune | **1B + light puzzle fine-tune** |
+|---|---|---|---|---|---|---|---|---|
+| 0-499 | 74 | 74.3% | 93.2% | 100.0% | 100.0% | 98.6% | 100.0% | **100.0%** |
+| 500-999 | 2,161 | 58.3% | 84.4% | 93.6% | 95.1% | 97.1% | 99.2% | **99.4%** |
+| 1000-1499 | 3,367 | 32.0% | 61.6% | 76.3% | 80.1% | 83.3% | 93.9% | **94.9%** |
+| 1500-1999 | 2,543 | 12.0% | 30.3% | 42.3% | 51.0% | 55.9% | 72.1% | **73.8%** |
+| 2000-2499 | 1,571 | 2.8% | 10.8% | 17.4% | 21.7% | 24.6% | 33.4% | **36.3%** |
+| 2500-2999 | 284 | 1.1% | 3.2% | 6.0% | 7.0% | 6.3% | 5.3% | **8.5%** |
+| **all** | **10,000** | **27.4%** | **49.1%** | **60.3%** | **64.8%** | **68.0%** | **77.5%** | **78.9%** |
 
 (A random legal move solves 0.6% overall; it is not broken out by band.)
 
 The fine-tune gained most in the middle, 1000-2500, and nothing at the top: 7.0% to
-5.3% on 284 puzzles (6.0% to 4.9% for the 225M fine-tune) is inside the noise of a band
+5.3% on 284 puzzles (6.0% to 4.9% for the 225M fine-tune, 6.3% to 8.5% for the 1B one)
+is inside the noise of a band
 that small. Length is the obvious
 suspect: the solver has 1.4 moves to find on average below 500 and 3.6 above 2500, and
 every one of them has to be right. That is a correlation, not a measured cause.
@@ -125,11 +132,13 @@ hour of free GPU buys (the plot is at the top):
 | 15M | 50M | 10.0 | 30.3% | 2.5432 |
 | 15M | 100M | 21.4 | 49.1% | 2.2419 |
 | 15M | 225M | -- | 60.3% | 2.0557 |
-| 15M | **500M** | 23.8 on two T4s | **64.8%** | **1.9371** |
+| 15M | 500M | 23.8 on two T4s | 64.8% | 1.9371 |
+| 15M | **1B** | 42.3 on two T4s | **68.0%** | **1.9015** |
 | 15M | 225M + 12k puzzle steps | 4.2 | 74.6% | 2.0562 |
-| 15M | 500M + 12k puzzle steps, ranking at 0.3 | 4.1 | **77.5%** | 1.9395 |
+| 15M | 500M + 12k puzzle steps, ranking at 0.3 | 4.1 | 77.5% | 1.9395 |
 | 15M | 500M + the same 12k steps, no puzzles | 2.3 | 64.9% | 1.9287 |
 | 15M | 500M + 12k puzzle steps, ranking at 0.3, distilled from the 500M | 5.3 | 78.1% | 1.9349 |
+| 15M | 1B + 12k puzzle steps, ranking at 0.3 | 3.8 | **78.9%** | 1.9063 |
 | 60M | 14.6M | 9.5 (whole run) | 21.4% | 2.986 |
 
 Every row is measured on all 10,000 puzzles, in one Kaggle session with one evaluator
@@ -142,8 +151,12 @@ not be comparable -- it held 1,830 samples/s at 20.3% MFU throughout. The 500M r
 warm-started from the 225M one and ran on both T4s of a Kaggle session (see Systems):
 three sessions of 11.3, 4.0 and 8.6 hours, the last including the final evaluation, at
 3,240-3,450 samples/s by session median ([`results/24_chess_500M_session1.log`](results/24_chess_500M_session1.log)
-and the next two). On one T4 its training alone would have taken about 42 hours. The
-fine-tune rows are training time only: each session first spent 82-84 minutes fetching
+and the next two). On one T4 its training alone would have taken about 42 hours. The 1B
+run is warm-started from the 500M one with a fresh schedule: five sessions of 11.3, 11.3,
+7.1, 11.3 and 1.5 hours on both T4s, the last including the final evaluation, at
+3,160-3,660 samples/s by session median
+([`results/36_chess_1B_session1.log`](results/36_chess_1B_session1.log) and the next four). The
+fine-tune rows are training time only: each session first spent 82-88 minutes fetching
 and packing its data, most of it the 6.1M-puzzle database. Their validation losses are
 on the same split as the others but from half as many batches (25, not 50), so read
 them as "unchanged", not as a comparison to four decimals.
@@ -152,14 +165,16 @@ them as "unchanged", not as a comparison to four decimals.
 single most useful thing the baseline did.
 
 Returns are diminishing but not gone: doubling from 50M to 100M examples bought 18.8
-points, 2.25x more on top of that a further 11.2, and 2.2x more again 4.5. The
-validation loss slowed down less: it fell by 0.119 from 225M to 500M examples, against
-0.186 the step before. The model is still learning the annotations; the puzzles are
-rewarding it less for each unit of loss. Data is not what is running out -- the 225M
+points, 2.25x more on top of that a further 11.2, 2.2x more again 4.5, and 2x more
+3.2. Up to 500M the validation loss slowed down less than the puzzles did: it fell by
+0.186 from 100M to 225M examples and 0.119 from 225M to 500M, so each unit of loss bought
+fewer puzzles. The last doubling reversed that: the loss fell by only 0.036, for 3.2
+points. Data is not what is running out -- the 225M
 run used 82,195,730 positions from 10 of ChessBench's 2,148 shards and went over them
 about 1.5 times; the 500M run added 285M positions from shards 10-41, never used
 before, drawn with replacement at about one draw per position (so roughly 4 in 10 were
-never drawn at all).
+never drawn at all), and the 1B run drew 500M more from the 505M positions of shards
+42-121, again never used before.
 
 ### Per move, not per puzzle
 
@@ -177,10 +192,12 @@ position of ChessBench's test shard -- 61,833 positions, 1.84M scored moves
 | 225M | 45.2% | 48.6% | 73.7% | 0.632 | 2.3 pts | 3.1% |
 | 225M + puzzle fine-tune | 43.1% | 46.5% | 70.4% | 0.619 | 3.0 pts | 5.0% |
 | 225M + light puzzle fine-tune | 44.4% | 47.7% | 72.0% | 0.628 | 2.7 pts | 4.2% |
-| **500M** | **48.2%** | **51.7%** | **76.8%** | **0.660** | **1.9 pts** | **2.3%** |
+| 500M | 48.2% | 51.7% | 76.8% | 0.660 | 1.9 pts | 2.3% |
 | 500M + light puzzle fine-tune | 47.0% | 50.4% | 74.7% | 0.653 | 2.2 pts | 3.3% |
 | 500M + the same steps, no puzzles | 48.5% | 51.9% | 76.9% | 0.662 | 1.9 pts | 2.2% |
 | 500M + light fine-tune, distilled | 47.7% | 51.1% | 75.8% | 0.658 | 2.1 pts | 2.8% |
+| **1B** | **49.5%** | **53.0%** | **77.9%** | **0.671** | **1.8 pts** | **2.1%** |
+| 1B + light puzzle fine-tune | 48.4% | 51.8% | 75.9% | 0.665 | 2.1 pts | 2.8% |
 
 Action accuracy and Kendall's tau (tau-b, over all legal moves, averaged per position)
 are the two metrics the ChessBench paper uses in its ablations. Action accuracy is the
@@ -188,7 +205,7 @@ paper's definition, the argmax of Stockfish's values; "picks *a* best move" also
 a move tied with it, which matters in 5.9% of these positions because win probability
 saturates and several moves share the top value. From 50M to 500M examples the rate of
 moves that throw away more than 15 points fell from one in ten to one in thirty-two at
-225M and one in forty-four at 500M.
+225M, one in forty-four at 500M and one in forty-eight at 1B.
 
 **The puzzle fine-tune is not free.** It bought 14.3 points on puzzles and paid for them
 in ordinary positions: action accuracy down 2.1 points, and the blunder rate up from
@@ -213,7 +230,11 @@ The same light fine-tune on the 500M model behaves the same way
 ([`results/26_puzzle_finetune_500M_w0.3.json`](results/26_puzzle_finetune_500M_w0.3.json)):
 12.7 points on puzzles (64.8% to 77.5%), for action accuracy down 1.2 and blunders up
 from 2.3% to 3.3% -- where the 225M model was before any fine-tune. Its validation loss
-took the same detour, up 0.10 in the first thousand steps and back by the end.
+took the same detour, up 0.10 in the first thousand steps and back by the end. On the 1B
+model too ([`results/37_results_1B_w03.json`](results/37_results_1B_w03.json)): 10.9
+points on puzzles (68.0% to 78.9%), for action accuracy down 1.2 and blunders up from
+2.1% to 2.8%. The checkpoint kept is step 10,000 of 12,000, chosen as always by the
+validation loss, never by puzzles.
 
 The control is the same fine-tune with the puzzles taken out: same start, same three
 shards of ChessBench positions, same 12,000 steps, batch, learning rate and schedule, only
@@ -301,7 +322,7 @@ report.
 
 DeepMind's ChessBench reaches **88.9%** on these puzzles with a **9M**-parameter model
 -- smaller than this one, on the same data and the same task. The difference is
-training examples seen: theirs is roughly 600x this budget. 64.8% from free T4s is a
+training examples seen: theirs is roughly 300x this budget. 68.0% from free T4s is a
 budget result, not an architecture result, and the curve above is the honest way to
 read it.
 
@@ -403,8 +424,8 @@ the fine-tune's root against +2.3 under the base model's, and easy puzzles still
 little (99.2% to 98.6% at 500-999, 93.9% to 91.3% at 1000-1499) while 2000-2499 gains
 6.4 points. And the blunder rate was the right kind of quantity compared across the wrong
 pair: the fine-tune's leaves blunder about as often as the 225M model's, but what decides
-the sign is how they compare with the root they can overrule. The hybrid, 78.2%, is the
-best puzzle score here, two standard errors over the fine-tune alone.
+the sign is how they compare with the root they can overrule. The hybrid, 78.2%, was the
+best puzzle score of the 500M models, two standard errors over the fine-tune alone.
 
 **The hybrid in games** ([`results/33_match_hybrid_vs_500M_d2.json`](results/33_match_hybrid_vs_500M_d2.json)).
 The fine-tune's root over the 500M model's leaves against the 500M model alone, both at
@@ -439,7 +460,8 @@ between the fine-tune's 81.8% and the base model's 84.1%. But the prediction fai
 search still costs 1.1 points. Even the base model's leaves give this root nothing
 measurable (+0.07), where they gave the plain fine-tune's root 0.7. The likely reading is
 that a root this strong leaves the leaves little to correct, so keeping them is not enough
-to bring search back. At depth 1 it is the best single network on puzzles here.
+to bring search back. At depth 1 it is the best of the 500M networks on puzzles; the
+plain fine-tune of the 1B model, 78.9%, is ahead of it.
 
 Does its root beat the fine-tune's in games? Both over the 500M model's leaves at depth 2,
 so that only the root differs, 800 positions played twice
@@ -450,6 +472,19 @@ root (95% interval -4 to 24)**. The rule was fixed in
 games: the bot changes root only if the interval excludes zero. It does not, so the
 fine-tune's root stays. The games agree with the puzzles, where the two were level.
 
+**The hybrid on the 1B model** ([`results/37_match_1B_hybrid_vs_hybrid_part0.json`](results/37_match_1B_hybrid_vs_hybrid_part0.json)
+and `part1`). The 1B model's light fine-tune at the root and the 1B model at the leaves,
+against the bot's hybrid (the 500M model's fine-tune over the 500M model's leaves), both
+at depth 2, the same 800 positions played twice: 696 won, 440 drawn, 464 lost, a score of
+0.573 and **+51 Elo (95% interval 37 to 65)**, +55 and +47 on the two halves of the list.
+The rule was fixed in [`kaggle_chess/build_1b_puzzle_match.py`](kaggle_chess/build_1b_puzzle_match.py)
+before the games, the same as above, and the interval excludes zero: the bot now plays this
+pairing. The 1B model alone, at the root and at the leaves, scores **+45 (31 to 59)**
+against the same opponent ([`results/37_match_1B_vs_hybrid_d2.json`](results/37_match_1B_vs_hybrid_d2.json)),
+so most of the gain comes with the longer run itself. The two 1B configurations did not play
+each other, and the 6 Elo between their results is not a measured difference. Each side
+takes a median of 0.06 s per move on a T4.
+
 **What a ply is worth** ([`results/34_match_500M_d3_vs_d2_part0.json`](results/34_match_500M_d3_vs_d2_part0.json)
 and `part1`). The 500M model at depth 3 against itself at depth 2, on the same 200
 positions played twice: 132 won, 153 drawn, 115 lost, a score of 0.521 and **+15 Elo (95%
@@ -458,7 +493,7 @@ a ply gives against other opponents. The clock is not what stops it: on a T4 sha
 CPU cores with another job, depth 3 takes a median of 1.1 s per move, 3.1 s
 at the 90th percentile and 12.7 s at worst, against 0.07, 0.23 and 2.0 s for depth 2, at
 about 152 network calls per move against 2. It fits a blitz clock on a GPU and buys
-little. The paper's 2054, blitz against bots with no search at all and about 600 times
+little. The paper's 2054, blitz against bots with no search at all and about 300 times
 this budget, stands 395 points above the bot's rapid rating, in a different pool; gains of
 this size from search will not close that.
 
@@ -472,8 +507,9 @@ one 24 -- 11 won, 3 drawn, 10 lost -- to 1659. As a performance rating against t
 opponents' pre-game ratings, the 500M model's 1701 beats the 225M one's 1678 by 23, with
 a bootstrap interval of -150 to +187. A few hours online agree with the depth-2 match
 and could not have measured it: the opponents change from game to game, and 24 games
-leave an interval 300 Elo wide. `--leaf_ckpt` gives the bot the hybrid; the rating above
-predates it. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
+leave an interval 300 Elo wide. `--leaf_ckpt` gives the bot the hybrid, now built on the
+1B model (`--ckpt checkpoints/chess_1B_w03.pt --leaf_ckpt checkpoints/chess_1B.pt`); the
+rating above predates both. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
 against bots -- a different pool at a different time control. Search depth
 adapts to the clock -- the bot declines time controls it cannot play at depth 2 and
 drops to the bare network when short on time. The API token comes from `LICHESS_TOKEN`
@@ -705,7 +741,8 @@ results/             the logs behind the numbers above
 
 ## Still open
 
-- The hybrid on Lichess: +26 Elo in a match against the base model, no online games yet.
+- The 1B hybrid on Lichess: +51 Elo in a match against the 500M hybrid, no online games
+  yet.
   A few dozen games would not measure it (see the 300-Elo interval above).
 - KV-cache serving for the language-model path (CUDA graphs: worth at most ~7% here,
   see Systems)
