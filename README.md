@@ -28,8 +28,9 @@ Kaggle GPUs, and it plays without search: one forward pass per legal move.
   to the model it started from.
 - **27.4%** for a ten-line rule that grabs the most valuable hanging piece. Every
   model trained on fewer than 50M examples scores below it.
-- **1659** rapid on Lichess, as the bot [`imbotterthanyou`](https://lichess.org/@/imbotterthanyou)
-  (alpha-beta at depth 2 on top of the network).
+- **1781** rapid on Lichess, as the bot [`imbotterthanyou`](https://lichess.org/@/imbotterthanyou)
+  (alpha-beta at depth 2 on top of the network), after 66 games of the 1B model in one
+  Kaggle CPU session: a performance of 1804 (1720 to 1892).
 - **1.86x** training throughput from the second T4 of a Kaggle session, at no extra quota.
 
 <picture>
@@ -46,8 +47,9 @@ What turned out to be hard:
   same 10,000 puzzles. The fine-tune's leaves are the cause: under the fine-tune's root
   the base model's leaves turn the loss into a 0.7-point gain (0.35), and 78.2% solved.
   In games that pairing beats the base model by 26 Elo (95% interval 7 to 45). The same
-  pairing built on the 1B model beats it by 51 (37 to 65) and is now the bot's. A
-  third ply is worth 15 (-8 to 37) ([Search](#search-and-the-lichess-bot)).
+  pairing built on the 1B model beats it by 51 (37 to 65) and is now the bot's; it beats
+  the 1B model alone by 28 (14 to 42), and the 1B model without search by 165 (150 to
+  180). A third ply is worth 15 (-8 to 37) ([Search](#search-and-the-lichess-bot)).
 - **The metric was the bug.** For ten days every accuracy here measured the opponent's
   moves, because the test compared a field with a restatement of itself. A baseline
   run on the same puzzles is what showed most models were weaker than they looked.
@@ -481,9 +483,24 @@ The rule was fixed in [`kaggle_chess/build_1b_puzzle_match.py`](kaggle_chess/bui
 before the games, the same as above, and the interval excludes zero: the bot now plays this
 pairing. The 1B model alone, at the root and at the leaves, scores **+45 (31 to 59)**
 against the same opponent ([`results/37_match_1B_vs_hybrid_d2.json`](results/37_match_1B_vs_hybrid_d2.json)),
-so most of the gain comes with the longer run itself. The two 1B configurations did not play
-each other, and the 6 Elo between their results is not a measured difference. Each side
-takes a median of 0.06 s per move on a T4.
+so most of the gain comes with the longer run itself. Each side takes a median of 0.06 s
+per move on a T4.
+
+**What the root and the search add on the 1B model**
+([`results/38_match_1B_hybrid_vs_1B_d2_part0.json`](results/38_match_1B_hybrid_vs_1B_d2_part0.json),
+[`results/38_match_1B_hybrid_vs_1B_d1_part0.json`](results/38_match_1B_hybrid_vs_1B_d1_part0.json)
+and their `part1`). The bot's pairing against the 1B model alone, both at depth 2, the
+same 800 positions played twice: 584 won, 560 drawn, 456 lost, a score of 0.540 and
+**+28 Elo (95% interval 14 to 42)**, clustering the two games of each position. The
+results above put the two 6 Elo apart, but that is the difference of two estimates each
+about 14 wide, and the direct match is the measurement. The rule, fixed in
+[`kaggle_chess/build_1b_search_match.py`](kaggle_chess/build_1b_search_match.py) before
+the games, changes the bot only if the interval excludes zero against it; it excludes
+zero the other way, so the fine-tune's root stays. Against the 1B model at depth 1, the
+searchless player of the paper: 901 won, 505 drawn, 194 lost, a score of 0.721 and
+**+165 Elo (150 to 180)**, for 0.07 s per move at the median against 0.02. Search cost
+the 500M model's fine-tune puzzles; in games, with the base model at the leaves, it is the
+largest gain in this section.
 
 **What a ply is worth** ([`results/34_match_500M_d3_vs_d2_part0.json`](results/34_match_500M_d3_vs_d2_part0.json)
 and `part1`). The 500M model at depth 3 against itself at depth 2, on the same 200
@@ -508,8 +525,15 @@ opponents' pre-game ratings, the 500M model's 1701 beats the 225M one's 1678 by 
 a bootstrap interval of -150 to +187. A few hours online agree with the depth-2 match
 and could not have measured it: the opponents change from game to game, and 24 games
 leave an interval 300 Elo wide. `--leaf_ckpt` gives the bot the hybrid, now built on the
-1B model (`--ckpt checkpoints/chess_1B_w03.pt --leaf_ckpt checkpoints/chess_1B.pt`); the
-rating above predates both. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
+1B model (`--ckpt checkpoints/chess_1B_w03.pt --leaf_ckpt checkpoints/chess_1B.pt`).
+That pairing played 66 rated rapid games (10+3) against 48 other bots on 18 November 2026,
+in a Kaggle CPU session ([`kaggle_chess/build_lichess_bot.py`](kaggle_chess/build_lichess_bot.py),
+the token from a Kaggle secret, the bot stopped before the 12-hour limit with no game
+abandoned): 34 won, 4 drawn, 28 lost, the rating from 1659 to **1781**, a performance of
+**1804 (1720 to 1892)** against opponents averaging 1773
+([`results/38_lichess_1B_hybrid_session.json`](results/38_lichess_1B_hybrid_session.json)).
+After the first 20 games the rating only moved between 1721 and 1785, against stronger
+opponents as it rose; more games would narrow the interval and change no decision. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
 against bots -- a different pool at a different time control. Search depth
 adapts to the clock -- the bot declines time controls it cannot play at depth 2 and
 drops to the bare network when short on time. The API token comes from `LICHESS_TOKEN`
@@ -741,8 +765,7 @@ results/             the logs behind the numbers above
 
 ## Still open
 
-- The 1B hybrid on Lichess: +51 Elo in a match against the 500M hybrid, no online games
-  yet.
-  A few dozen games would not measure it (see the 300-Elo interval above).
+- The bot online without a hand on it: a Kaggle CPU session runs it for 11 hours, started
+  by hand each time.
 - KV-cache serving for the language-model path (CUDA graphs: worth at most ~7% here,
   see Systems)
