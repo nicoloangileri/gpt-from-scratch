@@ -173,6 +173,10 @@ def main() -> None:
     ap.add_argument("--depth", type=int, default=1)
     ap.add_argument("--a_depth", type=int, default=None, help="A's depth (default: --depth)")
     ap.add_argument("--b_depth", type=int, default=None, help="B's depth (default: --depth)")
+    ap.add_argument("--a_sims", type=int, default=None,
+                    help="A plays src/mcts.py with this many simulations instead of a depth")
+    ap.add_argument("--c_puct", type=float, default=0.1, help="A's MCTS exploration")
+    ap.add_argument("--tau", type=float, default=0.05, help="A's MCTS prior temperature")
     ap.add_argument("--slice", default="0/1", metavar="I/N",
                     help="play positions[I::N]: the share of one of N parallel jobs")
     ap.add_argument("--positions", type=int, default=100, help="each is played twice")
@@ -202,7 +206,12 @@ def main() -> None:
                                                   (args.b, args.b_leaf, b_depth))):
         model, centres, _ = load_model(ckpt, args.device)
         leaf = load_model(leaf_ckpt, args.device)[:2] if leaf_ckpt else None
-        if args.onepass and depth <= 2:
+        if k == 0 and args.a_sims is not None:
+            from .mcts import make_mcts_player
+            player = make_mcts_player(model, centres, args.device, args.a_sims, args.c_puct,
+                                      args.tau, leaf_model=leaf[0] if leaf else None,
+                                      leaf_centres=leaf[1] if leaf else None, calls=calls[k])
+        elif args.onepass and depth <= 2:
             player = make_onepass_player((model, centres), leaf, args.device, depth)
         else:
             player = make_player(model, centres, args.device, depth, shared=args.onepass,
@@ -211,6 +220,8 @@ def main() -> None:
         players.append(timed(player, times[k]))
     print(f"[match] A = {args.a}" + (f" (leaves {args.a_leaf})" if args.a_leaf else "")
           + f"\n[match] B = {args.b}" + (f" (leaves {args.b_leaf})" if args.b_leaf else "")
+          + (f"\n[match] A: MCTS, {args.a_sims} simulations, c {args.c_puct}, tau {args.tau}"
+             if args.a_sims is not None else "")
           + f"\n[match] depth {a_depth} against {b_depth}"
           + f"{', one pass' if args.onepass else ''}, slice {args.slice}, "
           f"{len(positions)} positions x 2 colours, {args.threads} threads", flush=True)
@@ -220,7 +231,8 @@ def main() -> None:
     def report(results):
         summary = {"a": args.a, "b": args.b, "a_leaf": args.a_leaf, "b_leaf": args.b_leaf,
                    "onepass": args.onepass, "depth": args.depth, "a_depth": a_depth,
-                   "b_depth": b_depth, "slice": args.slice, "seed": args.seed,
+                   "b_depth": b_depth, "a_sims": args.a_sims, "c_puct": args.c_puct,
+                   "tau": args.tau, "slice": args.slice, "seed": args.seed,
                    "seconds": round(time.time() - t), **summarise(results),
                    "a_time": move_times(times[0], calls[0]),
                    "b_time": move_times(times[1], calls[1]), "results": results}
