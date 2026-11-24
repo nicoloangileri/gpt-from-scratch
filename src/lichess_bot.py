@@ -4,9 +4,11 @@
     python -m src.lichess_bot --check   # verify the token and the account
     python -m src.lichess_bot --ckpt checkpoints/chess_best.pt --depth 2
     python -m src.lichess_bot --ckpt ROOT.pt --leaf_ckpt LEAVES.pt   # two networks
+    python -m src.lichess_bot --ckpt ROOT.pt --leaf_ckpt LEAVES.pt --sims 32  # tree search
 
 Listens on the event stream, accepts challenges that fit the time control, and
-plays each game with alpha-beta on top of the network. The token comes from the
+plays each game with alpha-beta on top of the network, or with `--sims`, the
+network-guided tree search of src/mcts.py (+115 Elo over depth 2, results/39). The token comes from the
 LICHESS_TOKEN environment variable or from ~/.config/lichess/token, which must be
 readable by its owner only (the bot refuses it otherwise). It is never a command-line
 argument, never logged, never written by the bot, and never included in an error
@@ -32,6 +34,7 @@ import chess
 import requests
 
 from .puzzles_eval import best_move, load_model
+from .mcts import MCTS
 from .search import Searcher
 
 API = "https://lichess.org"
@@ -117,8 +120,13 @@ def _token() -> str:
 
 
 class LichessBot:
+    sims: int | None = None           # None: alpha-beta at `depth`; else MCTS simulations
+    c_puct: float = 0.3               # the c results/39 chose on puzzles
+    tau: float = 0.05
+
     def __init__(self, ckpt: str, device: str = "cpu", depth: int = 2,
-                 leaf_ckpt: str | None = None) -> None:
+                 leaf_ckpt: str | None = None, sims: int | None = None,
+                 c_puct: float = 0.3, tau: float = 0.05) -> None:
         self.session = requests.Session()
         self.session.headers["Authorization"] = f"Bearer {_token()}"
         self.model, self.centres, _ = load_model(ckpt, device)
@@ -126,6 +134,7 @@ class LichessBot:
         if leaf_ckpt:
             self.leaf_model, self.leaf_centres, _ = load_model(leaf_ckpt, device)
         self.device, self.depth = device, depth
+        self.sims, self.c_puct, self.tau = sims, c_puct, tau
         self.busy = threading.Event()          # set while a game is being played
         self.ratings: dict[str, tuple[int, bool]] = {}      # perf -> (rating, provisional)
         self.cooldown: dict[str, float] = {}               # bot id -> don't ask before
@@ -145,7 +154,8 @@ class LichessBot:
         return r.json()
 
     def pick(self, board: chess.Board, time_left_ms: int | None) -> str:
-        """Depth 2 normally, the bare network when the clock gets short."""
+        """The search normally (MCTS with `sims`, else alpha-beta at `depth`), the bare
+        network when the clock gets short."""
         depth = self.depth
         if time_left_ms is not None and time_left_ms < 30_000:
             depth = 1
@@ -153,6 +163,10 @@ class LichessBot:
         # moves to float rounding at a sixth of the CPU time.
         if depth <= 1:
             return best_move(self.model, self.centres, board, self.device, shared=True)
+        if self.sims:
+            return MCTS(self.model, self.centres, self.device, self.sims, self.c_puct,
+                        self.tau, leaf_model=self.leaf_model,
+                        leaf_centres=self.leaf_centres).best_move(board)
         return Searcher(self.model, self.centres, self.device, shared=True,
                         leaf_model=self.leaf_model,
                         leaf_centres=self.leaf_centres).best_move(board, depth)
@@ -465,6 +479,10 @@ def main() -> None:
     ap.add_argument("--depth", type=int, default=2)
     ap.add_argument("--leaf_ckpt", default=None,
                     help="score the nodes below the root with this network; --ckpt keeps the root")
+    ap.add_argument("--sims", type=int, default=None,
+                    help="play src/mcts.py with this many simulations instead of alpha-beta")
+    ap.add_argument("--c_puct", type=float, default=0.3, help="MCTS exploration")
+    ap.add_argument("--tau", type=float, default=0.05, help="MCTS prior temperature")
     ap.add_argument("--seek", action="store_true",
                     help="also challenge online bots, instead of only waiting")
     ap.add_argument("--check", action="store_true",
@@ -485,7 +503,8 @@ def main() -> None:
         print(f"scopes   : {scopes}")
         return
 
-    bot = LichessBot(args.ckpt, args.device, args.depth, args.leaf_ckpt)
+    bot = LichessBot(args.ckpt, args.device, args.depth, args.leaf_ckpt, args.sims,
+                     args.c_puct, args.tau)
     signal.signal(signal.SIGTERM, bot.request_stop)     # what `pkill` sends
     signal.signal(signal.SIGINT, bot.request_stop)      # Ctrl+C
     bot.run(seek=args.seek)

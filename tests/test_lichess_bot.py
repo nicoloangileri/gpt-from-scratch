@@ -455,3 +455,45 @@ def test_short_clock_plays_the_root_network_alone(monkeypatch):
     monkeypatch.setattr(lichess_bot, "Searcher", no_search)
     assert bot.pick(chess.Board(), 29_000) == best_move(
         bot.model, bot.centres, chess.Board(), "cpu", shared=True)
+
+
+def test_sims_plays_the_tree_search_with_both_networks(monkeypatch):
+    """--sims must reach the tree search, with the leaf network and the chosen c; a bot
+    that fell back to alpha-beta would play the configuration results/39 replaced."""
+    import chess
+    from src import lichess_bot
+    from src.mcts import MCTS
+    bot = _bot_with_two_networks()
+    bot.sims, bot.c_puct, bot.tau = 12, 0.3, 0.05
+    seen = {}
+
+    class Spy(MCTS):
+        def __init__(self, *a, **k):
+            seen.update(k, args=a)
+            super().__init__(*a, **k)
+
+    def no_alpha_beta(*a, **k):
+        raise AssertionError("alpha-beta with --sims")
+
+    monkeypatch.setattr(lichess_bot, "MCTS", Spy)
+    monkeypatch.setattr(lichess_bot, "Searcher", no_alpha_beta)
+    move = bot.pick(chess.Board(), 300_000)
+    assert seen["leaf_model"] is bot.leaf_model and seen["leaf_centres"] is bot.leaf_centres
+    assert seen["args"][3:] == (12, 0.3, 0.05)
+    assert move == MCTS(bot.model, bot.centres, "cpu", 12, 0.3, 0.05, leaf_model=bot.leaf_model,
+                        leaf_centres=bot.leaf_centres).best_move(chess.Board())
+
+
+def test_sims_on_a_short_clock_is_still_the_bare_network(monkeypatch):
+    import chess
+    from src import lichess_bot
+    from src.puzzles_eval import best_move
+    bot = _bot_with_two_networks()
+    bot.sims = 12
+
+    def no_search(*a, **k):
+        raise AssertionError("searched on a short clock")
+
+    monkeypatch.setattr(lichess_bot, "MCTS", no_search)
+    assert bot.pick(chess.Board(), 29_000) == best_move(
+        bot.model, bot.centres, chess.Board(), "cpu", shared=True)

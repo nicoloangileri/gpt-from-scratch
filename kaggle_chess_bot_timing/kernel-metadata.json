@@ -1,0 +1,17 @@
+{
+  "id": "nicolangileri/gpt-from-scratch-chess-bot-timing",
+  "title": "gpt-from-scratch-chess-bot-timing",
+  "code_file": "bot_timing_kernel.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "kernel_sources": [
+    "nicolangileri/gpt-from-scratch-chess-1b-w03-match",
+    "nicolangileri/gpt-from-scratch-chess-1b-s5"
+  ],
+  "competition_sources": []
+}
