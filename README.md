@@ -49,7 +49,9 @@ What turned out to be hard:
   In games that pairing beats the base model by 26 Elo (95% interval 7 to 45). The same
   pairing built on the 1B model beats it by 51 (37 to 65) and is now the bot's; it beats
   the 1B model alone by 28 (14 to 42), and the 1B model without search by 165 (150 to
-  180). A third ply is worth 15 (-8 to 37) ([Search](#search-and-the-lichess-bot)).
+  180). A third ply is worth 15 (-8 to 37); a tree search guided by the network, for
+  about the same network work as depth 2, beats the bot by 115 (101 to 130)
+  ([Search](#search-and-the-lichess-bot)).
 - **The metric was the bug.** For ten days every accuracy here measured the opponent's
   moves, because the test compared a field with a restatement of itself. A baseline
   run on the same puzzles is what showed most models were weaker than they looked.
@@ -514,6 +516,29 @@ little. The paper's 2054, blitz against bots with no search at all and about 300
 this budget, stands 395 points above the bot's rapid rating, in a different pool; gains of
 this size from search will not close that.
 
+**A tree search instead of a fixed depth** ([`src/mcts.py`](src/mcts.py),
+[`results/39_match_mcts32_vs_bot_part0.json`](results/39_match_mcts32_vs_bot_part0.json)
+and `part1`). Fixed depth spends the same effort on every line; a tree search spends it
+where the network is unsure. No random rollouts: each expansion is one network call
+that returns Q for every legal move of the new position, the prior is a softmax of
+those values (temperature 0.05), an unvisited move is worth the network's own Q, and a
+visited one the lower of Q and its backed-up mean, the same pessimism as the
+alpha-beta's min. Selection is PUCT, the root is scored by the fine-tune and the rest of
+the tree by the base model, as in the bot. With 32 simulations a move costs up to 33 calls (32.4 on average in the games) of
+about 30 moves each, against the roughly 930 (position, move) pairs of depth 2. The
+exploration constant was picked before any game, on the first 2,000 test puzzles: 1,693,
+1,733, **1,736** and 1,718 solved at c = 0.03, 0.1, 0.3 and 1.0, against 1,584 for the
+bot's depth 2 on the same puzzles (185 solved only by the tree search, 33 only by depth
+2; the comparison favours the setting it chose). Then the games, against the bot on the
+800 positions played twice: 797 won, 519 drawn, 284 lost, a score of 0.660 and **+115 Elo
+(95% interval 101 to 130)**, clustering the two games of each position. The rule, fixed in
+[`kaggle_chess/build_mcts_match.py`](kaggle_chess/build_mcts_match.py) before the games,
+changes the bot only if the interval excludes zero in the tree search's favour, and it
+does by a wide margin. The price is time on a GPU, where fewer moves per call batch
+worse: 0.28 s per move at the median against 0.05 for depth 2 in one pass
+([`results/39_tune_summary.json`](results/39_tune_summary.json)). Tuning and 1,600 games
+took 6.0 hours on two T4s.
+
 [`src/lichess_bot.py`](src/lichess_bot.py) plays the same search online, at depth 2, as
 **`imbotterthanyou`**: rapid **1659** on 8 October 2026. Every game in the bot's log,
 matched to the checkpoint that played it
@@ -533,7 +558,14 @@ abandoned): 34 won, 4 drawn, 28 lost, the rating from 1659 to **1781**, a perfor
 **1804 (1720 to 1892)** against opponents averaging 1773
 ([`results/38_lichess_1B_hybrid_session.json`](results/38_lichess_1B_hybrid_session.json)).
 After the first 20 games the rating only moved between 1721 and 1785, against stronger
-opponents as it rose; more games would narrow the interval and change no decision. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
+opponents as it rose; more games would narrow the interval and change no decision.
+Since results/39 the bot plays the tree search instead (`--sims 32 --c_puct 0.3`, same
+two networks). On the Kaggle CPU it plays on, it is the faster of the two: 2.5 s per move
+at the median and 3.2 s at worst, against 2.9 and 5.0 s for depth 2, over the first 100
+match positions, with the same move in 83 of them
+([`results/40_bot_timing_cpu.json`](results/40_bot_timing_cpu.json),
+[`kaggle_chess/build_bot_timing.py`](kaggle_chess/build_bot_timing.py)). It has not yet
+played a rated game with it. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
 against bots -- a different pool at a different time control. Search depth
 adapts to the clock -- the bot declines time controls it cannot play at depth 2 and
 drops to the bare network when short on time. The API token comes from `LICHESS_TOKEN`
