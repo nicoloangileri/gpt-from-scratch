@@ -1,0 +1,18 @@
+{
+  "id": "nicolangileri/gpt-from-scratch-chess-mcts-sims-match",
+  "title": "gpt-from-scratch-chess-mcts-sims-match",
+  "code_file": "mcts_sims_match_kernel.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [],
+  "kernel_sources": [
+    "nicolangileri/gpt-from-scratch-chess-1b-w03-match",
+    "nicolangileri/gpt-from-scratch-chess-1b-s5"
+  ],
+  "competition_sources": []
+}
