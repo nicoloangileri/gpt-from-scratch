@@ -3,11 +3,11 @@
     python kaggle_chess/build_lichess_bot.py
     kaggle kernels push -p kaggle_chess_lichess_bot/
 
-The bot plays what results/37 and results/39 chose: the 1B model's w0.3 puzzle
+The bot plays what results/37, 39 and 41 chose: the 1B model's w0.3 puzzle
 fine-tune at the root, the 1B model below it, and the tree search of src/mcts.py
-(32 simulations, c 0.3) instead of depth 2, seeking games against other bots (`--seek`).
-A CPU session, which uses no GPU quota: on a Kaggle CPU the tree search takes 2.5 s
-per move at the median and 3.2 s at worst, against 2.9 and 5.0 for depth 2
+(64 simulations, c 0.3) instead of depth 2, seeking games against other bots (`--seek`).
+A CPU session, which uses no GPU quota: on a Kaggle CPU 64 simulations take 3.8 s per
+move at the median and 4.8 s at worst (results/42), depth 2 took 2.9 and 5.0
 (results/40).
 
 The token never touches this repository, the notebook or its log. It comes from a
@@ -100,7 +100,7 @@ def run_bot():
         return
     bot = subprocess.Popen(
         [sys.executable, "-m", "src.lichess_bot", "--ckpt", ROOT_CKPT, "--leaf_ckpt", LEAF_CKPT,
-         "--sims", "32", "--c_puct", "0.3", "--device", "cpu", "--seek"],
+         "--sims", "64", "--c_puct", "0.3", "--device", "cpu", "--seek"],
         env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     def stream():
         for line in bot.stdout:

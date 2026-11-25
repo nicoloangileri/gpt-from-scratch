@@ -50,7 +50,7 @@ What turned out to be hard:
   pairing built on the 1B model beats it by 51 (37 to 65) and is now the bot's; it beats
   the 1B model alone by 28 (14 to 42), and the 1B model without search by 165 (150 to
   180). A third ply is worth 15 (-8 to 37); a tree search guided by the network, for
-  about the same network work as depth 2, beats the bot by 115 (101 to 130)
+  about the same network work as depth 2, beats the bot by 115 (101 to 130), and doubling its simulations adds 56 (42 to 70)
   ([Search](#search-and-the-lichess-bot)).
 - **The metric was the bug.** For ten days every accuracy here measured the opponent's
   moves, because the test compared a field with a restatement of itself. A baseline
@@ -539,6 +539,17 @@ worse: 0.28 s per move at the median against 0.05 for depth 2 in one pass
 ([`results/39_tune_summary.json`](results/39_tune_summary.json)). Tuning and 1,600 games
 took 6.0 hours on two T4s.
 
+**How many simulations** ([`results/41_match_mcts64_vs_mcts32_part0.json`](results/41_match_mcts64_vs_mcts32_part0.json)
+and `part1`). The same tree search with 64 simulations against itself with 32, both with
+the bot's networks and c = 0.3, on the same list of positions: a game costs about twice
+as much, so the session's deadline stopped each card between positions after 625 of the
+800. 495 won, 458 drawn, 297 lost, a score of 0.579 and **+56 Elo (95% interval 42 to
+70)**. The rule, fixed in
+[`kaggle_chess/build_mcts_sims_match.py`](kaggle_chess/build_mcts_sims_match.py) before
+the games, moves the bot to 64 only if the interval excludes zero in 64's favour; it
+does. Doubling the budget bought 56 here; a third ply of fixed depth bought 15 for
+about 76 times the network calls.
+
 [`src/lichess_bot.py`](src/lichess_bot.py) plays the same search online, at depth 2, as
 **`imbotterthanyou`**: rapid **1659** on 8 October 2026. Every game in the bot's log,
 matched to the checkpoint that played it
@@ -559,13 +570,15 @@ abandoned): 34 won, 4 drawn, 28 lost, the rating from 1659 to **1781**, a perfor
 ([`results/38_lichess_1B_hybrid_session.json`](results/38_lichess_1B_hybrid_session.json)).
 After the first 20 games the rating only moved between 1721 and 1785, against stronger
 opponents as it rose; more games would narrow the interval and change no decision.
-Since results/39 the bot plays the tree search instead (`--sims 32 --c_puct 0.3`, same
-two networks). On the Kaggle CPU it plays on, it is the faster of the two: 2.5 s per move
-at the median and 3.2 s at worst, against 2.9 and 5.0 s for depth 2, over the first 100
-match positions, with the same move in 83 of them
-([`results/40_bot_timing_cpu.json`](results/40_bot_timing_cpu.json),
-[`kaggle_chess/build_bot_timing.py`](kaggle_chess/build_bot_timing.py)). It has not yet
-played a rated game with it. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
+Since results/39 and 41 the bot plays the tree search instead, with 64 simulations
+(`--sims 64 --c_puct 0.3`, same two networks). On the Kaggle CPU it plays on, over the
+first 100 match positions, 32 simulations took 2.5 s per move at the median and 3.2 s at
+worst against 2.9 and 5.0 s for depth 2, with the same move in 83 of them
+([`results/40_bot_timing_cpu.json`](results/40_bot_timing_cpu.json)); in a second
+session 64 simulations took 3.8 and 4.8 s against 2.0 and 2.5 s for 32 on that machine
+([`results/42_bot_timing_cpu_mcts64.json`](results/42_bot_timing_cpu_mcts64.json),
+[`kaggle_chess/build_bot_timing.py`](kaggle_chess/build_bot_timing.py)). Within a 10+3
+clock either way. It has not yet played a rated game with the tree search. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
 against bots -- a different pool at a different time control. Search depth
 adapts to the clock -- the bot declines time controls it cannot play at depth 2 and
 drops to the bare network when short on time. The API token comes from `LICHESS_TOKEN`

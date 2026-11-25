@@ -36,11 +36,11 @@ def test_the_bot_and_its_imports_are_embedded(nb):
         assert f'"{path}"' in setup, path
 
 
-def test_it_plays_the_configuration_results_37_and_39_chose(nb):
+def test_it_plays_the_configuration_results_37_39_and_41_chose(nb):
     cells = nb[0]
     models, bot = cells[1], cells[-1]
     assert "chess_1B_w03.pt" in models and "gpt-from-scratch-chess-1b-s5" in models
-    for flag in ('"--ckpt", ROOT_CKPT', '"--leaf_ckpt", LEAF_CKPT', '"--sims", "32"',
+    for flag in ('"--ckpt", ROOT_CKPT', '"--leaf_ckpt", LEAF_CKPT', '"--sims", "64"',
                  '"--c_puct", "0.3"', '"--device", "cpu"', '"--seek"'):
         assert flag in bot, flag
 
