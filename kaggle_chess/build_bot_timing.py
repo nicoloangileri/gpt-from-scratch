@@ -11,6 +11,8 @@ own `pick` -- the same code, the same two networks, the CPU, the threads torch p
 on the first POSITIONS of the 800 match positions (seed 0), alternating the two
 settings position by position so a slow stretch of the machine hits both alike.
 
+results/41 then put 64 simulations 56 Elo above 32; the second session times those two.
+
 A CPU kernel: no GPU quota. No token, no Lichess: `pick` needs neither.
 """
 from __future__ import annotations
@@ -30,7 +32,7 @@ KERNEL_ID = "nicolangileri/gpt-from-scratch-chess-bot-timing"
 TIMING_SOURCES = SOURCES + ["src/lichess_bot.py"]
 TEST_BAG = "https://storage.googleapis.com/searchless_chess/data/test/action_value_data.bag"
 POSITIONS = 100
-SIMS = 32
+SETTINGS = {"mcts32": 32, "mcts64": 64}   # results/40 was {"depth2": None, "mcts32": 32}
 C_PUCT = 0.3
 TAU = 0.05
 HOURS = 2.0                   # stop between positions after this long
@@ -73,7 +75,7 @@ bot = LichessBot.__new__(LichessBot)          # pick() only: no token, no sessio
 bot.model, bot.centres, _ = load_model(ROOT_CKPT, "cpu")
 bot.leaf_model, bot.leaf_centres, _ = load_model(LEAF_CKPT, "cpu")
 bot.device, bot.depth = "cpu", 2
-SETTINGS = {{"depth2": None, "mcts{SIMS}": {SIMS}}}
+SETTINGS = {json.dumps(SETTINGS).replace("null", "None")}
 bot.c_puct, bot.tau = {C_PUCT}, {TAU}
 print(f"[timing] {{os.cpu_count()}} CPUs, torch threads {{torch.get_num_threads()}}", flush=True)
 
@@ -98,7 +100,7 @@ def stats(t):
     return {{"moves": len(t), "mean_s": float(t.mean()), "median_s": float(np.median(t)),
             "p90_s": float(np.quantile(t, 0.9)), "max_s": float(t.max())}}
 out = {{"cpus": os.cpu_count(), "torch_threads": torch.get_num_threads(),
-        "sims": {SIMS}, "c_puct": {C_PUCT}, "tau": {TAU},
+        "settings": SETTINGS, "c_puct": {C_PUCT}, "tau": {TAU},
         "same_move": float(np.mean([a == b for a, b in zip(*moves.values())])),
         **{{k: stats(v) for k, v in times.items()}}, "times": times}}
 json.dump(out, open("bot_timing.json", "w"), indent=1)
