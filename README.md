@@ -327,7 +327,8 @@ report.
 
 DeepMind's ChessBench reaches **88.9%** on these puzzles with a **9M**-parameter model
 -- smaller than this one, on the same data and the same task. The difference is
-training examples seen: theirs is roughly 300x this budget. 68.0% from free T4s is a
+training examples seen: the paper trains for 10 million steps of 4,096, about 41 billion
+examples, 41 times this run's 1 billion. 68.0% from free T4s is a
 budget result, not an architecture result, and the curve above is the honest way to
 read it.
 
@@ -513,8 +514,8 @@ a ply gives against other opponents. The clock is not what stops it: on a T4 sha
 CPU cores with another job, depth 3 takes a median of 1.1 s per move, 3.1 s
 at the 90th percentile and 12.7 s at worst, against 0.07, 0.23 and 2.0 s for depth 2, at
 about 152 network calls per move against 2. It fits a blitz clock on a GPU and buys
-little. The paper's 2054, blitz against bots with no search at all and about 300 times
-this budget, stood 395 points above the bot's rapid rating then, in a different pool; a
+little. The paper's 2054, blitz against bots with no search at all and about 41 times
+these examples, stood 395 points above the bot's rapid rating then, in a different pool; a
 ply of this size will not close that. The tree search below did most of it (the bot is
 now at 1855), but with search, which the paper's number does not use.
 
@@ -591,7 +592,10 @@ intervals overlap, so online alone does not separate the searches; the 1,600 gam
 results/39 and 41 do, and the session agrees with them. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
 against bots -- a different pool at a different time control. Search depth
 adapts to the clock -- the bot declines time controls it cannot play at depth 2 and
-drops to the bare network when short on time. The API token comes from `LICHESS_TOKEN`
+drops to the bare network when short on time; the tree search first halves its
+simulations under 90 s, which on results/43's own move times keeps a 3+2 game off the bare
+network entirely. `--clocks "5+3,3+2"` makes a session of one speed, the one the paper's
+number is in: it offers only those clocks and declines every other speed. The API token comes from `LICHESS_TOKEN`
 or from `~/.config/lichess/token` with owner-only permissions, which the bot checks and
 refuses if they are wider; never a command-line argument, never logged, never inside
 the repository.

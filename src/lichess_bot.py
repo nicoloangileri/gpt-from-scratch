@@ -16,7 +16,9 @@ message.
 
 Search depth adapts to the clock. Depth 2 costs 1.5-3s per move on CPU, which is
 fine at 3+2 and suicide in bullet, so the bot declines what it cannot play and
-drops to the bare network when short on time.
+drops to the bare network when short on time; the tree search first halves its
+simulations under 90 s. `--clocks "5+3,3+2"` makes a session of one speed (blitz here):
+it offers only those clocks and declines challenges of any other speed.
 """
 
 from __future__ import annotations
@@ -39,6 +41,7 @@ from .search import Searcher
 
 API = "https://lichess.org"
 MIN_INITIAL_SECONDS = 180          # below this, depth-2 search loses on time
+HALF_SIMS_BELOW_MS = 90_000        # the tree search halves its simulations below this
 
 # A bot cannot enter the lobby or a tournament -- "pools and tournaments are off-limits"
 # says the API spec -- so every game is a challenge it sends or one somebody sends it.
@@ -80,9 +83,20 @@ def is_incoming(challenge: dict, me: str) -> bool:
     return (challenge.get("challenger") or {}).get("id") != me
 
 
-def should_accept(challenge: dict) -> tuple[bool, str]:
+def parse_clocks(text: str) -> list[tuple[int, int]]:
+    """"5+3,3+2" -> [(300, 3), (180, 2)]: minutes plus seconds of increment."""
+    clocks = []
+    for part in text.split(","):
+        minutes, increment = part.strip().split("+")
+        clocks.append((round(float(minutes) * 60), int(increment)))
+    return clocks
+
+
+def should_accept(challenge: dict, speeds: set[str] | None = None) -> tuple[bool, str]:
     """Accept standard games slow enough for the search. Returns (ok, decline reason).
 
+    With `speeds`, only clocks of those Lichess speed categories: a blitz-only session
+    must not let one rapid challenge into the sample it is measuring.
     Lichess wants one of its own decline reasons, so the strings are its vocabulary.
     """
     if challenge.get("variant", {}).get("key", "standard") != "standard":
@@ -92,6 +106,12 @@ def should_accept(challenge: dict) -> tuple[bool, str]:
         return False, "timeControl"                 # correspondence or unlimited
     if clock["limit"] < MIN_INITIAL_SECONDS:
         return False, "tooFast"
+    if speeds is not None:
+        perf = perf_of(clock["limit"], clock.get("increment", 0))
+        if perf not in speeds:
+            order = ["ultraBullet", "bullet", "blitz", "rapid", "classical"]
+            slower = order.index(perf) > max(order.index(p) for p in speeds)
+            return False, "tooSlow" if slower else "tooFast"
     return True, ""
 
 
@@ -126,7 +146,8 @@ class LichessBot:
 
     def __init__(self, ckpt: str, device: str = "cpu", depth: int = 2,
                  leaf_ckpt: str | None = None, sims: int | None = None,
-                 c_puct: float = 0.3, tau: float = 0.05) -> None:
+                 c_puct: float = 0.3, tau: float = 0.05,
+                 clocks: list[tuple[int, int]] | None = None) -> None:
         self.session = requests.Session()
         self.session.headers["Authorization"] = f"Bearer {_token()}"
         self.model, self.centres, _ = load_model(ckpt, device)
@@ -135,6 +156,9 @@ class LichessBot:
             self.leaf_model, self.leaf_centres, _ = load_model(leaf_ckpt, device)
         self.device, self.depth = device, depth
         self.sims, self.c_puct, self.tau = sims, c_puct, tau
+        self.clocks = clocks or SEEK_CLOCKS    # what the bot offers, slowest first
+        # Given clocks also restrict what it accepts, to their speed categories.
+        self.speeds = {perf_of(*c) for c in clocks} if clocks else None
         self.busy = threading.Event()          # set while a game is being played
         self.ratings: dict[str, tuple[int, bool]] = {}      # perf -> (rating, provisional)
         self.cooldown: dict[str, float] = {}               # bot id -> don't ask before
@@ -164,7 +188,14 @@ class LichessBot:
         if depth <= 1:
             return best_move(self.model, self.centres, board, self.device, shared=True)
         if self.sims:
-            return MCTS(self.model, self.centres, self.device, self.sims, self.c_puct,
+            # Half the simulations under 90 s: on the Kaggle CPU 32 cost about the 2 s
+            # increment of a 3+2 game. Replaying the 3,238 moves of results/43 on a 3+2
+            # clock, this keeps every game above a minute and never reaches the bare
+            # network; without it 16 of the 43 games would have.
+            sims = self.sims
+            if time_left_ms is not None and time_left_ms < HALF_SIMS_BELOW_MS:
+                sims = max(1, sims // 2)
+            return MCTS(self.model, self.centres, self.device, sims, self.c_puct,
                         self.tau, leaf_model=self.leaf_model,
                         leaf_centres=self.leaf_centres).best_move(board)
         return Searcher(self.model, self.centres, self.device, shared=True,
@@ -178,7 +209,7 @@ class LichessBot:
             return                                   # our own challenge coming back
         clock = challenge.get("timeControl", {})
         initial = clock.get("limit")
-        ok, reason = should_accept(challenge)
+        ok, reason = should_accept(challenge, getattr(self, "speeds", None))
         if self.stopping.is_set():
             ok, reason = False, "later"              # one of Lichess's decline reasons
 
@@ -210,6 +241,16 @@ class LichessBot:
                   rating_window: int, ceiling: int) -> list[tuple[str, int]]:
         """Opponents worth asking, by the rating for the clock actually being offered."""
         (mine, provisional), now = self.ratings.get(perf, (1500, True)), time.time()
+        if provisional:
+            # No measurement at this speed yet, but maybe one at another: the same
+            # bot, the same search. Centring the window on it finds opponents of the
+            # right strength from the first game, instead of only those under the
+            # ceiling (the first blitz session would otherwise open against bots far
+            # weaker than its 1855 rapid).
+            measured = [r for p, (r, prov) in self.ratings.items() if p != perf and not prov
+                        and p in ("bullet", "blitz", "rapid", "classical")]
+            if measured:
+                mine, provisional = max(measured), False
         candidates = []
         for bot in bots:
             if bot.get("id") == self.me or now < self.cooldown.get(bot.get("id"), 0):
@@ -281,7 +322,7 @@ class LichessBot:
 
     def seek_any_clock(self) -> bool:
         """Try each clock, slowest first: more bots accept blitz than rapid."""
-        for clock in SEEK_CLOCKS:
+        for clock in getattr(self, "clocks", None) or SEEK_CLOCKS:
             if self.challenge_someone(clock):
                 return True
         return False
@@ -425,7 +466,7 @@ class LichessBot:
             self.busy.set()                      # play_game clears it when the game ends
             print(f"[bot] {len(playing)} game(s) already in progress", flush=True)
         if seek:
-            clocks = ", ".join(f"{c[0]//60}+{c[1]}" for c in SEEK_CLOCKS)
+            clocks = ", ".join(f"{c[0]//60}+{c[1]}" for c in self.clocks)
             print(f"[bot] also challenging online bots every 90s (rated, {clocks})",
                   flush=True)
             threading.Thread(target=self._seek_loop, daemon=True).start()
@@ -483,6 +524,10 @@ def main() -> None:
                     help="play src/mcts.py with this many simulations instead of alpha-beta")
     ap.add_argument("--c_puct", type=float, default=0.3, help="MCTS exploration")
     ap.add_argument("--tau", type=float, default=0.05, help="MCTS prior temperature")
+    ap.add_argument("--clocks", default=None,
+                    help='clocks to offer, slowest first, e.g. "5+3,3+2"; also limits what '
+                         "is accepted to their speed categories (default: 10+3, 5+3, 3+2, "
+                         "and any clock of 3 minutes or more)")
     ap.add_argument("--seek", action="store_true",
                     help="also challenge online bots, instead of only waiting")
     ap.add_argument("--check", action="store_true",
@@ -504,7 +549,8 @@ def main() -> None:
         return
 
     bot = LichessBot(args.ckpt, args.device, args.depth, args.leaf_ckpt, args.sims,
-                     args.c_puct, args.tau)
+                     args.c_puct, args.tau,
+                     parse_clocks(args.clocks) if args.clocks else None)
     signal.signal(signal.SIGTERM, bot.request_stop)     # what `pkill` sends
     signal.signal(signal.SIGINT, bot.request_stop)      # Ctrl+C
     bot.run(seek=args.seek)

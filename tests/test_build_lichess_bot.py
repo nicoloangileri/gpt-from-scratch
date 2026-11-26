@@ -61,3 +61,12 @@ def test_it_stops_before_kaggle_kills_it(nb):
     bot = nb[0][-1]
     assert lb.STOP_H < lb.LEAVE_H < 12
     assert "signal.SIGTERM" in bot and "if _TOKEN is not None:" in bot
+
+
+def test_the_session_is_blitz_only(nb):
+    """The paper's 2054 is blitz against bots: a session that mixed in rapid games would
+    not measure the same thing."""
+    from src.lichess_bot import parse_clocks, perf_of
+    bot = nb[0][-1]
+    assert f'"--clocks", "{lb.CLOCKS}"' in bot
+    assert {perf_of(*c) for c in parse_clocks(lb.CLOCKS)} == {"blitz"}

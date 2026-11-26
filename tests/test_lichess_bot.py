@@ -497,3 +497,83 @@ def test_sims_on_a_short_clock_is_still_the_bare_network(monkeypatch):
     monkeypatch.setattr(lichess_bot, "MCTS", no_search)
     assert bot.pick(chess.Board(), 29_000) == best_move(
         bot.model, bot.centres, chess.Board(), "cpu", shared=True)
+
+
+def test_sims_are_halved_when_the_clock_gets_short(monkeypatch):
+    """Under 90 s the tree search runs half its simulations; under 30 s, none."""
+    import chess
+    from src import lichess_bot
+    from src.mcts import MCTS
+    bot = _bot_with_two_networks()
+    bot.sims, bot.c_puct, bot.tau = 12, 0.3, 0.05
+    used = []
+
+    class Spy(MCTS):
+        def __init__(self, *a, **k):
+            used.append(a[3])
+            super().__init__(*a, **k)
+
+    monkeypatch.setattr(lichess_bot, "MCTS", Spy)
+    bot.pick(chess.Board(), 90_000)
+    bot.pick(chess.Board(), 89_999)
+    bot.pick(chess.Board(), None)                     # no clock: the full search
+    assert used == [12, 6, 12]
+
+
+def test_clocks_are_parsed_as_minutes_plus_increment():
+    from src.lichess_bot import parse_clocks
+    assert parse_clocks("5+3, 3+2") == [(300, 3), (180, 2)]
+    assert parse_clocks("0.5+0") == [(30, 0)]
+
+
+def test_a_blitz_session_declines_every_other_speed():
+    """One rapid game would put a rapid result in the blitz sample."""
+    speeds = {"blitz"}
+    assert should_accept(challenge(limit=300, increment=3), speeds) == (True, "")
+    assert should_accept(challenge(limit=180, increment=2), speeds) == (True, "")
+    assert should_accept(challenge(limit=600, increment=3), speeds) == (False, "tooSlow")
+    assert should_accept(challenge(limit=600), speeds) == (False, "tooSlow")
+    assert should_accept(challenge(limit=600, increment=3)) == (True, "")   # no speeds: as before
+
+
+def test_the_bot_offers_only_its_own_clocks():
+    """With --clocks the rapid clock is never offered, even with rapid bots online."""
+    bot = _bare_bot()
+    bot.clocks, bot.speeds = [(300, 3), (180, 2)], {"blitz"}
+    bot.ratings = {"rapid": (1855, False)}
+    offered = []
+
+    class Reply:
+        ok, status_code, text = True, 200, "{}"
+
+    def post(path, **kw):
+        offered.append((int(kw["data"]["clock.limit"]), int(kw["data"]["clock.increment"])))
+        return Reply()
+
+    bot._post = post
+    bot.online_bots = lambda: (_bots(("slowbot", 1850)) +
+                               _bots(("fastbot", 1850), perf="blitz"))
+    assert bot.seek_any_clock() is True
+    assert offered == [(300, 3)]
+
+
+def test_a_new_speed_is_centred_on_a_rating_measured_at_another():
+    """No blitz games yet: the window centres on the measured rapid rating, so the
+    first blitz opponents are of the bot's strength, not only those under the ceiling."""
+    bot = _bare_bot()
+    bot.ratings = {"rapid": (1855, False)}            # blitz: never played
+    bots = _bots(("weak", 1300), ("near", 1900), ("strong", 2400), perf="blitz")
+    assert [b for b, _ in bot._in_range(bots, "blitz", 400, 1800)] == ["near"]
+
+    bot.ratings = {"rapid": (1855, True)}             # nothing measured anywhere
+    assert sorted(b for b, _ in bot._in_range(bots, "blitz", 400, 1800)) == ["weak"]
+
+
+def test_clocks_reach_the_bot_from_its_arguments(monkeypatch):
+    from src import lichess_bot
+    monkeypatch.setattr(lichess_bot, "_token", lambda: "x")
+    monkeypatch.setattr(lichess_bot, "load_model", lambda *a: (None, None, None))
+    bot = lichess_bot.LichessBot("a.pt", clocks=lichess_bot.parse_clocks("5+3,3+2"))
+    assert bot.clocks == [(300, 3), (180, 2)] and bot.speeds == {"blitz"}
+    bot = lichess_bot.LichessBot("a.pt")
+    assert bot.clocks == lichess_bot.SEEK_CLOCKS and bot.speeds is None

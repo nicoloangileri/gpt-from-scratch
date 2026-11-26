@@ -10,6 +10,12 @@ A CPU session, which uses no GPU quota: on a Kaggle CPU 64 simulations take 3.8 
 move at the median and 4.8 s at worst (results/42), depth 2 took 2.9 and 5.0
 (results/40).
 
+CLOCKS sets the session's speed. results/43 played rapid (10+3, 1781 to 1855); the
+paper's searchless 9M model is rated 2054 in *blitz* against bots, so this session plays
+blitz only: it offers 5+3, then 3+2, and declines any other speed. Replaying results/43's
+own move times, 5+3 keeps 98.5% of moves at the full 64 simulations; 3+2 halves them
+under 90 s for about half the moves and never reaches the bare network.
+
 The token never touches this repository, the notebook or its log. It comes from a
 Kaggle secret named LICHESS_TOKEN, which the account owner adds and attaches to this
 notebook in the Kaggle editor (Add-ons -> Secrets); the notebook hands it to the bot
@@ -37,6 +43,7 @@ DIR = "kaggle_chess_lichess_bot"
 KERNEL_ID = "nicolangileri/gpt-from-scratch-chess-lichess-bot"
 BOT_SOURCES = SOURCES + ["src/lichess_bot.py"]
 SECRET = "LICHESS_TOKEN"
+CLOCKS = "5+3,3+2"            # blitz only; None: rapid first, as in results/38 and 43
 STOP_H = 11.0                 # no new games after this
 LEAVE_H = 11.75               # leave even mid-game: Kaggle kills at 12h
 
@@ -87,6 +94,7 @@ if _TOKEN is None:
 
 
 def bot_cell() -> str:
+    clocks = f', "--clocks", "{CLOCKS}"' if CLOCKS else ""
     return f'''\
 import os, signal, subprocess, sys, threading, time
 
@@ -100,7 +108,7 @@ def run_bot():
         return
     bot = subprocess.Popen(
         [sys.executable, "-m", "src.lichess_bot", "--ckpt", ROOT_CKPT, "--leaf_ckpt", LEAF_CKPT,
-         "--sims", "64", "--c_puct", "0.3", "--device", "cpu", "--seek"],
+         "--sims", "64", "--c_puct", "0.3", "--device", "cpu", "--seek"{clocks}],
         env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     def stream():
         for line in bot.stdout:
