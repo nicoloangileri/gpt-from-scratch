@@ -28,9 +28,10 @@ Kaggle GPUs, and it plays without search: one forward pass per legal move.
   to the model it started from.
 - **27.4%** for a ten-line rule that grabs the most valuable hanging piece. Every
   model trained on fewer than 50M examples scores below it.
-- **1781** rapid on Lichess, as the bot [`imbotterthanyou`](https://lichess.org/@/imbotterthanyou)
-  (alpha-beta at depth 2 on top of the network), after 66 games of the 1B model in one
-  Kaggle CPU session: a performance of 1804 (1720 to 1892).
+- **1855** rapid on Lichess, as the bot [`imbotterthanyou`](https://lichess.org/@/imbotterthanyou)
+  (a tree search of 64 network calls per move on top of the 1B model), after 43 games in
+  one Kaggle CPU session: a performance of 1933 (1830 to 2048), against 1804 (1720 to
+  1892) for the earlier alpha-beta at depth 2.
 - **1.86x** training throughput from the second T4 of a Kaggle session, at no extra quota.
 
 <picture>
@@ -513,8 +514,9 @@ CPU cores with another job, depth 3 takes a median of 1.1 s per move, 3.1 s
 at the 90th percentile and 12.7 s at worst, against 0.07, 0.23 and 2.0 s for depth 2, at
 about 152 network calls per move against 2. It fits a blitz clock on a GPU and buys
 little. The paper's 2054, blitz against bots with no search at all and about 300 times
-this budget, stands 395 points above the bot's rapid rating, in a different pool; gains of
-this size from search will not close that.
+this budget, stood 395 points above the bot's rapid rating then, in a different pool; a
+ply of this size will not close that. The tree search below did most of it (the bot is
+now at 1855), but with search, which the paper's number does not use.
 
 **A tree search instead of a fixed depth** ([`src/mcts.py`](src/mcts.py),
 [`results/39_match_mcts32_vs_bot_part0.json`](results/39_match_mcts32_vs_bot_part0.json)
@@ -578,7 +580,15 @@ worst against 2.9 and 5.0 s for depth 2, with the same move in 83 of them
 session 64 simulations took 3.8 and 4.8 s against 2.0 and 2.5 s for 32 on that machine
 ([`results/42_bot_timing_cpu_mcts64.json`](results/42_bot_timing_cpu_mcts64.json),
 [`kaggle_chess/build_bot_timing.py`](kaggle_chess/build_bot_timing.py)). Within a 10+3
-clock either way. It has not yet played a rated game with the tree search. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
+clock either way. With the tree search the bot then played 43 rated rapid games against
+31 other bots, from 20:55 on 25 November to 07:13 the next morning, in the same kind of
+session: 19 won, 12 drawn, 12 lost, a score of 0.581, the rating from 1781 to **1855**, a
+performance of **1933 (1830 to 2048)** against opponents averaging 1876, about 100 above
+those of results/38
+([`results/43_lichess_mcts64_session.json`](results/43_lichess_mcts64_session.json)).
+After the first 20 games the rating stayed between 1824 and 1858. The two performance
+intervals overlap, so online alone does not separate the searches; the 1,600 games of
+results/39 and 41 do, and the session agrees with them. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
 against bots -- a different pool at a different time control. Search depth
 adapts to the clock -- the bot declines time controls it cannot play at depth 2 and
 drops to the bare network when short on time. The API token comes from `LICHESS_TOKEN`
