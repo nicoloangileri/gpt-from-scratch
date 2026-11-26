@@ -52,4 +52,4 @@ def test_both_sides_are_the_bot_at_64_and_32_simulations(nb):
 def test_the_match_runner_gives_b_its_own_simulations():
     """--b_sims must reach B: without it B would silently play depth 1."""
     src = (ROOT / "src" / "match.py").read_text()
-    assert '"--b_sims"' in src and "args.a_sims if k == 0 else args.b_sims" in src
+    assert '"--b_sims"' in src and "mcts_args = ((args.a_sims" in src and "args.b_sims, b_c, b_tau" in src
