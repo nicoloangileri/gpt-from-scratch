@@ -31,7 +31,8 @@ Kaggle GPUs, and it plays without search: one forward pass per legal move.
 - **1855** rapid on Lichess, as the bot [`imbotterthanyou`](https://lichess.org/@/imbotterthanyou)
   (a tree search of 64 network calls per move on top of the 1B model), after 43 games in
   one Kaggle CPU session: a performance of 1933 (1830 to 2048), against 1804 (1720 to
-  1892) for the earlier alpha-beta at depth 2.
+  1892) for the earlier alpha-beta at depth 2. In blitz against bots, the category of the
+  paper's 2054 (played without search), 60 games give 1784 (1691 to 1872).
 - **1.86x** training throughput from the second T4 of a Kaggle session, at no extra quota.
 
 <picture>
@@ -332,6 +333,30 @@ examples, 41 times this run's 1 billion. 68.0% from free T4s is a
 budget result, not an architecture result, and the curve above is the honest way to
 read it.
 
+The paper's Table 1 (arXiv [2402.04494](https://arxiv.org/abs/2402.04494) v2) also puts
+other engines on Lichess, blitz against bots, the category of
+[results/44](results/44_lichess_mcts64_blitz_session.json), and on the same 10,000 puzzles:
+
+| agent | trained on | search | Lichess blitz vs bots | puzzles |
+|---|---|---|---|---|
+| ChessBench 9M (DeepMind) | ~41B Stockfish-annotated examples | none | 2054 | 88.9% |
+| ChessBench 136M | the same | none | 2156 | 94.5% |
+| ChessBench 270M | the same | none | 2299 | 95.4% |
+| Leela Chess Zero T82, policy net only | self-play | none | 2224 | 88.6% |
+| Leela Chess Zero T82 | self-play | 400 simulations | 2620 | 99.6% |
+| GPT-3.5-turbo-instruct | web text | none | 1755 | 66.5% |
+| this repo, 1B model (15M) | 1B Stockfish-annotated examples | none | not played | 68.0% |
+| this repo, the bot (15M + 15M) | the same, root fine-tuned on puzzles | 64 simulations | **1784** (1691 to 1872) | 87.6%* |
+
+\* the first 2,000 puzzles only, from the tuning of results/45, with a root fine-tuned
+on other Lichess puzzles, which the paper never trains on.
+
+Ratings are relative to a pool, and the paper played its games in early 2024: the bots on
+Lichess now are not the same. The closest row to the paper's models is the bare 1B
+model, which has never played online; the bot's 1784 comes with 64 network calls per
+move and sits about 270 below the 9M model and about 30 above GPT-3.5. Its rapid 1933 is
+another category and does not belong in this table.
+
 ## Search and the Lichess bot
 
 [`src/search.py`](src/search.py) puts alpha-beta (negamax) on top of the network. The
@@ -516,8 +541,9 @@ at the 90th percentile and 12.7 s at worst, against 0.07, 0.23 and 2.0 s for dep
 about 152 network calls per move against 2. It fits a blitz clock on a GPU and buys
 little. The paper's 2054, blitz against bots with no search at all and about 41 times
 these examples, stood 395 points above the bot's rapid rating then, in a different pool; a
-ply of this size will not close that. The tree search below did most of it (the bot is
-now at 1855), but with search, which the paper's number does not use.
+ply of this size will not close that. In the paper's own category, blitz against bots,
+the tree search below leaves the bot at a performance of 1784, about 270 below, and that
+with search, which the paper's number does not use.
 
 **A tree search instead of a fixed depth** ([`src/mcts.py`](src/mcts.py),
 [`results/39_match_mcts32_vs_bot_part0.json`](results/39_match_mcts32_vs_bot_part0.json)
@@ -552,6 +578,19 @@ as much, so the session's deadline stopped each card between positions after 625
 the games, moves the bot to 64 only if the interval excludes zero in 64's favour; it
 does. Doubling the budget bought 56 here; a third ply of fixed depth bought 15 for
 about 76 times the network calls.
+
+**Tuning again at 64** ([`results/45_tune64_summary.json`](results/45_tune64_summary.json),
+[`results/45_match_mcts64_c0.3_tau0.1_vs_bot_part0.json`](results/45_match_mcts64_c0.3_tau0.1_vs_bot_part0.json)
+and `part1`). c = 0.3 and the prior temperature 0.05 were chosen at 32 simulations or
+before; with 64 the tree grows deeper, so both were tried again on the first 2,000 test
+puzzles, c at 0.3, 0.6 and 1.0 and the temperature at 0.05 and 0.1: between 1,731 and
+1,755 solved, the bot's own setting 1,751. Too close to rank on puzzles, so the best
+other setting, c = 0.3 at temperature 0.1, played the bot on the same positions until
+the session's deadline, 500 of the 800 twice: 318 won, 403 drawn, 279 lost, a score of
+0.520 and **+14 Elo (95% interval -1.5 to 29)**. The rule, fixed in
+[`kaggle_chess/build_mcts_tune64.py`](kaggle_chess/build_mcts_tune64.py) before the
+games, changes the bot only if the interval excludes zero; it does not, and the bot keeps
+0.05. Tuning and 1,000 games took 10.2 hours on two T4s.
 
 [`src/lichess_bot.py`](src/lichess_bot.py) plays the same search online, at depth 2, as
 **`imbotterthanyou`**: rapid **1659** on 8 October 2026. Every game in the bot's log,
@@ -589,13 +628,23 @@ those of results/38
 ([`results/43_lichess_mcts64_session.json`](results/43_lichess_mcts64_session.json)).
 After the first 20 games the rating stayed between 1824 and 1858. The two performance
 intervals overlap, so online alone does not separate the searches; the 1,600 games of
-results/39 and 41 do, and the session agrees with them. None of this is comparable to the paper's 2054: that is blitz against bots, this is rapid
-against bots -- a different pool at a different time control. Search depth
+results/39 and 41 do, and the session agrees with them. Search depth
 adapts to the clock -- the bot declines time controls it cannot play at depth 2 and
 drops to the bare network when short on time; the tree search first halves its
 simulations under 90 s, which on results/43's own move times keeps a 3+2 game off the bare
 network entirely. `--clocks "5+3,3+2"` makes a session of one speed, the one the paper's
-number is in: it offers only those clocks and declines every other speed. The API token comes from `LICHESS_TOKEN`
+number is in: it offers only those clocks and declines every other speed. One such
+session, from 22:04 on 26 November to 09:00 the next morning with the same bot and
+settings, played 60 rated games against 35 bots: 23 won, 8 drawn, 29 lost, a score of
+0.45 and a performance of **1784 (1691 to 1872)** against opponents averaging 1819; the
+blitz rating, provisional before the first game, ended at 1782
+([`results/44_lichess_mcts64_blitz_session.json`](results/44_lichess_mcts64_blitz_session.json)).
+19 more games were aborted before any move, which Lichess does not rate; they are
+listed and not counted. The clock was not the cause: it never fell below 89 s, and no
+move fell back on the bare network. The same bot performs about 150 lower in blitz
+than in rapid against opponents of similar ratings, with intervals that overlap (1691 to
+1872 and 1830 to 2048); why is not measured here. The comparison with the paper is under
+[Distance to the paper](#distance-to-the-paper). The API token comes from `LICHESS_TOKEN`
 or from `~/.config/lichess/token` with owner-only permissions, which the bot checks and
 refuses if they are wider; never a command-line argument, never logged, never inside
 the repository.
