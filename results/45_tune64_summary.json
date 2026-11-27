@@ -1,0 +1,51 @@
+{
+ "sims": 64,
+ "grid": {
+  "c0.3_tau0.05": {
+   "solved": 1751,
+   "attempted": 2000,
+   "seconds_per_move": 0.41441920198924803
+  },
+  "c0.6_tau0.05": {
+   "solved": 1744,
+   "attempted": 2000,
+   "seconds_per_move": 0.4138621330934729
+  },
+  "c1.0_tau0.05": {
+   "solved": 1731,
+   "attempted": 2000,
+   "seconds_per_move": 0.40080775857591155
+  },
+  "c0.3_tau0.1": {
+   "solved": 1755,
+   "attempted": 2000,
+   "seconds_per_move": 0.4119344842732375
+  },
+  "c0.6_tau0.1": {
+   "solved": 1754,
+   "attempted": 2000,
+   "seconds_per_move": 0.4005950331379603
+  },
+  "c1.0_tau0.1": {
+   "solved": 1750,
+   "attempted": 2000,
+   "seconds_per_move": 0.40496422107764557
+  }
+ },
+ "bot": [
+  0.3,
+  0.05
+ ],
+ "challenger": [
+  0.3,
+  0.1
+ ],
+ "codes": {
+  "tune64_c0.6_tau0.05.json": 0,
+  "tune64_c0.3_tau0.05.json": 0,
+  "tune64_c1.0_tau0.05.json": 0,
+  "tune64_c0.3_tau0.1.json": 0,
+  "tune64_c0.6_tau0.1.json": 0,
+  "tune64_c1.0_tau0.1.json": 0
+ }
+}
