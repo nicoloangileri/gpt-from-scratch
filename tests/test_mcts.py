@@ -63,3 +63,22 @@ def test_the_player_counts_its_network_calls():
     pick = make_mcts_player(A, CENTRES, "cpu", sims=10, calls=calls)
     pick(chess.Board(POSITIONS[0]))
     assert len(calls) == 1 and 2 <= calls[0] <= 11
+
+
+def test_a_deadline_stops_between_puzzles_and_keeps_the_first_ones(tmp_path):
+    """A job cut by the session's deadline must leave the first puzzles, pairable."""
+    import csv
+    import time
+    from src.mcts import puzzles
+    f = tmp_path / "p.csv"
+    with open(f, "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["PuzzleId", "FEN", "Moves"])
+        for i in range(5):
+            w.writerow([i, chess.STARTING_FEN, "e2e4 e7e5"])
+    picked = []
+    pick = lambda board: picked.append(1) or "e7e5"          # noqa: E731
+    full = puzzles(pick, str(f), 5)
+    assert full["attempted"] == 5 and not full["stopped_early"]
+    cut = puzzles(pick, str(f), 5, deadline=time.time() - 1)
+    assert cut["attempted"] == 0 and cut["stopped_early"] and cut["rows"] == []

@@ -146,21 +146,28 @@ def make_mcts_player(model, centres, device: str, sims: int, c_puct: float = 0.1
     return player
 
 
-def puzzles(pick, puzzles_csv: str, num: int, start: int = 0) -> dict:
+def puzzles(pick, puzzles_csv: str, num: int, start: int = 0,
+            deadline: float | None = None) -> dict:
     """Puzzle accuracy of `pick` on puzzles start..start+num of the file, with one 0/1
-    per puzzle so two settings can be paired."""
+    per puzzle so two settings can be paired. Past `deadline` (a time.time()) it stops
+    between puzzles: the rows are then the first `attempted` puzzles, still pairable."""
     import csv
+    import time
     from .puzzles_eval import solves_line
     rows = []
+    stopped = False
     with open(puzzles_csv, newline="") as fh:
         for k, row in enumerate(csv.DictReader(fh)):
             if k < start:
                 continue
             if len(rows) >= num:
                 break
+            if deadline is not None and time.time() > deadline:
+                stopped = True
+                break
             rows.append(int(solves_line(chess.Board(row["FEN"]), row["Moves"].split(), pick)))
     return {"solved": sum(rows), "attempted": len(rows),
-            "accuracy": sum(rows) / max(1, len(rows)), "rows": rows}
+            "accuracy": sum(rows) / max(1, len(rows)), "stopped_early": stopped, "rows": rows}
 
 
 if __name__ == "__main__":
@@ -181,6 +188,8 @@ if __name__ == "__main__":
     ap.add_argument("--start", type=int, default=0)
     ap.add_argument("--device", default="cpu")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--hours", type=float, default=None,
+                    help="stop between puzzles after this long and write what was done")
     a = ap.parse_args()
     model, centres, _ = load_model(a.ckpt, a.device)
     leaf = load_model(a.leaf_ckpt, a.device)[:2] if a.leaf_ckpt else (None, None)
@@ -193,7 +202,8 @@ if __name__ == "__main__":
         pick = make_mcts_player(model, centres, a.device, a.sims, a.c_puct, a.tau,
                                 not a.no_pessimism, *leaf, calls=calls)
     t = time.time()
-    res = puzzles(pick, a.puzzles, a.num, a.start)
+    res = puzzles(pick, a.puzzles, a.num, a.start,
+                  None if a.hours is None else t + a.hours * 3600)
     res.update({"player": "depth2" if a.depth2 else "mcts", "sims": a.sims, "c_puct": a.c_puct, "tau": a.tau,
                 "pessimistic": not a.no_pessimism, "ckpt": a.ckpt, "leaf_ckpt": a.leaf_ckpt,
                 "seconds": round(time.time() - t), "moves": len(calls),
