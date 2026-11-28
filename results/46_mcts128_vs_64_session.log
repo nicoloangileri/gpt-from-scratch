@@ -1,0 +1,1277 @@
+/usr/local/lib/python3.13/dist-packages/nbformat/validator.py:434: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.
+  _validate(nbdict, ref, version, version_minor, relax_add_props)
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+wrote ['src/__init__.py', 'src/model.py', 'src/data.py', 'src/train.py', 'src/chess_data.py', 'src/train_chess.py', 'src/puzzles_eval.py', 'src/puzzle_data.py', 'src/search.py', 'src/agreement_eval.py', 'src/match.py', 'src/fast_eval.py', 'src/root_ranking.py', 'src/mcts.py', 'src/kernels/__init__.py', 'src/kernels/layernorm.py', 'configs/chess.yaml']
+[session] root /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-w03-match/chess_1B_w03.pt | leaves /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s5/checkpoints/chess_best.pt
+[session] match from 0.00h, 11.32h per card
+[match_mcts128_vs_mcts64_part0] [match] A = /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-w03-match/chess_1B_w03.pt (leaves /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s5/checkpoints/chess_best.pt)
+[match_mcts128_vs_mcts64_part0] [match] B = /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-w03-match/chess_1B_w03.pt (leaves /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s5/checkpoints/chess_best.pt)
+[match_mcts128_vs_mcts64_part0] [match] A: MCTS, 128 simulations, c 0.3, tau 0.05
+[match_mcts128_vs_mcts64_part0] [match] B: MCTS, 64 simulations, c 0.3, tau 0.05
+[match_mcts128_vs_mcts64_part0] [match] depth 1 against 1, slice 0/2, 400 positions x 2 colours, 2 threads
+[match_mcts128_vs_mcts64_part1] [match] A = /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-w03-match/chess_1B_w03.pt (leaves /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s5/checkpoints/chess_best.pt)
+[match_mcts128_vs_mcts64_part1] [match] B = /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-w03-match/chess_1B_w03.pt (leaves /kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s5/checkpoints/chess_best.pt)
+[match_mcts128_vs_mcts64_part1] [match] A: MCTS, 128 simulations, c 0.3, tau 0.05
+[match_mcts128_vs_mcts64_part1] [match] B: MCTS, 64 simulations, c 0.3, tau 0.05
+[match_mcts128_vs_mcts64_part1] [match] depth 1 against 1, slice 1/2, 400 positions x 2 colours, 2 threads
+[match_mcts128_vs_mcts64_part0] [match] 1/400 positions: A 1W 0D 1L, score 0.500, Elo -0 [-1200, +1200]
+[match_mcts128_vs_mcts64_part1] [match] 1/400 positions: A 0W 2D 0L, score 0.500, Elo -0 [-0, -0]
+[match_mcts128_vs_mcts64_part0] [match] 2/400 positions: A 2W 0D 2L, score 0.500, Elo -0 [-798, +798]
+[match_mcts128_vs_mcts64_part1] [match] 2/400 positions: A 0W 2D 2L, score 0.250, Elo -191 [-920, -3]
+[match_mcts128_vs_mcts64_part0] [match] 3/400 positions: A 4W 0D 2L, score 0.667, Elo +120 [-156, +1200]
+[match_mcts128_vs_mcts64_part1] [match] 3/400 positions: A 0W 4D 2L, score 0.333, Elo -120 [-309, +15]
+[match_mcts128_vs_mcts64_part1] [match] 4/400 positions: A 1W 5D 2L, score 0.438, Elo -44 [-210, +104]
+[match_mcts128_vs_mcts64_part0] [match] 4/400 positions: A 5W 1D 2L, score 0.688, Elo +137 [-77, +720]
+[match_mcts128_vs_mcts64_part1] [match] 5/400 positions: A 1W 6D 3L, score 0.400, Elo -70 [-226, +60]
+[match_mcts128_vs_mcts64_part0] [match] 5/400 positions: A 6W 2D 2L, score 0.700, Elo +147 [-33, +504]
+[match_mcts128_vs_mcts64_part0] [match] 6/400 positions: A 7W 3D 2L, score 0.708, Elo +154 [-4, +432]
+[match_mcts128_vs_mcts64_part0] [match] 7/400 positions: A 7W 5D 2L, score 0.679, Elo +130 [-7, +325]
+[match_mcts128_vs_mcts64_part1] [match] 6/400 positions: A 2W 6D 4L, score 0.417, Elo -58 [-218, +78]
+[match_mcts128_vs_mcts64_part0] [match] 8/400 positions: A 7W 6D 3L, score 0.625, Elo +89 [-41, +250]
+[match_mcts128_vs_mcts64_part1] [match] 7/400 positions: A 2W 8D 4L, score 0.429, Elo -50 [-181, +67]
+[match_mcts128_vs_mcts64_part0] [match] 9/400 positions: A 8W 7D 3L, score 0.639, Elo +99 [-21, +249]
+[match_mcts128_vs_mcts64_part1] [match] 8/400 positions: A 2W 10D 4L, score 0.438, Elo -44 [-155, +59]
+[match_mcts128_vs_mcts64_part0] [match] 10/400 positions: A 10W 7D 3L, score 0.675, Elo +127 [+11, +281]
+[match_mcts128_vs_mcts64_part1] [match] 9/400 positions: A 3W 10D 5L, score 0.444, Elo -39 [-153, +68]
+[match_mcts128_vs_mcts64_part0] [match] 11/400 positions: A 11W 7D 4L, score 0.659, Elo +115 [-0, +261]
+[match_mcts128_vs_mcts64_part1] [match] 10/400 positions: A 3W 11D 6L, score 0.425, Elo -53 [-163, +48]
+[match_mcts128_vs_mcts64_part0] [match] 12/400 positions: A 12W 7D 5L, score 0.646, Elo +104 [-8, +245]
+[match_mcts128_vs_mcts64_part1] [match] 11/400 positions: A 4W 11D 7L, score 0.432, Elo -48 [-158, +54]
+[match_mcts128_vs_mcts64_part1] [match] 12/400 positions: A 4W 13D 7L, score 0.438, Elo -44 [-144, +49]
+[match_mcts128_vs_mcts64_part0] [match] 13/400 positions: A 13W 7D 6L, score 0.635, Elo +96 [-15, +231]
+[match_mcts128_vs_mcts64_part1] [match] 13/400 positions: A 6W 13D 7L, score 0.481, Elo -13 [-111, +82]
+[match_mcts128_vs_mcts64_part0] [match] 14/400 positions: A 14W 7D 7L, score 0.625, Elo +89 [-20, +218]
+[match_mcts128_vs_mcts64_part1] [match] 14/400 positions: A 6W 15D 7L, score 0.482, Elo -12 [-103, +76]
+[match_mcts128_vs_mcts64_part1] [match] 15/400 positions: A 7W 16D 7L, score 0.500, Elo -0 [-87, +87]
+[match_mcts128_vs_mcts64_part0] [match] 15/400 positions: A 14W 7D 9L, score 0.583, Elo +58 [-49, +179]
+[match_mcts128_vs_mcts64_part0] [match] 16/400 positions: A 14W 9D 9L, score 0.578, Elo +55 [-46, +166]
+[match_mcts128_vs_mcts64_part1] [match] 16/400 positions: A 8W 17D 7L, score 0.516, Elo +11 [-73, +96]
+[match_mcts128_vs_mcts64_part0] [match] 17/400 positions: A 15W 9D 10L, score 0.574, Elo +51 [-48, +160]
+[match_mcts128_vs_mcts64_part0] [match] 18/400 positions: A 15W 11D 10L, score 0.569, Elo +49 [-45, +150]
+[match_mcts128_vs_mcts64_part1] [match] 17/400 positions: A 9W 17D 8L, score 0.515, Elo +10 [-73, +95]
+[match_mcts128_vs_mcts64_part1] [match] 18/400 positions: A 9W 18D 9L, score 0.500, Elo -0 [-82, +82]
+[match_mcts128_vs_mcts64_part0] [match] 19/400 positions: A 15W 13D 10L, score 0.566, Elo +46 [-43, +141]
+[match_mcts128_vs_mcts64_part0] [match] 20/400 positions: A 16W 13D 11L, score 0.562, Elo +44 [-44, +138]
+[match_mcts128_vs_mcts64_part1] [match] 19/400 positions: A 9W 20D 9L, score 0.500, Elo -0 [-77, +77]
+[match_mcts128_vs_mcts64_part0] [match] 21/400 positions: A 17W 14D 11L, score 0.571, Elo +50 [-35, +141]
+[match_mcts128_vs_mcts64_part1] [match] 20/400 positions: A 9W 21D 10L, score 0.487, Elo -9 [-84, +66]
+[match_mcts128_vs_mcts64_part0] [match] 22/400 positions: A 17W 15D 12L, score 0.557, Elo +40 [-43, +127]
+[match_mcts128_vs_mcts64_part1] [match] 21/400 positions: A 10W 21D 11L, score 0.488, Elo -8 [-84, +67]
+[match_mcts128_vs_mcts64_part1] [match] 22/400 positions: A 11W 21D 12L, score 0.489, Elo -8 [-84, +67]
+[match_mcts128_vs_mcts64_part0] [match] 23/400 positions: A 17W 16D 13L, score 0.543, Elo +30 [-51, +115]
+[match_mcts128_vs_mcts64_part1] [match] 23/400 positions: A 12W 22D 12L, score 0.500, Elo -0 [-74, +74]
+[match_mcts128_vs_mcts64_part0] [match] 24/400 positions: A 17W 18D 13L, score 0.542, Elo +29 [-49, +110]
+[match_mcts128_vs_mcts64_part1] [match] 24/400 positions: A 13W 23D 12L, score 0.510, Elo +7 [-64, +80]
+[match_mcts128_vs_mcts64_part1] [match] 25/400 positions: A 13W 25D 12L, score 0.510, Elo +7 [-62, +76]
+[match_mcts128_vs_mcts64_part0] [match] 25/400 positions: A 17W 18D 15L, score 0.520, Elo +14 [-64, +93]
+[match_mcts128_vs_mcts64_part0] [match] 26/400 positions: A 17W 20D 15L, score 0.519, Elo +13 [-61, +89]
+[match_mcts128_vs_mcts64_part0] [match] 27/400 positions: A 18W 21D 15L, score 0.528, Elo +19 [-53, +94]
+[match_mcts128_vs_mcts64_part1] [match] 26/400 positions: A 15W 25D 12L, score 0.529, Elo +20 [-48, +90]
+[match_mcts128_vs_mcts64_part0] [match] 28/400 positions: A 19W 22D 15L, score 0.536, Elo +25 [-46, +98]
+[match_mcts128_vs_mcts64_part0] [match] 29/400 positions: A 20W 22D 16L, score 0.534, Elo +24 [-46, +97]
+[match_mcts128_vs_mcts64_part1] [match] 27/400 positions: A 15W 26D 13L, score 0.519, Elo +13 [-54, +81]
+[match_mcts128_vs_mcts64_part1] [match] 28/400 positions: A 16W 26D 14L, score 0.518, Elo +12 [-55, +80]
+[match_mcts128_vs_mcts64_part1] [match] 29/400 positions: A 17W 26D 15L, score 0.517, Elo +12 [-55, +80]
+[match_mcts128_vs_mcts64_part0] [match] 30/400 positions: A 20W 23D 17L, score 0.525, Elo +17 [-52, +88]
+[match_mcts128_vs_mcts64_part1] [match] 30/400 positions: A 17W 26D 17L, score 0.500, Elo -0 [-67, +67]
+[match_mcts128_vs_mcts64_part0] [match] 31/400 positions: A 21W 23D 18L, score 0.524, Elo +17 [-52, +87]
+[match_mcts128_vs_mcts64_part1] [match] 31/400 positions: A 18W 26D 18L, score 0.500, Elo -0 [-67, +67]
+[match_mcts128_vs_mcts64_part0] [match] 32/400 positions: A 22W 23D 19L, score 0.523, Elo +16 [-52, +86]
+[match_mcts128_vs_mcts64_part0] [match] 33/400 positions: A 22W 23D 21L, score 0.508, Elo +5 [-63, +74]
+[match_mcts128_vs_mcts64_part1] [match] 32/400 positions: A 19W 26D 19L, score 0.500, Elo -0 [-66, +66]
+[match_mcts128_vs_mcts64_part0] [match] 34/400 positions: A 23W 23D 22L, score 0.507, Elo +5 [-63, +73]
+[match_mcts128_vs_mcts64_part1] [match] 33/400 positions: A 19W 28D 19L, score 0.500, Elo -0 [-64, +64]
+[match_mcts128_vs_mcts64_part0] [match] 35/400 positions: A 24W 24D 22L, score 0.514, Elo +10 [-57, +77]
+[match_mcts128_vs_mcts64_part1] [match] 34/400 positions: A 21W 28D 19L, score 0.515, Elo +10 [-53, +75]
+[match_mcts128_vs_mcts64_part0] [match] 36/400 positions: A 25W 25D 22L, score 0.521, Elo +14 [-51, +81]
+[match_mcts128_vs_mcts64_part0] [match] 37/400 positions: A 25W 27D 22L, score 0.520, Elo +14 [-49, +78]
+[match_mcts128_vs_mcts64_part1] [match] 35/400 positions: A 22W 29D 19L, score 0.521, Elo +15 [-48, +78]
+[match_mcts128_vs_mcts64_part0] [match] 38/400 positions: A 26W 27D 23L, score 0.520, Elo +14 [-49, +78]
+[match_mcts128_vs_mcts64_part1] [match] 36/400 positions: A 24W 29D 19L, score 0.535, Elo +24 [-38, +88]
+[match_mcts128_vs_mcts64_part0] [match] 39/400 positions: A 28W 27D 23L, score 0.532, Elo +22 [-40, +86]
+[match_mcts128_vs_mcts64_part0] [match] 40/400 positions: A 29W 27D 24L, score 0.531, Elo +22 [-40, +85]
+[match_mcts128_vs_mcts64_part1] [match] 37/400 positions: A 25W 29D 20L, score 0.534, Elo +24 [-38, +87]
+[match_mcts128_vs_mcts64_part0] [match] 41/400 positions: A 30W 27D 25L, score 0.530, Elo +21 [-40, +84]
+[match_mcts128_vs_mcts64_part0] [match] 42/400 positions: A 31W 27D 26L, score 0.530, Elo +21 [-41, +83]
+[match_mcts128_vs_mcts64_part1] [match] 38/400 positions: A 26W 30D 20L, score 0.539, Elo +27 [-33, +90]
+[match_mcts128_vs_mcts64_part0] [match] 43/400 positions: A 31W 29D 26L, score 0.529, Elo +20 [-40, +81]
+[match_mcts128_vs_mcts64_part1] [match] 39/400 positions: A 27W 31D 20L, score 0.545, Elo +31 [-28, +93]
+[match_mcts128_vs_mcts64_part0] [match] 44/400 positions: A 32W 29D 27L, score 0.528, Elo +20 [-40, +80]
+[match_mcts128_vs_mcts64_part1] [match] 40/400 positions: A 27W 32D 21L, score 0.537, Elo +26 [-33, +86]
+[match_mcts128_vs_mcts64_part0] [match] 45/400 positions: A 33W 30D 27L, score 0.533, Elo +23 [-35, +83]
+[match_mcts128_vs_mcts64_part1] [match] 41/400 positions: A 28W 32D 22L, score 0.537, Elo +25 [-33, +86]
+[match_mcts128_vs_mcts64_part0] [match] 46/400 positions: A 35W 30D 27L, score 0.543, Elo +30 [-28, +90]
+[match_mcts128_vs_mcts64_part1] [match] 42/400 positions: A 28W 34D 22L, score 0.536, Elo +25 [-32, +83]
+[match_mcts128_vs_mcts64_part1] [match] 43/400 positions: A 28W 36D 22L, score 0.535, Elo +24 [-32, +81]
+[match_mcts128_vs_mcts64_part0] [match] 47/400 positions: A 35W 31D 28L, score 0.537, Elo +26 [-31, +85]
+[match_mcts128_vs_mcts64_part0] [match] 48/400 positions: A 37W 31D 28L, score 0.547, Elo +33 [-24, +91]
+[match_mcts128_vs_mcts64_part0] [match] 49/400 positions: A 38W 32D 28L, score 0.551, Elo +36 [-21, +94]
+[match_mcts128_vs_mcts64_part1] [match] 44/400 positions: A 29W 37D 22L, score 0.540, Elo +28 [-27, +84]
+[match_mcts128_vs_mcts64_part0] [match] 50/400 positions: A 38W 33D 29L, score 0.545, Elo +31 [-24, +89]
+[match_mcts128_vs_mcts64_part1] [match] 45/400 positions: A 30W 38D 22L, score 0.544, Elo +31 [-23, +87]
+[match_mcts128_vs_mcts64_part0] [match] 51/400 positions: A 40W 33D 29L, score 0.554, Elo +38 [-18, +95]
+[match_mcts128_vs_mcts64_part0] [match] 52/400 positions: A 42W 33D 29L, score 0.562, Elo +44 [-11, +101]
+[match_mcts128_vs_mcts64_part1] [match] 46/400 positions: A 31W 38D 23L, score 0.543, Elo +30 [-24, +86]
+[match_mcts128_vs_mcts64_part0] [match] 53/400 positions: A 44W 33D 29L, score 0.571, Elo +49 [-5, +106]
+[match_mcts128_vs_mcts64_part1] [match] 47/400 positions: A 31W 40D 23L, score 0.543, Elo +30 [-23, +84]
+[match_mcts128_vs_mcts64_part0] [match] 54/400 positions: A 45W 34D 29L, score 0.574, Elo +52 [-2, +108]
+[match_mcts128_vs_mcts64_part1] [match] 48/400 positions: A 32W 40D 24L, score 0.542, Elo +29 [-24, +83]
+[match_mcts128_vs_mcts64_part0] [match] 55/400 positions: A 46W 34D 30L, score 0.573, Elo +51 [-3, +107]
+[match_mcts128_vs_mcts64_part1] [match] 49/400 positions: A 33W 41D 24L, score 0.546, Elo +32 [-20, +86]
+[match_mcts128_vs_mcts64_part1] [match] 50/400 positions: A 34W 41D 25L, score 0.545, Elo +31 [-21, +85]
+[match_mcts128_vs_mcts64_part0] [match] 56/400 positions: A 46W 36D 30L, score 0.571, Elo +50 [-3, +105]
+[match_mcts128_vs_mcts64_part0] [match] 57/400 positions: A 47W 37D 30L, score 0.575, Elo +52 [+0, +107]
+[match_mcts128_vs_mcts64_part1] [match] 51/400 positions: A 35W 41D 26L, score 0.544, Elo +31 [-21, +84]
+[match_mcts128_vs_mcts64_part0] [match] 58/400 positions: A 48W 38D 30L, score 0.578, Elo +54 [+3, +108]
+[match_mcts128_vs_mcts64_part0] [match] 59/400 positions: A 48W 39D 31L, score 0.572, Elo +50 [-0, +104]
+[match_mcts128_vs_mcts64_part1] [match] 52/400 positions: A 36W 41D 27L, score 0.543, Elo +30 [-22, +83]
+[match_mcts128_vs_mcts64_part0] [match] 60/400 positions: A 49W 40D 31L, score 0.575, Elo +53 [+2, +105]
+[match_mcts128_vs_mcts64_part1] [match] 53/400 positions: A 37W 42D 27L, score 0.547, Elo +33 [-18, +85]
+[match_mcts128_vs_mcts64_part0] [match] 61/400 positions: A 50W 40D 32L, score 0.574, Elo +52 [+2, +104]
+[match_mcts128_vs_mcts64_part1] [match] 54/400 positions: A 39W 42D 27L, score 0.556, Elo +39 [-12, +91]
+[match_mcts128_vs_mcts64_part0] [match] 62/400 positions: A 50W 40D 34L, score 0.565, Elo +45 [-5, +97]
+[match_mcts128_vs_mcts64_part1] [match] 55/400 positions: A 40W 42D 28L, score 0.555, Elo +38 [-13, +90]
+[match_mcts128_vs_mcts64_part0] [match] 63/400 positions: A 50W 41D 35L, score 0.560, Elo +42 [-8, +93]
+[match_mcts128_vs_mcts64_part0] [match] 64/400 positions: A 50W 42D 36L, score 0.555, Elo +38 [-11, +89]
+[match_mcts128_vs_mcts64_part1] [match] 56/400 positions: A 40W 43D 29L, score 0.549, Elo +34 [-16, +86]
+[match_mcts128_vs_mcts64_part1] [match] 57/400 positions: A 40W 45D 29L, score 0.548, Elo +34 [-16, +84]
+[match_mcts128_vs_mcts64_part0] [match] 65/400 positions: A 50W 43D 37L, score 0.550, Elo +35 [-14, +85]
+[match_mcts128_vs_mcts64_part1] [match] 58/400 positions: A 41W 45D 30L, score 0.547, Elo +33 [-16, +84]
+[match_mcts128_vs_mcts64_part0] [match] 66/400 positions: A 51W 43D 38L, score 0.549, Elo +34 [-14, +84]
+[match_mcts128_vs_mcts64_part0] [match] 67/400 positions: A 51W 44D 39L, score 0.545, Elo +31 [-17, +80]
+[match_mcts128_vs_mcts64_part1] [match] 59/400 positions: A 43W 45D 30L, score 0.555, Elo +38 [-11, +89]
+[match_mcts128_vs_mcts64_part1] [match] 60/400 positions: A 43W 47D 30L, score 0.554, Elo +38 [-10, +87]
+[match_mcts128_vs_mcts64_part0] [match] 68/400 positions: A 51W 46D 39L, score 0.544, Elo +31 [-17, +79]
+[match_mcts128_vs_mcts64_part1] [match] 61/400 positions: A 44W 48D 30L, score 0.557, Elo +40 [-8, +89]
+[match_mcts128_vs_mcts64_part0] [match] 69/400 positions: A 52W 47D 39L, score 0.547, Elo +33 [-14, +81]
+[match_mcts128_vs_mcts64_part1] [match] 62/400 positions: A 45W 48D 31L, score 0.556, Elo +39 [-8, +88]
+[match_mcts128_vs_mcts64_part0] [match] 70/400 positions: A 52W 48D 40L, score 0.543, Elo +30 [-17, +77]
+[match_mcts128_vs_mcts64_part1] [match] 63/400 positions: A 45W 50D 31L, score 0.556, Elo +39 [-8, +87]
+[match_mcts128_vs_mcts64_part0] [match] 71/400 positions: A 52W 50D 40L, score 0.542, Elo +29 [-16, +76]
+[match_mcts128_vs_mcts64_part0] [match] 72/400 positions: A 53W 51D 40L, score 0.545, Elo +31 [-14, +78]
+[match_mcts128_vs_mcts64_part1] [match] 64/400 positions: A 45W 50D 33L, score 0.547, Elo +33 [-14, +81]
+[match_mcts128_vs_mcts64_part1] [match] 65/400 positions: A 45W 51D 34L, score 0.542, Elo +29 [-17, +77]
+[match_mcts128_vs_mcts64_part0] [match] 73/400 positions: A 54W 51D 41L, score 0.545, Elo +31 [-14, +77]
+[match_mcts128_vs_mcts64_part1] [match] 66/400 positions: A 46W 51D 35L, score 0.542, Elo +29 [-17, +76]
+[match_mcts128_vs_mcts64_part1] [match] 67/400 positions: A 46W 53D 35L, score 0.541, Elo +29 [-17, +75]
+[match_mcts128_vs_mcts64_part1] [match] 68/400 positions: A 46W 55D 35L, score 0.540, Elo +28 [-17, +74]
+[match_mcts128_vs_mcts64_part0] [match] 74/400 positions: A 54W 52D 42L, score 0.541, Elo +28 [-17, +74]
+[match_mcts128_vs_mcts64_part1] [match] 69/400 positions: A 47W 56D 35L, score 0.543, Elo +30 [-14, +76]
+[match_mcts128_vs_mcts64_part1] [match] 70/400 positions: A 48W 57D 35L, score 0.546, Elo +32 [-12, +78]
+[match_mcts128_vs_mcts64_part0] [match] 75/400 positions: A 54W 54D 42L, score 0.540, Elo +28 [-16, +73]
+[match_mcts128_vs_mcts64_part1] [match] 71/400 positions: A 48W 59D 35L, score 0.546, Elo +32 [-12, +76]
+[match_mcts128_vs_mcts64_part0] [match] 76/400 positions: A 55W 54D 43L, score 0.539, Elo +27 [-17, +73]
+[match_mcts128_vs_mcts64_part1] [match] 72/400 positions: A 49W 60D 35L, score 0.549, Elo +34 [-9, +78]
+[match_mcts128_vs_mcts64_part0] [match] 77/400 positions: A 56W 55D 43L, score 0.542, Elo +29 [-14, +74]
+[match_mcts128_vs_mcts64_part0] [match] 78/400 positions: A 56W 57D 43L, score 0.542, Elo +29 [-14, +73]
+[match_mcts128_vs_mcts64_part1] [match] 73/400 positions: A 49W 61D 36L, score 0.545, Elo +31 [-12, +75]
+[match_mcts128_vs_mcts64_part1] [match] 74/400 positions: A 50W 61D 37L, score 0.544, Elo +31 [-12, +74]
+[match_mcts128_vs_mcts64_part0] [match] 79/400 positions: A 57W 58D 43L, score 0.544, Elo +31 [-12, +75]
+[match_mcts128_vs_mcts64_part0] [match] 80/400 positions: A 58W 58D 44L, score 0.544, Elo +30 [-12, +74]
+[match_mcts128_vs_mcts64_part1] [match] 75/400 positions: A 51W 61D 38L, score 0.543, Elo +30 [-12, +74]
+[match_mcts128_vs_mcts64_part1] [match] 76/400 positions: A 51W 63D 38L, score 0.543, Elo +30 [-12, +73]
+[match_mcts128_vs_mcts64_part0] [match] 81/400 positions: A 58W 60D 44L, score 0.543, Elo +30 [-12, +73]
+[match_mcts128_vs_mcts64_part1] [match] 77/400 positions: A 51W 65D 38L, score 0.542, Elo +29 [-12, +72]
+[match_mcts128_vs_mcts64_part1] [match] 78/400 positions: A 51W 66D 39L, score 0.538, Elo +27 [-14, +69]
+[match_mcts128_vs_mcts64_part0] [match] 82/400 positions: A 60W 60D 44L, score 0.549, Elo +34 [-8, +77]
+[match_mcts128_vs_mcts64_part1] [match] 79/400 positions: A 52W 66D 40L, score 0.538, Elo +26 [-15, +68]
+[match_mcts128_vs_mcts64_part0] [match] 83/400 positions: A 61W 60D 45L, score 0.548, Elo +34 [-8, +77]
+[match_mcts128_vs_mcts64_part0] [match] 84/400 positions: A 62W 61D 45L, score 0.551, Elo +35 [-6, +78]
+[match_mcts128_vs_mcts64_part0] [match] 85/400 positions: A 63W 61D 46L, score 0.550, Elo +35 [-7, +77]
+[match_mcts128_vs_mcts64_part1] [match] 80/400 positions: A 53W 66D 41L, score 0.537, Elo +26 [-15, +68]
+[match_mcts128_vs_mcts64_part0] [match] 86/400 positions: A 64W 61D 47L, score 0.549, Elo +34 [-7, +77]
+[match_mcts128_vs_mcts64_part1] [match] 81/400 positions: A 54W 67D 41L, score 0.540, Elo +28 [-13, +70]
+[match_mcts128_vs_mcts64_part1] [match] 82/400 positions: A 54W 69D 41L, score 0.540, Elo +28 [-13, +69]
+[match_mcts128_vs_mcts64_part1] [match] 83/400 positions: A 54W 71D 41L, score 0.539, Elo +27 [-13, +68]
+[match_mcts128_vs_mcts64_part1] [match] 84/400 positions: A 55W 71D 42L, score 0.539, Elo +27 [-13, +67]
+[match_mcts128_vs_mcts64_part0] [match] 87/400 positions: A 65W 61D 48L, score 0.549, Elo +34 [-7, +76]
+[match_mcts128_vs_mcts64_part1] [match] 85/400 positions: A 56W 72D 42L, score 0.541, Elo +29 [-11, +69]
+[match_mcts128_vs_mcts64_part1] [match] 86/400 positions: A 57W 72D 43L, score 0.541, Elo +28 [-11, +69]
+[match_mcts128_vs_mcts64_part0] [match] 88/400 positions: A 67W 61D 48L, score 0.554, Elo +38 [-4, +80]
+[match_mcts128_vs_mcts64_part1] [match] 87/400 positions: A 57W 73D 44L, score 0.537, Elo +26 [-13, +66]
+[match_mcts128_vs_mcts64_part0] [match] 89/400 positions: A 68W 62D 48L, score 0.556, Elo +39 [-2, +81]
+[match_mcts128_vs_mcts64_part0] [match] 90/400 positions: A 68W 64D 48L, score 0.556, Elo +39 [-2, +80]
+[match_mcts128_vs_mcts64_part1] [match] 88/400 positions: A 58W 74D 44L, score 0.540, Elo +28 [-11, +67]
+[match_mcts128_vs_mcts64_part0] [match] 91/400 positions: A 69W 65D 48L, score 0.558, Elo +40 [+0, +82]
+[match_mcts128_vs_mcts64_part1] [match] 89/400 positions: A 60W 74D 44L, score 0.545, Elo +31 [-8, +71]
+[match_mcts128_vs_mcts64_part0] [match] 92/400 positions: A 70W 66D 48L, score 0.560, Elo +42 [+2, +83]
+[match_mcts128_vs_mcts64_part1] [match] 90/400 positions: A 61W 75D 44L, score 0.547, Elo +33 [-6, +72]
+[match_mcts128_vs_mcts64_part0] [match] 93/400 positions: A 71W 66D 49L, score 0.559, Elo +41 [+1, +82]
+[match_mcts128_vs_mcts64_part1] [match] 91/400 positions: A 63W 75D 44L, score 0.552, Elo +36 [-2, +76]
+[match_mcts128_vs_mcts64_part0] [match] 94/400 positions: A 71W 67D 50L, score 0.556, Elo +39 [-1, +80]
+[match_mcts128_vs_mcts64_part1] [match] 92/400 positions: A 64W 76D 44L, score 0.554, Elo +38 [-0, +77]
+[match_mcts128_vs_mcts64_part1] [match] 93/400 positions: A 65W 77D 44L, score 0.556, Elo +39 [+1, +78]
+[match_mcts128_vs_mcts64_part0] [match] 95/400 positions: A 72W 67D 51L, score 0.555, Elo +39 [-1, +79]
+[match_mcts128_vs_mcts64_part1] [match] 94/400 positions: A 66W 77D 45L, score 0.556, Elo +39 [+1, +78]
+[match_mcts128_vs_mcts64_part0] [match] 96/400 positions: A 72W 69D 51L, score 0.555, Elo +38 [-1, +78]
+[match_mcts128_vs_mcts64_part1] [match] 95/400 positions: A 68W 77D 45L, score 0.561, Elo +42 [+4, +81]
+[match_mcts128_vs_mcts64_part0] [match] 97/400 positions: A 73W 69D 52L, score 0.554, Elo +38 [-1, +78]
+[match_mcts128_vs_mcts64_part0] [match] 98/400 positions: A 73W 70D 53L, score 0.551, Elo +36 [-3, +75]
+[match_mcts128_vs_mcts64_part0] [match] 99/400 positions: A 74W 71D 53L, score 0.553, Elo +37 [-2, +76]
+[match_mcts128_vs_mcts64_part1] [match] 96/400 positions: A 68W 79D 45L, score 0.560, Elo +42 [+4, +80]
+[match_mcts128_vs_mcts64_part0] [match] 100/400 positions: A 75W 72D 53L, score 0.555, Elo +38 [+0, +78]
+[match_mcts128_vs_mcts64_part0] [match] 101/400 positions: A 76W 72D 54L, score 0.554, Elo +38 [-0, +77]
+[match_mcts128_vs_mcts64_part1] [match] 97/400 positions: A 69W 79D 46L, score 0.559, Elo +41 [+4, +80]
+[match_mcts128_vs_mcts64_part1] [match] 98/400 positions: A 69W 81D 46L, score 0.559, Elo +41 [+4, +79]
+[match_mcts128_vs_mcts64_part0] [match] 102/400 positions: A 77W 72D 55L, score 0.554, Elo +38 [-1, +77]
+[match_mcts128_vs_mcts64_part0] [match] 103/400 positions: A 78W 73D 55L, score 0.556, Elo +39 [+1, +78]
+[match_mcts128_vs_mcts64_part1] [match] 99/400 positions: A 69W 82D 47L, score 0.556, Elo +39 [+2, +76]
+[match_mcts128_vs_mcts64_part1] [match] 100/400 positions: A 69W 84D 47L, score 0.555, Elo +38 [+2, +76]
+[match_mcts128_vs_mcts64_part0] [match] 104/400 positions: A 79W 74D 55L, score 0.558, Elo +40 [+3, +79]
+[match_mcts128_vs_mcts64_part1] [match] 101/400 positions: A 69W 86D 47L, score 0.554, Elo +38 [+2, +75]
+[match_mcts128_vs_mcts64_part0] [match] 105/400 positions: A 80W 75D 55L, score 0.560, Elo +42 [+4, +80]
+[match_mcts128_vs_mcts64_part1] [match] 102/400 positions: A 70W 86D 48L, score 0.554, Elo +38 [+2, +74]
+[match_mcts128_vs_mcts64_part1] [match] 103/400 positions: A 72W 86D 48L, score 0.558, Elo +41 [+5, +78]
+[match_mcts128_vs_mcts64_part0] [match] 106/400 positions: A 80W 76D 56L, score 0.557, Elo +40 [+2, +78]
+[match_mcts128_vs_mcts64_part1] [match] 104/400 positions: A 72W 87D 49L, score 0.555, Elo +39 [+3, +75]
+[match_mcts128_vs_mcts64_part0] [match] 107/400 positions: A 80W 77D 57L, score 0.554, Elo +37 [+0, +75]
+[match_mcts128_vs_mcts64_part1] [match] 105/400 positions: A 73W 88D 49L, score 0.557, Elo +40 [+4, +76]
+[match_mcts128_vs_mcts64_part0] [match] 108/400 positions: A 80W 79D 57L, score 0.553, Elo +37 [+0, +75]
+[match_mcts128_vs_mcts64_part1] [match] 106/400 positions: A 75W 88D 49L, score 0.561, Elo +43 [+7, +79]
+[match_mcts128_vs_mcts64_part0] [match] 109/400 positions: A 82W 79D 57L, score 0.557, Elo +40 [+3, +78]
+[match_mcts128_vs_mcts64_part1] [match] 107/400 positions: A 75W 88D 51L, score 0.556, Elo +39 [+4, +75]
+[match_mcts128_vs_mcts64_part0] [match] 110/400 positions: A 84W 79D 57L, score 0.561, Elo +43 [+6, +80]
+[match_mcts128_vs_mcts64_part1] [match] 108/400 positions: A 75W 90D 51L, score 0.556, Elo +39 [+4, +75]
+[match_mcts128_vs_mcts64_part1] [match] 109/400 positions: A 76W 90D 52L, score 0.555, Elo +38 [+3, +74]
+[match_mcts128_vs_mcts64_part0] [match] 111/400 positions: A 85W 80D 57L, score 0.563, Elo +44 [+8, +81]
+[match_mcts128_vs_mcts64_part1] [match] 110/400 positions: A 77W 91D 52L, score 0.557, Elo +40 [+5, +75]
+[match_mcts128_vs_mcts64_part0] [match] 112/400 positions: A 85W 82D 57L, score 0.562, Elo +44 [+8, +81]
+[match_mcts128_vs_mcts64_part1] [match] 111/400 positions: A 78W 91D 53L, score 0.556, Elo +39 [+4, +75]
+[match_mcts128_vs_mcts64_part0] [match] 113/400 positions: A 85W 82D 59L, score 0.558, Elo +40 [+4, +77]
+[match_mcts128_vs_mcts64_part1] [match] 112/400 positions: A 80W 91D 53L, score 0.560, Elo +42 [+7, +78]
+[match_mcts128_vs_mcts64_part1] [match] 113/400 positions: A 80W 91D 55L, score 0.555, Elo +39 [+4, +74]
+[match_mcts128_vs_mcts64_part0] [match] 114/400 positions: A 86W 82D 60L, score 0.557, Elo +40 [+4, +77]
+[match_mcts128_vs_mcts64_part0] [match] 115/400 positions: A 87W 83D 60L, score 0.559, Elo +41 [+5, +78]
+[match_mcts128_vs_mcts64_part1] [match] 114/400 positions: A 81W 91D 56L, score 0.555, Elo +38 [+3, +74]
+[match_mcts128_vs_mcts64_part1] [match] 115/400 positions: A 82W 92D 56L, score 0.557, Elo +39 [+5, +75]
+[match_mcts128_vs_mcts64_part0] [match] 116/400 positions: A 88W 84D 60L, score 0.560, Elo +42 [+7, +79]
+[match_mcts128_vs_mcts64_part1] [match] 116/400 positions: A 83W 92D 57L, score 0.556, Elo +39 [+5, +74]
+[match_mcts128_vs_mcts64_part0] [match] 117/400 positions: A 89W 85D 60L, score 0.562, Elo +43 [+8, +80]
+[match_mcts128_vs_mcts64_part1] [match] 117/400 positions: A 83W 94D 57L, score 0.556, Elo +39 [+5, +74]
+[match_mcts128_vs_mcts64_part0] [match] 118/400 positions: A 91W 85D 60L, score 0.566, Elo +46 [+11, +82]
+[match_mcts128_vs_mcts64_part1] [match] 118/400 positions: A 84W 95D 57L, score 0.557, Elo +40 [+6, +75]
+[match_mcts128_vs_mcts64_part0] [match] 119/400 positions: A 92W 85D 61L, score 0.565, Elo +46 [+10, +82]
+[match_mcts128_vs_mcts64_part1] [match] 119/400 positions: A 85W 95D 58L, score 0.557, Elo +40 [+6, +74]
+[match_mcts128_vs_mcts64_part0] [match] 120/400 positions: A 93W 85D 62L, score 0.565, Elo +45 [+10, +81]
+[match_mcts128_vs_mcts64_part0] [match] 121/400 positions: A 93W 87D 62L, score 0.564, Elo +45 [+10, +80]
+[match_mcts128_vs_mcts64_part1] [match] 120/400 positions: A 86W 95D 59L, score 0.556, Elo +39 [+5, +74]
+[match_mcts128_vs_mcts64_part1] [match] 121/400 positions: A 87W 95D 60L, score 0.556, Elo +39 [+5, +74]
+[match_mcts128_vs_mcts64_part0] [match] 122/400 positions: A 93W 88D 63L, score 0.561, Elo +43 [+8, +78]
+[match_mcts128_vs_mcts64_part1] [match] 122/400 positions: A 88W 96D 60L, score 0.557, Elo +40 [+6, +75]
+[match_mcts128_vs_mcts64_part0] [match] 123/400 positions: A 94W 88D 64L, score 0.561, Elo +43 [+8, +78]
+[match_mcts128_vs_mcts64_part1] [match] 123/400 positions: A 88W 96D 62L, score 0.553, Elo +37 [+3, +71]
+[match_mcts128_vs_mcts64_part0] [match] 124/400 positions: A 94W 89D 65L, score 0.558, Elo +41 [+6, +76]
+[match_mcts128_vs_mcts64_part1] [match] 124/400 positions: A 89W 96D 63L, score 0.552, Elo +37 [+3, +71]
+[match_mcts128_vs_mcts64_part0] [match] 125/400 positions: A 95W 90D 65L, score 0.560, Elo +42 [+8, +77]
+[match_mcts128_vs_mcts64_part1] [match] 125/400 positions: A 90W 97D 63L, score 0.554, Elo +38 [+4, +72]
+[match_mcts128_vs_mcts64_part0] [match] 126/400 positions: A 96W 90D 66L, score 0.560, Elo +42 [+7, +77]
+[match_mcts128_vs_mcts64_part1] [match] 126/400 positions: A 90W 98D 64L, score 0.552, Elo +36 [+3, +70]
+[match_mcts128_vs_mcts64_part0] [match] 127/400 positions: A 96W 92D 66L, score 0.559, Elo +41 [+7, +76]
+[match_mcts128_vs_mcts64_part0] [match] 128/400 positions: A 97W 92D 67L, score 0.559, Elo +41 [+7, +76]
+[match_mcts128_vs_mcts64_part1] [match] 127/400 positions: A 91W 98D 65L, score 0.551, Elo +36 [+2, +70]
+[match_mcts128_vs_mcts64_part1] [match] 128/400 positions: A 91W 100D 65L, score 0.551, Elo +35 [+2, +69]
+[match_mcts128_vs_mcts64_part0] [match] 129/400 positions: A 97W 94D 67L, score 0.558, Elo +41 [+7, +75]
+[match_mcts128_vs_mcts64_part1] [match] 129/400 positions: A 91W 101D 66L, score 0.548, Elo +34 [+1, +67]
+[match_mcts128_vs_mcts64_part0] [match] 130/400 positions: A 97W 96D 67L, score 0.558, Elo +40 [+7, +74]
+[match_mcts128_vs_mcts64_part0] [match] 131/400 positions: A 97W 97D 68L, score 0.555, Elo +39 [+5, +73]
+[match_mcts128_vs_mcts64_part1] [match] 130/400 positions: A 91W 102D 67L, score 0.546, Elo +32 [-1, +66]
+[match_mcts128_vs_mcts64_part1] [match] 131/400 positions: A 92W 103D 67L, score 0.548, Elo +33 [+1, +66]
+[match_mcts128_vs_mcts64_part0] [match] 132/400 positions: A 97W 97D 70L, score 0.551, Elo +36 [+2, +70]
+[match_mcts128_vs_mcts64_part0] [match] 133/400 positions: A 99W 97D 70L, score 0.555, Elo +38 [+5, +72]
+[match_mcts128_vs_mcts64_part1] [match] 132/400 positions: A 94W 103D 67L, score 0.551, Elo +36 [+3, +69]
+[match_mcts128_vs_mcts64_part0] [match] 134/400 positions: A 99W 98D 71L, score 0.552, Elo +36 [+3, +70]
+[match_mcts128_vs_mcts64_part1] [match] 133/400 positions: A 95W 104D 67L, score 0.553, Elo +37 [+4, +70]
+[match_mcts128_vs_mcts64_part0] [match] 135/400 positions: A 99W 98D 73L, score 0.548, Elo +34 [+1, +67]
+[match_mcts128_vs_mcts64_part1] [match] 134/400 positions: A 96W 105D 67L, score 0.554, Elo +38 [+5, +71]
+[match_mcts128_vs_mcts64_part0] [match] 136/400 positions: A 99W 98D 75L, score 0.544, Elo +31 [-2, +64]
+[match_mcts128_vs_mcts64_part1] [match] 135/400 positions: A 97W 105D 68L, score 0.554, Elo +37 [+5, +70]
+[match_mcts128_vs_mcts64_part0] [match] 137/400 positions: A 101W 98D 75L, score 0.547, Elo +33 [+0, +67]
+[match_mcts128_vs_mcts64_part1] [match] 136/400 positions: A 98W 106D 68L, score 0.555, Elo +38 [+6, +71]
+[match_mcts128_vs_mcts64_part0] [match] 138/400 positions: A 102W 98D 76L, score 0.547, Elo +33 [+0, +66]
+[match_mcts128_vs_mcts64_part0] [match] 139/400 positions: A 103W 99D 76L, score 0.549, Elo +34 [+1, +67]
+[match_mcts128_vs_mcts64_part1] [match] 137/400 positions: A 98W 108D 68L, score 0.555, Elo +38 [+6, +71]
+[match_mcts128_vs_mcts64_part0] [match] 140/400 positions: A 103W 101D 76L, score 0.548, Elo +34 [+1, +67]
+[match_mcts128_vs_mcts64_part1] [match] 138/400 positions: A 98W 109D 69L, score 0.553, Elo +37 [+5, +69]
+[match_mcts128_vs_mcts64_part0] [match] 141/400 positions: A 105W 101D 76L, score 0.551, Elo +36 [+4, +69]
+[match_mcts128_vs_mcts64_part0] [match] 142/400 positions: A 106W 102D 76L, score 0.553, Elo +37 [+5, +70]
+[match_mcts128_vs_mcts64_part1] [match] 139/400 positions: A 99W 110D 69L, score 0.554, Elo +38 [+6, +70]
+[match_mcts128_vs_mcts64_part0] [match] 143/400 positions: A 107W 102D 77L, score 0.552, Elo +37 [+4, +69]
+[match_mcts128_vs_mcts64_part1] [match] 140/400 positions: A 100W 111D 69L, score 0.555, Elo +39 [+7, +71]
+[match_mcts128_vs_mcts64_part1] [match] 141/400 positions: A 100W 112D 70L, score 0.553, Elo +37 [+6, +69]
+[match_mcts128_vs_mcts64_part0] [match] 144/400 positions: A 108W 102D 78L, score 0.552, Elo +36 [+4, +69]
+[match_mcts128_vs_mcts64_part1] [match] 142/400 positions: A 100W 114D 70L, score 0.553, Elo +37 [+6, +69]
+[match_mcts128_vs_mcts64_part1] [match] 143/400 positions: A 100W 114D 72L, score 0.549, Elo +34 [+3, +66]
+[match_mcts128_vs_mcts64_part0] [match] 145/400 positions: A 108W 103D 79L, score 0.550, Elo +35 [+3, +67]
+[match_mcts128_vs_mcts64_part1] [match] 144/400 positions: A 101W 114D 73L, score 0.549, Elo +34 [+3, +65]
+[match_mcts128_vs_mcts64_part0] [match] 146/400 positions: A 109W 104D 79L, score 0.551, Elo +36 [+4, +68]
+[match_mcts128_vs_mcts64_part1] [match] 145/400 positions: A 102W 115D 73L, score 0.550, Elo +35 [+4, +66]
+[match_mcts128_vs_mcts64_part1] [match] 146/400 positions: A 102W 116D 74L, score 0.548, Elo +33 [+3, +65]
+[match_mcts128_vs_mcts64_part0] [match] 147/400 positions: A 111W 104D 79L, score 0.554, Elo +38 [+6, +70]
+[match_mcts128_vs_mcts64_part1] [match] 147/400 positions: A 103W 116D 75L, score 0.548, Elo +33 [+2, +64]
+[match_mcts128_vs_mcts64_part1] [match] 148/400 positions: A 104W 116D 76L, score 0.547, Elo +33 [+2, +64]
+[match_mcts128_vs_mcts64_part0] [match] 148/400 positions: A 112W 105D 79L, score 0.556, Elo +39 [+7, +71]
+[match_mcts128_vs_mcts64_part0] [match] 149/400 positions: A 113W 105D 80L, score 0.555, Elo +39 [+7, +71]
+[match_mcts128_vs_mcts64_part1] [match] 149/400 positions: A 105W 116D 77L, score 0.547, Elo +33 [+2, +64]
+[match_mcts128_vs_mcts64_part1] [match] 150/400 positions: A 105W 118D 77L, score 0.547, Elo +33 [+2, +64]
+[match_mcts128_vs_mcts64_part0] [match] 150/400 positions: A 113W 106D 81L, score 0.553, Elo +37 [+6, +69]
+[match_mcts128_vs_mcts64_part1] [match] 151/400 positions: A 106W 119D 77L, score 0.548, Elo +33 [+3, +64]
+[match_mcts128_vs_mcts64_part0] [match] 151/400 positions: A 114W 107D 81L, score 0.555, Elo +38 [+7, +70]
+[match_mcts128_vs_mcts64_part1] [match] 152/400 positions: A 107W 120D 77L, score 0.549, Elo +34 [+4, +65]
+[match_mcts128_vs_mcts64_part0] [match] 152/400 positions: A 115W 108D 81L, score 0.556, Elo +39 [+8, +71]
+[match_mcts128_vs_mcts64_part1] [match] 153/400 positions: A 107W 122D 77L, score 0.549, Elo +34 [+4, +65]
+[match_mcts128_vs_mcts64_part0] [match] 153/400 positions: A 115W 110D 81L, score 0.556, Elo +39 [+8, +70]
+[match_mcts128_vs_mcts64_part1] [match] 154/400 positions: A 108W 123D 77L, score 0.550, Elo +35 [+5, +66]
+[match_mcts128_vs_mcts64_part0] [match] 154/400 positions: A 117W 110D 81L, score 0.558, Elo +41 [+10, +72]
+[match_mcts128_vs_mcts64_part1] [match] 155/400 positions: A 109W 124D 77L, score 0.552, Elo +36 [+6, +66]
+[match_mcts128_vs_mcts64_part0] [match] 155/400 positions: A 118W 111D 81L, score 0.560, Elo +42 [+11, +73]
+[match_mcts128_vs_mcts64_part1] [match] 156/400 positions: A 110W 124D 78L, score 0.551, Elo +36 [+6, +66]
+[match_mcts128_vs_mcts64_part1] [match] 157/400 positions: A 110W 126D 78L, score 0.551, Elo +36 [+6, +66]
+[match_mcts128_vs_mcts64_part0] [match] 156/400 positions: A 118W 113D 81L, score 0.559, Elo +41 [+11, +73]
+[match_mcts128_vs_mcts64_part0] [match] 157/400 positions: A 118W 115D 81L, score 0.559, Elo +41 [+11, +72]
+[match_mcts128_vs_mcts64_part1] [match] 158/400 positions: A 110W 128D 78L, score 0.551, Elo +35 [+6, +65]
+[match_mcts128_vs_mcts64_part0] [match] 158/400 positions: A 118W 116D 82L, score 0.557, Elo +40 [+9, +71]
+[match_mcts128_vs_mcts64_part1] [match] 159/400 positions: A 111W 129D 78L, score 0.552, Elo +36 [+7, +66]
+[match_mcts128_vs_mcts64_part0] [match] 159/400 positions: A 119W 117D 82L, score 0.558, Elo +41 [+10, +71]
+[match_mcts128_vs_mcts64_part1] [match] 160/400 positions: A 111W 130D 79L, score 0.550, Elo +35 [+6, +65]
+[match_mcts128_vs_mcts64_part0] [match] 160/400 positions: A 120W 117D 83L, score 0.558, Elo +40 [+10, +71]
+[match_mcts128_vs_mcts64_part1] [match] 161/400 positions: A 111W 130D 81L, score 0.547, Elo +32 [+3, +62]
+[match_mcts128_vs_mcts64_part0] [match] 161/400 positions: A 121W 118D 83L, score 0.559, Elo +41 [+11, +72]
+[match_mcts128_vs_mcts64_part1] [match] 162/400 positions: A 111W 130D 83L, score 0.543, Elo +30 [+1, +60]
+[match_mcts128_vs_mcts64_part0] [match] 162/400 positions: A 121W 119D 84L, score 0.557, Elo +40 [+10, +70]
+[match_mcts128_vs_mcts64_part0] [match] 163/400 positions: A 122W 119D 85L, score 0.557, Elo +40 [+10, +70]
+[match_mcts128_vs_mcts64_part1] [match] 163/400 positions: A 111W 131D 84L, score 0.541, Elo +29 [-0, +58]
+[match_mcts128_vs_mcts64_part1] [match] 164/400 positions: A 111W 133D 84L, score 0.541, Elo +29 [-0, +58]
+[match_mcts128_vs_mcts64_part0] [match] 164/400 positions: A 122W 120D 86L, score 0.555, Elo +38 [+8, +69]
+[match_mcts128_vs_mcts64_part0] [match] 165/400 positions: A 122W 121D 87L, score 0.553, Elo +37 [+7, +67]
+[match_mcts128_vs_mcts64_part1] [match] 165/400 positions: A 112W 134D 84L, score 0.542, Elo +30 [+1, +59]
+[match_mcts128_vs_mcts64_part0] [match] 166/400 positions: A 123W 122D 87L, score 0.554, Elo +38 [+8, +68]
+[match_mcts128_vs_mcts64_part1] [match] 166/400 positions: A 112W 135D 85L, score 0.541, Elo +28 [-0, +57]
+[match_mcts128_vs_mcts64_part0] [match] 167/400 positions: A 124W 123D 87L, score 0.555, Elo +39 [+9, +69]
+[match_mcts128_vs_mcts64_part1] [match] 167/400 positions: A 112W 137D 85L, score 0.540, Elo +28 [-0, +57]
+[match_mcts128_vs_mcts64_part0] [match] 168/400 positions: A 125W 124D 87L, score 0.557, Elo +39 [+10, +69]
+[match_mcts128_vs_mcts64_part1] [match] 168/400 positions: A 112W 138D 86L, score 0.539, Elo +27 [-1, +56]
+[match_mcts128_vs_mcts64_part1] [match] 169/400 positions: A 112W 139D 87L, score 0.537, Elo +26 [-3, +54]
+[match_mcts128_vs_mcts64_part0] [match] 169/400 positions: A 126W 125D 87L, score 0.558, Elo +40 [+11, +70]
+[match_mcts128_vs_mcts64_part1] [match] 170/400 positions: A 113W 140D 87L, score 0.538, Elo +27 [-2, +55]
+[match_mcts128_vs_mcts64_part0] [match] 170/400 positions: A 127W 125D 88L, score 0.557, Elo +40 [+11, +70]
+[match_mcts128_vs_mcts64_part1] [match] 171/400 positions: A 114W 140D 88L, score 0.538, Elo +26 [-2, +55]
+[match_mcts128_vs_mcts64_part0] [match] 171/400 positions: A 129W 125D 88L, score 0.560, Elo +42 [+13, +72]
+[match_mcts128_vs_mcts64_part1] [match] 172/400 positions: A 114W 142D 88L, score 0.538, Elo +26 [-2, +55]
+[match_mcts128_vs_mcts64_part1] [match] 173/400 positions: A 115W 142D 89L, score 0.538, Elo +26 [-2, +55]
+[match_mcts128_vs_mcts64_part0] [match] 172/400 positions: A 131W 125D 88L, score 0.562, Elo +44 [+15, +73]
+[match_mcts128_vs_mcts64_part0] [match] 173/400 positions: A 133W 125D 88L, score 0.565, Elo +45 [+16, +75]
+[match_mcts128_vs_mcts64_part1] [match] 174/400 positions: A 116W 142D 90L, score 0.537, Elo +26 [-2, +54]
+[match_mcts128_vs_mcts64_part0] [match] 174/400 positions: A 134W 126D 88L, score 0.566, Elo +46 [+17, +76]
+[match_mcts128_vs_mcts64_part0] [match] 175/400 positions: A 135W 126D 89L, score 0.566, Elo +46 [+17, +76]
+[match_mcts128_vs_mcts64_part1] [match] 175/400 positions: A 116W 144D 90L, score 0.537, Elo +26 [-2, +54]
+[match_mcts128_vs_mcts64_part1] [match] 176/400 positions: A 116W 144D 92L, score 0.534, Elo +24 [-4, +52]
+[match_mcts128_vs_mcts64_part0] [match] 176/400 positions: A 135W 127D 90L, score 0.564, Elo +45 [+16, +74]
+[match_mcts128_vs_mcts64_part1] [match] 177/400 positions: A 116W 146D 92L, score 0.534, Elo +24 [-4, +52]
+[match_mcts128_vs_mcts64_part0] [match] 177/400 positions: A 136W 128D 90L, score 0.565, Elo +45 [+17, +75]
+[match_mcts128_vs_mcts64_part1] [match] 178/400 positions: A 117W 146D 93L, score 0.534, Elo +23 [-4, +51]
+[match_mcts128_vs_mcts64_part0] [match] 178/400 positions: A 136W 129D 91L, score 0.563, Elo +44 [+15, +73]
+[match_mcts128_vs_mcts64_part1] [match] 179/400 positions: A 117W 147D 94L, score 0.532, Elo +22 [-5, +50]
+[match_mcts128_vs_mcts64_part1] [match] 180/400 positions: A 117W 148D 95L, score 0.531, Elo +21 [-6, +49]
+[match_mcts128_vs_mcts64_part0] [match] 179/400 positions: A 136W 131D 91L, score 0.563, Elo +44 [+15, +73]
+[match_mcts128_vs_mcts64_part1] [match] 181/400 positions: A 118W 148D 96L, score 0.530, Elo +21 [-6, +49]
+[match_mcts128_vs_mcts64_part0] [match] 180/400 positions: A 137W 132D 91L, score 0.564, Elo +45 [+16, +74]
+[match_mcts128_vs_mcts64_part1] [match] 182/400 positions: A 118W 149D 97L, score 0.529, Elo +20 [-7, +48]
+[match_mcts128_vs_mcts64_part0] [match] 181/400 positions: A 138W 133D 91L, score 0.565, Elo +45 [+17, +74]
+[match_mcts128_vs_mcts64_part1] [match] 183/400 positions: A 119W 150D 97L, score 0.530, Elo +21 [-6, +48]
+[match_mcts128_vs_mcts64_part0] [match] 182/400 positions: A 139W 133D 92L, score 0.565, Elo +45 [+17, +74]
+[match_mcts128_vs_mcts64_part0] [match] 183/400 positions: A 139W 135D 92L, score 0.564, Elo +45 [+17, +74]
+[match_mcts128_vs_mcts64_part1] [match] 184/400 positions: A 120W 150D 98L, score 0.530, Elo +21 [-6, +48]
+[match_mcts128_vs_mcts64_part0] [match] 184/400 positions: A 139W 137D 92L, score 0.564, Elo +45 [+17, +73]
+[match_mcts128_vs_mcts64_part0] [match] 185/400 positions: A 139W 137D 94L, score 0.561, Elo +42 [+15, +71]
+[match_mcts128_vs_mcts64_part1] [match] 185/400 positions: A 122W 150D 98L, score 0.532, Elo +23 [-5, +50]
+[match_mcts128_vs_mcts64_part0] [match] 186/400 positions: A 141W 137D 94L, score 0.563, Elo +44 [+16, +73]
+[match_mcts128_vs_mcts64_part1] [match] 186/400 positions: A 123W 150D 99L, score 0.532, Elo +22 [-5, +50]
+[match_mcts128_vs_mcts64_part1] [match] 187/400 positions: A 124W 151D 99L, score 0.533, Elo +23 [-4, +51]
+[match_mcts128_vs_mcts64_part0] [match] 187/400 positions: A 142W 137D 95L, score 0.563, Elo +44 [+16, +72]
+[match_mcts128_vs_mcts64_part1] [match] 188/400 positions: A 125W 151D 100L, score 0.533, Elo +23 [-4, +51]
+[match_mcts128_vs_mcts64_part0] [match] 188/400 positions: A 144W 137D 95L, score 0.565, Elo +46 [+18, +74]
+[match_mcts128_vs_mcts64_part1] [match] 189/400 positions: A 126W 151D 101L, score 0.533, Elo +23 [-4, +50]
+[match_mcts128_vs_mcts64_part0] [match] 189/400 positions: A 145W 138D 95L, score 0.566, Elo +46 [+18, +75]
+[match_mcts128_vs_mcts64_part1] [match] 190/400 positions: A 127W 152D 101L, score 0.534, Elo +24 [-3, +51]
+[match_mcts128_vs_mcts64_part1] [match] 191/400 positions: A 128W 152D 102L, score 0.534, Elo +24 [-3, +51]
+[match_mcts128_vs_mcts64_part1] [match] 192/400 positions: A 128W 154D 102L, score 0.534, Elo +24 [-3, +51]
+[match_mcts128_vs_mcts64_part1] [match] 193/400 positions: A 129W 154D 103L, score 0.534, Elo +23 [-3, +51]
+[match_mcts128_vs_mcts64_part1] [match] deadline reached after 193 positions
+[match_mcts128_vs_mcts64_part1] {
+[match_mcts128_vs_mcts64_part1]  "a": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-w03-match/chess_1B_w03.pt",
+[match_mcts128_vs_mcts64_part1]  "b": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-w03-match/chess_1B_w03.pt",
+[match_mcts128_vs_mcts64_part1]  "a_leaf": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s5/checkpoints/chess_best.pt",
+[match_mcts128_vs_mcts64_part1]  "b_leaf": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s5/checkpoints/chess_best.pt",
+[match_mcts128_vs_mcts64_part1]  "onepass": false,
+[match_mcts128_vs_mcts64_part1]  "depth": 1,
+[match_mcts128_vs_mcts64_part1]  "a_depth": 1,
+[match_mcts128_vs_mcts64_part1]  "b_depth": 1,
+[match_mcts128_vs_mcts64_part1]  "a_sims": 128,
+[match_mcts128_vs_mcts64_part1]  "b_sims": 64,
+[match_mcts128_vs_mcts64_part1]  "c_puct": 0.3,
+[match_mcts128_vs_mcts64_part1]  "tau": 0.05,
+[match_mcts128_vs_mcts64_part1]  "b_c_puct": 0.3,
+[match_mcts128_vs_mcts64_part1]  "b_tau": 0.05,
+[match_mcts128_vs_mcts64_part1]  "slice": "1/2",
+[match_mcts128_vs_mcts64_part1]  "seed": 0,
+[match_mcts128_vs_mcts64_part1]  "seconds": 40851,
+[match_mcts128_vs_mcts64_part1]  "games": 386,
+[match_mcts128_vs_mcts64_part1]  "wins": 129,
+[match_mcts128_vs_mcts64_part1]  "draws": 154,
+[match_mcts128_vs_mcts64_part1]  "losses": 103,
+[match_mcts128_vs_mcts64_part1]  "score": 0.533678756476684,
+[match_mcts128_vs_mcts64_part1]  "elo": 23.43788610633892,
+[match_mcts128_vs_mcts64_part1]  "elo_low": -3.367294971947414,
+[match_mcts128_vs_mcts64_part1]  "elo_high": 50.52516285234097,
+[match_mcts128_vs_mcts64_part1]  "a_time": {
+[match_mcts128_vs_mcts64_part1]   "moves": 24033,
+[match_mcts128_vs_mcts64_part1]   "mean_s": 1.1298142236699604,
+[match_mcts128_vs_mcts64_part1]   "median_s": 1.1600521549989935,
+[match_mcts128_vs_mcts64_part1]   "p90_s": 1.2448892158019589,
+[match_mcts128_vs_mcts64_part1]   "p99_s": 1.3105853947621653,
+[match_mcts128_vs_mcts64_part1]   "max_s": 2.4646244989999957,
+[match_mcts128_vs_mcts64_part1]   "network_calls_mean": 124.42757874589107
+[match_mcts128_vs_mcts64_part1]  },
+[match_mcts128_vs_mcts64_part1]  "b_time": {
+[match_mcts128_vs_mcts64_part1]   "moves": 24022,
+[match_mcts128_vs_mcts64_part1]   "mean_s": 0.5693031017535017,
+[match_mcts128_vs_mcts64_part1]   "median_s": 0.5808243670035154,
+[match_mcts128_vs_mcts64_part1]   "p90_s": 0.6261414021024393,
+[match_mcts128_vs_mcts64_part1]   "p99_s": 0.6758596276089338,
+[match_mcts128_vs_mcts64_part1]   "max_s": 0.7881951609997486,
+[match_mcts128_vs_mcts64_part1]   "network_calls_mean": 63.10215635667305
+[match_mcts128_vs_mcts64_part1]  },
+[match_mcts128_vs_mcts64_part1]  "results": [
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   0.5,
+[match_mcts128_vs_mcts64_part1]   1.0,
+[match_mcts128_vs_mcts64_part1]   0.0
+[match_mcts128_vs_mcts64_part1]  ]
+[match_mcts128_vs_mcts64_part1] }
+[match_mcts128_vs_mcts64_part0] [match] 190/400 positions: A 146W 139D 95L, score 0.567, Elo +47 [+19, +75]
+[match_mcts128_vs_mcts64_part0] [match] deadline reached after 190 positions
+[match_mcts128_vs_mcts64_part0] {
+[match_mcts128_vs_mcts64_part0]  "a": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-w03-match/chess_1B_w03.pt",
+[match_mcts128_vs_mcts64_part0]  "b": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-w03-match/chess_1B_w03.pt",
+[match_mcts128_vs_mcts64_part0]  "a_leaf": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s5/checkpoints/chess_best.pt",
+[match_mcts128_vs_mcts64_part0]  "b_leaf": "/kaggle/input/notebooks/nicolangileri/gpt-from-scratch-chess-1b-s5/checkpoints/chess_best.pt",
+[match_mcts128_vs_mcts64_part0]  "onepass": false,
+[match_mcts128_vs_mcts64_part0]  "depth": 1,
+[match_mcts128_vs_mcts64_part0]  "a_depth": 1,
+[match_mcts128_vs_mcts64_part0]  "b_depth": 1,
+[match_mcts128_vs_mcts64_part0]  "a_sims": 128,
+[match_mcts128_vs_mcts64_part0]  "b_sims": 64,
+[match_mcts128_vs_mcts64_part0]  "c_puct": 0.3,
+[match_mcts128_vs_mcts64_part0]  "tau": 0.05,
+[match_mcts128_vs_mcts64_part0]  "b_c_puct": 0.3,
+[match_mcts128_vs_mcts64_part0]  "b_tau": 0.05,
+[match_mcts128_vs_mcts64_part0]  "slice": "0/2",
+[match_mcts128_vs_mcts64_part0]  "seed": 0,
+[match_mcts128_vs_mcts64_part0]  "seconds": 40871,
+[match_mcts128_vs_mcts64_part0]  "games": 380,
+[match_mcts128_vs_mcts64_part0]  "wins": 146,
+[match_mcts128_vs_mcts64_part0]  "draws": 139,
+[match_mcts128_vs_mcts64_part0]  "losses": 95,
+[match_mcts128_vs_mcts64_part0]  "score": 0.5671052631578948,
+[match_mcts128_vs_mcts64_part0]  "elo": 46.912548884302964,
+[match_mcts128_vs_mcts64_part0]  "elo_low": 19.22714141994707,
+[match_mcts128_vs_mcts64_part0]  "elo_high": 75.20440464047292,
+[match_mcts128_vs_mcts64_part0]  "a_time": {
+[match_mcts128_vs_mcts64_part0]   "moves": 24125,
+[match_mcts128_vs_mcts64_part0]   "mean_s": 1.1268613837315238,
+[match_mcts128_vs_mcts64_part0]   "median_s": 1.1522328209994157,
+[match_mcts128_vs_mcts64_part0]   "p90_s": 1.2363877604002482,
+[match_mcts128_vs_mcts64_part0]   "p99_s": 1.305810699598369,
+[match_mcts128_vs_mcts64_part0]   "max_s": 1.6067544679999628,
+[match_mcts128_vs_mcts64_part0]   "network_calls_mean": 125.01363730569948
+[match_mcts128_vs_mcts64_part0]  },
+[match_mcts128_vs_mcts64_part0]  "b_time": {
+[match_mcts128_vs_mcts64_part0]   "moves": 24104,
+[match_mcts128_vs_mcts64_part0]   "mean_s": 0.5668365096106046,
+[match_mcts128_vs_mcts64_part0]   "median_s": 0.5769355710017408,
+[match_mcts128_vs_mcts64_part0]   "p90_s": 0.6219248251001772,
+[match_mcts128_vs_mcts64_part0]   "p99_s": 0.6710351272810658,
+[match_mcts128_vs_mcts64_part0]   "max_s": 1.9296013240000036,
+[match_mcts128_vs_mcts64_part0]   "network_calls_mean": 63.27746432127448
+[match_mcts128_vs_mcts64_part0]  },
+[match_mcts128_vs_mcts64_part0]  "results": [
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   1.0,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   0.5,
+[match_mcts128_vs_mcts64_part0]   1.0
+[match_mcts128_vs_mcts64_part0]  ]
+[match_mcts128_vs_mcts64_part0] }
+[session] done at 11.36h: [0, 0]
+/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+  cells[i][c] = re.sub('\\\\\|', '|', cell)
+/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+[NbConvertApp] Writing 307529 bytes to __notebook__.ipynb
+[NbConvertApp] Converting notebook __notebook__.ipynb to html
+[NbConvertApp] Writing 580798 bytes to __results__.html
