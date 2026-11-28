@@ -520,6 +520,26 @@ def test_sims_are_halved_when_the_clock_gets_short(monkeypatch):
     assert used == [12, 6, 12]
 
 
+def test_128_simulations_only_with_three_minutes_left(monkeypatch):
+    """results/46: 128 when the clock allows; below 180 s the bot of results/43-44."""
+    import chess
+    from src import lichess_bot
+    from src.mcts import MCTS
+    bot = _bot_with_two_networks()
+    bot.sims, bot.c_puct, bot.tau = 128, 0.3, 0.05
+    used = []
+
+    class Spy(MCTS):
+        def __init__(self, *a, **k):
+            used.append(a[3])
+            super().__init__(*a, **k)
+
+    monkeypatch.setattr(lichess_bot, "MCTS", Spy)
+    for ms in (180_000, 179_999, 90_000, 89_999, None):
+        bot.pick(chess.Board(), ms)
+    assert used == [128, 64, 64, 32, 128]
+
+
 def test_clocks_are_parsed_as_minutes_plus_increment():
     from src.lichess_bot import parse_clocks
     assert parse_clocks("5+3, 3+2") == [(300, 3), (180, 2)]

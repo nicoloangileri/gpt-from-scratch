@@ -3,12 +3,13 @@
     python kaggle_chess/build_lichess_bot.py
     kaggle kernels push -p kaggle_chess_lichess_bot/
 
-The bot plays what results/37, 39 and 41 chose: the 1B model's w0.3 puzzle
+The bot plays what results/37, 39, 41 and 46 chose: the 1B model's w0.3 puzzle
 fine-tune at the root, the 1B model below it, and the tree search of src/mcts.py
-(64 simulations, c 0.3) instead of depth 2, seeking games against other bots (`--seek`).
-A CPU session, which uses no GPU quota: on a Kaggle CPU 64 simulations take 3.8 s per
-move at the median and 4.8 s at worst (results/42), depth 2 took 2.9 and 5.0
-(results/40).
+(128 simulations with three minutes or more on the clock, 64 below, c 0.3) instead of
+depth 2, seeking games against other bots (`--seek`). A CPU session, which uses no GPU
+quota: on a Kaggle CPU 64 simulations take 3.8 s per move at the median and 4.8 s at
+worst (results/42), depth 2 took 2.9 and 5.0 (results/40); 128 cost exactly twice 64 on
+a T4 (results/46), so about 7.7 s here.
 
 CLOCKS sets the session's speed. results/43 played rapid (10+3, 1781 to 1855); the
 paper's searchless 9M model is rated 2054 in *blitz* against bots, so this session plays
@@ -108,7 +109,7 @@ def run_bot():
         return
     bot = subprocess.Popen(
         [sys.executable, "-m", "src.lichess_bot", "--ckpt", ROOT_CKPT, "--leaf_ckpt", LEAF_CKPT,
-         "--sims", "64", "--c_puct", "0.3", "--device", "cpu", "--seek"{clocks}],
+         "--sims", "128", "--c_puct", "0.3", "--device", "cpu", "--seek"{clocks}],
         env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     def stream():
         for line in bot.stdout:

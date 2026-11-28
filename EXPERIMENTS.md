@@ -454,6 +454,18 @@ the session's deadline, 500 of the 800 twice: 318 won, 403 drawn, 279 lost, a sc
 games, changes the bot only if the interval excludes zero; it does not, and the bot keeps
 0.05. Tuning and 1,000 games took 10.2 hours on two T4s.
 
+**Another doubling** ([`results/46_match_mcts128_vs_mcts64_part0.json`](results/46_match_mcts128_vs_mcts64_part0.json)
+and `part1`). 128 simulations against 64, same networks, c = 0.3 and temperature 0.05,
+the same list of positions; a game costs twice one of results/41, and the deadline
+stopped the cards after 383 of the 800 positions: 275 won, 293 drawn, 198 lost, a score of
+0.550 and **+35 Elo (95% interval 18 to 52)**. The rule, fixed in
+[`kaggle_chess/build_mcts_sims_match.py`](kaggle_chess/build_mcts_sims_match.py) before
+the games, moves the bot to 128 when its clock allows only if the interval excludes zero;
+it does. On a T4, 128 took 1.15 s per move at the median against 0.58 for 64, exactly
+twice, so about 7.7 s on the Kaggle CPU the bot plays on: the bot runs 128 with three
+minutes or more left and below that the search of results/43-44. Doublings so far: +56
+from 32 to 64, +35 from 64 to 128, intervals that overlap. 11.4 hours on two T4s.
+
 [`src/lichess_bot.py`](src/lichess_bot.py) plays the same search online, at depth 2, as
 **`imbotterthanyou`**: rapid **1659** on 8 October 2026. Every game in the bot's log,
 matched to the checkpoint that played it

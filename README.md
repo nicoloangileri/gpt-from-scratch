@@ -184,9 +184,11 @@ swapped, under a rule fixed in the session's builder before the games: change on
 | tree search, 32 simulations | against the depth-2 bot | 1,600 | +115 (101 to 130) | adopted | [39](results/39_match_mcts32_vs_bot_part0.json) |
 | 64 simulations | against 32 | 1,250 | +56 (42 to 70) | adopted | [41](results/41_match_mcts64_vs_mcts32_part0.json) |
 | prior temperature 0.1 | against 0.05, both at 64 | 1,000 | +14 (-1.5 to 29) | not adopted | [45](results/45_match_mcts64_c0.3_tau0.1_vs_bot_part0.json) |
+| 128 simulations | against 64 | 766 | +35 (18 to 52) | adopted, with 3 minutes left | [46](results/46_match_mcts128_vs_mcts64_part0.json) |
 
 A third ply of fixed depth cost about 76 times the network calls of depth 2 and bought
-15; doubling the tree search's simulations costs twice the calls and bought 56.
+15; doubling the tree search's simulations costs twice the calls and bought 56, and the
+next doubling 35.
 
 [`src/lichess_bot.py`](src/lichess_bot.py) plays online as
 [**`imbotterthanyou`**](https://lichess.org/@/imbotterthanyou), against other bots, in
@@ -319,7 +321,7 @@ results/             the logs behind the numbers above
 - **How much search buys back the missing data.** The same tree search at 1 to 256
   simulations over the models trained on 100M, 225M, 500M and 1B examples, on puzzles and
   in games: how many simulations a smaller model needs to match a larger one. The
-  doublings above are its first points; 128 against 64 is running.
+  doublings above are its first points; the puzzle half is running.
 - The bot online without a hand on it: a Kaggle CPU session runs it for 11 hours, started
   by hand each time.
 - KV-cache serving for the language-model path (CUDA graphs: worth at most ~7% here).

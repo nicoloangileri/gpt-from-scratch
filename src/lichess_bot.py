@@ -42,6 +42,8 @@ from .search import Searcher
 API = "https://lichess.org"
 MIN_INITIAL_SECONDS = 180          # below this, depth-2 search loses on time
 HALF_SIMS_BELOW_MS = 90_000        # the tree search halves its simulations below this
+FULL_SIMS_FROM_MS = 180_000        # above 64 simulations only with this much clock left
+CAPPED_SIMS = 64                   # below it, the search of results/43-44
 
 # A bot cannot enter the lobby or a tournament -- "pools and tournaments are off-limits"
 # says the API spec -- so every game is a challenge it sends or one somebody sends it.
@@ -192,7 +194,13 @@ class LichessBot:
             # increment of a 3+2 game. Replaying the 3,238 moves of results/43 on a 3+2
             # clock, this keeps every game above a minute and never reaches the bare
             # network; without it 16 of the 43 games would have.
+            # More than 64 (results/46: 128 is 35 Elo above 64) only with three minutes
+            # or more left: 128 cost twice 64 on a T4, about 7.7 s a move on the Kaggle
+            # CPU against the 3.85 of results/42. Below that the bot is the one of
+            # results/43-44, whose clocks never ran out.
             sims = self.sims
+            if time_left_ms is not None and time_left_ms < FULL_SIMS_FROM_MS:
+                sims = min(sims, CAPPED_SIMS)
             if time_left_ms is not None and time_left_ms < HALF_SIMS_BELOW_MS:
                 sims = max(1, sims // 2)
             return MCTS(self.model, self.centres, self.device, sims, self.c_puct,
